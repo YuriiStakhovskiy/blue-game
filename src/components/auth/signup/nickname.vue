@@ -1,47 +1,18 @@
-<template>
-  <div class="modal" :class="[animationEffect ? 'modal-opacitity-show' : 'modal-opacitity-hide']">
-    <div class="nickname-modal" :class="[animationEffect ? 'modal-body-show' : 'modal-body-hide']">
-      <div class="avatar-wrapper">
-        <img src="@/assets/images/auth/left-arrow.svg" />
-        <img src="@/assets/images/auth/nickname-avatar.png" />
-        <img src="@/assets/images/auth/right-arrow.svg" />
-      </div>
-      <p class="notice-text">Enter a display name</p>
-      <input type="text" placeholder="Username" v-model="nickName" @focus="nickNameChange" @blur="nickNameValidShow" />
-      <button class="submit-button" @click="close" :disabled="disabled">Submit</button>
-      <div class="name-confirm-alert" v-if="confirmValidShow"
-        :class="[confirmValidPromtShow ? 'modal-opacitity-show modal-body-show' : 'modal-opacitity-hide modal-body-hide']">
-        <p>This is the name others will see on Blue.game</p>
-        <div class="confirm-list">
-          <img v-if="nickNameCheck1" src="@/assets/images/auth/confirm-unchecked.svg" />
-          <img v-else src="@/assets/images/auth/confirm-checked.svg" />
-          <p :class="[nickNameCheck1 ? 'passowrd-color-blue' : 'password-color-gray']">
-            2-20 characters in length
-          </p>
-        </div>
-        <div class="confirm-list">
-          <img v-if="nickNameCheck2" src="@/assets/images/auth/confirm-unchecked.svg" />
-          <img v-else src="@/assets/images/auth/confirm-checked.svg" />
-          <p :class="[nickNameCheck2 ? 'passowrd-color-blue' : 'password-color-gray']">
-            Nickname must not be like your email
-          </p>
-        </div>
-      </div>
-      <img src="@/assets/images/auth/close-icon.svg" class="close-icon" @click="close" />
-    </div>
-  </div>
-</template>
-
 <script lang="ts" setup>
 import { ref, toRefs, watch, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { authStore } from '@/stores/auth'
+import Slider from "@/components/global/Slider.vue";
 const i18n = useI18n()
 const { setIndex } = authStore()
 const props = defineProps<{
   email: string
 }>()
 const { email } = toRefs(props)
+const images = ref([
+  new URL("@/assets/login/image/nickname-avatar.png", import.meta.url).href,
+  new URL("@/assets/login/image/nickname-avatar.png", import.meta.url).href,
+])
 const nickName = ref('')
 const modalEffect = ref(false)
 const animationEffect = ref(false)
@@ -97,6 +68,37 @@ onMounted(() => {
   animationEffect.value = true
 })
 </script>
+
+<template>
+  <div class="modal" :class="[animationEffect ? 'modal-opacitity-show' : 'modal-opacitity-hide']">
+    <div class="nickname-modal" :class="[animationEffect ? 'modal-body-show' : 'modal-body-hide']">
+      <Slider :images="images"/>
+      <p class="notice-text">Enter a display name</p>
+      <input type="text" placeholder="Username" v-model="nickName" @focus="nickNameChange" @blur="nickNameValidShow" />
+      <button class="submit-button" @click="close" :disabled="disabled">Submit</button>
+      <div class="name-confirm-alert" v-if="confirmValidShow"
+        :class="[confirmValidPromtShow ? 'modal-opacitity-show modal-body-show' : 'modal-opacitity-hide modal-body-hide']">
+        <p>This is the name others will see on Blue.game</p>
+        <div class="confirm-list">
+          <img v-if="nickNameCheck1" src="@/assets/login/svg/confirm-unchecked.svg" />
+          <img v-else src="@/assets/login/svg/confirm-checked.svg" />
+          <p :class="[nickNameCheck1 ? 'passowrd-color-blue' : 'password-color-gray']">
+            2-20 characters in length
+          </p>
+        </div>
+        <div class="confirm-list">
+          <img v-if="nickNameCheck2" src="@/assets/login/svg/confirm-unchecked.svg" />
+          <img v-else src="@/assets/login/svg/confirm-checked.svg" />
+          <p :class="[nickNameCheck2 ? 'passowrd-color-blue' : 'password-color-gray']">
+            Nickname must not be like your email
+          </p>
+        </div>
+      </div>
+      <img src="@/assets/login/svg/close-icon.svg" class="close-icon" @click="close" />
+    </div>
+  </div>
+</template>
+
 <style scoped>
 .close-icon {
   position: absolute;
@@ -149,15 +151,6 @@ button:disabled {
   background: #2e274c;
   border-radius: 16px;
   text-align: center;
-}
-
-.nickname-modal .avatar-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 45px;
-  padding: 0;
-  margin-top: 24px;
 }
 
 .nickname-modal .notice-text {

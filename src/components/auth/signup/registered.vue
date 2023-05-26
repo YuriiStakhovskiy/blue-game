@@ -1,20 +1,3 @@
-<template>
-  <div class="modal" :class="[animationEffect ? 'modal-opacitity-show' : 'modal-opacitity-hide']">
-    <div
-      class="registered-modal"
-      :class="[animationEffect ? 'modal-body-show' : 'modal-body-hide']"
-    >
-      <div class="header">
-        <img class="logo" src="@/assets/images/auth/signup-logo.png" />
-        <img class="coin" src="@/assets/images/auth/coin.png" />
-      </div>
-      <p class="question-text">Looks like you've already registered, sign in now?</p>
-      <button class="continue-button" @click="showSignIn">Confirm</button>
-      <button class="cancel-button" @click="close">Cancel</button>
-      <img src="@/assets/images/auth/close-icon.svg" class="close-icon" @click="close" />
-    </div>
-  </div>
-</template>
 
 <script lang="ts" setup>
 import { ref, toRefs, onMounted } from 'vue'
@@ -48,6 +31,25 @@ onMounted(() => {
   animationEffect.value = true
 })
 </script>
+
+<template>
+  <div class="modal" :class="[animationEffect ? 'modal-opacitity-show' : 'modal-opacitity-hide']">
+    <div
+      class="registered-modal"
+      :class="[animationEffect ? 'modal-body-show' : 'modal-body-hide']"
+    >
+      <div class="header">
+        <img class="logo" src="@/assets/login/svg/signup-logo.png" />
+        <img class="coin" src="@/assets/login/svg/coin.png" />
+      </div>
+      <p class="question-text">Looks like you've already registered, sign in now?</p>
+      <button class="continue-button" @click="showSignIn">Confirm</button>
+      <button class="cancel-button" @click="close">Cancel</button>
+      <img src="@/assets/login/svg/close-icon.svg" class="close-icon" @click="close" />
+    </div>
+  </div>
+</template>
+
 <style scoped>
 .close-icon {
   position: absolute;
@@ -75,7 +77,7 @@ button {
 
 .header {
   position: relative;
-  background-image: url('@/assets/images/auth/signup-header.png');
+  background-image: url('@/assets/login/image/signup-header.png');
   width: 100%;
   height: 187px;
 }

@@ -1,19 +1,3 @@
-<template>
-  <div class="modal" :class="[animationEffect ? 'modal-opacitity-show' : 'modal-opacitity-hide']">
-    <div class="confirm-modal" :class="[animationEffect ? 'modal-body-show' : 'modal-body-hide']">
-      <div class="header">
-        <img class="logo" src="@/assets/images/auth/signup-logo.png" />
-        <img class="coin" src="@/assets/images/auth/coin.png" />
-      </div>
-      <p class="confirm-text">Are you sure you want to cancel your registration?</p>
-      <p class="confirm-notice">€200 in deposit bonuses awaits you.</p>
-      <button class="continue-button" @click="showSignUp">Continue</button>
-      <button class="cancel-button" @click="close">Yes. I want to cancel</button>
-      <img src="@/assets/images/auth/close-icon.svg" class="close-icon" @click="close" />
-    </div>
-  </div>
-</template>
-
 <script lang="ts" setup>
 import { ref, toRefs, watch, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -45,6 +29,23 @@ onMounted(() => {
   animationEffect.value = true
 })
 </script>
+
+<template>
+  <div class="modal" :class="[animationEffect ? 'modal-opacitity-show' : 'modal-opacitity-hide']">
+    <div class="confirm-modal" :class="[animationEffect ? 'modal-body-show' : 'modal-body-hide']">
+      <div class="header">
+        <img class="logo" src="@/assets/login/image/signup-logo.png" />
+        <img class="coin" src="@/assets/login/image/coin.png" />
+      </div>
+      <p class="confirm-text">Are you sure you want to cancel your registration?</p>
+      <p class="confirm-notice">€200 in deposit bonuses awaits you.</p>
+      <button class="continue-button" @click="showSignUp">Continue</button>
+      <button class="cancel-button" @click="close">Yes. I want to cancel</button>
+      <img src="@/assets/login/svg/close-icon.svg" class="close-icon" @click="close" />
+    </div>
+  </div>
+</template>
+
 <style scoped>
 .close-icon {
   position: absolute;
@@ -88,7 +89,7 @@ button {
 
 .header {
   position: relative;
-  background-image: url('@/assets/images/auth/signup-header.png');
+  background-image: url('@/assets/login/image/signup-header.png');
   width: 100%;
   height: 187px;
 }

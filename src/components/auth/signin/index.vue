@@ -1,46 +1,3 @@
-<template>
-  <div class="modal" :class="[animationEffect ? 'modal-opacitity-show' : 'modal-opacitity-hide']">
-    <div class="login-modal" :class="[animationEffect ? 'modal-body-show' : 'modal-body-hide']">
-      <div class="header">
-        <img class="login-header2" src="@/assets/images/auth/login-header2.png" />
-        <img class="login-header3" src="@/assets/images/auth/login-header3.png" />
-        <img class="login-coin" src="@/assets/images/auth/login-coin.png" />
-        <img class="login-header1" src="@/assets/images/auth/login-header1.png" />
-        <div class="bubble">
-          <p class="bubble-text">
-            {{ t('signin.bubbleText1') }}<br />{{ t('signin.bubbleText2') }}
-          </p>
-        </div>
-      </div>
-      <div class="info-wrapper">
-        <input type="text" :placeholder="t('signin.emailText')" class="input-mail" />
-        <div class="password-group">
-          <input :type="passwordType" :placeholder="t('signin.passwordText')" class="input-pass" />
-          <img v-if="passwordShow" src="@/assets/images/auth/eye_1.svg" class="disable-password" @click="showPassword" />
-          <img v-else src="@/assets/images/auth/eye.svg" class="disable-password" @click="showPassword" />
-        </div>
-        <p class="forgot-text" @click="showForgotPassword">{{ t('signin.forgoText') }}</p>
-        <button class="signin-button">{{ t('signin.signinBtnText') }}</button>
-      </div>
-      <div class="break-wrapper">
-        <div class="break-line"></div>
-        <p class="break-text">{{ t('signin.breakText') }}</p>
-        <div class="break-line"></div>
-      </div>
-      <div class="social-wrapper">
-        <a href="#" class="facebook"><span class="visual-hidden">facebook</span></a>
-        <a href="#" class="twitter"><span class="visual-hidden">twitter</span></a>
-        <a href="#" class="tiktok"><span class="visual-hidden">tiltok</span></a>
-        <a href="#" class="linkedin"><span class="visual-hidden">linkedin</span></a>
-      </div>
-      <p class="reg-wrapper">
-        {{ t('signin.regText1') }}
-        <a href="#" class="link-signup" @click="showSignUp">{{ t('signin.regText2') }}</a>
-      </p>
-      <img src="@/assets/images/auth/close-icon.svg" class="close-icon" @click="close" />
-    </div>
-  </div>
-</template>
 
 <script lang="ts" setup>
 import { ref, toRefs, watch, onMounted } from 'vue'
@@ -89,6 +46,51 @@ onMounted(() => {
   animationEffect.value = true
 })
 </script>
+
+<template>
+  <div class="modal" :class="[animationEffect ? 'modal-opacitity-show' : 'modal-opacitity-hide']">
+    <div class="login-modal" :class="[animationEffect ? 'modal-body-show' : 'modal-body-hide']">
+      <div class="header">
+        <img class="login-header2" src="@/assets/login/image/login-header2.png" />
+        <img class="login-header3" src="@/assets/login/image/login-header3.png" />
+        <img class="login-coin" src="@/assets/login/image/login-coin.png" />
+        <img class="login-header1" src="@/assets/login/image/login-header1.png" />
+        <div class="bubble">
+          <p class="bubble-text">
+            {{ t('signin.bubbleText1') }}<br />{{ t('signin.bubbleText2') }}
+          </p>
+        </div>
+      </div>
+      <div class="info-wrapper">
+        <input type="text" :placeholder="t('signin.emailText')" class="input-mail" />
+        <div class="password-group">
+          <input :type="passwordType" :placeholder="t('signin.passwordText')" class="input-pass" />
+          <img v-if="passwordShow" src="@/assets/login/svg/eye_1.svg" class="disable-password" @click="showPassword" />
+          <img v-else src="@/assets/login/svg/eye.svg" class="disable-password" @click="showPassword" />
+        </div>
+        <p class="forgot-text" @click="showForgotPassword">{{ t('signin.forgoText') }}</p>
+        <button class="signin-button">{{ t('signin.signinBtnText') }}</button>
+      </div>
+      <div class="break-wrapper">
+        <div class="break-line"></div>
+        <p class="break-text">{{ t('signin.breakText') }}</p>
+        <div class="break-line"></div>
+      </div>
+      <div class="social-wrapper">
+        <a href="#" class="facebook"><span class="visual-hidden">facebook</span></a>
+        <a href="#" class="twitter"><span class="visual-hidden">twitter</span></a>
+        <a href="#" class="tiktok"><span class="visual-hidden">tiltok</span></a>
+        <a href="#" class="linkedin"><span class="visual-hidden">linkedin</span></a>
+      </div>
+      <p class="reg-wrapper">
+        {{ t('signin.regText1') }}
+        <a href="#" class="link-signup" @click="showSignUp">{{ t('signin.regText2') }}</a>
+      </p>
+      <img src="@/assets/login/svg/close-icon.svg" class="close-icon" @click="close" />
+    </div>
+  </div>
+</template>
+
 <style scoped>
 .close-icon {
   position: absolute;
@@ -162,7 +164,7 @@ button {
 
 .login-modal .header {
   position: relative;
-  background-image: url('@/assets/images/auth/login-header-back.png');
+  background-image: url('@/assets/login/image/login-header-back.png');
   width: 100%;
   height: 187px;
 }
@@ -197,7 +199,7 @@ button {
   top: 43px;
   width: 180px;
   height: 71px;
-  background-image: url('@/assets/images/auth/login-header-bubble.png');
+  background-image: url('@/assets/login/image/login-header-bubble.png');
 }
 
 .login-modal .header .bubble .bubble-text {
@@ -235,25 +237,25 @@ button {
 }
 
 .facebook {
-  background-image: url('@/assets/images/auth/facebook.svg');
+  background-image: url('@/assets/login/svg/facebook.svg');
   width: 48px;
   height: 48px;
 }
 
 .twitter {
-  background-image: url('@/assets/images/auth/twitter.svg');
+  background-image: url('@/assets/login/svg/twitter.svg');
   width: 48px;
   height: 48px;
 }
 
 .tiktok {
-  background-image: url('@/assets/images/auth/tiktok.svg');
+  background-image: url('@/assets/login/svg/tiktok.svg');
   width: 48px;
   height: 48px;
 }
 
 .linkedin {
-  background-image: url('@/assets/images/auth/linkedin.svg');
+  background-image: url('@/assets/login/svg/linkedin.svg');
   width: 48px;
   height: 48px;
 }

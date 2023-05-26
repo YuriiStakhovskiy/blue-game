@@ -1,21 +1,3 @@
-<template>
-  <div class="modal" :class="[animationEffect ? 'modal-opacitity-show' : 'modal-opacitity-hide']">
-    <div class="signout-modal" :class="[animationEffect ? 'modal-body-show' : 'modal-body-hide']">
-      <div class="header">
-        <img src="@/assets/images/auth/logout-logo.png" class="logout-logo" />
-        <p class="logo-text">Don’t forgot to check out our huge selection of promotions!</p>
-      </div>
-      <p class="signout-text">Are you sure you want to logout?</p>
-      <p class="signout-notice">
-        Don’t forgot to check out our huge selection of casino and sports promotions before you
-        leave!
-      </p>
-      <button class="logout-button" @click="close">Log Out</button>
-      <img src="@/assets/images/auth/close-icon.svg" class="close-icon" @click="close" />
-    </div>
-  </div>
-</template>
-
 <script lang="ts" setup>
 import { ref, toRefs, watch, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -34,6 +16,25 @@ onMounted(() => {
   animationEffect.value = true
 })
 </script>
+
+<template>
+  <div class="modal" :class="[animationEffect ? 'modal-opacitity-show' : 'modal-opacitity-hide']">
+    <div class="signout-modal" :class="[animationEffect ? 'modal-body-show' : 'modal-body-hide']">
+      <div class="header">
+        <img src="@/assets/login/image/logout-logo.png" class="logout-logo" />
+        <p class="logo-text">Don’t forgot to check out our huge selection of promotions!</p>
+      </div>
+      <p class="signout-text">Are you sure you want to logout?</p>
+      <p class="signout-notice">
+        Don’t forgot to check out our huge selection of casino and sports promotions before you
+        leave!
+      </p>
+      <button class="logout-button" @click="close">Log Out</button>
+      <img src="@/assets/login/svg/close-icon.svg" class="close-icon" @click="close" />
+    </div>
+  </div>
+</template>
+
 <style scoped>
 .close-icon {
   position: absolute;

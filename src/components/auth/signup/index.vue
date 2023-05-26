@@ -1,82 +1,3 @@
-<template>
-  <div class="modal" :class="[animationEffect ? 'modal-opacitity-show' : 'modal-opacitity-hide']">
-    <div class="signup-modal" :class="[animationEffect ? 'modal-body-show' : 'modal-body-hide']">
-      <div class="header">
-        <img class="logo" src="@/assets/images/auth/signup-logo.png" />
-        <img class="coin" src="@/assets/images/auth/coin.png" />
-      </div>
-      <div class="info-wrapper">
-        <input type="text" v-model="email" :placeholder="t('signup.emailText')" class="mail-box" @focus="emailChange" @blur="emailPromptHide"/>
-        <div class="mail-confirm-alert" v-if="emailValidShow"
-          :class="[emailValidPromptShow ? 'modal-opacitity-show modal-body-show' : 'modal-opacitity-hide modal-body-hide']">
-          <img src="@/assets/images/auth/warning-icon.svg" />
-          <p>{{ t('signup.mainConfirmText') }}</p>
-        </div>
-        <div class="password-group">
-          <input :type="passwordType" :placeholder="t('signup.passwordText')" class="pwd-box" v-model="password"
-            @focus="passwordChange" @blur="visiblePasswordShow" />
-          <img v-if="passwordShow" src="@/assets/images/auth/eye_1.svg" class="disable-password" @click="showPassword" />
-          <img v-else src="@/assets/images/auth/eye.svg" class="disable-password" @click="showPassword" />
-        </div>
-        <div class="pass-confirm-alert" v-if="passwordValidShow"
-          :class="[passwordValidPromptShow ? 'modal-opacitity-show modal-body-show' : 'modal-opacitity-hide modal-body-hide']">
-          <div class="confirm-list">
-            <img v-if="passwordCheck1" src="@/assets/images/auth/confirm-unchecked.svg" />
-            <img v-else src="@/assets/images/auth/confirm-checked.svg" />
-            <p :class="[passwordCheck1 ? 'passowrd-color-blue' : 'password-color-gray']">
-              {{ t('signup.confirmListText1') }}
-            </p>
-          </div>
-          <div class="confirm-list">
-            <img v-if="passwordCheck2" src="@/assets/images/auth/confirm-unchecked.svg" />
-            <img v-else src="@/assets/images/auth/confirm-checked.svg" />
-            <p :class="[passwordCheck2 ? 'passowrd-color-blue' : 'password-color-gray']">
-              {{ t('signup.confirmListText2') }}
-            </p>
-          </div>
-          <div class="confirm-list">
-            <img v-if="passwordCheck3" src="@/assets/images/auth/confirm-unchecked.svg" />
-            <img v-else src="@/assets/images/auth/confirm-checked.svg" />
-            <p :class="[passwordCheck3 ? 'passowrd-color-blue' : 'password-color-gray']">
-              {{ t('signup.confirmListText3') }}
-            </p>
-          </div>
-          <div class="confirm-list">
-            <img v-if="passwordCheck4" src="@/assets/images/auth/confirm-unchecked.svg" />
-            <img v-else src="@/assets/images/auth/confirm-checked.svg" />
-            <p :class="[passwordCheck4 ? 'passowrd-color-blue' : 'password-color-gray']">
-              Contains Special Code
-            </p>
-          </div>
-        </div>
-        <input type="text" :placeholder="t('signup.promoText')" />
-        <div class="agree">
-          <input type="checkbox" v-model="policy" />
-          <p class="agree-text">
-            {{ t('signup.agreeText1') }}
-            <span class="agree-confirm">{{ t('signup.agreeText2') }}</span>
-            {{ t('signup.agreeText3') }}
-          </p>
-        </div>
-        <button @click="showNickName" :disabled="disabled">Sign Up</button>
-        <p class="signin-wrapper">
-          {{ t('signup.signinText1') }}
-          <a href="#" class="link-signup" @click="showSignInDialog">{{
-            t('signup.signinText2')
-          }}</a>
-        </p>
-      </div>
-      <div class="social-wrapper">
-        <a href="#" class="facebook"><span class="visual-hidden">facebook</span></a>
-        <a href="#" class="twitter"><span class="visual-hidden">twitter</span></a>
-        <a href="#" class="tiktok"><span class="visual-hidden">tiltok</span></a>
-        <a href="#" class="linkedin"><span class="visual-hidden">linkedin</span></a>
-      </div>
-      <img src="@/assets/images/auth/close-icon.svg" class="close-icon" @click="close" />
-    </div>
-  </div>
-</template>
-
 <script lang="ts" setup>
 import { ref, toRefs, watch, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -276,6 +197,86 @@ onMounted(() => {
   animationEffect.value = true
 })
 </script>
+
+<template>
+  <div class="modal" :class="[animationEffect ? 'modal-opacitity-show' : 'modal-opacitity-hide']">
+    <div class="signup-modal" :class="[animationEffect ? 'modal-body-show' : 'modal-body-hide']">
+      <div class="header">
+        <img class="logo" src="@/assets/login/image/signup-logo.png" />
+        <img class="coin" src="@/assets/login/image/coin.png" />
+      </div>
+      <div class="info-wrapper">
+        <input type="text" v-model="email" :placeholder="t('signup.emailText')" class="mail-box" @focus="emailChange" @blur="emailPromptHide"/>
+        <div class="mail-confirm-alert" v-if="emailValidShow"
+          :class="[emailValidPromptShow ? 'modal-opacitity-show modal-body-show' : 'modal-opacitity-hide modal-body-hide']">
+          <img src="@/assets/login/svg/warning-icon.svg" />
+          <p>{{ t('signup.mainConfirmText') }}</p>
+        </div>
+        <div class="password-group">
+          <input :type="passwordType" :placeholder="t('signup.passwordText')" class="pwd-box" v-model="password"
+            @focus="passwordChange" @blur="visiblePasswordShow" />
+          <img v-if="passwordShow" src="@/assets/login/svg/eye_1.svg" class="disable-password" @click="showPassword" />
+          <img v-else src="@/assets/login/svg/eye.svg" class="disable-password" @click="showPassword" />
+        </div>
+        <div class="pass-confirm-alert" v-if="passwordValidShow"
+          :class="[passwordValidPromptShow ? 'modal-opacitity-show modal-body-show' : 'modal-opacitity-hide modal-body-hide']">
+          <div class="confirm-list">
+            <img v-if="passwordCheck1" src="@/assets/login/svg/confirm-unchecked.svg" />
+            <img v-else src="@/assets/login/svg/confirm-checked.svg" />
+            <p :class="[passwordCheck1 ? 'passowrd-color-blue' : 'password-color-gray']">
+              {{ t('signup.confirmListText1') }}
+            </p>
+          </div>
+          <div class="confirm-list">
+            <img v-if="passwordCheck2" src="@/assets/login/svg/confirm-unchecked.svg" />
+            <img v-else src="@/assets/login/svg/confirm-checked.svg" />
+            <p :class="[passwordCheck2 ? 'passowrd-color-blue' : 'password-color-gray']">
+              {{ t('signup.confirmListText2') }}
+            </p>
+          </div>
+          <div class="confirm-list">
+            <img v-if="passwordCheck3" src="@/assets/login/svg/confirm-unchecked.svg" />
+            <img v-else src="@/assets/login/svg/confirm-checked.svg" />
+            <p :class="[passwordCheck3 ? 'passowrd-color-blue' : 'password-color-gray']">
+              {{ t('signup.confirmListText3') }}
+            </p>
+          </div>
+          <div class="confirm-list">
+            <img v-if="passwordCheck4" src="@/assets/login/svg/confirm-unchecked.svg" />
+            <img v-else src="@/assets/login/svg/confirm-checked.svg" />
+            <p :class="[passwordCheck4 ? 'passowrd-color-blue' : 'password-color-gray']">
+              Contains Special Code
+            </p>
+          </div>
+        </div>
+        <input type="text" :placeholder="t('signup.promoText')" />
+        <div class="agree">
+          <input type="checkbox" v-model="policy" />
+          <p class="agree-text">
+            {{ t('signup.agreeText1') }}
+            <span class="agree-confirm">{{ t('signup.agreeText2') }}</span>
+            {{ t('signup.agreeText3') }}
+          </p>
+        </div>
+        <button @click="showNickName" :disabled="disabled">Sign Up</button>
+        <p class="signin-wrapper">
+          {{ t('signup.signinText1') }}
+          <a href="#" class="link-signup" @click="showSignInDialog">{{
+            t('signup.signinText2')
+          }}</a>
+        </p>
+      </div>
+      <div class="social-wrapper">
+        <a href="#" class="facebook"><span class="visual-hidden">facebook</span></a>
+        <a href="#" class="twitter"><span class="visual-hidden">twitter</span></a>
+        <a href="#" class="tiktok"><span class="visual-hidden">tiltok</span></a>
+        <a href="#" class="linkedin"><span class="visual-hidden">linkedin</span></a>
+      </div>
+      <img src="@/assets/login/svg/close-icon.svg" class="close-icon" @click="close" />
+    </div>
+  </div>
+</template>
+
 <style scoped>
 .my-header {
   display: flex;
@@ -357,7 +358,7 @@ button:disabled {
 
 .header {
   position: relative;
-  background-image: url('@/assets/images/auth/signup-header.png');
+  background-image: url('@/assets/login/image/signup-header.png');
   width: 100%;
   height: 187px;
   border-radius: 20px 20px 0px 0px;
@@ -427,25 +428,25 @@ button:disabled {
 }
 
 .facebook {
-  background-image: url('@/assets/images/auth/facebook.svg');
+  background-image: url('@/assets/login/svg/facebook.svg');
   width: 48px;
   height: 48px;
 }
 
 .twitter {
-  background-image: url('@/assets/images/auth/twitter.svg');
+  background-image: url('@/assets/login/svg/twitter.svg');
   width: 48px;
   height: 48px;
 }
 
 .tiktok {
-  background-image: url('@/assets/images/auth/tiktok.svg');
+  background-image: url('@/assets/login/svg/tiktok.svg');
   width: 48px;
   height: 48px;
 }
 
 .linkedin {
-  background-image: url('@/assets/images/auth/linkedin.svg');
+  background-image: url('@/assets/login/svg/linkedin.svg');
   width: 48px;
   height: 48px;
 }
