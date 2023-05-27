@@ -117,7 +117,7 @@ export class Network {
    */
   public connect(connectFuc?: Function) {
     this.socket.on('connection', () => {
-      
+
     })
   }
 
@@ -240,8 +240,68 @@ export class Network {
           return Promise.reject(new Error('non-system interface'))
         } else {
           switch (code) {
-            case 0:
+            case 200:
               // code === 0 means no error
+              return apiData
+            case 0:
+              // code === 0 means failed
+              return apiData
+            case 100000:
+              // code === 100000 means Passed data exception
+              return apiData
+            case 100001:
+              // code === 100001 means The password does not meet the requirements
+              return apiData
+            case 100002:
+              // code === 100002 User account is locked
+              return apiData
+            case 101001:
+              // code === 200 means Login data exception
+              return apiData
+            case 101002:
+              // code === 200 means The login account or password is wrong
+              return apiData
+            case 101003:
+              // code === 101003 means Login account does not exist
+              return apiData
+            case 102001:
+              // code === 102001 means Failed to register data
+              return apiData
+            case 102002:
+              // code === 102002 means Registration data exception
+              return apiData
+            case 102003:
+              // code === 102003 means Registering an existing account is abnormal
+              return apiData
+            case 103001:
+              // code === 103001 means Abnormal nickname format (abnormal length or illegal identifier)
+              return apiData
+            case 103002:
+              // code === 103002 means Nickname is the same as email
+              return apiData
+            case 103003:
+              // code === 103003 means Email format exception (abnormal length or illegal identifier)
+              return apiData
+            case 103004:
+              // code === 103004 means Phone format exception (abnormal length or illegal identifier)
+              return apiData
+            case 103005:
+              // code === 103005 means The same password needs to be changed
+              return apiData
+            case 103006:
+              // code === 103006 means The current password is wrong
+              return apiData
+            case 103007:
+              // code === 103007 means The emails that need to be modified are the same
+              return apiData
+            case 103008:
+              // code === 103008 means The message that needs to be modified is already taken
+              return apiData
+            case 103009:
+              // code === 103009 means The avatar index that needs to be modified is wrong
+              return apiData
+            case 103010:
+              // code === 103010 means wrong birthday format
               return apiData
             default:
               // is not the correct Code
@@ -307,7 +367,8 @@ export class Network {
     return function <T>(config: AxiosRequestConfig): Promise<T> {
       const configDefault = {
         headers: {
-          Authorization: 'Bearer ' + token
+          "Authorization": 'Bearer ' + token,
+          "X-Language": "en"
         },
         timeout: timeout,
         baseURL: import.meta.env.BASE_API,
