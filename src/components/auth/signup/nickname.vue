@@ -11,7 +11,7 @@ const props = defineProps<{
 const { email } = toRefs(props)
 const images = ref([
   new URL("@/assets/login/image/nickname-avatar.png", import.meta.url).href,
-  new URL("@/assets/login/image/nickname-avatar.png", import.meta.url).href,
+  new URL("@/assets/public/image/avatar_public_10.png", import.meta.url).href,
 ])
 const nickName = ref('')
 const modalEffect = ref(false)

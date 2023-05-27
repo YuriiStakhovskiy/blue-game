@@ -7,13 +7,16 @@ const props = defineProps<{
 
 const { images } = toRefs(props)
 const currentIndex = ref(0);
+const prevDirection = ref(false);
 const currentImg = computed(() => {
     return images.value[Math.abs(currentIndex.value) % images.value.length];
 })
 const prev = (): void => {
+    prevDirection.value = true;
     currentIndex.value -= 1
 }
 const next = (): void => {
+    prevDirection.value = false;
     currentIndex.value += 1
 }
 </script>
@@ -22,7 +25,7 @@ const next = (): void => {
     <div>
         <div class="avatar-wrapper">
             <img src="@/assets/public/svg/icon_public_left_arrow.svg" class="prev" @click="prev" />
-            <transition-group  class="img-slider" name="slide" tag="div">
+            <transition-group  class="img-slider" :name="prevDirection ? 'slide-prev' : 'slide-next'" tag="div">
                 <div v-for="i in [currentIndex]" :key="i">
                     <img :src="currentImg" class="avatar" />
                 </div>
@@ -42,14 +45,26 @@ const next = (): void => {
 }
 
 
-.slide-leave-active,
-.slide-enter-active {
-  transition: 0.5s;
+.slide-prev-leave-active,
+.slide-prev-enter-active {
+  transition: 0.3s;
 }
-.slide-enter {
+.slide-prev-enter-from {
+  transform: translate(-100%, 0);
+}
+.slide-prev-leave-to {
   transform: translate(100%, 0);
 }
-.slide-leave-to {
+
+
+.slide-next-leave-active,
+.slide-next-enter-active {
+  transition: 0.3s;
+}
+.slide-next-enter-from {
+  transform: translate(100%, 0);
+}
+.slide-next-leave-to {
   transform: translate(-100%, 0);
 }
 
@@ -65,7 +80,7 @@ const next = (): void => {
   top: 0;
   left: 0;
   bottom: 0;
-  right:0;
+  right: 0;
 }
 
 .prev,
