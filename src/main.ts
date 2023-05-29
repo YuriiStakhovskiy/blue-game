@@ -1,32 +1,25 @@
-import { createApp } from 'vue'
+/**
+ * main.ts
+ *
+ * Bootstraps Vuetify and other plugins then mounts the App`
+ */
+
+// Components
 import App from './App.vue'
-import router from './router'
-import { createPinia } from 'pinia'
-// import piniaPersist from 'pinia-plugin-persist'
-import { i18n } from '@/i18n'
 
-// 引入element-plus
-import ElementPlus from 'element-plus'
-import 'element-plus/dist/index.css'
+// Composables
+import { createApp } from 'vue'
 
-// Vuetify
+// Plugins
+import { registerPlugins } from '@/plugins'
 
-// import 'vuetify/styles'
-// import { createVuetify } from 'vuetify'
-// import * as components from 'vuetify/components'
-// import * as directives from 'vuetify/directives'
-
-// const vuetify = createVuetify({
-//   components,
-//   directives,
-// })
+// I18n Plugin
+import { i18n } from '@/locale/index'
 
 const app = createApp(App)
-// app.use(createPinia().use(piniaPersist))
-app.use(createPinia())
-app.use(router)
+
+registerPlugins(app)
+
 app.use(i18n)
-app.use(ElementPlus)
-// app.use(vuetify)
-app.provide('i18n', i18n)
+
 app.mount('#app')
