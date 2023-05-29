@@ -4,3 +4,6 @@ export interface SigninRequestData {
 }
 export interface authRequestData {
 }
+export type GetSigninResponseData = ApiResponseData<{
+  token: string
+}>

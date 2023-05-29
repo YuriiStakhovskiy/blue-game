@@ -80,6 +80,16 @@ button {
   cursor: pointer;
 }
 
+button:hover:enabled {
+  background: #0cb6fa;
+}
+
+button:active:enabled {
+  transform: scale(0.95);
+  filter: brightness(80%);
+}
+
+
 .social-wrapper {
   display: flex;
   gap: 20px;

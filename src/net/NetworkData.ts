@@ -1,3 +1,6 @@
+import CacheKey from "@/constants/cacheKey"
+import Cookies from "js-cookie"
+
 /**
  * Issuing Type Enumeration
  */
@@ -56,7 +59,7 @@ export class NetworkData {
    * Reset data
    */
   public resetData() {
-    this.token = ''
+    Cookies.remove(CacheKey.TOKEN)
 
     this.webhost = ''
 
@@ -72,12 +75,12 @@ export class NetworkData {
    * @param token
    */
   public setToken(token: string): void {
-    this.token = token
+    Cookies.set(CacheKey.TOKEN, token)
   }
 
   /** Get current token */
   public getToken(): string {
-    return this.token
+    return Cookies.get(CacheKey.TOKEN)
   }
 
   /**

@@ -8,3 +8,7 @@ export interface SignupRequestData {
     brand: string
     imei: string
 }
+
+export type GetSignupResponseData = ApiResponseData<{
+    token: string
+}>

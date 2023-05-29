@@ -130,18 +130,6 @@ input[type='password'] {
   font-size: 14px;
   padding: 0 20px;
 }
-
-button {
-  width: 375px;
-  height: 60px;
-  background: #32cfec;
-  border-radius: 12px;
-  font-size: 18px;
-  color: black;
-  font-weight: 700;
-  cursor: pointer;
-}
-
 .password-group {
   position: relative;
 }
@@ -291,6 +279,15 @@ button {
   color: black;
   font-weight: 700;
   margin-top: 60px;
+}
+
+.signin-button:hover {
+  background: #0cb6fa;
+}
+
+.signin-button:active {
+  transform: scale(0.95);
+  filter: brightness(80%);
 }
 
 .reg-wrapper {

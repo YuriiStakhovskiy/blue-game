@@ -41,10 +41,10 @@ const visiblePasswordShow = () => {
   }, 250)
 }
 const emailPromptHide = () => {
-    emailValidPromptShow.value = false;
-    setTimeout(() => {
-      emailValidShow.value = false
-    }, 250)
+  emailValidPromptShow.value = false;
+  setTimeout(() => {
+    emailValidShow.value = false
+  }, 250)
 }
 watch(
   policy,
@@ -206,7 +206,8 @@ onMounted(() => {
         <img class="coin" src="@/assets/login/image/coin.png" />
       </div>
       <div class="info-wrapper">
-        <input type="text" v-model="email" :placeholder="t('signup.emailText')" class="mail-box" @focus="emailChange" @blur="emailPromptHide"/>
+        <input type="text" v-model="email" :placeholder="t('signup.emailText')" class="mail-box" @focus="emailChange"
+          @blur="emailPromptHide" />
         <div class="mail-confirm-alert" v-if="emailValidShow"
           :class="[emailValidPromptShow ? 'modal-opacitity-show modal-body-show' : 'modal-opacitity-hide modal-body-hide']">
           <img src="@/assets/login/svg/warning-icon.svg" />
@@ -258,7 +259,9 @@ onMounted(() => {
             {{ t('signup.agreeText3') }}
           </p>
         </div>
-        <button @click="showNickName" :disabled="disabled">Sign Up</button>
+        <button @click="showNickName" :disabled="disabled">
+          Sign Up
+        </button>
         <p class="signin-wrapper">
           {{ t('signup.signinText1') }}
           <a href="#" class="link-signup" @click="showSignInDialog">{{
@@ -330,8 +333,8 @@ input[type='checkbox'] {
 
 button {
   width: 375px;
-  height: 60px;
-  background: #32cfec;
+  height: 60px !important;
+  background: #32CFEC;
   border-radius: 12px;
   font-size: 18px;
   color: black;
@@ -342,6 +345,15 @@ button {
 button:disabled {
   background: #353652;
   cursor: default;
+}
+
+button:hover:enabled {
+  background: #0cb6fa;
+}
+
+button:active:enabled {
+  transform: scale(0.95);
+  filter: brightness(80%);
 }
 
 .signup-modal {

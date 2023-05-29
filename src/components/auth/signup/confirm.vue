@@ -134,13 +134,40 @@ button {
   text-align: center;
 }
 
+.confirm-modal .continue-button:hover {
+  background: #0cb6fa;
+}
+
+.confirm-modal .continue-button:active {
+  transform: scale(0.95);
+  filter: brightness(80%);
+}
+
 .confirm-modal .continue-button {
   margin-top: 40px;
+}
+
+.confirm-modal .continue-button:hover {
+  background: #0cb6fa;
+}
+
+.confirm-modal .continue-button:active {
+  transform: scale(0.95);
+  filter: brightness(80%);
 }
 
 .confirm-modal .cancel-button {
   color: white;
   background: #353652;
   margin-top: 32px;
+}
+
+.confirm-modal .cancel-button:hover {
+  background: #40428f;
+}
+
+.confirm-modal .cancel-button:active {
+  transform: scale(0.95);
+  filter: brightness(80%);
 }
 </style>

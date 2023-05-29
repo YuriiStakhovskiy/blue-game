@@ -59,6 +59,15 @@ button {
   font-weight: 700;
   cursor: pointer;
 }
+
+button:hover:enabled {
+  background: #0cb6fa;
+}
+
+button:active:enabled {
+  transform: scale(0.95);
+  filter: brightness(80%);
+}
 /* Signout modal */
 .signout-modal {
   position: relative;

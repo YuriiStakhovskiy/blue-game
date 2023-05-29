@@ -81,12 +81,14 @@ export class Network {
    * @param next
    * @param timeout
    */
-  private POST(route: string, msg: any, next?: Function) {
+  private POST(route: string, msg: any, next: Function) {
     this.request = this.createRequestFunction(this.service)
-    return this.request({
+    this.request({
       url: route,
       method: 'POST',
       msg
+    }).then((response: any) => {
+      next(response);
     })
   }
 
@@ -187,7 +189,7 @@ export class Network {
     let buffer = null
     msg = msg || {}
 
-    return buffer
+    return msg
   }
 
   /**

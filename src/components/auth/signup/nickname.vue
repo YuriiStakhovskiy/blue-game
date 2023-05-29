@@ -142,6 +142,16 @@ button {
 
 button:disabled {
   background: #353652;
+  cursor: default;
+}
+
+button:hover:enabled {
+  background: #0cb6fa;
+}
+
+button:active:enabled {
+  transform: scale(0.95);
+  filter: brightness(80%);
 }
 
 .nickname-modal {
