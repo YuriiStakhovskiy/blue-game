@@ -22,17 +22,17 @@ export default SignupHeader
             <!-- <v-row>
                 <span class="logo-text purple">BLUE</span>
                 <span class="logo-text yellow">GAME</span>
-            </v-row>
+            </v-row> -->
             <v-row>
                 <p class="logo-text2 white">
                     {{ t('signup.formPage.header.titleLine1') }}
                     <br>
                     {{ t('signup.formPage.header.titleLine2') }}
                 </p>
-            </v-row> -->
+            </v-row>
         </v-col>
         <img src="@/assets/login/image/signup-header.png" class="bg-image">
-        <img src="@/assets/login/image/signup-logo.png" class="logo-image">
+        <img src="@/assets/public/svg/logo.svg" class="logo-image">
         <img src="@/assets/login/image/coin.png" class="coin-image">
     </v-row>
 </template>
@@ -84,5 +84,6 @@ export default SignupHeader
     font-weight: 700;
     font-size: 20px;
     line-height: 24px;
+    margin-top: 40px;
 }
 </style>

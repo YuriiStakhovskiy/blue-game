@@ -366,6 +366,7 @@ export class Network {
     timeout: number = this.netCfg.getTimeout()
   ) {
     const token = this.netCfg.getToken();
+    console.log(import.meta.env.VITE_BASE_API);
     return function <T>(config: AxiosRequestConfig): Promise<T> {
       const configDefault = {
         headers: {
@@ -373,7 +374,7 @@ export class Network {
           "X-Language": "en"
         },
         timeout: timeout,
-        baseURL: import.meta.env.BASE_API,
+        baseURL: import.meta.env.VITE_BASE_API,
         data: {}
       }
       return service(Object.assign(configDefault, config))

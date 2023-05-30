@@ -1,28 +1,25 @@
 import { defineStore } from 'pinia'
 import { NETWORK } from '@/net/NetworkCfg';
 import type * as SignIn from "@/interface/signin";
+import type * as SignUp from "@/interface/signup";
 import { Network } from "@/net/Network";
+import { NetworkData } from '@/net/NetworkData';
 
 export const authStore = defineStore({
   id: 'auth',
   state: () => ({
     success: false as boolean,
     errMessage: '' as string,
-    index: '0' as string,
-    activeIndex: '0' as string
+    authModalType: '' as string,
   }),
   getters: {
     getSuccess: (state) => state.success,
     getErrMessage: (state) => state.errMessage,
-    getIndex: (state) => state.index,
-    getActiveIndex: (state) => state.activeIndex
+    getAuthModalType: (state) => state.authModalType,
   },
   actions: {
-    setIndex(index: string) {
-      this.index = index
-    },
-    setActiveIndex(activeIndex: string) {
-      this.activeIndex = activeIndex
+    setAuthModalType(authModalType: string) {
+      this.authModalType = authModalType
     },
     setSuccess(success: boolean) {
       this.success = success
@@ -35,6 +32,26 @@ export const authStore = defineStore({
       const network: Network = Network.getInstance();
       const next = (response: SignIn.GetSigninResponseData) => {
         console.log(response);
+        if (response.code == 200) {
+          const networkData: NetworkData = NetworkData.getInstance();
+          networkData.setToken(response.data.token);
+        } else {
+          this.setErrorMessage(response.message);
+        }
+      }
+      network.sendMsg(route, msg, next, 1);
+    },
+    dispatchSignUp(msg: SignUp.SignupRequestData) {
+      const route: string = NETWORK.LOGIN.REGISTER;
+      const network: Network = Network.getInstance();
+      const next = (response: SignUp.GetSignupResponseData) => {
+        console.log(response);
+        if (response.code == 200) {
+          const networkData: NetworkData = NetworkData.getInstance();
+          networkData.setToken(response.data.token);
+        } else {
+          this.setErrorMessage(response.message);
+        }
       }
       network.sendMsg(route, msg, next, 1);
     }

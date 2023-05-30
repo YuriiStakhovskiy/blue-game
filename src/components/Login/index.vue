@@ -2,7 +2,8 @@
 <script lang="ts">
 import { defineComponent, reactive, toRefs, computed } from 'vue';
 import { useI18n } from 'vue-i18n';
-import LoginHeader from '../Login/Header.vue'
+import LoginHeader from './Header.vue'
+import { authStore } from "@/store/auth";
 
 const Login = defineComponent({
     components: {
@@ -11,6 +12,7 @@ const Login = defineComponent({
     setup() {
         // translation
         const { t } = useI18n();
+        const { dispatchSignIn } = authStore();
 
         // initiate component state
         const state = reactive({
@@ -40,7 +42,11 @@ const Login = defineComponent({
 
         // methods
         const handleLoginFormSubmit = (): void => {
-            state.currentPage = state.PAGE_TYPE.FORGOT_PASSWORD;
+            // state.currentPage = state.PAGE_TYPE.FORGOT_PASSWORD;
+            dispatchSignIn({
+                account: "sniper",
+                password: 123456
+            })
         }
 
         const showPassword = () => {
@@ -161,7 +167,6 @@ export default Login
 </template>
 
 <style lang="scss">
-
 .disable-password {
     position: absolute;
     top: 31px;

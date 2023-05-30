@@ -79,7 +79,7 @@ export class NetworkData {
   }
 
   /** Get current token */
-  public getToken(): string {
+  public getToken(): string | undefined {
     return Cookies.get(CacheKey.TOKEN)
   }
 

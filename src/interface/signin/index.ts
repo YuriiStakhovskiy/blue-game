@@ -1,6 +1,6 @@
 export interface SigninRequestData {
   account: string
-  password: string
+  password: number
 }
 export interface authRequestData {
 }
