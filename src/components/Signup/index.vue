@@ -1,6 +1,6 @@
 
 <script lang="ts">
-import { defineComponent, defineEmits, reactive, toRefs, computed } from 'vue';
+import { defineComponent, reactive, toRefs, computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import ValidationBox from '@/components/Signup/ValidationBox.vue';
 import SignupHeader from '@/components/Signup/Header.vue';
@@ -81,12 +81,8 @@ const Signup = defineComponent({
             const condition2 = /[A-Z]/.test(password) && /[a-z]/.test(password);
             // Contains a number
             const condition3 = /\d/.test(password);
-            let condition4 = false
-            for (const letter of password) {
-                if (/^[~!@#$%&*()_-]+$/.test(letter)) {
-                    condition4 = true
-                }
-            }
+            // Contains Special Code
+            const condition4 = /[~!@#$%&*()_-]/.test(password)
 
             return [condition1, condition2, condition3, condition4];
         })
@@ -169,7 +165,6 @@ const Signup = defineComponent({
         // handle form submit
         const handleSignupFormSubmit = (): void => {
             state.currentPage = state.PAGE_TYPE.DISPLAY_NAME;
-            // state.currentPage = state.PAGE_TYPE.CONFIRM_CANCEL;
             console.log('sign up form submit!');
         }
 
@@ -376,7 +371,7 @@ export default Signup
     </div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .signup-btn:disabled {
     background: #353652;
     cursor: default;
