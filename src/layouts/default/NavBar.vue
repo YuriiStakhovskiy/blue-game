@@ -3,19 +3,19 @@
 </script>
 
 <template>
-    <v-navigation-drawer permanent class="nav-background" :width="200">
+    <v-navigation-drawer permanent class="nav-background" :width="240">
         <template v-slot:prepend>
-            <!-- <v-list-item lines="two" prepend-avatar="https://randomuser.me/api/portraits/women/81.jpg" title="Jane Smith"
-                        subtitle="Logged in">
-                    </v-list-item> -->
             <v-list-item>
-                <label class="switch btn-color-mode-switch">
-                    <input type="checkbox" name="color_mode" id="color_mode" value="1">
-                    <label for="color_mode" data-on="Casino" data-off="Sport" class="btn-color-mode-switch-inner">
-                        <v-icon>
-                            mdi-close
-                        </v-icon>
-                    </label>
+                <input type="checkbox" id="casino-toggle" />
+                <label for="casino-toggle">
+                    <div class="casino">
+                        <img src="@/assets/public/svg/Casino.svg" />
+                        <P>CASINO</P>
+                    </div>
+                    <div class="sport">
+                        <img src="@/assets/public/svg/Sport.svg" />
+                        <P>SPORT</P>
+                    </div>
                 </label>
             </v-list-item>
         </template>
@@ -37,92 +37,80 @@
 }
 
 label {
-    font-size: 13px;
-    color: #424242;
-    font-weight: 500;
-    box-sizing: content-box;
-}
-
-.btn-color-mode-switch {
-    display: inline-block;
-    margin: 0px;
+    width: 200px;
+    height: 40px;
     position: relative;
-}
-
-.btn-color-mode-switch>label.btn-color-mode-switch-inner {
-    margin: 0px;
-    width: 140px;
-    height: 30px;
-    background: #E0E0E0;
-    border-radius: 26px;
-    overflow: hidden;
-    position: relative;
-    transition: all 0.3s ease;
-    /*box-shadow: 0px 0px 8px 0px rgba(17, 17, 17, 0.34) inset;*/
     display: block;
-}
-
-.btn-color-mode-switch>label.btn-color-mode-switch-inner:before {
-    content: attr(data-on);
-    position: absolute;
-    font-size: 12px;
-    font-weight: 500;
-    top: 7px;
-    right: 20px;
-
-}
-
-.btn-color-mode-switch>label.btn-color-mode-switch-inner:after {
-    content: attr(data-off);
-    width: 70px;
-    height: 16px;
-    background: #fff;
-    border-radius: 26px;
-    position: absolute;
-    left: 2px;
-    top: 2px;
-    text-align: center;
-    transition: all 0.3s ease;
-    box-shadow: 0px 0px 6px -2px #111;
-    padding: 5px 0px;
-}
-
-.btn-color-mode-switch>.alert {
-    display: none;
-    background: #FF9800;
-    border: none;
-    color: #fff;
-}
-
-.btn-color-mode-switch input[type="checkbox"] {
+    background: #211F31;
+    border-radius: 20px !important;
+    box-shadow: inset 0px 5px 15px rgba(0, 0, 0, 0.4), inset 0px -5px 15px rgba(255, 255, 255, 0.4);
     cursor: pointer;
-    width: 50px;
-    height: 25px;
-    opacity: 0;
+    transition: 0.3s;
+
+    div {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        font-weight: 700;
+        font-size: 14px;
+    }
+
+    .casino {
+        left: 14px;
+        transition: 0.3s;
+        color: black;
+        img {
+            width: 20px;
+            height: 24px;
+            margin-right: 4px;
+        }
+    }
+
+    .sport {
+        left: 120px;
+        transition: 0.3s;
+        color: #7782AA;
+        img {
+            width: 20px;
+            margin-right: 4px;
+        }
+    }
+}
+
+label:after {
+    content: "";
+    width: 100px;
+    height: 36px;
     position: absolute;
-    top: 0;
-    z-index: 1;
-    margin: 0px;
+    top: 2px;
+    left: 2px;
+    background: #32CFEC;
+    border-radius: 18px;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
 }
 
-.btn-color-mode-switch input[type="checkbox"]:checked+label.btn-color-mode-switch-inner {
-    background: #151515;
-    color: #fff;
+input {
+    width: 0;
+    height: 0;
+    visibility: hidden;
 }
 
-.btn-color-mode-switch input[type="checkbox"]:checked+label.btn-color-mode-switch-inner:after {
-    content: attr(data-on);
-    left: 68px;
-    background: #3c3c3c;
+input:checked+label:after {
+    left: 200px;
+    transform: translateX(-100%);
 }
 
-.btn-color-mode-switch input[type="checkbox"]:checked+label.btn-color-mode-switch-inner:before {
-    content: attr(data-off);
-    right: auto;
-    left: 20px;
+label:active:after {
+    width: 100px;
 }
-
-.btn-color-mode-switch input[type="checkbox"]:checked~.alert {
-    display: block;
+input:checked + label .casino {
+	color: #7782AA
+}
+input:checked + label .sport {
+	color: black
 }
 </style>
