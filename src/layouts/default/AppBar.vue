@@ -101,6 +101,6 @@ onMounted(() => {
 .app-bar-signup-btn {
   width: 120px;
   height: 46px!important;
-  background-color: #5524FD;
+  background-color: #5524FD!important;
 }
 </style>
