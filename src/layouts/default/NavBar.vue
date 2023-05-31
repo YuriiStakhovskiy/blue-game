@@ -19,6 +19,18 @@
                 </label>
             </v-list-item>
         </template>
+        <v-list density="compact" nav class="mt-6">
+            <v-card color="#211F31" theme="dark">
+                <v-row class="mx-1 my-1">
+                    <v-col cols="8">
+                        My VIP Perks
+                    </v-col>
+                </v-row>
+                <v-card-text>
+                    This is content
+                </v-card-text>
+            </v-card>
+        </v-list>
         <v-divider></v-divider>
         <v-list density="compact" nav>
             <v-list-item prepend-icon="mdi-home-city" title="Home" value="home"></v-list-item>
@@ -62,6 +74,7 @@ label {
         left: 14px;
         transition: 0.3s;
         color: black;
+
         img {
             width: 20px;
             height: 24px;
@@ -73,6 +86,7 @@ label {
         left: 120px;
         transition: 0.3s;
         color: #7782AA;
+
         img {
             width: 20px;
             margin-right: 4px;
@@ -107,10 +121,17 @@ input:checked+label:after {
 label:active:after {
     width: 100px;
 }
-input:checked + label .casino {
-	color: #7782AA
+
+input:checked+label .casino {
+    color: #7782AA
 }
-input:checked + label .sport {
-	color: black
+
+input:checked+label .sport {
+    color: black
+}
+
+.card-title {
+    color: #D99504;
+    font-weight: 700;
 }
 </style>

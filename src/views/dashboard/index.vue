@@ -45,12 +45,15 @@ const Dashboard = defineComponent({
 
     const authModalType = computed(() => {
       const { getAuthModalType } = storeToRefs(authStore());
-      if (getAuthModalType.value == 'login') {
+      return getAuthModalType.value;
+    })
+
+    watch(authModalType, (newValue: string) => {
+      if (newValue == 'login') {
         state.loginDialog = true
-      } else if (getAuthModalType.value == "signup") {
+      } else if (newValue == "signup") {
         state.signupDialog = true
       }
-      return getAuthModalType.value;
     })
 
     return {
@@ -67,7 +70,7 @@ export default Dashboard
 
 <template>
   <div>
-    <v-dialog v-model="signupDialog" width="471" v-if="authModalType == 'signup'">
+    <v-dialog v-model="signupDialog" width="471">
       <Signup @close="closeDialog('signup')" @switch="switchDialog('signup')" />
     </v-dialog>
     <v-dialog v-model="loginDialog" width="471">
