@@ -28,7 +28,7 @@
     </v-navigation-drawer>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .nav-background {
     background-color: #29263C !important;
     color: #7782AA !important;
