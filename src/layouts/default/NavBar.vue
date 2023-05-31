@@ -31,16 +31,22 @@ const open = ref(['']);
                 </v-row>
                 <v-row class="ma-1">
                     <v-col cols="6" class="pa-1">
-                        <img src="@/assets/left_navigation/svg/task.svg" class="img-width" />
+                        <v-list-item value="casino" class="ma-0 pa-0">
+                            <img src="@/assets/left_navigation/svg/task.svg" class="img-width" />
+                        </v-list-item>
                     </v-col>
                     <v-col cols="6" class="pa-1">
-                        <img src="@/assets/left_navigation/svg/spin.svg" class="spin-img-width" />
+                        <v-list-item value="sport" class="ma-0 pa-0">
+                            <img src="@/assets/left_navigation/svg/spin.svg" class="spin-img-width" />
+                        </v-list-item>
                     </v-col>
                 </v-row>
             </v-card>
         </v-list>
         <v-list density="compact" nav>
-            <img src="@/assets/left_navigation/svg/earn_free.svg" class="earn-free-img" />
+            <v-list-item value="earn free" class="ma-0 pa-0">
+                <img src="@/assets/left_navigation/svg/earn_free.svg" class="earn-free-img" />
+            </v-list-item>
         </v-list>
         <v-list v-model:opened="open">
             <v-list-group value="Casino">
@@ -72,8 +78,8 @@ const open = ref(['']);
         <v-list>
             <v-list-item class="avatar-img" prepend-avatar="@/assets/left_navigation/svg/icon_public_41.svg"
                 title="Promotions" value="promotions"></v-list-item>
-            <v-list-item class="avatar-img" prepend-avatar="@/assets/left_navigation/svg/icon_public_42.svg"
-                title="VIP Club" value="vip club"></v-list-item>
+            <v-list-item class="vip-club" prepend-avatar="@/assets/left_navigation/svg/icon_public_42.svg" title="VIP Club"
+                value="vip club"></v-list-item>
             <v-list-item class="avatar-img" prepend-avatar="@/assets/left_navigation/svg/icon_public_43.svg"
                 title="Affiliate" value="affiliate"></v-list-item>
             <v-list-item class="avatar-img" prepend-avatar="@/assets/left_navigation/svg/icon_public_44.svg" title="Blog"
@@ -113,7 +119,22 @@ const open = ref(['']);
     background-color: #29263C !important;
     color: #7782AA !important;
     border: 2px !important;
-    box-shadow: 2px 0px 4px rgba(0, 0, 0, 0.25) !important
+    box-shadow: 2px 0px 4px rgba(0, 0, 0, 0.25) !important;
+}
+
+::deep(.v-navigation-drawer__content) {
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden !important;
+
+    &::-webkit-scrollbar {
+        width: 2px
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #5142af;
+        border-radius: 20px;
+    }
 }
 
 // casino and sport toggle switch
@@ -238,10 +259,32 @@ const open = ref(['']);
     width: 100%
 }
 
-.avatar-img :deep(.v-avatar--density-default) {
-    height: 24px;
-    width: 20px;
-    border-radius: 0px;
+.avatar-img {
+    :deep(.v-avatar--density-default) {
+        height: 24px;
+        width: 20px;
+        border-radius: 0px;
+    }
+
+    :deep(.v-list-item-title) {
+        font-weight: 700;
+        font-size: 14px;
+        color: #7782AA;
+    }
+}
+
+.vip-club {
+    :deep(.v-avatar--density-default) {
+        height: 24px;
+        width: 20px;
+        border-radius: 0px;
+    }
+
+    :deep(.v-list-item-title) {
+        font-weight: 700;
+        font-size: 14px;
+        color: #F9BC01;
+    }
 }
 
 .casino-sub-img {
@@ -264,6 +307,19 @@ const open = ref(['']);
     border-width: thin;
 }
 
+.casino-sub-img {
+    :deep(.v-list-item__content) {
+        align-self: center;
+        grid-area: content;
+        overflow: hidden;
+        width: 105px;
+    }
+
+    :deep(.v-list-item__append > .v-icon) {
+        margin-inline-start: 18px;
+    }
+}
+
 .language-item {
     :deep(.v-list-item__content) {
         align-self: center;
@@ -281,6 +337,7 @@ const open = ref(['']);
 // dark and light toggle switch
 .theme-toggle {
     height: 50px;
+
     label {
         width: 200px;
         height: 40px;
