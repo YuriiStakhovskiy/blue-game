@@ -1,11 +1,18 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import { useI18n } from 'vue-i18n';
+import { type GetGameOriginalData } from "@/interface/navBar";
 const { t } = useI18n();
-const open = ref(['']);
+const open = ref<Array<string>>(['']);
 const language = ref<string>('English');
-const langItems = ref([t('navBar.language.english'), t('navBar.language.portuguese'), t('navBar.language.espanola')])
-const gameOriginalItems = ref([
+// language array
+const langItems = ref<Array<string>>([
+    t('navBar.language.english'),
+    t('navBar.language.portuguese'),
+    t('navBar.language.espanola')
+])
+// game original data array
+const gameOriginalItems = ref<Array<GetGameOriginalData>>([
     {
         icon: new URL("@/assets/left_navigation/svg/icon_public_21.svg", import.meta.url).href,
         name: "SlotsSlotsSlotsSlotsSlots"
@@ -150,7 +157,8 @@ const handleLanguageDropdown = (item: string) => {
                 <v-list theme="dark" bg-color="#211F31">
                     <v-list-item :title="t('navBar.language.title')" class="avatar-img"></v-list-item>
                     <v-divider></v-divider>
-                    <v-list-item v-for="(item, i) in langItems" :key="i" :value="item" class="avatar-img" @click="handleLanguageDropdown(item)">
+                    <v-list-item v-for="(item, i) in langItems" :key="i" :value="item" class="avatar-img"
+                        @click="handleLanguageDropdown(item)">
                         <v-list-item-title>{{ item }}</v-list-item-title>
                     </v-list-item>
                 </v-list>
