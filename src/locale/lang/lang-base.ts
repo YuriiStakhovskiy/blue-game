@@ -78,5 +78,41 @@ export type langType = {
       },
       submit: string,
     },
+  },
+  navBar: {
+    casino: string,
+    sport: string,
+    my_vip_perks: string,
+    more: string,
+    live_support: string,
+    menu_item_1: {
+      promotions: string,
+      vip_club: string,
+      affiliate: string,
+      blog: string,
+    },
+    casino_sub_menu: {
+      recently_played: string,
+      favorites: string,
+      game_originals: string,
+      slots: string,
+      live_casino: string,
+    },
+    language: {
+      title: string,
+      english: string,
+      portuguese: string,
+      espanola: string,
+    },
+    sound_mode: {
+      on: string,
+      off: string,
+    }
+  }
+  rightBar: {
+    dropdownItem: {
+      casino: string,
+      sport: string
+    }
   }
 };

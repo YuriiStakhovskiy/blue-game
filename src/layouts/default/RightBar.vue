@@ -1,19 +1,39 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
-const items = ref(['Sport', 'Casino']);
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
+const items = ref([t('rightBar.dropdownItem.sport'), t('rightBar.dropdownItem.casino')]);
+const selectedItem = ref<string>('Sport');
+const handleDropdown = (item: string) => {
+    console.log(item);
+    selectedItem.value = item;
+}
 </script>
 
 <template>
-    <v-navigation-drawer permanent class="nav-background" location="right" :width="240">
+    <v-navigation-drawer permanent class="nav-background" location="right" :width="260">
         <template v-slot:prepend>
             <v-card color="#211F31" theme="dark" class="right-bar-card-border">
                 <v-row class="ma-1 align-center">
                     <v-btn class="right-btn" icon="true">
                         <v-icon icon="mdi-close" class="card-close-icon" />
                     </v-btn>
-                    <img src="@/assets/right_navigation/svg/info.svg" class="ml-4" />
-                    <img src="@/assets/right_navigation/svg/img_nav_87.svg" class="ml-4" />
-                    <v-select :items="items" density="compact"></v-select>
+                    <img src="@/assets/right_navigation/svg/info.svg" class="ml-2" width="20" />
+                    <img src="@/assets/right_navigation/svg/img_nav_87.svg" class="ml-2" width="20" />
+                    <v-menu offset="20">
+                        <template v-slot:activator="{ props }">
+                            <v-card color="#29263C" theme="dark" class="ml-4">
+                                <v-list-item class="sport-item" v-bind="props" :title="selectedItem" append-icon="mdi-chevron-down"
+                                    value="sport">
+                                </v-list-item>
+                            </v-card>
+                        </template>
+                        <v-list theme="dark" bg-color="#211F31">
+                            <v-list-item v-for="(item, i) in items" :key="i" :value="item" class="sport-item" @click="handleDropdown(item)">
+                                <v-list-item-title>{{ item }}</v-list-item-title>
+                            </v-list-item>
+                        </v-list>
+                    </v-menu>
                 </v-row>
             </v-card>
         </template>
@@ -58,5 +78,28 @@ const items = ref(['Sport', 'Casino']);
     font-size: 20px;
     font-weight: 800;
     color: #7782AA;
+}
+
+.sport-item {
+    padding: 4px 8px!important;
+    .v-list-item-title {
+        font-weight: 700;
+        font-size: 14px;
+        color: #7782AA;
+    }
+}
+
+.v-overlay__content::after {
+    content: "";
+    position: absolute;
+    align-self: center;
+    float: right;
+    top: -16px;
+    border: 9px solid #211F31;
+    border-right-color: transparent;
+    border-left-color: transparent;
+    border-top-color: transparent;
+    border-right-width: 7px;
+    border-left-width: 7px;
 }
 </style>

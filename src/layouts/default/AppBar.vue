@@ -60,7 +60,7 @@ onMounted(() => {
 
 <style lang="scss">
 .app-bar-width {
-  width: calc((100% - 520px) - 0px) !important;
+  width: calc((100% - 540px) - 0px) !important;
   left: 50% !important;
   transform: translateX(-50%) !important;
   border-radius: 0px 0px 32px 32px !important;

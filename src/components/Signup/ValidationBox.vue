@@ -95,7 +95,6 @@ export default ValidationBox
     content: "";
     position: relative;
     align-self: center;
-    margin: bottom;
     float: right;
     top: 16px;
     bottom: 0px;

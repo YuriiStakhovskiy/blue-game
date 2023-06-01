@@ -80,5 +80,41 @@ export const lang: langType = {
       },
       submit: "Submit",
     },
+  },
+  navBar: {
+    casino: 'CASINO',
+    sport: 'SPORT',
+    my_vip_perks: 'My VIP Perks',
+    more: 'More',
+    live_support: 'Live support',
+    menu_item_1: {
+      promotions: 'Promotions',
+      vip_club: 'VIP Club',
+      affiliate: 'Affiliate',
+      blog: 'Blog',
+    },
+    casino_sub_menu: {
+      recently_played: 'Recently Played',
+      favorites: 'Favorites',
+      game_originals: 'Game Originals',
+      slots: 'Slots',
+      live_casino: 'Live Casino',
+    },
+    language: {
+      title: 'Language',
+      english: 'English',
+      portuguese: 'Portuguese',
+      espanola: 'Espanola',
+    },
+    sound_mode: {
+      on: 'On',
+      off: 'Off',
+    }    
+  },
+  rightBar: {
+    dropdownItem: {
+      casino: 'Casino',
+      sport: 'Sport'
+    }
   }
 };

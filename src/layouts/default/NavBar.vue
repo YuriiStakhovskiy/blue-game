@@ -1,6 +1,43 @@
 <script lang="ts" setup>
 import { ref } from "vue";
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 const open = ref(['']);
+const language = ref<string>('English');
+const langItems = ref([t('navBar.language.english'), t('navBar.language.portuguese'), t('navBar.language.espanola')])
+const gameOriginalItems = ref([
+    {
+        icon: new URL("@/assets/left_navigation/svg/icon_public_21.svg", import.meta.url).href,
+        name: "SlotsSlotsSlotsSlotsSlots"
+    },
+    {
+        icon: new URL("@/assets/left_navigation/svg/icon_public_21.svg", import.meta.url).href,
+        name: "SlotsSlotsSlotsSlotsSlots"
+    },
+    {
+        icon: new URL("@/assets/left_navigation/svg/icon_public_21.svg", import.meta.url).href,
+        name: "SlotsSlotsSlotsSlotsSlots"
+    },
+    {
+        icon: new URL("@/assets/left_navigation/svg/icon_public_21.svg", import.meta.url).href,
+        name: "SlotsSlotsSlotsSlotsSlots"
+    },
+    {
+        icon: new URL("@/assets/left_navigation/svg/icon_public_21.svg", import.meta.url).href,
+        name: "SlotsSlotsSlotsSlotsSlots"
+    },
+    {
+        icon: new URL("@/assets/left_navigation/svg/icon_public_21.svg", import.meta.url).href,
+        name: "SlotsSlotsSlotsSlotsSlots"
+    },
+    {
+        icon: new URL("@/assets/left_navigation/svg/icon_public_21.svg", import.meta.url).href,
+        name: "SlotsSlotsSlotsSlotsSlots"
+    }
+])
+const handleLanguageDropdown = (item: string) => {
+    language.value = item;
+}
 </script>
 
 <template>
@@ -11,11 +48,11 @@ const open = ref(['']);
                 <label for="casino-toggle">
                     <div class="casino">
                         <img src="@/assets/public/svg/Casino.svg" />
-                        <P>CASINO</P>
+                        <P>{{ t('navBar.casino') }}</P>
                     </div>
                     <div class="sport">
                         <img src="@/assets/public/svg/Sport.svg" />
-                        <P>SPORT</P>
+                        <P>{{ t('navBar.sport') }}</P>
                     </div>
                 </label>
             </v-list-item>
@@ -23,8 +60,8 @@ const open = ref(['']);
         <v-list density="compact" nav class="mt-6">
             <v-card color="#211F31" theme="dark">
                 <v-row class="ma-4 align-center">
-                    <span class="card-title">My VIP Perks</span>
-                    <span class="ml-10 more-font">More</span>
+                    <span class="card-title">{{ t('navBar.my_vip_perks') }}</span>
+                    <span class="ml-10 more-font">{{ t('navBar.more') }}</span>
                     <v-btn class="right-btn" icon="true">
                         <v-icon icon="mdi-chevron-right" />
                     </v-btn>
@@ -52,49 +89,72 @@ const open = ref(['']);
             <v-list-group value="Casino">
                 <template v-slot:activator="{ props }">
                     <v-list-item class="avatar-img" v-bind="props" prepend-avatar="@/assets/public/svg/Casino.svg"
-                        title="CASINO" link value="casino"></v-list-item>
+                        :title="t('navBar.casino')" link value="casino"></v-list-item>
                 </template>
                 <v-card color="#211F31" theme="dark" class="ma-2">
                     <v-list>
                         <v-list-item class="casino-sub-img" prepend-avatar="@/assets/left_navigation/svg/icon_public_35.svg"
-                            title="Recently Played" value="recently played"></v-list-item>
+                            :title="t('navBar.casino_sub_menu.recently_played')" value="recently played"></v-list-item>
                         <v-list-item class="casino-sub-img" prepend-avatar="@/assets/left_navigation/svg/icon_public_36.svg"
-                            title="Favorites" value="favorites"></v-list-item>
-                        <v-list-item class="casino-sub-img" prepend-avatar="@/assets/left_navigation/svg/icon_public_37.svg"
-                            append-icon="mdi-chevron-right" title="Game Originals" value="game originals"></v-list-item>
+                            :title="t('navBar.casino_sub_menu.favorites')" value="favorites"></v-list-item>
+                        <v-menu location="end" offset="10" class="original-dropdown">
+                            <template v-slot:activator="{ props }">
+                                <v-list-item v-bind="props" class="casino-sub-img"
+                                    prepend-avatar="@/assets/left_navigation/svg/icon_public_37.svg"
+                                    append-icon="mdi-chevron-right" :title="t('navBar.casino_sub_menu.game_originals')"
+                                    value="game originals"></v-list-item>
+                            </template>
+                            <v-list theme="dark" bg-color="#211F31">
+                                <v-list-item v-for="(item, i) in gameOriginalItems" :key="i" :value="item.name"
+                                    class="avatar-img" :prepend-avatar="item.icon" :title="item.name">
+                                </v-list-item>
+                            </v-list>
+                        </v-menu>
                         <v-list-item class="casino-sub-img" prepend-avatar="@/assets/left_navigation/svg/icon_public_38.svg"
-                            title="Slots" value="slots"></v-list-item>
+                            :title="t('navBar.casino_sub_menu.slots')" value="slots"></v-list-item>
                         <v-list-item class="casino-sub-img" prepend-avatar="@/assets/left_navigation/svg/icon_public_39.svg"
-                            title="Live Casino" value="live casino"></v-list-item>
+                            :title="t('navBar.casino_sub_menu.live_casino')" value="live casino"></v-list-item>
                     </v-list>
                 </v-card>
             </v-list-group>
         </v-list>
         <v-list>
-            <v-list-item class="avatar-img" prepend-avatar="@/assets/public/svg/Sport.svg" title="SPORT"
+            <v-list-item class="avatar-img" prepend-avatar="@/assets/public/svg/Sport.svg" :title="t('navBar.sport')"
                 value="sport"></v-list-item>
         </v-list>
         <v-divider class="divider"></v-divider>
         <v-list>
             <v-list-item class="avatar-img" prepend-avatar="@/assets/left_navigation/svg/icon_public_41.svg"
-                title="Promotions" value="promotions"></v-list-item>
-            <v-list-item class="vip-club" prepend-avatar="@/assets/left_navigation/svg/icon_public_42.svg" title="VIP Club"
-                value="vip club"></v-list-item>
+                :title="t('navBar.menu_item_1.promotions')" value="promotions"></v-list-item>
+            <v-list-item class="vip-club" prepend-avatar="@/assets/left_navigation/svg/icon_public_42.svg"
+                :title="t('navBar.menu_item_1.vip_club')" value="vip club"></v-list-item>
             <v-list-item class="avatar-img" prepend-avatar="@/assets/left_navigation/svg/icon_public_43.svg"
-                title="Affiliate" value="affiliate"></v-list-item>
-            <v-list-item class="avatar-img" prepend-avatar="@/assets/left_navigation/svg/icon_public_44.svg" title="Blog"
-                value="blog"></v-list-item>
+                :title="t('navBar.menu_item_1.affiliate')" value="affiliate"></v-list-item>
+            <v-list-item class="avatar-img" prepend-avatar="@/assets/left_navigation/svg/icon_public_44.svg"
+                :title="t('navBar.menu_item_1.blog')" value="blog"></v-list-item>
         </v-list>
         <v-divider class="divider"></v-divider>
         <v-list>
             <v-list-item class="avatar-img" prepend-avatar="@/assets/left_navigation/svg/icon_public_45.svg"
-                title="Live support" value="live support"></v-list-item>
+                :title="t('navBar.live_support')" value="live support"></v-list-item>
         </v-list>
         <v-list>
-            <v-card color="#211F31" theme="dark" class="mx-2 language-item">
-                <v-list-item class="casino-sub-img" prepend-avatar="@/assets/public/svg/img_public_01.svg"
-                    title="English | R$ BRL" value="english" append-icon="mdi-chevron-down"></v-list-item>
-            </v-card>
+            <v-menu location="end" offset="10">
+                <template v-slot:activator="{ props }">
+                    <v-card color="#211F31" theme="dark" class="mx-2 language-item">
+                        <v-list-item v-bind="props" class="casino-sub-img"
+                            prepend-avatar="@/assets/left_navigation/svg/icon_public_57.svg" :title="language"
+                            value="english" append-icon="mdi-chevron-right"></v-list-item>
+                    </v-card>
+                </template>
+                <v-list theme="dark" bg-color="#211F31">
+                    <v-list-item :title="t('navBar.language.title')" class="avatar-img"></v-list-item>
+                    <v-divider></v-divider>
+                    <v-list-item v-for="(item, i) in langItems" :key="i" :value="item" class="avatar-img" @click="handleLanguageDropdown(item)">
+                        <v-list-item-title>{{ item }}</v-list-item-title>
+                    </v-list-item>
+                </v-list>
+            </v-menu>
         </v-list>
         <v-list>
             <v-list-item class="theme-toggle">
@@ -102,11 +162,11 @@ const open = ref(['']);
                 <label for="theme-toggle">
                     <div class="dark">
                         <img src="@/assets/left_navigation/svg/icon_public_46.svg" />
-                        <P>Dark</P>
+                        <P>{{ t('navBar.sound_mode.on') }}</P>
                     </div>
                     <div class="light">
                         <img src="@/assets/left_navigation/svg/icon_public_47.svg" />
-                        <P>Light</P>
+                        <P>{{ t('navBar.sound_mode.off') }}</P>
                     </div>
                 </label>
             </v-list-item>
@@ -420,5 +480,11 @@ const open = ref(['']);
         color: white
     }
 
+}
+
+.original-dropdown {
+    ::deep(.v-overlay__content) {
+        display: none !important;
+    }
 }
 </style>
