@@ -128,5 +128,6 @@ export type langType = {
       blue_originals: string
     }
     original_games: string
+    more: string
   }
 };

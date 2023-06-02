@@ -129,6 +129,7 @@ export const lang: langType = {
       live_casino: "Live Casino",
       blue_originals: "Blue Originals",
     },
-    original_games: "Original Games"
+    original_games: "Original Games",
+    more: "Load more"
   }
 };

@@ -8,9 +8,12 @@ import Main from './Main.vue'
 
 <template>
   <v-app>
-    <AppBar/>
+    <AppBar />
     <NavBar />
     <Main />
-    <RightBar/>
+    <RightBar />
   </v-app>
 </template>
+
+<style lang="scss">
+</style>

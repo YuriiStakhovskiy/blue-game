@@ -70,6 +70,15 @@ const Dashboard = defineComponent({
           new URL("@/assets/home/image/img_hp_03.png", import.meta.url).href,
         ],
       ],
+      originalGames: [
+        new URL("@/assets/home/image/img_og_01.png", import.meta.url).href,
+        new URL("@/assets/home/image/img_og_02.png", import.meta.url).href,
+        new URL("@/assets/home/image/img_og_03.png", import.meta.url).href,
+        new URL("@/assets/home/image/img_og_04.png", import.meta.url).href,
+        new URL("@/assets/home/image/img_og_05.png", import.meta.url).href,
+        new URL("@/assets/home/image/img_og_06.png", import.meta.url).href,
+        new URL("@/assets/home/image/img_og_07.png", import.meta.url).href,
+      ]
     });
 
     // methods
@@ -119,7 +128,7 @@ export default Dashboard
 </script>
 
 <template>
-  <div class="mt-4 mx-2">
+  <div class="my-4 mx-2 home-body">
     <v-dialog v-model="signupDialog" width="471">
       <Signup @close="closeDialog('signup')" @switch="switchDialog('signup')" />
     </v-dialog>
@@ -143,7 +152,7 @@ export default Dashboard
         <v-sheet color="#31275C" height="100%" tile>
           <v-row align="center" justify="center" class="mx-2 relative">
             <v-col v-for="(i, index) in 3" :key="index" cols="4">
-              <img :src="slide[index]" style="width: 100%; height: 158px;">
+              <img :src="slide[index]" class="slider-img-width">
             </v-col>
           </v-row>
         </v-sheet>
@@ -151,7 +160,7 @@ export default Dashboard
     </v-carousel>
     <v-row class="pa-4">
       <v-text-field :placeholder="t('home.search')" class="form-textfield dark-textfield" variant="solo" dense filled
-        clearable prepend-inner-icon="mdi-magnify" color="#7782AA" style="height: 40px;" />
+        clearable prepend-inner-icon="mdi-magnify" color="#7782AA" height="40" />
     </v-row>
     <v-row class="ml-4">
       <v-btn class="mr-2 my-2 text-none lobby-btn-color">
@@ -170,13 +179,30 @@ export default Dashboard
         {{ t('home.button.blue_originals') }}
       </v-btn>
     </v-row>
-    <v-row>
-
+    <v-row class="ml-4 mt-6 mb-2 original_game_text">
+      {{ t('home.original_games') }}
+    </v-row>
+    <v-row class="ml-4 mt-4">
+      <template v-for="(item, index) in originalGames" :key="index">
+        <div v-ripple.center class="mr-3 mb-2 original-game-img-border">
+          <v-img :src="item" class="original-game-img-width" />
+        </div>
+      </template>
+    </v-row>
+    <v-row class="ml-4 mt-4 justify-center">      
+      <v-btn class="text-none more-btn-color">
+        {{ t('home.more') }}
+      </v-btn>
     </v-row>
   </div>
 </template>
   
 <style lang="scss">
+.slider-img-width {
+  width: 100%;
+  height: 158px;
+}
+
 .prev-btn-position {
   position: absolute;
   top: 30%;
@@ -229,9 +255,38 @@ export default Dashboard
     font-size: 16px !important;
   }
 }
+
 .popular-btn-color {
   background: #211F31;
   color: #7782AA;
+
+  .v-btn__content {
+    font-weight: 700 !important;
+    font-size: 16px !important;
+  }
+}
+
+// original game
+.original_game_text {
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: 22px;
+}
+
+.original-game-img-border {
+  border-radius: 3px 16px;
+  cursor: pointer;
+  width: 100px;
+}
+
+.original-game-img-width {
+  width: 100%;
+  height: 100%;
+}
+
+.more-btn-color {
+  background: #2F2756;
+  color: #6842EC;
 
   .v-btn__content {
     font-weight: 700 !important;
