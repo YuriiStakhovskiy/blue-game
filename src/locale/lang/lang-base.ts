@@ -129,5 +129,6 @@ export type langType = {
     }
     original_games: string
     more: string
+    principal: string
   }
 };

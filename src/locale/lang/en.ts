@@ -130,6 +130,7 @@ export const lang: langType = {
       blue_originals: "Blue Originals",
     },
     original_games: "Original Games",
-    more: "Load more"
+    more: "Load more",
+    principal: "Principal"
   }
 };
