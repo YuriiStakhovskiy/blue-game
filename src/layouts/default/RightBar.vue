@@ -50,6 +50,74 @@ const messages = ref<Array<ChatRequestData>>([
             new URL("@/assets/right_navigation/svg/heart_v28_down.svg", import.meta.url).href,
         ]
     },
+    {
+        type: "sender",
+        avatar: new URL("@/assets/right_navigation/image/user_2.png", import.meta.url).href,
+        grade: "V1",
+        gradeColor: "grade-color-black",
+        gradeBackground: new URL("@/assets/right_navigation/svg/ellipse_v1.svg", import.meta.url).href,
+        sender: "Leo",
+        receiver: "Game",
+        message: "Suibian dajige ziz ajapospoaap",
+        starLevel: [
+            new URL("@/assets/right_navigation/svg/heart_v1_up.svg", import.meta.url).href,
+            new URL("@/assets/right_navigation/svg/heart_v1_up.svg", import.meta.url).href,
+            new URL("@/assets/right_navigation/svg/heart_v1_up.svg", import.meta.url).href,
+            new URL("@/assets/right_navigation/svg/heart_v1_down.svg", import.meta.url).href,
+            new URL("@/assets/right_navigation/svg/heart_v1_down.svg", import.meta.url).href,
+        ]
+    },
+    {
+        type: "receiver",
+        avatar: new URL("@/assets/right_navigation/image/user_1.png", import.meta.url).href,
+        grade: "V28",
+        gradeColor: "grade-color-black",
+        gradeBackground: new URL("@/assets/right_navigation/svg/ellipse_v28.svg", import.meta.url).href,
+        sender: "Jimmy",
+        receiver: "Game",
+        message: "Suibian dajige ziz ajapospoaap",
+        starLevel: [
+            new URL("@/assets/right_navigation/svg/heart_v28_up.svg", import.meta.url).href,
+            new URL("@/assets/right_navigation/svg/heart_v28_up.svg", import.meta.url).href,
+            new URL("@/assets/right_navigation/svg/heart_v28_up.svg", import.meta.url).href,
+            new URL("@/assets/right_navigation/svg/heart_v28_down.svg", import.meta.url).href,
+            new URL("@/assets/right_navigation/svg/heart_v28_down.svg", import.meta.url).href,
+        ]
+    },
+    {
+        type: "sender",
+        avatar: new URL("@/assets/right_navigation/image/user_2.png", import.meta.url).href,
+        grade: "V1",
+        gradeColor: "grade-color-black",
+        gradeBackground: new URL("@/assets/right_navigation/svg/ellipse_v1.svg", import.meta.url).href,
+        sender: "Leo",
+        receiver: "Game",
+        message: "Suibian dajige ziz ajapospoaap",
+        starLevel: [
+            new URL("@/assets/right_navigation/svg/heart_v1_up.svg", import.meta.url).href,
+            new URL("@/assets/right_navigation/svg/heart_v1_up.svg", import.meta.url).href,
+            new URL("@/assets/right_navigation/svg/heart_v1_up.svg", import.meta.url).href,
+            new URL("@/assets/right_navigation/svg/heart_v1_down.svg", import.meta.url).href,
+            new URL("@/assets/right_navigation/svg/heart_v1_down.svg", import.meta.url).href,
+        ]
+    },
+    {
+        type: "receiver",
+        avatar: new URL("@/assets/right_navigation/image/user_1.png", import.meta.url).href,
+        grade: "V28",
+        gradeColor: "grade-color-black",
+        gradeBackground: new URL("@/assets/right_navigation/svg/ellipse_v28.svg", import.meta.url).href,
+        sender: "Jimmy",
+        receiver: "Game",
+        message: "Suibian dajige ziz ajapospoaap",
+        starLevel: [
+            new URL("@/assets/right_navigation/svg/heart_v28_up.svg", import.meta.url).href,
+            new URL("@/assets/right_navigation/svg/heart_v28_up.svg", import.meta.url).href,
+            new URL("@/assets/right_navigation/svg/heart_v28_up.svg", import.meta.url).href,
+            new URL("@/assets/right_navigation/svg/heart_v28_down.svg", import.meta.url).href,
+            new URL("@/assets/right_navigation/svg/heart_v28_down.svg", import.meta.url).href,
+        ]
+    },
 ])
 </script>
 
@@ -105,8 +173,42 @@ const messages = ref<Array<ChatRequestData>>([
                         </div>
                     </div>
                 </v-list-item>
+                <v-list-item v-else>
+                    <div class="chat-item">
+                        <div class="chat-avatar">
+                            <img src="@/assets/right_navigation/image/ellipse.png" class="sender-ellipse" />
+                            <img :src="messageItem.avatar" class="sender-avatar" />
+                            <p class="sender-grade-position" :class="messageItem.gradeColor">{{ messageItem.grade }}</p>
+                            <img :src="messageItem.gradeBackground" class="sender-grade-background" />
+                            <img :src="messageItem.starLevel[0]" class="sender-star-level-1" />
+                            <img :src="messageItem.starLevel[1]" class="sender-star-level-2" />
+                            <img :src="messageItem.starLevel[2]" class="sender-star-level-3" />
+                            <img :src="messageItem.starLevel[3]" class="sender-star-level-4" />
+                            <img :src="messageItem.starLevel[4]" class="sender-star-level-5" />
+                        </div>
+                        <div class="sender-content">
+                            <div class="sender-name mt-3">{{ messageItem.sender }}</div>
+                            <v-card color="#12FF76" theme="dark" class="pa-2 sender-content-border">
+                                <span class="receiver-color">@{{ messageItem.receiver }}</span>
+                                <span>{{ messageItem.message }}</span>
+                            </v-card>
+                        </div>
+                    </div>
+                </v-list-item>
             </template>
         </v-list>
+
+        <template v-slot:append>
+            <div class="pa-1 d-flex align-center">
+                <v-text-field :label="t('rightBar.bottom.yourMessage')" class="form-textfield dark-textfield" variant="solo"
+                    density="comfortable" />
+                <img src="@/assets/right_navigation/svg/icon_public_51.svg" class="emoticon-icon"
+                    />
+                <v-btn class="right-btn" icon="true" theme="dark" color="#32CFEC">
+                    <v-icon icon="mdi-arrow-up" color="#000000" />
+                </v-btn>
+            </div>
+        </template>
     </v-navigation-drawer>
 </template>
 
@@ -171,11 +273,12 @@ const messages = ref<Array<ChatRequestData>>([
     }
 }
 
+// chat menu receiver class
 .chat-item {
     display: flex;
     position: relative;
     height: auto;
-    min-height: 76px;
+    min-height: 86px;
 }
 
 .chat-avatar {}
@@ -201,12 +304,15 @@ const messages = ref<Array<ChatRequestData>>([
     font-weight: 700;
     font-size: 12px;
 }
-.grade-color-white {    
+
+.grade-color-white {
     color: #FFFFFF;
 }
-.grade-color-black {    
+
+.grade-color-black {
     color: #000000;
 }
+
 .star-level-1 {
     position: absolute;
     top: 63px;
@@ -237,7 +343,9 @@ const messages = ref<Array<ChatRequestData>>([
     left: 48px;
 }
 
-.chat-content {}
+.chat-content {
+    min-width: 166px;
+}
 
 .chat-name {
     font-weight: 600;
@@ -252,8 +360,93 @@ const messages = ref<Array<ChatRequestData>>([
     font-size: 12px;
 }
 
+
 .receiver-color {
     color: #01983A;
     margin-right: 4px;
+}
+
+// chat menu sender class
+.sender-ellipse {
+    top: 0px;
+    position: absolute;
+    right: 0px;
+}
+
+.sender-content-border {
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 20px 0px 20px 20px;
+    color: #24353C;
+    font-weight: 600;
+    font-size: 12px;
+}
+
+.sender-avatar {
+    top: 9px;
+    position: absolute;
+    right: 9px;
+    width: 44px;
+}
+
+.sender-grade-background {
+    top: 39px;
+    position: absolute;
+    right: 2px;
+}
+
+.sender-grade-position {
+    top: 43px;
+    position: absolute;
+    right: 21px;
+    z-index: 100;
+    font-weight: 700;
+    font-size: 12px;
+}
+
+.sender-star-level-1 {
+    position: absolute;
+    top: 63px;
+    right: 48px;
+}
+
+.sender-star-level-2 {
+    position: absolute;
+    top: 63px;
+    right: 36px;
+}
+
+.sender-star-level-3 {
+    position: absolute;
+    top: 63px;
+    right: 24px;
+}
+
+.sender-star-level-4 {
+    position: absolute;
+    top: 63px;
+    right: 12px;
+}
+
+.sender-star-level-5 {
+    position: absolute;
+    top: 63px;
+    right: 0px;
+}
+
+.sender-content {
+    position: absolute;
+    right: 62px;
+    min-width: 166px;
+}
+
+.sender-name {
+    text-align: right;
+    font-weight: 600;
+    font-size: 14px;
+}
+// emoticon icon position
+.emoticon-icon {
+    position: absolute;
+    left: 166px;
 }
 </style>

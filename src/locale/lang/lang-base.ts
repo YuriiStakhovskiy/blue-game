@@ -114,5 +114,8 @@ export type langType = {
       casino: string,
       sport: string
     }
+    bottom: {
+      yourMessage: string
+    }
   }
 };

@@ -115,6 +115,9 @@ export const lang: langType = {
     dropdownItem: {
       casino: 'Casino',
       sport: 'Sport'
+    },
+    bottom: {
+      yourMessage: "Your Message"
     }
   }
 };
