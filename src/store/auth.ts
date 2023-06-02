@@ -11,11 +11,13 @@ export const authStore = defineStore({
     success: false as boolean,
     errMessage: '' as string,
     authModalType: '' as string,
+    token: NetworkData.getInstance().getToken() as string
   }),
   getters: {
     getSuccess: (state) => state.success,
     getErrMessage: (state) => state.errMessage,
     getAuthModalType: (state) => state.authModalType,
+    getToken: (state) => state.token
   },
   actions: {
     setAuthModalType(authModalType: string) {
@@ -27,14 +29,21 @@ export const authStore = defineStore({
     setErrorMessage(message: string) {
       this.errMessage = message
     },
+    setToken(token: string) {
+      const networkData: NetworkData = NetworkData.getInstance();
+      networkData.setToken('token');
+      this.token = token;
+    },
     dispatchSignIn(msg: SignIn.SigninRequestData) {
       const route: string = NETWORK.LOGIN.LOGIN;
       const network: Network = Network.getInstance();
+      // temp token
+      this.setToken("token");
+      // real token
       const next = (response: SignIn.GetSigninResponseData) => {
         console.log(response);
         if (response.code == 200) {
-          const networkData: NetworkData = NetworkData.getInstance();
-          networkData.setToken(response.data.token);
+          this.setToken("token");
         } else {
           this.setErrorMessage(response.message);
         }
@@ -44,11 +53,13 @@ export const authStore = defineStore({
     dispatchSignUp(msg: SignUp.SignupRequestData) {
       const route: string = NETWORK.LOGIN.REGISTER;
       const network: Network = Network.getInstance();
+      // temp token
+      this.setToken("token");
+      // real token
       const next = (response: SignUp.GetSignupResponseData) => {
         console.log(response);
         if (response.code == 200) {
-          const networkData: NetworkData = NetworkData.getInstance();
-          networkData.setToken(response.data.token);
+          this.setToken("token");
         } else {
           this.setErrorMessage(response.message);
         }

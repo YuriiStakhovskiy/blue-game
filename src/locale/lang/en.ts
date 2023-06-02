@@ -119,5 +119,16 @@ export const lang: langType = {
     bottom: {
       yourMessage: "Your Message"
     }
+  },
+  home: {
+    search: "Search Games Or Providers",
+    button: {
+      lobby: "Lobby",
+      popular: "Popular",
+      slots: "Slots",
+      live_casino: "Live Casino",
+      blue_originals: "Blue Originals",
+    },
+    original_games: "Original Games"
   }
 };

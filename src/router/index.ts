@@ -8,7 +8,7 @@ const routes = [
       {
         path: '',
         name: 'Dashboard',
-        component: () => import('@/views/dashboard/index.vue'),
+        component: () => import('@/views/home/index.vue'),
       },
     ],
   },

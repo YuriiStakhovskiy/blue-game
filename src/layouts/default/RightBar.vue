@@ -1,7 +1,12 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { type ChatRequestData } from '@/interface/chat';
+import { appBarStore } from '@/store/appBar';
+import { storeToRefs } from 'pinia';
+
+const {setRightBarToggle} = appBarStore();
+
 const { t } = useI18n();
 // sport items
 const sportItems = ref<Array<string>>([
@@ -10,6 +15,11 @@ const sportItems = ref<Array<string>>([
 ]);
 // selected sport item
 const selectedItem = ref<string>('Sport');
+
+const rightBarToggle = computed(() => {
+    const {getRightBarToggle} = storeToRefs(appBarStore());
+    return getRightBarToggle.value
+});
 
 const handleDropdown = (item: string): void => {
     selectedItem.value = item;
@@ -122,11 +132,11 @@ const messages = ref<Array<ChatRequestData>>([
 </script>
 
 <template>
-    <v-navigation-drawer permanent class="nav-background" location="right" :width="260">
+    <v-navigation-drawer permanent class="nav-background" location="right" :width="260" v-model="rightBarToggle">
         <template v-slot:prepend>
             <v-card color="#211F31" theme="dark" class="right-bar-card-border">
                 <v-row class="ma-1 align-center">
-                    <v-btn class="right-btn" icon="true">
+                    <v-btn class="right-btn" icon="true" @click.stop="setRightBarToggle(false)">
                         <v-icon icon="mdi-close" class="card-close-icon" />
                     </v-btn>
                     <img src="@/assets/right_navigation/svg/info.svg" class="ml-2" width="20" />
@@ -200,7 +210,7 @@ const messages = ref<Array<ChatRequestData>>([
 
         <template v-slot:append>
             <div class="pa-1 d-flex align-center">
-                <v-text-field :label="t('rightBar.bottom.yourMessage')" class="form-textfield dark-textfield" variant="solo"
+                <v-text-field :placeholder="t('rightBar.bottom.yourMessage')" class="form-textfield dark-textfield" variant="solo"
                     density="comfortable" />
                 <img src="@/assets/right_navigation/svg/icon_public_51.svg" class="emoticon-icon"
                     />

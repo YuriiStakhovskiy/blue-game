@@ -118,4 +118,15 @@ export type langType = {
       yourMessage: string
     }
   }
+  home: {
+    search: string
+    button: {
+      lobby: string
+      popular: string
+      slots: string
+      live_casino: string
+      blue_originals: string
+    }
+    original_games: string
+  }
 };

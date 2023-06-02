@@ -9,10 +9,12 @@ const Login = defineComponent({
     components: {
         LoginHeader,
     },
-    setup() {
+    emits: ["close", "switch"],
+    setup(props, { emit }) {
         // translation
         const { t } = useI18n();
         const { dispatchSignIn } = authStore();
+        const {setAuthModalType} = authStore();
 
         // initiate component state
         const state = reactive({
@@ -42,11 +44,12 @@ const Login = defineComponent({
 
         // methods
         const handleLoginFormSubmit = (): void => {
-            // state.currentPage = state.PAGE_TYPE.FORGOT_PASSWORD;
             dispatchSignIn({
                 account: "sniper",
                 password: 123456
             })
+            setAuthModalType("");
+            emit('close');
         }
 
         const showPassword = () => {

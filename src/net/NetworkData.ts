@@ -44,7 +44,7 @@ export class NetworkData {
   private TempRouteNoLog = []
 
   constructor() {
-    this.resetData()
+    // this.resetData()
   }
 
   public static getInstance(): NetworkData {
@@ -75,7 +75,7 @@ export class NetworkData {
    * @param token
    */
   public setToken(token: string): void {
-    Cookies.set(CacheKey.TOKEN, token)
+    Cookies.set(CacheKey.TOKEN, token,{ expires: 2 })
   }
 
   /** Get current token */
