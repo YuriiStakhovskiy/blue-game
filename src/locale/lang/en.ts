@@ -8,7 +8,7 @@ export const lang: langType = {
   login: {
     formPage: {
       header: {
-        titleLine1: "Sign in to", 
+        titleLine1: "Sign in to",
         titleLine2: "your account",
       },
       button: "Sign in",
@@ -81,6 +81,12 @@ export const lang: langType = {
       submit: "Submit",
     },
   },
+  signout: {
+    text_1: "Don’t forgot to check out our huge selection of promotions!",
+    text_2: "Are you sure you want to logout?",
+    text_3: "Don’t forgot to check out our huge selection of casino and sports promotions before you leave!",
+    button: "Log Out"
+  },
   navBar: {
     casino: 'CASINO',
     sport: 'SPORT',
@@ -109,7 +115,7 @@ export const lang: langType = {
     sound_mode: {
       on: 'On',
       off: 'Off',
-    }    
+    }
   },
   rightBar: {
     dropdownItem: {
@@ -118,6 +124,27 @@ export const lang: langType = {
     },
     bottom: {
       yourMessage: "Your Message"
+    }
+  },
+  appBar: {
+    id: "ID",
+    account: "Account",
+    deposit: "Deposit",
+    bonuses: "Bonuses",
+    game_history: "Game History",
+    transactions: "Transactions",
+    refer_friend: "Refer a friend",
+    earn_money: "Earn Money",
+    withdraw: "Withdraw",
+    install: "Install",
+    app: "APP",
+    fairness: "Fairness",
+    rewards: "Rewards",
+    preferences: "Preferences",
+    statistics: "Statistics",
+    sign_out: "Sign Out",
+    vip: {
+      bronze: "Bronze",
     }
   },
   home: {
@@ -131,6 +158,41 @@ export const lang: langType = {
     },
     original_games: "Original Games",
     more: "Load more",
-    principal: "Principal"
+    principal: "Principal",
+    game_providers: "GAME Providers",
+    slots: "Slots",
+    live_casino: "Live Casino",
+    footer: {
+      game: {
+        title: "Game",
+        menu_1: "Crash",
+        menu_2: "Double",
+        menu_3: "Mines",
+        menu_4: "Dice"
+      },
+      helpful_links: {
+        title: "Helpful Links",
+        menu_1: "Fairness",
+        menu_2: "VIP Club"
+      },
+      about_us: {
+        title: "ABOUT US",
+        menu_1: "Terms of Service",
+        menu_2: "Privacy Policy",
+        menu_3: "Bonus Terms",
+        menu_4: "Welcome Bonus",
+        menu_5: "Responsible Gambling",
+      },
+      footer_4: {
+        text: "The blue.game website offers games with an adventure experience directly owned by Pistis Trade N.V., to be a  user of our site you must be 18 years or older. We are not responsible for violating your local laws regarding online gaming. Play responsibly and have fun at blue.game."
+      },
+      logo: {
+        text_1: "Blue.game is operated by Pistis Trade N.V., company registration number 162576, with registered address at Zuikertuintjeweg Z/N (Zuikertuin Tower), Curaçao and is licensed and authorized by the Government of Curacao and operates under the Master License of Gaming Services Provider, N.V. #365/JAZ License Number: GLH-OCCHKTWxxxxxxxxxx.",
+        text_2: "Gambling can be addictive. Please play responsibly. Blue.game only accepts customers over 18 years of age."
+      },
+      footer_6: {
+        text: "© 2023 Blue.game All rights reserved."
+      }
+    }
   }
 };

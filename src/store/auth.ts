@@ -11,7 +11,7 @@ export const authStore = defineStore({
     success: false as boolean,
     errMessage: '' as string,
     authModalType: '' as string,
-    token: NetworkData.getInstance().getToken() as string
+    token: NetworkData.getInstance().getToken() as string | undefined
   }),
   getters: {
     getSuccess: (state) => state.success,
@@ -33,6 +33,11 @@ export const authStore = defineStore({
       const networkData: NetworkData = NetworkData.getInstance();
       networkData.setToken('token');
       this.token = token;
+    },
+    removeToken() {
+      this.token = undefined;
+      const networkData: NetworkData = NetworkData.getInstance();
+      networkData.resetData();
     },
     dispatchSignIn(msg: SignIn.SigninRequestData) {
       const route: string = NETWORK.LOGIN.LOGIN;
@@ -65,6 +70,9 @@ export const authStore = defineStore({
         }
       }
       network.sendMsg(route, msg, next, 1);
+    },
+    dispatchSignout() {
+      this.removeToken();
     }
   }
 })

@@ -20,7 +20,7 @@ export const appBarStore = defineStore({
       this.errMessage = message
     },
     setRightBarToggle(rightBarToggle: boolean) {
-        this.rightBarToggle = rightBarToggle;
+      this.rightBarToggle = rightBarToggle;
     }
   }
 })

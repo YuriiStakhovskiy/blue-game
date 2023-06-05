@@ -79,6 +79,12 @@ export type langType = {
       submit: string,
     },
   },
+  signout: {
+    text_1: string
+    text_2: string
+    text_3: string
+    button: string
+  }
   navBar: {
     casino: string,
     sport: string,
@@ -118,6 +124,27 @@ export type langType = {
       yourMessage: string
     }
   }
+  appBar: {
+    id: string
+    account: string
+    deposit: string
+    bonuses: string
+    game_history: string
+    transactions: string
+    refer_friend: string
+    earn_money: string
+    withdraw: string
+    install: string
+    app: string
+    fairness: string
+    rewards: string
+    preferences: string
+    statistics: string
+    sign_out: string
+    vip: {
+      bronze: string,      
+    }
+  }
   home: {
     search: string
     button: {
@@ -130,5 +157,40 @@ export type langType = {
     original_games: string
     more: string
     principal: string
+    game_providers: string
+    slots: string
+    live_casino: string
+    footer: {
+      game: {
+        title: string
+        menu_1: string
+        menu_2: string
+        menu_3: string
+        menu_4: string
+      }
+      helpful_links: {
+        title: string
+        menu_1: string
+        menu_2: string
+      }
+      about_us: {
+        title: string
+        menu_1: string
+        menu_2: string
+        menu_3: string
+        menu_4: string
+        menu_5: string
+      }
+      footer_4: {
+        text: string
+      }
+      logo: {
+        text_1: string
+        text_2: string
+      }
+      footer_6: {
+        text: string
+      }
+    }
   }
 };

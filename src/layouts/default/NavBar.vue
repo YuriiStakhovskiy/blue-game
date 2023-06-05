@@ -169,11 +169,11 @@ const handleLanguageDropdown = (item: string) => {
                 <input type="checkbox" id="theme-toggle" />
                 <label for="theme-toggle">
                     <div class="dark">
-                        <img src="@/assets/left_navigation/svg/icon_public_46.svg" />
+                        <img src="@/assets/left_navigation/svg/icon_public_46 (1).svg" />
                         <P>{{ t('navBar.sound_mode.on') }}</P>
                     </div>
                     <div class="light">
-                        <img src="@/assets/left_navigation/svg/icon_public_47.svg" />
+                        <img src="@/assets/left_navigation/svg/icon_public_47 (1).svg" />
                         <P>{{ t('navBar.sound_mode.off') }}</P>
                     </div>
                 </label>
