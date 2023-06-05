@@ -1,10 +1,34 @@
 <script lang="ts" setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { useI18n } from 'vue-i18n';
 import { type GetGameOriginalData } from "@/interface/navBar";
+import { useDisplay } from 'vuetify'
+import { appBarStore } from "@/store/appBar";
+
+const { setNavBarToggle } = appBarStore();
+
 const { t } = useI18n();
 const open = ref<Array<string>>(['']);
 const language = ref<string>('English');
+const navBarToggle = ref<boolean>(true);
+
+// mobile version name
+const { name } = useDisplay()
+
+const mobileVersion = computed(() => {
+  if (name.value == "md") {
+    navBarToggle.value = false;
+    setNavBarToggle(false);
+  } else if (name.value == "lg") {
+    navBarToggle.value = true;
+    setNavBarToggle(true);
+  } else if (name.value == "xl") {
+    navBarToggle.value = true;
+    setNavBarToggle(true);
+  }
+  return name.value
+});
+
 // language array
 const langItems = ref<Array<string>>([
     t('navBar.language.english'),
@@ -48,7 +72,7 @@ const handleLanguageDropdown = (item: string) => {
 </script>
 
 <template>
-    <v-navigation-drawer permanent class="nav-background" :width="240">
+    <v-navigation-drawer :temporary="mobileVersion == 'md' || mobileVersion == 'sm'" class="nav-background" :width="240" v-model="navBarToggle">
         <template v-slot:prepend>
             <v-list-item class="casino-toggle">
                 <input type="checkbox" id="casino-toggle" />

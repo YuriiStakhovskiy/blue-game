@@ -160,6 +160,8 @@ const Dashboard = defineComponent({
       return getAuthModalType.value;
     });
 
+    // trigger when authModalType changed
+
     watch(authModalType, (newValue: string) => {
       if (newValue == "login") {
         state.loginDialog = true;
@@ -194,6 +196,7 @@ export default Dashboard;
     <v-dialog v-model="signoutDialog" width="471">
       <Signout @close="closeDialog('signout')" />
     </v-dialog>
+    <!-- image carousel -->
     <v-carousel cycle interval="6000" height="225" hide-delimiter-background :hide-delimiters="slides.length <= 1"
       show-arrows="hover">
       <!-- prev, next button hide when slides array length is less than 2 -->
@@ -217,10 +220,14 @@ export default Dashboard;
         </v-sheet>
       </v-carousel-item>
     </v-carousel>
+    
+    <!-- input for search -->
     <v-row class="pa-4">
       <v-text-field :placeholder="t('home.search')" class="form-textfield dark-textfield" variant="solo" dense filled
         clearable prepend-inner-icon="mdi-magnify" color="#7782AA" height="40" />
     </v-row>
+    
+    <!-- buttons for filter -->
     <v-row class="ml-4">
       <v-btn class="mr-2 my-2 text-none lobby-btn-color">
         {{ t("home.button.lobby") }}
@@ -238,6 +245,8 @@ export default Dashboard;
         {{ t("home.button.blue_originals") }}
       </v-btn>
     </v-row>
+    
+    <!-- original games -->
     <v-row class="ml-4 mt-6 mb-2 original_game_text">
       {{ t("home.original_games") }}
     </v-row>
@@ -251,6 +260,8 @@ export default Dashboard;
         {{ t("home.more") }}
       </v-btn>
     </v-row>
+    
+    <!-- principal games -->
     <v-row class="ml-4 mt-6 mb-2 original_game_text">
       {{ t("home.principal") }}
     </v-row>
@@ -265,6 +276,8 @@ export default Dashboard;
         {{ t("home.more") }}
       </v-btn>
     </v-row>
+    
+    <!-------------------- game providers -------------->
     <v-row class="ml-4 mt-6 mb-2 original_game_text">
       {{ t("home.game_providers") }}
     </v-row>
@@ -274,6 +287,8 @@ export default Dashboard;
         <v-img :src="gameProviderItem" class="original-game-img-width" />
       </v-col>
     </v-row>
+    
+    <!-------------------- slot games -------------->
     <v-row class="ml-4 mt-6 mb-2 original_game_text">
       {{ t("home.slots") }}
     </v-row>
@@ -287,6 +302,8 @@ export default Dashboard;
         {{ t("home.more") }}
       </v-btn>
     </v-row>
+    
+    <!-------------------- live casino games -------------->
     <v-row class="ml-4 mt-6 mb-2 original_game_text">
       {{ t("home.live_casino") }}
     </v-row>
@@ -301,6 +318,8 @@ export default Dashboard;
         {{ t("home.more") }}
       </v-btn>
     </v-row>
+    
+    <!-------------------- footer bar -------------->
     <v-row class="mx-2 mt-16">
       <v-col cols="2" class="text-center">
         <div class="footer-title">{{ t('home.footer.game.title') }}</div>
@@ -338,7 +357,7 @@ export default Dashboard;
       <v-card color="#000000" theme="dark" class="justify-center">
         <v-row class="align-center">
           <v-col cols="3" class="pa-8">
-            <img src="@/assets/home/svg/Logo.svg" width="180"/>
+            <img src="@/assets/home/svg/Logo.svg" style="width: 100%;"/>
           </v-col>
           <v-col cols="9">
             <div class="footer-5-text py-4">{{ t('home.footer.logo.text_1') }}</div>
@@ -456,6 +475,8 @@ export default Dashboard;
     font-size: 16px !important;
   }
 }
+
+// footer bar class
 
 .footer-title {
   font-weight: 700;

@@ -4,8 +4,12 @@ import { useI18n } from "vue-i18n";
 import { type ChatRequestData } from "@/interface/chat";
 import { appBarStore } from "@/store/appBar";
 import { storeToRefs } from "pinia";
+import { useDisplay } from 'vuetify'
 
 const { setRightBarToggle } = appBarStore();
+
+// mobile version name
+const { name } = useDisplay()
 
 const { t } = useI18n();
 // sport items
@@ -19,6 +23,19 @@ const selectedItem = ref<string>("Sport");
 const rightBarToggle = computed(() => {
   const { getRightBarToggle } = storeToRefs(appBarStore());
   return getRightBarToggle.value;
+});
+
+const mobileVersion = computed(() => {
+  if (name.value == "lg") {
+    setRightBarToggle(false);
+  } else if (name.value == "xl") {
+    setRightBarToggle(true);
+  } else if (name.value == "md") {    
+    setRightBarToggle(false);
+  } else if (name.value == "sm") {    
+    setRightBarToggle(false);
+  }
+  return name.value
 });
 
 const handleDropdown = (item: string): void => {
@@ -222,54 +239,26 @@ const messages = ref<Array<ChatRequestData>>([
 </script>
 
 <template>
-  <v-navigation-drawer
-    permanent
-    class="nav-background"
-    location="right"
-    :width="340"
-    v-model="rightBarToggle"
-  >
+  <v-navigation-drawer :temporary="mobileVersion == 'lg' || mobileVersion == 'md' || mobileVersion == 'sm'" :permanent="mobileVersion == 'xl'" class="nav-background" location="right" :width="340" v-model="rightBarToggle">
     <template v-slot:prepend>
       <v-card color="#211F31" theme="dark" class="right-bar-card-border">
         <v-row class="ma-2 mt-3 align-center">
-          <v-btn
-            class="right-btn"
-            icon="true"
-            @click.stop="setRightBarToggle(false)"
-          >
+          <v-btn class="right-btn" icon="true" @click.stop="setRightBarToggle(false)">
             <v-icon icon="mdi-close" class="card-close-icon" />
           </v-btn>
-          <img
-            src="@/assets/right_navigation/svg/info.svg"
-            class="ml-auto"
-            width="20"
-          />
-          <img
-            src="@/assets/right_navigation/svg/img_nav_87.svg"
-            class="ml-2"
-            width="20"
-          />
+          <img src="@/assets/right_navigation/svg/info.svg" class="ml-auto" width="20" />
+          <img src="@/assets/right_navigation/svg/img_nav_87.svg" class="ml-2" width="20" />
           <v-menu offset="20" class="sport-menu">
             <template v-slot:activator="{ props }">
               <v-card color="#29263C" theme="dark" class="ml-auto">
-                <v-list-item
-                  class="sport-item"
-                  v-bind="props"
-                  :title="selectedItem"
-                  append-icon="mdi-chevron-down"
-                  value="sport"
-                >
+                <v-list-item class="sport-item" v-bind="props" :title="selectedItem" append-icon="mdi-chevron-down"
+                  value="sport">
                 </v-list-item>
               </v-card>
             </template>
             <v-list theme="dark" bg-color="#211F31">
-              <v-list-item
-                v-for="(item, i) in sportItems"
-                :key="i"
-                :value="item"
-                class="sport-item"
-                @click="handleDropdown(item)"
-              >
+              <v-list-item v-for="(item, i) in sportItems" :key="i" :value="item" class="sport-item"
+                @click="handleDropdown(item)">
                 <v-list-item-title>{{ item }}</v-list-item-title>
               </v-list-item>
             </v-list>
@@ -287,10 +276,7 @@ const messages = ref<Array<ChatRequestData>>([
               <p class="grade-position" :class="messageItem.gradeColor">
                 {{ messageItem.grade }}
               </p>
-              <img
-                :src="messageItem.gradeBackground"
-                class="grade-background"
-              />
+              <img :src="messageItem.gradeBackground" class="grade-background" />
               <img :src="messageItem.starLevel[0]" class="star-level-1" />
               <img :src="messageItem.starLevel[1]" class="star-level-2" />
               <img :src="messageItem.starLevel[2]" class="star-level-3" />
@@ -299,11 +285,7 @@ const messages = ref<Array<ChatRequestData>>([
             </div>
             <div class="chat-content">
               <div class="chat-name mt-3">{{ messageItem.sender }}</div>
-              <v-card
-                color="#353652"
-                theme="dark"
-                class="pa-2 chat-content-border"
-              >
+              <v-card color="#353652" theme="dark" class="pa-2 chat-content-border">
                 <span class="receiver-color">@{{ messageItem.receiver }}</span>
                 <span>{{ messageItem.message }}</span>
               </v-card>
@@ -313,46 +295,21 @@ const messages = ref<Array<ChatRequestData>>([
         <v-list-item v-else>
           <div class="chat-item">
             <div class="chat-avatar">
-              <img
-                src="@/assets/right_navigation/image/ellipse.png"
-                class="sender-ellipse"
-              />
+              <img src="@/assets/right_navigation/image/ellipse.png" class="sender-ellipse" />
               <img :src="messageItem.avatar" class="sender-avatar" />
               <p class="sender-grade-position" :class="messageItem.gradeColor">
                 {{ messageItem.grade }}
               </p>
-              <img
-                :src="messageItem.gradeBackground"
-                class="sender-grade-background"
-              />
-              <img
-                :src="messageItem.starLevel[0]"
-                class="sender-star-level-1"
-              />
-              <img
-                :src="messageItem.starLevel[1]"
-                class="sender-star-level-2"
-              />
-              <img
-                :src="messageItem.starLevel[2]"
-                class="sender-star-level-3"
-              />
-              <img
-                :src="messageItem.starLevel[3]"
-                class="sender-star-level-4"
-              />
-              <img
-                :src="messageItem.starLevel[4]"
-                class="sender-star-level-5"
-              />
+              <img :src="messageItem.gradeBackground" class="sender-grade-background" />
+              <img :src="messageItem.starLevel[0]" class="sender-star-level-1" />
+              <img :src="messageItem.starLevel[1]" class="sender-star-level-2" />
+              <img :src="messageItem.starLevel[2]" class="sender-star-level-3" />
+              <img :src="messageItem.starLevel[3]" class="sender-star-level-4" />
+              <img :src="messageItem.starLevel[4]" class="sender-star-level-5" />
             </div>
             <div class="sender-content">
               <div class="sender-name mt-3">{{ messageItem.sender }}</div>
-              <v-card
-                color="#12FF76"
-                theme="dark"
-                class="pa-2 sender-content-border"
-              >
+              <v-card color="#12FF76" theme="dark" class="pa-2 sender-content-border">
                 <span class="receiver-color">@{{ messageItem.receiver }}</span>
                 <span>{{ messageItem.message }}</span>
               </v-card>
@@ -364,16 +321,9 @@ const messages = ref<Array<ChatRequestData>>([
 
     <template v-slot:append>
       <div class="pa-1 d-flex align-center">
-        <v-text-field
-          :placeholder="t('rightBar.bottom.yourMessage')"
-          class="form-textfield dark-textfield"
-          variant="solo"
-          density="comfortable"
-        />
-        <img
-          src="@/assets/right_navigation/svg/icon_public_51.svg"
-          class="emoticon-icon"
-        />
+        <v-text-field :placeholder="t('rightBar.bottom.yourMessage')" class="form-textfield dark-textfield" variant="solo"
+          density="comfortable" />
+        <img src="@/assets/right_navigation/svg/icon_public_51.svg" class="emoticon-icon" />
         <v-btn class="right-btn" icon="true" theme="dark" color="#32CFEC">
           <v-icon icon="mdi-arrow-up" color="#000000" />
         </v-btn>
@@ -430,6 +380,7 @@ const messages = ref<Array<ChatRequestData>>([
 
 .sport-menu {
   margin-left: auto !important;
+
   .v-overlay__content::after {
     content: "";
     position: absolute;
@@ -453,8 +404,7 @@ const messages = ref<Array<ChatRequestData>>([
   min-height: 86px;
 }
 
-.chat-avatar {
-}
+.chat-avatar {}
 
 .user-avatar {
   top: 9px;
@@ -616,6 +566,7 @@ const messages = ref<Array<ChatRequestData>>([
   font-weight: 600;
   font-size: 14px;
 }
+
 // emoticon icon position
 .emoticon-icon {
   position: absolute;

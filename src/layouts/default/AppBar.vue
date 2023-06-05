@@ -9,6 +9,7 @@ import { type GetUserData } from "@/interface/appBar";
 
 const { setAuthModalType } = authStore();
 const { setRightBarToggle } = appBarStore();
+const { setNavBarToggle } = appBarStore();
 
 type dialogType = "login" | "signup";
 const hideOnScroll = ref(false);
@@ -40,19 +41,48 @@ const user = ref<GetUserData>({
 const mailCount = ref<number>(10);
 // message count
 const messageCount = ref<number>(299);
-// user wallet
-const wallet = ref;
+
+const appBarWidth = ref<string>('app-bar-width');
 
 // get Token
 const token = computed(() => {
   const { getToken } = storeToRefs(authStore());
   return getToken.value;
-  // return undefined;
 });
 
 const rightBarToggle = computed(() => {
   const { getRightBarToggle } = storeToRefs(appBarStore());
   return getRightBarToggle.value;
+})
+
+const navBarToggle = computed(() => {
+  const {getNavBarToggle} = storeToRefs(appBarStore());
+  return getNavBarToggle.value
+})
+
+watch(rightBarToggle, (newValue) => {
+  if (newValue && navBarToggle.value) {
+    appBarWidth.value = "app-bar-width";
+  } else if(newValue && !navBarToggle.value) {
+    appBarWidth.value = "app-bar-width-1";
+  } else if (!newValue && navBarToggle.value) {
+    appBarWidth.value = "app-bar-width-2";
+  } else if (!newValue && !navBarToggle.value) {
+    appBarWidth.value = "app-bar-width-3";
+  }
+})
+
+watch(navBarToggle, (newValue) => {
+  console.log("navbarToggle", newValue);
+  if (newValue && rightBarToggle.value) {
+    appBarWidth.value = "app-bar-width";
+  } else if(newValue && !rightBarToggle.value) {
+    appBarWidth.value = "app-bar-width-2";
+  } else if (!newValue && rightBarToggle.value) {
+    appBarWidth.value = "app-bar-width-1";
+  } else if (!newValue && !rightBarToggle.value) {
+    appBarWidth.value = "app-bar-width-3";
+  }
 })
 
 const toggleLanguage = () => {
@@ -80,7 +110,7 @@ onMounted(() => {
   <v-app-bar app dark :color="color" :elevate-on-scroll="elevateOnScroll" :hide-on-scroll="hideOnScroll"
     :fade-on-scroll="fadeOnScroll" :fade-img-on-scroll="fadeImgOnScroll" :inverted-scroll="invertedScroll"
     :collapse="collapse" :collapse-on-scroll="collapseOnScroll" :shrink-on-scroll="shrinkOnScroll" :extended="extended"
-    :class="[rightBarToggle ? 'app-bar-width' : 'app-bar-width-1']">
+    :class="appBarWidth" class="app-bar-height">
     <!-- <v-app-bar-nav-icon></v-app-bar-nav-icon> -->
     <v-toolbar-title>
       <img src="@/assets/public/svg/logo.svg" class="mt-3" />
@@ -266,18 +296,28 @@ onMounted(() => {
 <style lang="scss">
 .app-bar-width {
   width: calc((100% - 620px) - 0px) !important;
-  border-radius: 0px 0px 32px 32px !important;
-  height: 68px !important;
-  color: #ffffff !important;
   margin-left: 260px;
 }
 
 .app-bar-width-1 {
-  width: calc((100% - 280px) - 0px) !important;
+  width: calc((100% - 360px) - 0px) !important;
+  margin-left: 10px;
+}
+
+.app-bar-width-2 {
+  width: calc((100% - 260px) - 0px) !important;
+  margin-left: 250px;
+}
+
+.app-bar-width-3 {
+  width: calc((100% - 20px) - 0px) !important;
+  margin-left: 10px;
+}
+
+.app-bar-height {
   border-radius: 0px 0px 32px 32px !important;
   height: 68px !important;
   color: #ffffff !important;
-  margin-left: 260px;
 }
 
 .toggle-language-switch {

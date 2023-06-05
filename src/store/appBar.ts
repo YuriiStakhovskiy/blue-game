@@ -5,12 +5,14 @@ export const appBarStore = defineStore({
   state: () => ({
     success: false as boolean,
     errMessage: '' as string,
-    rightBarToggle: true as boolean
+    rightBarToggle: true as boolean,
+    navBarToggle: true as boolean
   }),
   getters: {
     getSuccess: (state) => state.success,
     getErrMessage: (state) => state.errMessage,
-    getRightBarToggle: (state) => state.rightBarToggle
+    getRightBarToggle: (state) => state.rightBarToggle,
+    getNavBarToggle: (state) => state.navBarToggle
   },
   actions: {
     setSuccess(success: boolean) {
@@ -21,6 +23,9 @@ export const appBarStore = defineStore({
     },
     setRightBarToggle(rightBarToggle: boolean) {
       this.rightBarToggle = rightBarToggle;
+    },
+    setNavBarToggle(navBarToggle: boolean) {
+      this.navBarToggle = navBarToggle;
     }
   }
 })
