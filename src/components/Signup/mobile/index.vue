@@ -3,10 +3,10 @@
 import { defineComponent, reactive, toRefs, computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import ValidationBox from '@/components/Signup/ValidationBox.vue';
-import SignupHeader from '@/components/Signup/Header.vue';
+import SignupHeader from '@/components/Signup/mobile/Header.vue';
 import { useDisplay } from 'vuetify/lib/framework.mjs';
 
-const Signup = defineComponent({
+const MSignup = defineComponent({
     components: {
         ValidationBox,
         SignupHeader,
@@ -211,13 +211,13 @@ const Signup = defineComponent({
     },
 })
 
-export default Signup
+export default MSignup
 </script>
 
 <template>
-    <div :class="[mobileVersion == 'sm' ? 'm-signup-container' : 'signup-container']">
+    <div class="m-signup-container">
         <SignupHeader v-if="currentPage !== PAGE_TYPE.DISPLAY_NAME" />
-        <v-row class="signup-body pt-6">
+        <v-row class="m-signup-body px-6 py-2">
             <!-- SIGN UP FORM  -->
             <v-form v-if="currentPage === PAGE_TYPE.SIGNUP_FORM" ref="form" class="full-width">
                 <v-row class="relative mt-0">
@@ -239,7 +239,7 @@ export default Signup
                     <ValidationBox v-if="isShowPasswordValidation" :descriptionList="passwordValidationStrList"
                         :validationList="passwordValidationList" />
                 </v-row>
-                <v-row class="mt-4">
+                <v-row class="mt-2">
                     <v-text-field :label="t('signup.formPage.promoCode')" class="form-textfield normal-textfield"
                         variant="solo" density="comfortable" v-model="formData.promoCode"
                         :onfocus="handleOnPromoCodeInputFocus" />
@@ -259,12 +259,12 @@ export default Signup
                     </v-col>
                 </v-row>
                 <v-row>
-                    <v-btn class="ma-3 signup-btn" width="-webkit-fill-available" height="60px" :disabled="!isFormDataReady"
+                    <v-btn class="ma-3 signup-btn" width="-webkit-fill-available" height="54px" :disabled="!isFormDataReady"
                         :onclick="handleSignupFormSubmit">
                         {{ t('signup.formPage.button') }}
                     </v-btn>
                 </v-row>
-                <v-row class="d-flex justify-center mb-6 mt-10">
+                <v-row class="d-flex justify-center mb-3 mt-3">
                     <p class="signin-text mr-4">{{ t('signup.formPage.alreadyAccount') }}</p>
                     <p class="signin-text2" @click="$emit('switch')">
                         {{ t('signup.formPage.signIn') }}
@@ -276,7 +276,7 @@ export default Signup
                     </p>
                     <v-divider color="white" />
                 </v-row>
-                <v-row class="mt-10">
+                <v-row class="mt-4">
                     <v-col cols="8" offset="2">
                         <div class="d-flex justify-space-around bg-surface-variant social-icon-wrapper">
                             <v-sheet v-for="n in 4" :key="n" color="#131828" class="rounded">
@@ -291,7 +291,7 @@ export default Signup
             <!-- Confirm cancel. -->
             <div v-if="currentPage == PAGE_TYPE.CONFIRM_CANCEL" class="full-width">
                 <v-row class="mt-8">
-                    <p class="label-text-xl white center full-width">
+                    <p class="label-text-lg white center full-width">
                         {{ t('signup.confirmCancelPage.title') }}
                     </p>
                 </v-row>
@@ -301,13 +301,13 @@ export default Signup
                     </p>
                 </v-row>
                 <v-row class="mt-8">
-                    <v-btn class="ma-3 button-bright text-none" width="-webkit-fill-available" height="60px"
+                    <v-btn class="ma-3 button-bright text-none" width="-webkit-fill-available" height="54px"
                         @click="handleClickContinueButton">
                         {{ t('signup.confirmCancelPage.continue') }}
                     </v-btn>
                 </v-row>
                 <v-row class="mt-4">
-                    <v-btn class="ma-3 button-dark text-none" width="-webkit-fill-available" height="60px" @click="$emit('close')">
+                    <v-btn class="ma-3 button-dark text-none" width="-webkit-fill-available" height="54px" @click="$emit('close')">
                         {{ t('signup.confirmCancelPage.cancel') }}
                     </v-btn>
                 </v-row>
@@ -363,7 +363,7 @@ export default Signup
                         :descriptionList="userNameValidationStrList" :validationList="userNameValidationList" />
                 </v-row>
                 <v-row>
-                    <v-btn class="ma-3 mt-8 button-bright text-none" width="-webkit-fill-available" height="60px"
+                    <v-btn class="ma-3 mt-8 button-bright text-none" width="-webkit-fill-available" height="54px"
                         :disabled="!validateUserName()" @click="$emit('close')">
                         {{ t('signup.displayNamePage.submit') }}
                     </v-btn>
@@ -404,23 +404,20 @@ button:active:enabled {
     cursor: pointer;
 }
 
-// pc dialog container
-.signup-container {
-    background-color: #2E274C;
-    border-radius: 16px !important;
-}
-
 // mobile dialog contaier
 .m-signup-container {
     background-color: #2E274C;
     position: absolute;
     bottom: 0;
+    border-radius: 38px 38px 0px 0px;
+    width: 100%;
 }
 
 // wrapper
-.signup-body {
+.m-signup-body {
     margin: 0px !important;
     padding: 48px;
+    border-radius: 38px 38px 0px 0px !important;
 }
 
 // close modal button

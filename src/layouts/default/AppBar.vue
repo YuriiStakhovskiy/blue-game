@@ -6,10 +6,13 @@ import { authStore } from "@/store/auth";
 import { appBarStore } from "@/store/appBar";
 import { storeToRefs } from "pinia";
 import { type GetUserData } from "@/interface/appBar";
+import { useDisplay } from 'vuetify'
 
 const { setAuthModalType } = authStore();
 const { setRightBarToggle } = appBarStore();
 const { setNavBarToggle } = appBarStore();
+
+const { name } = useDisplay()
 
 type dialogType = "login" | "signup";
 const hideOnScroll = ref(false);
@@ -56,27 +59,35 @@ const rightBarToggle = computed(() => {
 })
 
 const navBarToggle = computed(() => {
-  const {getNavBarToggle} = storeToRefs(appBarStore());
+  const { getNavBarToggle } = storeToRefs(appBarStore());
   return getNavBarToggle.value
 })
+
+const mobileVersion = computed(() => {
+  return name.value
+});
 
 watch(rightBarToggle, (newValue) => {
   if (newValue && navBarToggle.value) {
     appBarWidth.value = "app-bar-width";
-  } else if(newValue && !navBarToggle.value) {
+  } else if (newValue && !navBarToggle.value) {
     appBarWidth.value = "app-bar-width-1";
   } else if (!newValue && navBarToggle.value) {
     appBarWidth.value = "app-bar-width-2";
   } else if (!newValue && !navBarToggle.value) {
     appBarWidth.value = "app-bar-width-3";
   }
+  if (mobileVersion.value == "sm") {
+    if (newValue || navBarToggle.value) {
+      appBarWidth.value = "app-bar-none";
+    }
+  }
 })
 
 watch(navBarToggle, (newValue) => {
-  console.log("navbarToggle", newValue);
   if (newValue && rightBarToggle.value) {
     appBarWidth.value = "app-bar-width";
-  } else if(newValue && !rightBarToggle.value) {
+  } else if (newValue && !rightBarToggle.value) {
     appBarWidth.value = "app-bar-width-2";
   } else if (!newValue && rightBarToggle.value) {
     appBarWidth.value = "app-bar-width-1";
@@ -112,8 +123,23 @@ onMounted(() => {
     :collapse="collapse" :collapse-on-scroll="collapseOnScroll" :shrink-on-scroll="shrinkOnScroll" :extended="extended"
     :class="appBarWidth" class="app-bar-height">
     <!-- <v-app-bar-nav-icon></v-app-bar-nav-icon> -->
-    <v-toolbar-title>
+    <v-toolbar-title v-if="mobileVersion != 'sm'">
       <img src="@/assets/public/svg/logo.svg" class="mt-3" />
+    </v-toolbar-title>
+    <v-toolbar-title v-else>
+      <div class="d-flex align-center">
+        <div>
+          <img src="@/assets/public/svg/logo2.svg" class="mt-3" />
+        </div>
+        <div class="relative">
+          <div class="logo-text-1">
+            <img src="@/assets/public/svg/BLUE.svg" class="mt-3" width="46" />
+          </div>
+          <div class="logo-text-2">
+            <img src="@/assets/public/svg/GAME.svg" class="mt-3" width="60" />
+          </div>
+        </div>
+      </div>
     </v-toolbar-title>
     <div v-if="token != undefined">
       <div class="d-flex">
@@ -131,7 +157,7 @@ onMounted(() => {
             </v-card>
           </template>
           <!-- <v-list theme="dark" bg-color="#211F31">
-                              </v-list> -->
+                                                </v-list> -->
         </v-menu>
         <v-menu offset="10" class="user-menu">
           <template v-slot:activator="{ props }">
@@ -283,10 +309,12 @@ onMounted(() => {
     <div v-else>
       <v-switch :label="currentLanguage === 'en' ? 'English' : '中文'" color="success" value="success"
         @change="toggleLanguage" hide-details class="toggle-language-switch" />
-      <v-btn @click="openDialog('login')" class="app-bar-login-btn text-none">
+      <v-btn @click="openDialog('login')" class="text-none"
+        :class="[mobileVersion == 'sm' ? 'app-bar-login-btn-mobile' : 'app-bar-login-btn']">
         {{ t("main.loginButton") }}
       </v-btn>
-      <v-btn @click="openDialog('signup')" class="app-bar-signup-btn text-none mr-2">
+      <v-btn @click="openDialog('signup')" class=" text-none mr-2"
+        :class="[mobileVersion == 'sm' ? 'app-bar-signup-btn-mobile' : 'app-bar-signup-btn']">
         {{ t("main.signupButton") }}
       </v-btn>
     </div>
@@ -294,6 +322,18 @@ onMounted(() => {
 </template>
 
 <style lang="scss">
+.logo-text-1 {
+  position: absolute;
+  top: -28px;
+  left: 12px;
+}
+
+.logo-text-2 {
+  position: absolute;
+  top: -5px;
+  left: 4px;
+}
+
 .app-bar-width {
   width: calc((100% - 620px) - 0px) !important;
   margin-left: 260px;
@@ -310,8 +350,11 @@ onMounted(() => {
 }
 
 .app-bar-width-3 {
-  width: calc((100% - 20px) - 0px) !important;
-  margin-left: 10px;
+  width: 100%;
+}
+
+.app-bar-none {
+  display: none !important;
 }
 
 .app-bar-height {
@@ -345,6 +388,7 @@ onMounted(() => {
   }
 }
 
+// login btn pc version
 .app-bar-login-btn {
   width: 120px;
   height: 46px !important;
@@ -352,10 +396,37 @@ onMounted(() => {
   margin-right: 6px;
 }
 
+// login btn mobile version
+.app-bar-login-btn-mobile {
+  width: 80px;
+  height: 40px !important;
+  background-color: #29263c;
+  margin-right: 6px;
+  font-size: 6px !important;
+  font-weight: 400;
+
+  .v-btn__content {
+    font-weight: 600;
+    font-size: 16px;
+  }
+}
+
 .app-bar-signup-btn {
   width: 120px;
   height: 46px !important;
   background-color: #5524fd !important;
+}
+
+.app-bar-signup-btn-mobile {
+  width: 96px;
+  height: 40px !important;
+  background-color: #5524fd !important;
+
+  .v-btn__content {
+    font-weight: 600;
+    font-size: 16px;
+  }
+
 }
 
 .chat-box-text {

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 import { useI18n } from "vue-i18n";
 import { type ChatRequestData } from "@/interface/chat";
 import { appBarStore } from "@/store/appBar";
@@ -10,6 +10,7 @@ const { setRightBarToggle } = appBarStore();
 
 // mobile version name
 const { name } = useDisplay()
+const { width, mobile } = useDisplay()
 
 const { t } = useI18n();
 // sport items
@@ -30,9 +31,9 @@ const mobileVersion = computed(() => {
     setRightBarToggle(false);
   } else if (name.value == "xl") {
     setRightBarToggle(true);
-  } else if (name.value == "md") {    
+  } else if (name.value == "md") {
     setRightBarToggle(false);
-  } else if (name.value == "sm") {    
+  } else if (name.value == "sm") {
     setRightBarToggle(false);
   }
   return name.value
@@ -236,10 +237,16 @@ const messages = ref<Array<ChatRequestData>>([
     ],
   },
 ]);
+
+onMounted(() => {
+  console.log(width.value) // 960
+  console.log(mobile) // true
+})
 </script>
 
 <template>
-  <v-navigation-drawer :temporary="mobileVersion == 'lg' || mobileVersion == 'md' || mobileVersion == 'sm'" :permanent="mobileVersion == 'xl'" class="nav-background" location="right" :width="340" v-model="rightBarToggle">
+  <v-navigation-drawer :temporary="mobileVersion == 'lg' || mobileVersion == 'md' || mobileVersion == 'sm'"
+    :permanent="mobileVersion == 'xl'" class="nav-background" location="right" width="340" v-model="rightBarToggle" :fullWidth="mobileVersion == 'sm'">
     <template v-slot:prepend>
       <v-card color="#211F31" theme="dark" class="right-bar-card-border">
         <v-row class="ma-2 mt-3 align-center">

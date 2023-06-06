@@ -9,11 +9,16 @@ import {
   onMounted,
 } from "vue";
 import Signup from "@/components/Signup/index.vue";
+import MSignup from "@/components/Signup/mobile/index.vue";
 import Login from "@/components/Login/index.vue";
+import MLogin from "@/components/Login/mobile/index.vue";
 import Signout from "@/components/Signout/index.vue";
+import MSignout from "@/components/Signout/mobile/index.vue";
+import MobileDialog from "@/components/Signout/mobile/Header.vue";
 import { authStore } from "@/store/auth";
 import { storeToRefs } from "pinia";
 import { useI18n } from "vue-i18n";
+import { useDisplay } from 'vuetify'
 
 type dialogType = "login" | "signup" | "signout";
 
@@ -21,17 +26,24 @@ const Dashboard = defineComponent({
   components: {
     Signup,
     Login,
-    Signout
+    Signout,
+    MSignup,
+    MLogin,
+    MSignout,
+    MobileDialog
   },
   setup() {
     const { setAuthModalType } = authStore();
     const { t } = useI18n();
+    const { name } = useDisplay()
 
     // initiate component state
     const state = reactive({
       signupDialog: false,
       loginDialog: false,
       signoutDialog: false,
+      mobileDialog: false,
+      mobileDialogCheck: false,
       slides: [
         [
           new URL("@/assets/home/image/img_hp_01.png", import.meta.url).href,
@@ -132,23 +144,27 @@ const Dashboard = defineComponent({
 
     // methods
     const closeDialog = (type: dialogType) => {
-      console.log("sdfdsfdsf");
       if (type === "login") {
         state.loginDialog = false;
-      } else if(type == "signup") {
+      } else if (type == "signup") {
         state.signupDialog = false;
       } else {
         state.signoutDialog = false;
       }
+      state.mobileDialog = false;
       setAuthModalType("");
     };
 
     const switchDialog = (type: dialogType) => {
       if (type === "login") {
+        state.mobileDialog = true;
+        state.mobileDialogCheck = true;
         state.loginDialog = false;
         state.signoutDialog = false;
         state.signupDialog = true;
-      } else if(type == "signup") {
+      } else if (type == "signup") {
+        state.mobileDialog = true;
+        state.mobileDialogCheck = false;
         state.loginDialog = true;
         state.signupDialog = false;
         state.signoutDialog = false;
@@ -160,15 +176,26 @@ const Dashboard = defineComponent({
       return getAuthModalType.value;
     });
 
+    const mobileVersion = computed(() => {
+      return name.value
+    });
+
     // trigger when authModalType changed
 
     watch(authModalType, (newValue: string) => {
       if (newValue == "login") {
+        state.mobileDialog = true;
+        state.mobileDialogCheck = false;
         state.loginDialog = true;
       } else if (newValue == "signup") {
+        state.mobileDialog = true;
+        state.mobileDialogCheck = true;
         state.signupDialog = true;
-      } else if(newValue == "signout") {        
+      } else if (newValue == "signout") {
         state.signoutDialog = true;
+        state.mobileDialog = false;
+      } else {
+        state.mobileDialog = false;
       }
     });
 
@@ -178,6 +205,7 @@ const Dashboard = defineComponent({
       closeDialog,
       switchDialog,
       authModalType,
+      mobileVersion
     };
   },
 });
@@ -187,14 +215,30 @@ export default Dashboard;
 
 <template>
   <div class="my-4 mx-2 home-body">
-    <v-dialog v-model="signupDialog" width="471">
-      <Signup @close="closeDialog('signup')" @switch="switchDialog('signup')" />
+    <v-dialog v-model="mobileDialog" :fullscreen="mobileVersion == 'sm'" transition="dialog-top-transition"
+      activator="parent" v-if="mobileVersion == 'sm'">
+      <MobileDialog :mobileDialogCheck="mobileDialogCheck" @switchDialog="switchDialog" />
     </v-dialog>
-    <v-dialog v-model="loginDialog" width="471">
-      <Login @close="closeDialog('login')" @switch="switchDialog('login')" />
+    <v-dialog v-model="signupDialog" width="471" :fullscreen="mobileVersion == 'sm'" :scrim="false"
+      :transition="mobileVersion == 'sm' ? 'dialog-bottom-transition' : ''"
+      :class="[mobileVersion == 'sm' ? 'mobile-login-dialog-position' : '']">
+      <!------------  PC Version ------------>
+      <Signup v-if="mobileVersion != 'sm'" @close="closeDialog('signup')" @switch="switchDialog('signup')" />
+      <!------------  Mobile Version ------------>
+      <MSignup v-else @close="closeDialog('signup')" @switch="switchDialog('signup')" />
     </v-dialog>
-    <v-dialog v-model="signoutDialog" width="471">
-      <Signout @close="closeDialog('signout')" />
+    <v-dialog v-model="loginDialog" width="471" :fullscreen="mobileVersion == 'sm'" :scrim="false"
+      :transition="mobileVersion == 'sm' ? 'dialog-bottom-transition' : ''"
+      :class="[mobileVersion == 'sm' ? 'mobile-login-dialog-position' : '']">
+      <!------------  PC Version ------------>
+      <Login v-if="mobileVersion != 'sm'" @close="closeDialog('login')" @switch="switchDialog('login')" />
+      <!------------  Mobile Version ------------>
+      <MLogin v-else @close="closeDialog('login')" @switch="switchDialog('login')" />
+    </v-dialog>
+    <v-dialog v-model="signoutDialog" width="471" :fullscreen="mobileVersion == 'sm'"
+      :transition="mobileVersion == 'sm' ? 'dialog-bottom-transition' : ''">
+      <Signout v-if="mobileVersion != 'sm'" @close="closeDialog('signout')" />
+      <MSignout v-else @close="closeDialog('signout')" />
     </v-dialog>
     <!-- image carousel -->
     <v-carousel cycle interval="6000" height="225" hide-delimiter-background :hide-delimiters="slides.length <= 1"
@@ -213,20 +257,20 @@ export default Dashboard;
       <v-carousel-item v-for="(slide, slideIndex) in slides" :key="slideIndex">
         <v-sheet color="#31275C" height="100%" tile>
           <v-row align="center" justify="center" class="mx-2 relative">
-            <v-col v-for="(i, index) in 3" :key="index" cols="4">
+            <v-col v-for="(i, index) in 3" :key="index" cols="12" sm="6" md="4" lg="4" xl="4">
               <img :src="slide[index]" class="slider-img-width" />
             </v-col>
           </v-row>
         </v-sheet>
       </v-carousel-item>
     </v-carousel>
-    
+
     <!-- input for search -->
     <v-row class="pa-4">
       <v-text-field :placeholder="t('home.search')" class="form-textfield dark-textfield" variant="solo" dense filled
-        clearable prepend-inner-icon="mdi-magnify" color="#7782AA" height="40" />
+        clearable prepend-inner-icon="mdi-magnify" color="#7782AA" height="40px" />
     </v-row>
-    
+
     <!-- buttons for filter -->
     <v-row class="ml-4">
       <v-btn class="mr-2 my-2 text-none lobby-btn-color">
@@ -245,13 +289,14 @@ export default Dashboard;
         {{ t("home.button.blue_originals") }}
       </v-btn>
     </v-row>
-    
+
     <!-- original games -->
     <v-row class="ml-4 mt-6 mb-2 original_game_text">
       {{ t("home.original_games") }}
     </v-row>
     <v-row class="mx-2 mt-2">
-      <v-col lg="2" md="2" sm="3" class="px-2" v-ripple.center v-for="(item, index) in originalGames" :key="index">
+      <v-col cols="4" lg="2" md="2" sm="3" class="px-2" v-ripple.center v-for="(item, index) in originalGames"
+        :key="index">
         <v-img :src="item" class="original-game-img-width" />
       </v-col>
     </v-row>
@@ -260,14 +305,14 @@ export default Dashboard;
         {{ t("home.more") }}
       </v-btn>
     </v-row>
-    
+
     <!-- principal games -->
     <v-row class="ml-4 mt-6 mb-2 original_game_text">
       {{ t("home.principal") }}
     </v-row>
     <v-row class="mx-2 mt-2">
-      <v-col lg="2" md="2" sm="3" class="px-2" v-ripple.center v-for="(principalItem, principalIndex) in principalGames"
-        :key="principalIndex">
+      <v-col cols="4" lg="2" md="2" sm="4" class="px-2" v-ripple.center
+        v-for="(principalItem, principalIndex) in principalGames" :key="principalIndex">
         <v-img :src="principalItem" class="original-game-img-width" />
       </v-col>
     </v-row>
@@ -276,24 +321,25 @@ export default Dashboard;
         {{ t("home.more") }}
       </v-btn>
     </v-row>
-    
+
     <!-------------------- game providers -------------->
     <v-row class="ml-4 mt-6 mb-2 original_game_text">
       {{ t("home.game_providers") }}
     </v-row>
     <v-row class="mx-2 mt-2">
-      <v-col lg="2" md="2" sm="3" class="px-2" v-ripple.center
+      <v-col cols="4" lg="2" md="2" sm="3" class="px-2" v-ripple.center
         v-for="(gameProviderItem, gameProviderIndex) in gameProviders" :key="gameProviderIndex">
         <v-img :src="gameProviderItem" class="original-game-img-width" />
       </v-col>
     </v-row>
-    
+
     <!-------------------- slot games -------------->
     <v-row class="ml-4 mt-6 mb-2 original_game_text">
       {{ t("home.slots") }}
     </v-row>
     <v-row class="mx-2 mt-2">
-      <v-col lg="2" md="2" sm="3" class="px-2" v-ripple.center v-for="(slotItem, slotIndex) in slots" :key="slotIndex">
+      <v-col cols="4" lg="2" md="2" sm="3" class="px-2" v-ripple.center v-for="(slotItem, slotIndex) in slots"
+        :key="slotIndex">
         <v-img :src="slotItem" class="original-game-img-width" />
       </v-col>
     </v-row>
@@ -302,14 +348,14 @@ export default Dashboard;
         {{ t("home.more") }}
       </v-btn>
     </v-row>
-    
+
     <!-------------------- live casino games -------------->
     <v-row class="ml-4 mt-6 mb-2 original_game_text">
       {{ t("home.live_casino") }}
     </v-row>
     <v-row class="mx-2 mt-2">
-      <v-col lg="2" md="2" sm="3" class="px-2" v-ripple.center v-for="(liveCasinoItem, liveCasinoIndex) in liveCasinos"
-        :key="liveCasinoIndex">
+      <v-col cols="4" lg="2" md="2" sm="3" class="px-2" v-ripple.center
+        v-for="(liveCasinoItem, liveCasinoIndex) in liveCasinos" :key="liveCasinoIndex">
         <v-img :src="liveCasinoItem" class="original-game-img-width" />
       </v-col>
     </v-row>
@@ -318,22 +364,22 @@ export default Dashboard;
         {{ t("home.more") }}
       </v-btn>
     </v-row>
-    
+
     <!-------------------- footer bar -------------->
     <v-row class="mx-2 mt-16">
-      <v-col cols="2" class="text-center">
+      <v-col cols="3" sm="3" md="2" lg="2" class="text-center">
         <div class="footer-title">{{ t('home.footer.game.title') }}</div>
         <div class="footer-text-1">{{ t('home.footer.game.menu_1') }}</div>
         <div class="footer-text-1">{{ t('home.footer.game.menu_2') }}</div>
         <div class="footer-text-1">{{ t('home.footer.game.menu_3') }}</div>
         <div class="footer-text-1">{{ t('home.footer.game.menu_4') }}</div>
       </v-col>
-      <v-col cols="2" class="text-center">
+      <v-col cols="3" sm="3" md="2" lg="2" class="text-center">
         <div class="footer-title">{{ t('home.footer.helpful_links.title') }}</div>
         <div class="footer-text-1">{{ t('home.footer.helpful_links.menu_1') }}</div>
         <div class="footer-text-1">{{ t('home.footer.helpful_links.menu_2') }}</div>
       </v-col>
-      <v-col cols="3" class="text-center">
+      <v-col cols="6" sm="6" md="3" lg="3" class="text-center">
         <div class="footer-title">{{ t('home.footer.about_us.title') }}</div>
         <div class="footer-text-1">{{ t('home.footer.about_us.menu_1') }}</div>
         <div class="footer-text-1">{{ t('home.footer.about_us.menu_2') }}</div>
@@ -341,13 +387,14 @@ export default Dashboard;
         <div class="footer-text-1">{{ t('home.footer.about_us.menu_4') }}</div>
         <div class="footer-text-1">{{ t('home.footer.about_us.menu_5') }}</div>
       </v-col>
-      <v-col cols="5" class="text-center">
+      <v-col cols="12" sm="12" md="5" lg="5" class="text-center">
         <div>
           <img src="@/assets/public/svg/logo.svg" width="152" />
         </div>
         <div>
-          <v-btn color="grey-darken-4" :class="[footerIndex == 0 ? 'footer-icon-button-red' : 'footer-icon-button']" icon="" v-for="(footerIcon, footerIndex) in footerIcons" :key="footerIndex">
-            <img :src="footerIcon" style="width: 100%"/>
+          <v-btn color="grey-darken-4" :class="[footerIndex == 0 ? 'footer-icon-button-red' : 'footer-icon-button']"
+            icon="" v-for="(footerIcon, footerIndex) in footerIcons" :key="footerIndex">
+            <img :src="footerIcon" style="width: 100%" />
           </v-btn>
         </div>
         <p class="text-left footer-4-text mt-4">{{ t('home.footer.footer_4.text') }}</p>
@@ -356,12 +403,13 @@ export default Dashboard;
     <v-row class="mx-2 mt-6">
       <v-card color="#000000" theme="dark" class="justify-center">
         <v-row class="align-center">
-          <v-col cols="3" class="pa-8">
-            <img src="@/assets/home/svg/Logo.svg" style="width: 100%;"/>
+          <v-col cols="12" sm="6" md="3" lg="3" class="d-flex justify-center mt-3">
+            <img src="@/assets/home/svg/Logo.svg" width="200" />
           </v-col>
-          <v-col cols="9">
-            <div class="footer-5-text py-4">{{ t('home.footer.logo.text_1') }}</div>
-            <div class="footer-5-text py-4">{{ t('home.footer.logo.text_2') }}</div>
+          <v-col cols="12" sm="6" md="9" lg="9">
+            <div class="footer-5-text" :class="[mobileVersion == 'sm' ? 'px-4' : 'pa-4']">{{ t('home.footer.logo.text_1')
+            }}</div>
+            <div class="footer-5-text pa-4">{{ t('home.footer.logo.text_2') }}</div>
           </v-col>
         </v-row>
       </v-card>
@@ -373,6 +421,16 @@ export default Dashboard;
 </template>
 
 <style lang="scss">
+.mobile-login-dialog-position {
+  height: 800px !important;
+  border-radius: 0;
+  margin: 0;
+  position: absolute !important;
+  max-height: 800px !important;
+  bottom: 0 !important;
+  top: unset !important;
+}
+
 .slider-img-width {
   width: 100%;
   height: 200px;
@@ -498,22 +556,26 @@ export default Dashboard;
   height: 34px !important;
   margin: 0px 3px;
 }
+
 .footer-icon-button-red {
   background-color: #D42763 !important;
   width: 34px !important;
   height: 34px !important;
   margin: 0px 3px;
 }
-.footer-4-text{
+
+.footer-4-text {
   font-weight: 400;
   font-size: 12px;
   color: #7782AA;
 }
+
 .footer-5-text {
   font-weight: 400;
   font-size: 14px;
   color: #7782AA;
 }
+
 .footer-6-text {
   font-weight: 400;
   font-size: 16px;

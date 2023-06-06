@@ -29,8 +29,8 @@ export default LoginHeader
 </script>
 
 <template>
-    <v-row class="login-header-container">
-        <p class="login-logo-text black">
+    <v-row class="m-login-header-container">
+        <p class="m-login-logo-text black">
             <span :class="currentLanguage === 'en' ? 'ml-0' : 'ml-8'">
                 {{ t('login.formPage.header.titleLine1') }}
             </span>
@@ -43,17 +43,17 @@ export default LoginHeader
         <img src="@/assets/login/svg/login3.svg" class="logo-image3">
         <img src="@/assets/login/svg/login4.svg" class="logo-image4">
         <img src="@/assets/login/svg/login5.svg" class="logo-image5">
-        <img src="@/assets/login/svg/login6.svg" class="logo-image6">
+        <img src="@/assets/login/svg/login6.svg" class="m-logo-image6">
     </v-row>
 </template>
 
 <style lang="scss" scoped>
-.login-header-container {
+.m-login-header-container {
     z-index: 1;
     height: 187px;
     margin: 0px !important;
     background: linear-gradient(0deg, #275798 0%, #9419F0 100%);
-    border-radius: 16px 16px 0px 0px;
+    border-radius: 38px 38px 0px 0px;
 
     .v-col {
         z-index: 1;
@@ -85,10 +85,10 @@ export default LoginHeader
         top: 8px;
     }
 
-    img.logo-image6 {
+    img.m-logo-image6 {
         position: absolute;
-        left: 251px;
-        top: 43px;
+        right: 9px;
+        top: 56px;
     }
 
     img.bg-image {
@@ -113,10 +113,10 @@ export default LoginHeader
     }
 }
 
-.login-logo-text {
+.m-login-logo-text {
     position: absolute;
-    top: 57px;
-    left: 290px;
+    top: 68px;
+    right: 37px;
     z-index: 2;
     font-family: 'Inter';
     font-style: normal;

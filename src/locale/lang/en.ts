@@ -127,6 +127,8 @@ export const lang: langType = {
     }
   },
   appBar: {
+    logo_text_1: "BLUE",
+    logo_text_2: "GAME",
     id: "ID",
     account: "Account",
     deposit: "Deposit",

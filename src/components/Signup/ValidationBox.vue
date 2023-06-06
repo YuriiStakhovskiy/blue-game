@@ -43,7 +43,7 @@ export default ValidationBox
                 <v-icon class="mr-2 validation-item-icon">
                     {{ validationList[n - 1] ? 'mdi-check-circle' : 'mdi-close-circle' }}
                 </v-icon>
-                {{ descriptionList[n - 1] }}
+                <p>{{ descriptionList[n - 1] }}</p>
             </v-row>
         </v-row>
     </div>

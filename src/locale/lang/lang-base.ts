@@ -125,6 +125,8 @@ export type langType = {
     }
   }
   appBar: {
+    logo_text_1: string
+    logo_text_2: string
     id: string
     account: string
     deposit: string

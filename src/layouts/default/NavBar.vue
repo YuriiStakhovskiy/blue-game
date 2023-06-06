@@ -16,17 +16,20 @@ const navBarToggle = ref<boolean>(true);
 const { name } = useDisplay()
 
 const mobileVersion = computed(() => {
-  if (name.value == "md") {
-    navBarToggle.value = false;
-    setNavBarToggle(false);
-  } else if (name.value == "lg") {
-    navBarToggle.value = true;
-    setNavBarToggle(true);
-  } else if (name.value == "xl") {
-    navBarToggle.value = true;
-    setNavBarToggle(true);
-  }
-  return name.value
+    if (name.value == "sm") {
+        navBarToggle.value = false;
+        setNavBarToggle(false);
+    } else if (name.value == "md") {
+        navBarToggle.value = false;
+        setNavBarToggle(false);
+    } else if (name.value == "lg") {
+        navBarToggle.value = true;
+        setNavBarToggle(true);
+    } else if (name.value == "xl") {
+        navBarToggle.value = true;
+        setNavBarToggle(true);
+    }
+    return name.value
 });
 
 // language array
@@ -72,7 +75,8 @@ const handleLanguageDropdown = (item: string) => {
 </script>
 
 <template>
-    <v-navigation-drawer :temporary="mobileVersion == 'md' || mobileVersion == 'sm'" class="nav-background" :width="240" v-model="navBarToggle">
+    <v-navigation-drawer :temporary="mobileVersion == 'md' || mobileVersion == 'sm'" expand-on-hover
+        class="nav-background" :width="240" v-model="navBarToggle">
         <template v-slot:prepend>
             <v-list-item class="casino-toggle">
                 <input type="checkbox" id="casino-toggle" />
