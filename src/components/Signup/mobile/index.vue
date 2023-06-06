@@ -264,12 +264,6 @@ export default MSignup
                         {{ t('signup.formPage.button') }}
                     </v-btn>
                 </v-row>
-                <v-row class="d-flex justify-center mb-3 mt-3">
-                    <p class="signin-text mr-4">{{ t('signup.formPage.alreadyAccount') }}</p>
-                    <p class="signin-text2" @click="$emit('switch')">
-                        {{ t('signup.formPage.signIn') }}
-                    </p>
-                </v-row>
                 <v-row class="mt-2">
                     <p class="divide-text">
                         {{ t('signup.formPage.divider') }}
@@ -307,7 +301,8 @@ export default MSignup
                     </v-btn>
                 </v-row>
                 <v-row class="mt-4">
-                    <v-btn class="ma-3 button-dark text-none" width="-webkit-fill-available" height="54px" @click="$emit('close')">
+                    <v-btn class="ma-3 button-dark text-none" width="-webkit-fill-available" height="54px"
+                        @click="$emit('close')">
                         {{ t('signup.confirmCancelPage.cancel') }}
                     </v-btn>
                 </v-row>
@@ -363,7 +358,7 @@ export default MSignup
                         :descriptionList="userNameValidationStrList" :validationList="userNameValidationList" />
                 </v-row>
                 <v-row>
-                    <v-btn class="ma-3 mt-8 button-bright text-none" width="-webkit-fill-available" height="54px"
+                    <v-btn class="ma-3 mt-8 mb-8 button-bright text-none" width="-webkit-fill-available" height="54px"
                         :disabled="!validateUserName()" @click="$emit('close')">
                         {{ t('signup.displayNamePage.submit') }}
                     </v-btn>
@@ -411,6 +406,10 @@ button:active:enabled {
     bottom: 0;
     border-radius: 38px 38px 0px 0px;
     width: 100%;
+
+    .v-field--variant-solo {
+        background: transparent !important;
+    }
 }
 
 // wrapper

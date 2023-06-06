@@ -3,7 +3,7 @@
 import { authStore } from '@/store/auth';
 import { useI18n } from 'vue-i18n';
 const emit = defineEmits<{
-  (e: 'close'): void
+    (e: 'close'): void
 }>()
 const { t } = useI18n();
 const { dispatchSignout } = authStore();
@@ -89,6 +89,10 @@ const signOut = (): void => {
         position: absolute !important;
         top: 5px;
         right: 5px;
+    }
+
+    .v-field--variant-solo {
+        background: transparent !important;
     }
 }
 </style>

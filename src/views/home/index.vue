@@ -180,6 +180,14 @@ const Dashboard = defineComponent({
       return name.value
     });
 
+    watch(mobileVersion, (newValue) => {
+      if (newValue == "sm") {
+        state.loginDialog = false;
+        state.signupDialog = false;
+        state.mobileDialog = false;
+      }
+    })
+
     // trigger when authModalType changed
 
     watch(authModalType, (newValue: string) => {
@@ -215,27 +223,27 @@ export default Dashboard;
 
 <template>
   <div class="my-4 mx-2 home-body">
-    <v-dialog v-model="mobileDialog" :fullscreen="mobileVersion == 'sm'" transition="dialog-top-transition"
-      activator="parent" v-if="mobileVersion == 'sm'">
+    <v-dialog v-model="mobileDialog" :fullscreen="mobileVersion == 'sm'" transition="dialog-top-transition" class="mobile-dialog-toggle-height"
+      v-if="mobileVersion == 'sm'">
       <MobileDialog :mobileDialogCheck="mobileDialogCheck" @switchDialog="switchDialog" />
     </v-dialog>
-    <v-dialog v-model="signupDialog" width="471" :fullscreen="mobileVersion == 'sm'" :scrim="false"
-      :transition="mobileVersion == 'sm' ? 'dialog-bottom-transition' : ''"
-      :class="[mobileVersion == 'sm' ? 'mobile-login-dialog-position' : '']">
+    <v-dialog v-model="signupDialog" :width="mobileVersion == 'sm' ? '' : 471" :fullscreen="mobileVersion == 'sm'"
+      :scrim="mobileVersion == 'sm' ? false : true" :transition="mobileVersion == 'sm' ? 'dialog-bottom-transition' : ''"
+      :class="[mobileVersion == 'sm' ? 'mobile-login-dialog-position' : '']" @click:outside="closeDialog('signup')">
       <!------------  PC Version ------------>
       <Signup v-if="mobileVersion != 'sm'" @close="closeDialog('signup')" @switch="switchDialog('signup')" />
       <!------------  Mobile Version ------------>
       <MSignup v-else @close="closeDialog('signup')" @switch="switchDialog('signup')" />
     </v-dialog>
-    <v-dialog v-model="loginDialog" width="471" :fullscreen="mobileVersion == 'sm'" :scrim="false"
-      :transition="mobileVersion == 'sm' ? 'dialog-bottom-transition' : ''"
-      :class="[mobileVersion == 'sm' ? 'mobile-login-dialog-position' : '']">
+    <v-dialog v-model="loginDialog" :width="mobileVersion == 'sm' ? '' : 471" :fullscreen="mobileVersion == 'sm'"
+      :scrim="mobileVersion == 'sm' ? false : true" :transition="mobileVersion == 'sm' ? 'dialog-bottom-transition' : ''"
+      :class="[mobileVersion == 'sm' ? 'mobile-login-dialog-position' : '']" @click:outside="closeDialog('login')">
       <!------------  PC Version ------------>
       <Login v-if="mobileVersion != 'sm'" @close="closeDialog('login')" @switch="switchDialog('login')" />
       <!------------  Mobile Version ------------>
       <MLogin v-else @close="closeDialog('login')" @switch="switchDialog('login')" />
     </v-dialog>
-    <v-dialog v-model="signoutDialog" width="471" :fullscreen="mobileVersion == 'sm'"
+    <v-dialog v-model="signoutDialog" :width="mobileVersion == 'sm' ? '' : 471" :fullscreen="mobileVersion == 'sm'"
       :transition="mobileVersion == 'sm' ? 'dialog-bottom-transition' : ''">
       <Signout v-if="mobileVersion != 'sm'" @close="closeDialog('signout')" />
       <MSignout v-else @close="closeDialog('signout')" />
@@ -421,12 +429,17 @@ export default Dashboard;
 </template>
 
 <style lang="scss">
-.mobile-login-dialog-position {
-  height: 800px !important;
-  border-radius: 0;
-  margin: 0;
+.mobile-dialog-toggle-height {
+  height: 100px !important;
   position: absolute !important;
-  max-height: 800px !important;
+  margin: 0 !important;
+  bottom: unset !important;
+  top: 0 !important;
+}
+.mobile-login-dialog-position {
+  position: absolute !important;
+  margin: 0 !important;
+  height: 660px !important;
   bottom: 0 !important;
   top: unset !important;
 }
@@ -442,7 +455,7 @@ export default Dashboard;
 
 .prev-btn-position {
   position: absolute;
-  top: 30%;
+  top: 36%;
   left: 5px;
   width: 32px !important;
   height: 32px !important;
@@ -450,7 +463,7 @@ export default Dashboard;
 
 .next-btn-position {
   position: absolute;
-  top: 30%;
+  top: 36%;
   right: 5px;
   width: 32px !important;
   height: 32px !important;

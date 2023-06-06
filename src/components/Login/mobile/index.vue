@@ -14,7 +14,7 @@ const Login = defineComponent({
         // translation
         const { t } = useI18n();
         const { dispatchSignIn } = authStore();
-        const {setAuthModalType} = authStore();
+        const { setAuthModalType } = authStore();
 
         // initiate component state
         const state = reactive({
@@ -97,12 +97,6 @@ export default Login
                         :disabled="!isFormDataReady" :onclick="handleLoginFormSubmit">
                         {{ t('login.formPage.button') }}
                     </v-btn>
-                </v-row>
-                <v-row class="d-flex justify-center mb-4 mt-6">
-                    <p class="signin-text mr-2">{{ t('login.formPage.donthaveAccount') }}</p>
-                    <p class="signin-text2" @click="$emit('switch')">
-                        {{ t('login.formPage.createOne') }}
-                    </p>
                 </v-row>
                 <v-row class="mt-2">
                     <p class="divide-text">
@@ -189,6 +183,10 @@ button:active:enabled {
     bottom: 0;
     border-radius: 38px 38px 0px 0px;
     width: 100%;
+
+    .v-field--variant-solo {
+        background: transparent !important;
+    }
 }
 
 // wrapper
