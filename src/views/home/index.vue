@@ -223,8 +223,8 @@ export default Dashboard;
 
 <template>
   <div class="my-4 mx-2 home-body">
-    <v-dialog v-model="mobileDialog" :fullscreen="mobileVersion == 'sm'" transition="dialog-top-transition" class="mobile-dialog-toggle-height"
-      v-if="mobileVersion == 'sm'">
+    <v-dialog v-model="mobileDialog" :fullscreen="mobileVersion == 'sm'" transition="dialog-top-transition"
+      class="mobile-dialog-toggle-height" v-if="mobileVersion == 'sm'">
       <MobileDialog :mobileDialogCheck="mobileDialogCheck" @switchDialog="switchDialog" />
     </v-dialog>
     <v-dialog v-model="signupDialog" :width="mobileVersion == 'sm' ? '' : 471" :fullscreen="mobileVersion == 'sm'"
@@ -274,28 +274,47 @@ export default Dashboard;
     </v-carousel>
 
     <!-- input for search -->
-    <v-row class="pa-4">
-      <v-text-field :placeholder="t('home.search')" class="form-textfield dark-textfield" variant="solo" dense filled
-        clearable prepend-inner-icon="mdi-magnify" color="#7782AA" height="40px" />
+    <v-row class="px-4 mt-2">
+      <v-text-field :placeholder="t('home.search')" class="form-textfield dark-textfield" variant="solo" hide-details
+        filled clearable density="compact" prepend-inner-icon="mdi-magnify" color="#7782AA" />
     </v-row>
 
     <!-- buttons for filter -->
-    <v-row class="ml-4">
-      <v-btn class="mr-2 my-2 text-none lobby-btn-color">
-        {{ t("home.button.lobby") }}
-      </v-btn>
-      <v-btn class="mr-2 my-2 text-none popular-btn-color">
-        {{ t("home.button.popular") }}
-      </v-btn>
-      <v-btn class="mr-2 my-2 text-none popular-btn-color">
-        {{ t("home.button.slots") }}
-      </v-btn>
-      <v-btn class="mr-2 my-2 text-none popular-btn-color">
-        {{ t("home.button.live_casino") }}
-      </v-btn>
-      <v-btn class="mr-2 my-2 text-none popular-btn-color">
-        {{ t("home.button.blue_originals") }}
-      </v-btn>
+    <v-row :class="[mobileVersion == 'sm' ? 'mx-2' : 'mx-4']">
+      <template #default="scope" v-if="mobileVersion != 'sm'">
+        <v-btn class="mr-2 my-2 text-none lobby-btn-color">
+          {{ t("home.button.lobby") }}
+        </v-btn>
+        <v-btn class="mr-2 my-2 text-none popular-btn-color">
+          {{ t("home.button.popular") }}
+        </v-btn>
+        <v-btn class="mr-2 my-2 text-none popular-btn-color">
+          {{ t("home.button.slots") }}
+        </v-btn>
+        <v-btn class="mr-2 my-2 text-none popular-btn-color">
+          {{ t("home.button.live_casino") }}
+        </v-btn>
+        <v-btn class="mr-2 my-2 text-none popular-btn-color">
+          {{ t("home.button.blue_originals") }}
+        </v-btn>
+      </template>
+      <template #default="scope" v-else>
+        <v-col cols="4" class="px-1">
+          <v-btn class="mr-2 my-2 text-none lobby-btn-color">
+            {{ t("home.button.lobby") }}
+          </v-btn>
+        </v-col>
+        <v-col cols="4" class="px-1">
+          <v-btn class="mr-2 my-2 text-none popular-btn-color">
+            {{ t("home.button.popular") }}
+          </v-btn>
+        </v-col>
+        <v-col cols="4" class="px-1">
+          <v-btn class="mr-2 my-2 text-none popular-btn-color">
+            {{ t("home.button.slots") }}
+          </v-btn>
+        </v-col>
+      </template>
     </v-row>
 
     <!-- original games -->
@@ -309,7 +328,7 @@ export default Dashboard;
       </v-col>
     </v-row>
     <v-row class="ml-4 mt-4 justify-center">
-      <v-btn class="text-none more-btn-color" variant="outlined">
+      <v-btn class="text-none more-btn-color" variant="outlined" width="300">
         {{ t("home.more") }}
       </v-btn>
     </v-row>
@@ -319,13 +338,13 @@ export default Dashboard;
       {{ t("home.principal") }}
     </v-row>
     <v-row class="mx-2 mt-2">
-      <v-col cols="4" lg="2" md="2" sm="4" class="px-2" v-ripple.center
+      <v-col cols="4" lg="2" md="2" sm="3" class="px-2" v-ripple.center
         v-for="(principalItem, principalIndex) in principalGames" :key="principalIndex">
         <v-img :src="principalItem" class="original-game-img-width" />
       </v-col>
     </v-row>
     <v-row class="mt-4 justify-center">
-      <v-btn class="text-none more-btn-color" variant="outlined">
+      <v-btn class="text-none more-btn-color" variant="outlined" width="300">
         {{ t("home.more") }}
       </v-btn>
     </v-row>
@@ -335,12 +354,11 @@ export default Dashboard;
       {{ t("home.game_providers") }}
     </v-row>
     <v-row class="mx-2 mt-2">
-      <v-col cols="4" lg="2" md="2" sm="3" class="px-2" v-ripple.center
+      <v-col cols="4" lg="2" md="2" sm="3" class="px-2 py-1" v-ripple.center
         v-for="(gameProviderItem, gameProviderIndex) in gameProviders" :key="gameProviderIndex">
         <v-img :src="gameProviderItem" class="original-game-img-width" />
       </v-col>
     </v-row>
-
     <!-------------------- slot games -------------->
     <v-row class="ml-4 mt-6 mb-2 original_game_text">
       {{ t("home.slots") }}
@@ -352,7 +370,7 @@ export default Dashboard;
       </v-col>
     </v-row>
     <v-row class="mt-4 justify-center">
-      <v-btn class="text-none more-btn-color" variant="outlined">
+      <v-btn class="text-none more-btn-color" variant="outlined" width="300">
         {{ t("home.more") }}
       </v-btn>
     </v-row>
@@ -368,7 +386,7 @@ export default Dashboard;
       </v-col>
     </v-row>
     <v-row class="mt-4 justify-center">
-      <v-btn class="text-none more-btn-color" variant="outlined">
+      <v-btn class="text-none more-btn-color" variant="outlined" width="300">
         {{ t("home.more") }}
       </v-btn>
     </v-row>
@@ -436,6 +454,7 @@ export default Dashboard;
   bottom: unset !important;
   top: 0 !important;
 }
+
 .mobile-login-dialog-position {
   position: absolute !important;
   margin: 0 !important;

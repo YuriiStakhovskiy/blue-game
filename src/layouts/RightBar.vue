@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, computed, onMounted } from "vue";
+import { ref, computed, watch, onMounted } from "vue";
 import { useI18n } from "vue-i18n";
 import { type ChatRequestData } from "@/interface/chat";
 import { appBarStore } from "@/store/appBar";
@@ -7,11 +7,10 @@ import { storeToRefs } from "pinia";
 import { useDisplay } from 'vuetify'
 
 const { setRightBarToggle } = appBarStore();
+const { setNavBarToggle } = appBarStore();
 
 // mobile version name
-const { name } = useDisplay()
-const { width, mobile } = useDisplay()
-
+const { name, width } = useDisplay()
 const { t } = useI18n();
 // sport items
 const sportItems = ref<Array<string>>([
@@ -20,6 +19,7 @@ const sportItems = ref<Array<string>>([
 ]);
 // selected sport item
 const selectedItem = ref<string>("Sport");
+const drawer = ref<boolean>(true);
 
 const rightBarToggle = computed(() => {
   const { getRightBarToggle } = storeToRefs(appBarStore());
@@ -27,17 +27,23 @@ const rightBarToggle = computed(() => {
 });
 
 const mobileVersion = computed(() => {
-  if (name.value == "lg") {
-    setRightBarToggle(false);
-  } else if (name.value == "xl") {
-    setRightBarToggle(true);
-  } else if (name.value == "md") {
-    setRightBarToggle(false);
-  } else if (name.value == "sm") {
-    setRightBarToggle(false);
-  }
   return name.value
 });
+
+const mobileWidth: any = computed(() => {
+  return width.value;
+})
+
+watch(rightBarToggle, (newValue) => {
+  drawer.value = newValue;
+  if (mobileWidth.value < 600 && newValue) {
+    setNavBarToggle(false);
+  }
+})
+
+watch(drawer, (newValue: boolean) => {
+  setRightBarToggle(newValue);
+})
 
 const handleDropdown = (item: string): void => {
   selectedItem.value = item;
@@ -237,16 +243,14 @@ const messages = ref<Array<ChatRequestData>>([
     ],
   },
 ]);
-
 onMounted(() => {
-  console.log(width.value) // 960
-  console.log(mobile) // true
+  drawer.value = mobileWidth.value < 1280 ? false : true;
 })
 </script>
 
 <template>
-  <v-navigation-drawer :temporary="mobileVersion == 'lg' || mobileVersion == 'md' || mobileVersion == 'sm'"
-    :permanent="mobileVersion == 'xl'" class="nav-background" location="right" width="340" v-model="rightBarToggle" :fullWidth="mobileVersion == 'sm'">
+  <v-navigation-drawer :temporary="mobileWidth < 1280" class="nav-background" location="right" width="340"
+    v-model="drawer" :fullWidth="mobileVersion == 'sm'" :class="[mobileWidth < 600 ? 'pb-14' : '']">
     <template v-slot:prepend>
       <v-card color="#211F31" theme="dark" class="right-bar-card-border">
         <v-row class="ma-2 mt-3 align-center">

@@ -1,36 +1,34 @@
 <script lang="ts" setup>
-import { ref, computed } from "vue";
+import { ref, computed, watch, onMounted } from "vue";
 import { useI18n } from 'vue-i18n';
 import { type GetGameOriginalData } from "@/interface/navBar";
 import { useDisplay } from 'vuetify'
 import { appBarStore } from "@/store/appBar";
+import { storeToRefs } from "pinia";
 
 const { setNavBarToggle } = appBarStore();
+const { setRightBarToggle } = appBarStore();
 
 const { t } = useI18n();
 const open = ref<Array<string>>(['']);
 const language = ref<string>('English');
-const navBarToggle = ref<boolean>(true);
+const drawer = ref<boolean>(true);
 
 // mobile version name
-const { name } = useDisplay()
+const { name, width } = useDisplay()
 
 const mobileVersion = computed(() => {
-    if (name.value == "sm") {
-        navBarToggle.value = false;
-        setNavBarToggle(false);
-    } else if (name.value == "md") {
-        navBarToggle.value = false;
-        setNavBarToggle(false);
-    } else if (name.value == "lg") {
-        navBarToggle.value = true;
-        setNavBarToggle(true);
-    } else if (name.value == "xl") {
-        navBarToggle.value = true;
-        setNavBarToggle(true);
-    }
     return name.value
 });
+
+const mobileWidth = computed(() => {
+    return width.value
+})
+
+const navBarToggle = computed(() => {
+    const { getNavBarToggle } = storeToRefs(appBarStore());
+    return getNavBarToggle.value
+})
 
 // language array
 const langItems = ref<Array<string>>([
@@ -38,6 +36,7 @@ const langItems = ref<Array<string>>([
     t('navBar.language.portuguese'),
     t('navBar.language.espanola')
 ])
+
 // game original data array
 const gameOriginalItems = ref<Array<GetGameOriginalData>>([
     {
@@ -69,14 +68,30 @@ const gameOriginalItems = ref<Array<GetGameOriginalData>>([
         name: "SlotsSlotsSlotsSlotsSlots"
     }
 ])
+
+watch(drawer, (newValue: boolean) => {
+    setNavBarToggle(newValue);
+})
+
+watch(navBarToggle, (newValue) => {
+    drawer.value = newValue;
+    if (mobileWidth.value < 600 && newValue) {
+        setRightBarToggle(false);
+    }
+})
+
 const handleLanguageDropdown = (item: string) => {
     language.value = item;
 }
+
+onMounted(() => {
+    drawer.value = mobileWidth.value < 1280 ? false : true;
+})
 </script>
 
 <template>
-    <v-navigation-drawer :temporary="mobileVersion == 'md' || mobileVersion == 'sm'" expand-on-hover
-        class="nav-background" :width="240" v-model="navBarToggle">
+    <v-navigation-drawer :temporary="mobileWidth < 1280" expand-on-hover :scrim-opacity="0.6" class="nav-background"
+        :width="240" v-model="drawer" :class="[mobileWidth < 600 ? 'pb-16' : '']">
         <template v-slot:prepend>
             <v-list-item class="casino-toggle">
                 <input type="checkbox" id="casino-toggle" />
@@ -198,11 +213,11 @@ const handleLanguageDropdown = (item: string) => {
                 <label for="theme-toggle">
                     <div class="dark">
                         <img src="@/assets/left_navigation/svg/icon_public_46 (1).svg" />
-                        <P>{{ t('navBar.sound_mode.on') }}</P>
+                        <p>{{ t('navBar.sound_mode.on') }}</p>
                     </div>
                     <div class="light">
                         <img src="@/assets/left_navigation/svg/icon_public_47 (1).svg" />
-                        <P>{{ t('navBar.sound_mode.off') }}</P>
+                        <p>{{ t('navBar.sound_mode.off') }}</p>
                     </div>
                 </label>
             </v-list-item>
@@ -216,6 +231,14 @@ const handleLanguageDropdown = (item: string) => {
     color: #7782AA !important;
     border: 2px !important;
     box-shadow: 2px 0px 4px rgba(0, 0, 0, 0.25) !important;
+
+    .v-navigation-drawer__scrim {
+        opacity: 0.6 !important;
+    }
+}
+
+::deep(.v-navigation-drawer__scrim) {
+    opacity: 0.6 !important;
 }
 
 ::deep(.v-navigation-drawer__content) {

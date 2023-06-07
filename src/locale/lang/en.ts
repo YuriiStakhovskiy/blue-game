@@ -196,5 +196,12 @@ export const lang: langType = {
         text: "© 2023 Blue.game All rights reserved."
       }
     }
+  },  
+  mobile_menu: {
+    menu: "Menu",
+    casino: "Casino",
+    share: "SHARE",
+    sport: "Sport",
+    mail: "Mail"
   }
 };

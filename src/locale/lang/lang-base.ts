@@ -195,4 +195,11 @@ export type langType = {
       }
     }
   }
+  mobile_menu: {
+    menu: string
+    casino: string
+    share: string
+    sport: string
+    mail: string
+  }
 };

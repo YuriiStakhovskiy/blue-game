@@ -12,22 +12,14 @@ const { setAuthModalType } = authStore();
 const { setRightBarToggle } = appBarStore();
 const { setNavBarToggle } = appBarStore();
 
-const { name } = useDisplay()
+const { name, width } = useDisplay()
 
 type dialogType = "login" | "signup";
-const hideOnScroll = ref(false);
-const fadeOnScroll = ref(false);
-const fadeImgOnScroll = ref(false);
-const invertedScroll = ref(false);
-const collapse = ref(false);
-const collapseOnScroll = ref(false);
-const shrinkOnScroll = ref(false);
-const elevateOnScroll = ref(false);
-const extended = ref(false);
-const color = ref("#29263C");
+const color = ref<string>("#29263C");
 // translation
 const { t } = useI18n();
-const currentLanguage = ref("en");
+const currentLanguage = ref<string>("en");
+const appBarWidth = ref<string>("app-bar-pc");
 
 // logged in user info
 const user = ref<GetUserData>({
@@ -44,8 +36,6 @@ const user = ref<GetUserData>({
 const mailCount = ref<number>(10);
 // message count
 const messageCount = ref<number>(299);
-
-const appBarWidth = ref<string>('app-bar-width');
 
 // get Token
 const token = computed(() => {
@@ -67,32 +57,31 @@ const mobileVersion = computed(() => {
   return name.value
 });
 
+const mobileWidth: any = computed(() => {
+  return width.value;
+})
+
 watch(rightBarToggle, (newValue) => {
-  if (newValue && navBarToggle.value) {
-    appBarWidth.value = "app-bar-width";
-  } else if (newValue && !navBarToggle.value) {
-    appBarWidth.value = "app-bar-width-1";
-  } else if (!newValue && navBarToggle.value) {
-    appBarWidth.value = "app-bar-width-2";
-  } else if (!newValue && !navBarToggle.value) {
-    appBarWidth.value = "app-bar-width-3";
-  }
-  if (mobileVersion.value == "sm") {
-    if (newValue || navBarToggle.value) {
-      appBarWidth.value = "app-bar-none";
+  if (mobileWidth.value > 1280) {
+    if (newValue) {
+      appBarWidth.value = "app-bar-pc";
+    } else {
+      appBarWidth.value = "app-bar-pc-1";
     }
+  } else {
+    appBarWidth.value = "app-bar-mobile";
   }
 })
 
-watch(navBarToggle, (newValue) => {
-  if (newValue && rightBarToggle.value) {
-    appBarWidth.value = "app-bar-width";
-  } else if (newValue && !rightBarToggle.value) {
-    appBarWidth.value = "app-bar-width-2";
-  } else if (!newValue && rightBarToggle.value) {
-    appBarWidth.value = "app-bar-width-1";
-  } else if (!newValue && !rightBarToggle.value) {
-    appBarWidth.value = "app-bar-width-3";
+watch(mobileWidth, (newValue: number) => {
+  if (newValue > 1280) {
+    if (rightBarToggle.value) {
+      appBarWidth.value = "app-bar-pc";
+    } else {
+      appBarWidth.value = "app-bar-pc-1";
+    }
+  } else {
+    appBarWidth.value = "app-bar-mobile";
   }
 })
 
@@ -118,12 +107,9 @@ onMounted(() => {
 </script>
 
 <template>
-  <v-app-bar app dark :color="color" :elevate-on-scroll="elevateOnScroll" :hide-on-scroll="hideOnScroll"
-    :fade-on-scroll="fadeOnScroll" :fade-img-on-scroll="fadeImgOnScroll" :inverted-scroll="invertedScroll"
-    :collapse="collapse" :collapse-on-scroll="collapseOnScroll" :shrink-on-scroll="shrinkOnScroll" :extended="extended"
-    :class="appBarWidth" class="app-bar-height">
-    <!-- <v-app-bar-nav-icon></v-app-bar-nav-icon> -->
-    <v-toolbar-title v-if="mobileVersion != 'sm'">
+  <v-app-bar app dark :color="color" :class="appBarWidth" class="app-bar-height">
+    <v-app-bar-nav-icon @click.stop="setNavBarToggle(true)" v-if="!navBarToggle && mobileWidth > 600"></v-app-bar-nav-icon>
+    <v-toolbar-title v-if="mobileWidth > 800">
       <img src="@/assets/public/svg/logo.svg" class="mt-3" />
     </v-toolbar-title>
     <v-toolbar-title v-else>
@@ -145,7 +131,7 @@ onMounted(() => {
       <div class="d-flex">
         <v-menu offset="10" class="deposit-menu">
           <template v-slot:activator="{ props }">
-            <v-card color="#29263C" theme="dark" class="mr-4 mt-2 user-card-height">
+            <v-card color="#29263C" theme="dark" class="mr-4 mt-2 user-card-height" v-if="mobileWidth > 600">
               <v-list-item class="deposit-item user-card-height" v-bind="props" value="deposit dropdown">
                 <div class="d-flex align-center">
                   <p class="mr-1">{{ user.currency }}</p>
@@ -155,13 +141,22 @@ onMounted(() => {
                 </div>
               </v-list-item>
             </v-card>
+            <v-card color="#29263C" theme="dark" class="mr-2 mt-2 user-card-height" v-else>
+              <v-list-item class="deposit-item user-card-height" v-bind="props" value="deposit dropdown">
+                <div class="d-flex align-center">
+                  <p class="mr-1">{{ user.currency }}</p>
+                  <p class="mr-2">{{ user.wallet }}</p>
+                  <img src="@/assets/app_bar/svg/down.svg" class="mr-2" />
+                  <img src="@/assets/app_bar/svg/deposit.svg" class="deposit-icon-position" width="50" />
+                </div>
+              </v-list-item>
+            </v-card>
           </template>
-          <!-- <v-list theme="dark" bg-color="#211F31">
-                                                </v-list> -->
+          <!-- <v-list theme="dark" bg-color="#211F31"></v-list> -->
         </v-menu>
         <v-menu offset="10" class="user-menu">
           <template v-slot:activator="{ props }">
-            <v-card color="#29263C" theme="dark" class="mr-4 mt-2 user-card-height">
+            <v-card color="#29263C" theme="dark" class="mr-4 mt-2 user-card-height" v-if="mobileWidth > 600">
               <v-list-item class="user-item" v-bind="props" value="user dropdown">
                 <div class="d-flex align-center">
                   <img :src="user.avatar" class="user-avatar-width" />
@@ -175,8 +170,13 @@ onMounted(() => {
                 </div>
               </v-list-item>
             </v-card>
+            <div class="d-flex align-center" v-else>
+              <v-list-item class="user-item" v-bind="props" value="user dropdown">
+                <img :src="user.avatar" width="40" height="40" class="mt-3" />
+              </v-list-item>
+            </div>
           </template>
-          <v-list theme="dark" bg-color="#211F31" class="px-2">
+          <v-list theme="dark" bg-color="#211F31" class="px-2" width="320">
             <v-list-item class="user-item" value="id">
               <template v-slot:prepend>
                 <img src="@/assets/app_bar/svg/icon_public_58.svg" />
@@ -289,18 +289,18 @@ onMounted(() => {
             <v-list-item class="user-item">
               <v-list-item-title>
                 <div class="d-flex justify-center sign-out-btn" v-ripple.center @click="showSignoutDialog">
-                  <img src="@/assets/app_bar/svg/icon_public_70.svg" />
+                  <img src="@/assets/app_bar/svg/icon_public_70.svg" class="mr-4" />
                   {{ t('appBar.sign_out') }}
                 </div>
               </v-list-item-title>
             </v-list-item>
           </v-list>
         </v-menu>
-        <div class="mr-4 mt-5 relative mail-height" v-ripple.center>
+        <div class="mr-4 mt-5 relative mail-height" v-ripple.center v-if="mobileWidth > 600">
           <img src="@/assets/app_bar/svg/icon_public_55.svg" />
           <p class="chat-box-text">{{ mailCount }}</p>
         </div>
-        <div class="mr-8 mt-5 relative mail-height" v-ripple @click="setRightBarToggle(true)">
+        <div class="mr-8 mt-5 relative mail-height" v-ripple @click="setRightBarToggle(true)" v-if="mobileWidth > 600">
           <img src="@/assets/app_bar/svg/icon_public_56.svg" />
           <p class="chat-box-text">{{ messageCount }}</p>
         </div>
@@ -334,22 +334,17 @@ onMounted(() => {
   left: 4px;
 }
 
-.app-bar-width {
+.app-bar-pc {
   width: calc((100% - 620px) - 0px) !important;
   margin-left: 260px;
 }
 
-.app-bar-width-1 {
-  width: calc((100% - 360px) - 0px) !important;
-  margin-left: 10px;
-}
-
-.app-bar-width-2 {
+.app-bar-pc-1 {
   width: calc((100% - 260px) - 0px) !important;
   margin-left: 250px;
 }
 
-.app-bar-width-3 {
+.app-bar-mobile {
   width: 100%;
 }
 

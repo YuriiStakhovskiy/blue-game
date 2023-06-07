@@ -16,7 +16,7 @@ export default createVuetify({
   display: {
     mobileBreakpoint: 'sm',
     thresholds: {
-      xs: 340,
+      xs: 0,
       sm: 340,
       md: 540,
       lg: 800,
