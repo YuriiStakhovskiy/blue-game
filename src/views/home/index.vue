@@ -51,9 +51,14 @@ const Dashboard = defineComponent({
           new URL("@/assets/home/image/img_hp_03.png", import.meta.url).href,
         ],
         [
-          new URL("@/assets/home/image/img_hp_01.png", import.meta.url).href,
           new URL("@/assets/home/image/img_hp_02.png", import.meta.url).href,
+          new URL("@/assets/home/image/img_hp_01.png", import.meta.url).href,
           new URL("@/assets/home/image/img_hp_03.png", import.meta.url).href,
+        ],
+        [
+          new URL("@/assets/home/image/img_hp_03.png", import.meta.url).href,
+          new URL("@/assets/home/image/img_hp_02.png", import.meta.url).href,
+          new URL("@/assets/home/image/img_hp_01.png", import.meta.url).href,
         ],
         [
           new URL("@/assets/home/image/img_hp_01.png", import.meta.url).href,
@@ -61,29 +66,14 @@ const Dashboard = defineComponent({
           new URL("@/assets/home/image/img_hp_03.png", import.meta.url).href,
         ],
         [
-          new URL("@/assets/home/image/img_hp_01.png", import.meta.url).href,
           new URL("@/assets/home/image/img_hp_02.png", import.meta.url).href,
+          new URL("@/assets/home/image/img_hp_01.png", import.meta.url).href,
           new URL("@/assets/home/image/img_hp_03.png", import.meta.url).href,
         ],
         [
-          new URL("@/assets/home/image/img_hp_01.png", import.meta.url).href,
-          new URL("@/assets/home/image/img_hp_02.png", import.meta.url).href,
           new URL("@/assets/home/image/img_hp_03.png", import.meta.url).href,
-        ],
-        [
-          new URL("@/assets/home/image/img_hp_01.png", import.meta.url).href,
           new URL("@/assets/home/image/img_hp_02.png", import.meta.url).href,
-          new URL("@/assets/home/image/img_hp_03.png", import.meta.url).href,
-        ],
-        [
           new URL("@/assets/home/image/img_hp_01.png", import.meta.url).href,
-          new URL("@/assets/home/image/img_hp_02.png", import.meta.url).href,
-          new URL("@/assets/home/image/img_hp_03.png", import.meta.url).href,
-        ],
-        [
-          new URL("@/assets/home/image/img_hp_01.png", import.meta.url).href,
-          new URL("@/assets/home/image/img_hp_02.png", import.meta.url).href,
-          new URL("@/assets/home/image/img_hp_03.png", import.meta.url).href,
         ],
         [
           new URL("@/assets/home/image/img_hp_01.png", import.meta.url).href,

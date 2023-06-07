@@ -109,11 +109,11 @@ onMounted(() => {
 <template>
   <v-app-bar app dark :color="color" :class="appBarWidth" class="app-bar-height">
     <v-app-bar-nav-icon @click.stop="setNavBarToggle(true)" v-if="!navBarToggle && mobileWidth > 600"></v-app-bar-nav-icon>
-    <v-toolbar-title v-if="mobileWidth > 800">
-      <img src="@/assets/public/svg/logo.svg" class="mt-3" />
+    <v-toolbar-title v-if="mobileWidth > 800" v-ripple.center>
+      <img src="@/assets/public/svg/logo.svg" class="mt-3" style="cursor: pointer;"/>
     </v-toolbar-title>
     <v-toolbar-title v-else>
-      <div class="d-flex align-center">
+      <div class="d-flex align-center" v-ripple.center style="width: 110px;">
         <div>
           <img src="@/assets/public/svg/logo2.svg" class="mt-3" />
         </div>
