@@ -212,6 +212,16 @@ export const lang: langType = {
     validation: {
       text_1: "Enter the amount you want to deposit.",
       text_2: "Minimum 20, Maximum 100000."
+    },
+    check_text: "Not participating in promotional activities",
+    other_text: "0.00% fee,R$20.00+R$20.00 bonus into your account",
+    deposit_btn_text: "DEPOSIT",    
+    personal_information: {
+      header_text: "Enter your Pix details",
+      id_text: "ID Number(CPF)",
+      first_name: "Fist Name",
+      last_name: "Last Name",
+      confirm_text: "Confirm"
     }
   }
 };

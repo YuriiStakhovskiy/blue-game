@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref, computed, watch } from 'vue';
 import { appBarStore } from '@/store/appBar';
 import { type GetCurrencyItem } from '@/interface/deposit';
 import { type GetPaymentItem } from '@/interface/deposit';
@@ -99,7 +99,44 @@ const depositRate = ref<string>("+100%");
 
 const depositAmount = ref<string>("")
 
+const bonusCheck = ref<boolean>(false);
+
+const personalInfoToggle = ref<boolean>(false);
+
+const items = ref([
+    {
+        title: 'Foo',
+        value: 'foo',
+    },
+    {
+        title: 'Bar',
+        value: 'bar',
+    },
+    {
+        title: 'Fizz',
+        value: 'fizz',
+    },
+    {
+        title: 'Buzz',
+        value: 'buzz',
+    },
+]);
+
+const personalInfoItem = ref({
+    id: "",
+    first_name: "",
+    last_name: ""
+})
+
 const isShowAmountValidaton = ref<boolean>(false);
+
+const isDepositBtnReady = ref<boolean>(false);
+
+const isPersonalBtnReady = ref<boolean>(false);
+
+const handlePersonalInfoToggle = (): void => {
+    personalInfoToggle.value = !personalInfoToggle.value;
+}
 
 const handleDepositAmount = (amount: string) => {
     depositAmount.value = amount;
@@ -140,13 +177,98 @@ const handleAmountInputBlur = (): void => {
         isShowAmountValidaton.value = true;
     }
 }
+
+const handlePersonalInfoID = (): void => {
+    if (personalInfoItem.value.id != "" && personalInfoItem.value.first_name != "" && personalInfoItem.value.last_name != "") {
+        isPersonalBtnReady.value = true;
+    } else {
+        isPersonalBtnReady.value = false;
+    }
+}
+
+const handlePersonalInfoFirstName = ():void => {
+    if (personalInfoItem.value.id != "" && personalInfoItem.value.first_name != "" && personalInfoItem.value.last_name != "") {
+        isPersonalBtnReady.value = true;
+    } else {
+        isPersonalBtnReady.value = false;
+    }
+}
+
+const handlePersonalInfoLastName = ():void => {
+    if (personalInfoItem.value.id != "" && personalInfoItem.value.first_name != "" && personalInfoItem.value.last_name != "") {
+        isPersonalBtnReady.value = true;
+    } else {
+        isPersonalBtnReady.value = false;
+    }
+}
+
+const handlePersonalInfoSubmit = ():void => {
+
+}
+
+const handleDepositSubmit = (): void => {
+    setDepositDialogToggle(false);
+}
+
+watch(bonusCheck, (newValue) => {
+    if (newValue && validateAmount()) {
+        isDepositBtnReady.value = true;
+    } else {
+        isDepositBtnReady.value = false;
+    }
+})
+
+watch(depositAmount, (newValue) => {
+    if (bonusCheck.value && validateAmount()) {
+        isDepositBtnReady.value = true;
+    } else {
+        isDepositBtnReady.value = false;
+    }
+})
 </script>
   
 <template>
     <div class="deposit-container">
         <div class="header d-flex align-center relative">
-            <img src="@/assets/deposit/image/Group 772544197.png" width="48" height="48" class="ml-4" />
-            <img src="@/assets/deposit/svg/icon_public_11.svg" class="ml-2" />
+            <v-menu :close-on-content-click=false>
+                <template v-slot:activator="{ props }">
+                    <v-btn class="deposit-header-btn" v-bind="props" @click="handlePersonalInfoToggle">
+                        <img src="@/assets/deposit/image/Group 772544197.png" width="48" height="48" class="ml-4" />
+                        <v-icon class="header-mdi-icon">mdi-chevron-right</v-icon>
+                    </v-btn>
+                </template>
+                <v-list theme="dark" bg-color="#29253C" class="px-2" width="471">
+                    <v-list-item class="pt-4">
+                        <div class="text-center deposit-text">
+                            {{ t('deposit_dialog.personal_information.header_text') }}
+                        </div>
+                    </v-list-item>
+                    <v-list-item>
+                        <v-text-field :label="t('deposit_dialog.personal_information.id_text')"
+                            class="form-textfield dark-textfield mx-2" variant="solo" density="comfortable"
+                            append-icon="mdi" color="#7782AA" v-model="personalInfoItem.id" @input="handlePersonalInfoID"/>
+                        <img src="@/assets/deposit/svg/icon_public_19.svg" class="personal-info-key-position" />
+                    </v-list-item>
+                    <v-list-item>
+                        <div class="d-flex">
+                            <v-text-field :label="t('deposit_dialog.personal_information.first_name')"
+                                class="form-textfield dark-textfield mx-1" variant="solo" density="comfortable"
+                                append-icon="mdi" color="#7782AA" v-model="personalInfoItem.first_name" @input="handlePersonalInfoFirstName"/>
+                            <img src="@/assets/deposit/svg/icon_public_19.svg" class="personal-info-key-position-1" />
+                            <v-text-field :label="t('deposit_dialog.personal_information.last_name')"
+                                class="form-textfield dark-textfield mx-1" variant="solo" density="comfortable"
+                                append-icon="mdi" color="#7782AA" v-model="personalInfoItem.last_name" @input="handlePersonalInfoLastName"/>
+                            <img src="@/assets/deposit/svg/icon_public_19.svg" class="personal-info-key-position-2" />
+                        </div>
+                    </v-list-item>
+                    <v-list-item>
+                        <v-btn class="mx-16 mt-2 mb-6 button-bright text-none" width="-webkit-fill-available" height="50px"
+                            :disabled="!isPersonalBtnReady" :onclick="handlePersonalInfoSubmit">
+                            {{ t('deposit_dialog.personal_information.confirm_text') }}
+                        </v-btn>
+                    </v-list-item>
+                </v-list>
+            </v-menu>
             <div class="deposit-toggle">
                 <input type="checkbox" id="deposit-toggle" />
                 <label for="deposit-toggle">
@@ -244,10 +366,23 @@ const handleAmountInputBlur = (): void => {
                 @input="handleAmountInputChange" />
             <ValidationBox v-if="isShowAmountValidaton" />
         </v-row>
-        <v-row class="mt-2 mx-10">
-            <v-col cols="1" class="pl-1">
-                <v-checkbox hide-details icon class="agreement-checkbox" />
+        <v-row class="mt-0 mx-10 align-center">
+            <v-col cols="1">
+                <v-checkbox hide-details icon class="amount-checkbox" v-model="bonusCheck" />
             </v-col>
+            <v-col cols="11" class="d-flex">
+                <p class="deposit-text mt-1 ml-1">{{ t('deposit_dialog.check_text') }}</p>
+                <img src="@/assets/deposit/svg/icon_public_22.svg" class="ml-auto" />
+            </v-col>
+        </v-row>
+        <v-row class="mt-16 deposit-other-text justify-center">
+            {{ t('deposit_dialog.other_text') }}
+        </v-row>
+        <v-row class="mt-2 mx-8">
+            <v-btn class="ma-3 button-bright text-none" width="-webkit-fill-available" height="54px"
+                :disabled="!isDepositBtnReady" :onclick="handleDepositSubmit">
+                {{ t('deposit_dialog.deposit_btn_text') }}
+            </v-btn>
         </v-row>
     </div>
 </template>
@@ -264,6 +399,20 @@ const handleAmountInputBlur = (): void => {
         background: #29253C;
         border-radius: 16px 16px 0px 0px;
         height: 80px;
+    }
+
+    .deposit-header-btn {
+        width: 100px;
+        height: 60px;
+        background: #29253C;
+        box-shadow: none !important;
+        border: none !important;
+    }
+
+    .header-mdi-icon {
+        font-weight: 800;
+        font-size: 28px;
+        color: #FFFFFF;
     }
 
     // close modal button
@@ -367,12 +516,6 @@ const handleAmountInputBlur = (): void => {
 
     }
 
-    .deposit-text {
-        font-weight: 400;
-        font-size: 14px;
-        color: #7782AA;
-    }
-
     .deposit-card-height {
         height: 48px;
     }
@@ -438,20 +581,9 @@ const handleAmountInputBlur = (): void => {
         background: transparent !important;
     }
 
-    // agreement
-    .agreement-text {
-        font-family: 'Inter';
-        font-style: normal;
-        font-weight: 600;
-        font-size: 14px;
-        line-height: 17px;
-        margin-top: 13px;
-        color: #7782AA;
-    }
-
-    .agreement-checkbox {
+    .amount-checkbox {
         i.v-icon {
-            color: #211F31;
+            color: #1C1929;
             background-color: #01983A;
             width: 16px;
             height: 16px;
@@ -460,11 +592,41 @@ const handleAmountInputBlur = (): void => {
         }
 
         i.mdi-checkbox-blank-outline {
-            background-color: #211F31;
+            background-color: #1C1929;
             box-shadow: inset 1px 0px 2px 1px rgba(0, 0, 0, 0.11);
             border-radius: 4px;
         }
     }
+
+    .deposit-other-text {
+        font-weight: 600;
+        font-size: 12px;
+        color: #FFFFFF;
+    }
+}
+
+.personal-info-key-position {
+    position: absolute;
+    top: 28px;
+    right: 85px;
+}
+
+.personal-info-key-position-1 {
+    position: absolute;
+    top: 28px;
+    left: 155px;
+}
+
+.personal-info-key-position-2 {
+    position: absolute;
+    top: 28px;
+    right: 70px;
+}
+
+.deposit-text {
+    font-weight: 400;
+    font-size: 14px;
+    color: #7782AA;
 }
 
 .payment-select-item {

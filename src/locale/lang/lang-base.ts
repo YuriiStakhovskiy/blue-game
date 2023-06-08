@@ -211,5 +211,15 @@ export type langType = {
       text_1: string
       text_2: string
     }
+    check_text: string
+    other_text: string
+    deposit_btn_text: string
+    personal_information: {
+      header_text: string
+      id_text: string
+      first_name: string
+      last_name: string
+      confirm_text: string
+    }
   }
 };
