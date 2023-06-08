@@ -234,7 +234,7 @@ export default Dashboard;
       <MLogin v-else @close="closeDialog('login')" @switch="switchDialog('login')" />
     </v-dialog>
     <v-dialog v-model="signoutDialog" :width="mobileVersion == 'sm' ? '' : 471" :fullscreen="mobileVersion == 'sm'"
-      :transition="mobileVersion == 'sm' ? 'dialog-bottom-transition' : ''">
+      :transition="mobileVersion == 'sm' ? 'dialog-bottom-transition' : ''" @click:outside="closeDialog('signout')">
       <Signout v-if="mobileVersion != 'sm'" @close="closeDialog('signout')" />
       <MSignout v-else @close="closeDialog('signout')" />
     </v-dialog>

@@ -203,5 +203,15 @@ export const lang: langType = {
     share: "SHARE",
     sport: "Sport",
     mail: "Mail"
+  },  
+  deposit_dialog: {
+    deposit_currency: "Deposit Currency",
+    choose_payment_method: "Choose a Payment Method",
+    deposit_amount: "Deposit amount",
+    amount: "Amount",
+    validation: {
+      text_1: "Enter the amount you want to deposit.",
+      text_2: "Minimum 20, Maximum 100000."
+    }
   }
 };

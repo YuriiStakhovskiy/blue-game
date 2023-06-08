@@ -21,8 +21,12 @@ const mobileWidth = computed(() => {
     <NavBarLayout />
     <MainLayout />
     <RightBarLayout />
-    <MobileMenuLayout v-if="mobileWidth < 600"/>
+    <MobileMenuLayout v-if="mobileWidth < 600" />
   </v-app>
 </template>
 
-<style lang="scss"></style>
+<style lang="scss">
+.v-navigation-drawer__scrim {
+  opacity: 0.8 !important;
+}
+</style>

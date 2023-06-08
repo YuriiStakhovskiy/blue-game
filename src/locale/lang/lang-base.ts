@@ -202,4 +202,14 @@ export type langType = {
     sport: string
     mail: string
   }
+  deposit_dialog: {
+    deposit_currency: string
+    choose_payment_method: string
+    deposit_amount: string
+    amount: string
+    validation: {
+      text_1: string
+      text_2: string
+    }
+  }
 };

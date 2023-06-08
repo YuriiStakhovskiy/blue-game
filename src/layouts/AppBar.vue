@@ -11,6 +11,7 @@ import { useDisplay } from 'vuetify'
 const { setAuthModalType } = authStore();
 const { setRightBarToggle } = appBarStore();
 const { setNavBarToggle } = appBarStore();
+const { setDepositDialogToggle } = appBarStore();
 
 const { name, width } = useDisplay()
 
@@ -108,9 +109,12 @@ onMounted(() => {
 
 <template>
   <v-app-bar app dark :color="color" :class="appBarWidth" class="app-bar-height">
-    <v-app-bar-nav-icon @click.stop="setNavBarToggle(true)" v-if="!navBarToggle && mobileWidth > 600"></v-app-bar-nav-icon>
+    <v-app-bar-nav-icon @click.stop="setNavBarToggle(true)"
+      v-if="!navBarToggle && mobileWidth > 600"></v-app-bar-nav-icon>
     <v-toolbar-title v-if="mobileWidth > 800" v-ripple.center>
-      <img src="@/assets/public/svg/logo.svg" class="mt-3" style="cursor: pointer;"/>
+      <v-btn style="height: 60px">
+        <img src="@/assets/public/svg/logo.svg" class="mt-3" />
+      </v-btn>
     </v-toolbar-title>
     <v-toolbar-title v-else>
       <div class="d-flex align-center" v-ripple.center style="width: 110px;">
@@ -132,7 +136,7 @@ onMounted(() => {
         <v-menu offset="10" class="deposit-menu">
           <template v-slot:activator="{ props }">
             <v-card color="#29263C" theme="dark" class="mr-4 mt-2 user-card-height" v-if="mobileWidth > 600">
-              <v-list-item class="deposit-item user-card-height" v-bind="props" value="deposit dropdown">
+              <v-list-item class="deposit-item user-card-height" v-bind="props" value="deposit dropdown" @click="setDepositDialogToggle(true)">
                 <div class="d-flex align-center">
                   <p class="mr-1">{{ user.currency }}</p>
                   <p class="mr-2">{{ user.wallet }}</p>
@@ -142,7 +146,7 @@ onMounted(() => {
               </v-list-item>
             </v-card>
             <v-card color="#29263C" theme="dark" class="mr-2 mt-2 user-card-height" v-else>
-              <v-list-item class="deposit-item user-card-height" v-bind="props" value="deposit dropdown">
+              <v-list-item class="deposit-item user-card-height" v-bind="props" value="deposit dropdown" @click="setDepositDialogToggle(true)">
                 <div class="d-flex align-center">
                   <p class="mr-1">{{ user.currency }}</p>
                   <p class="mr-2">{{ user.wallet }}</p>
@@ -152,7 +156,6 @@ onMounted(() => {
               </v-list-item>
             </v-card>
           </template>
-          <!-- <v-list theme="dark" bg-color="#211F31"></v-list> -->
         </v-menu>
         <v-menu offset="10" class="user-menu">
           <template v-slot:activator="{ props }">
