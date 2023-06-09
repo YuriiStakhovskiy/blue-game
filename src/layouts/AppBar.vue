@@ -509,7 +509,7 @@ onMounted(() => {
 }
 
 .grade-text-position {
-  margin-left: auto
+  margin-left: 34px;
 }
 
 .refer-friend-background {

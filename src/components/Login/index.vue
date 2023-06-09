@@ -4,10 +4,12 @@ import { defineComponent, reactive, toRefs, computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import LoginHeader from './Header.vue'
 import { authStore } from "@/store/auth";
+import Notification from "@/components/notification/index.vue";
 
 const Login = defineComponent({
     components: {
         LoginHeader,
+        Notification
     },
     emits: ["close", "switch"],
     setup(props, { emit }) {
@@ -34,7 +36,8 @@ const Login = defineComponent({
                 "linkedin",
             ],
             isShowPassword: false,
-            snackbar: false,
+            notificationShow: false,
+            checkIcon: new URL("@/assets/public/svg/icon_public_18.svg", import.meta.url).href
         });
 
         // computed variables
@@ -140,7 +143,7 @@ export default Login
                 </v-row>
                 <v-row class="mt-8">
                     <v-btn class="ma-3 button-bright text-none" width="-webkit-fill-available" height="60px"
-                        autocapitalize="off" @click="snackbar = true">
+                        autocapitalize="off" @click="notificationShow = !notificationShow">
                         {{ t('login.forgotPasswordPage.submit') }}
                     </v-btn>
                 </v-row>
@@ -151,21 +154,7 @@ export default Login
                 mdi-close
             </v-icon>
         </v-btn>
-        <v-snackbar v-model="snackbar" multi-line color="#181522" class="snack-bar">
-            <template v-slot:actions>
-                <v-icon class="ml-4 mr-4" color="#01983A" size="x-large">
-                    mdi-check
-                </v-icon>
-                <p class="label-text-sm slate-gray notification-text">
-                    {{ t('login.forgotPasswordPage.notification') }}
-                </p>
-                <v-btn class="close-button mt-3 mr-2" variant="text" @click="snackbar = false">
-                    <v-icon :color="currentPage !== PAGE_TYPE.LOGIN_FORM ? '#7782AA' : '#FFFFFF'">
-                        mdi-close
-                    </v-icon>
-                </v-btn>
-            </template>
-        </v-snackbar>
+        <Notification :notificationShow="notificationShow" :notificationText="t('login.forgotPasswordPage.notification')" :checkIcon="checkIcon"/>
     </div>
 </template>
 
@@ -245,17 +234,5 @@ button:active:enabled {
 
 .text-large {
     font-size: 32px !important;
-}
-
-.snack-bar {
-    .v-overlay__content {
-        position: absolute;
-        bottom: 85% !important;
-        left: 85% !important;
-    }
-
-    .notification-text {
-        width: 207px;
-    }
 }
 </style>

@@ -220,6 +220,8 @@ export type langType = {
       first_name: string
       last_name: string
       confirm_text: string
+      confirm_success_text: string
+      confirm_warning_text: string
     }
   }
 };

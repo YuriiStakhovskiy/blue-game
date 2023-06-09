@@ -1,12 +1,18 @@
 
 <script lang="ts" setup>
+import {ref, computed} from 'vue';
 import { useI18n } from 'vue-i18n';
-
+import { useDisplay } from 'vuetify';
+const { name, width } = useDisplay();
 const { t } = useI18n();
+
+const mobileWidth = computed(() => {
+  return width.value
+})
 </script>
 
 <template>
-    <div class="amount-validation-box-container pa-2 animate glow delay-1 fade-in">
+    <div class=" pa-2 animate glow delay-1 fade-in" :class="[mobileWidth > 600 ? 'amount-validation-box-container' : 'mobile-amount-validation-box-container']">
         <v-row class="d-flex justify-center ma-2 ">
             <img src="@/assets/login/svg/warning-icon.svg" width="16" class="validation-caution-img" />
             <span class="label-text-sm ml-2 mt-1 slate-gray">
@@ -22,17 +28,38 @@ const { t } = useI18n();
 </template>
 
 <style lang="scss">
-.amount-validation-box-container {
+.mobile-amount-validation-box-container {
     position: absolute;
     bottom: 64px;
-    width: 77%;
+    width: 94%;
     background: #1C1929;
     box-shadow: inset 2px 0px 4px 1px rgba(0, 0, 0, 0.12);
     border-radius: 12px;
-    margin: 12px; // wrapped by v-row
+    margin: 12px;
     padding-bottom: 0px !important;
     z-index: 2;
-    margin-left: 56px;
+
+    .validation-caution-img {
+        position: relative;
+        top: 2px;
+    }
+
+    .validation-title {
+        margin-top: 22px !important;
+        margin-left: 10px;
+    }
+}
+.amount-validation-box-container {
+    position: absolute;
+    bottom: 64px;
+    width: 380px;
+    background: #1C1929;
+    box-shadow: inset 2px 0px 4px 1px rgba(0, 0, 0, 0.12);
+    border-radius: 12px;
+    margin: 12px;
+    padding-bottom: 0px !important;
+    margin-left: 58px;
+    z-index: 2;
 
     .validation-caution-img {
         position: relative;
@@ -45,6 +72,25 @@ const { t } = useI18n();
     }
 }
 
+.mobile-amount-validation-box-container::after {
+    display: flex;
+    content: "";
+    position: relative;
+    align-self: center;
+    float: right;
+    top: 16px;
+    bottom: 0px;
+    right: 172px;
+    width: 0px;
+    height: 0px;
+    border: 9px solid #1C1929;
+    border-right-color: transparent;
+    border-left-color: transparent;
+    border-bottom-color: transparent;
+    z-index: 2;
+    border-right-width: 5px;
+    border-left-width: 5px;
+}
 .amount-validation-box-container::after {
     display: flex;
     content: "";

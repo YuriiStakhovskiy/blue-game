@@ -221,7 +221,9 @@ export const lang: langType = {
       id_text: "ID Number(CPF)",
       first_name: "Fist Name",
       last_name: "Last Name",
-      confirm_text: "Confirm"
+      confirm_text: "Confirm",
+      confirm_success_text: "Successfully submitted, need to modify please contact customer service",
+      confirm_warning_text: "Please contact customer service to make changes"
     }
   }
 };

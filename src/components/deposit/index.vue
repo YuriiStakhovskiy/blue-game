@@ -3,7 +3,9 @@ import { ref, computed, watch } from 'vue';
 import { appBarStore } from '@/store/appBar';
 import { type GetCurrencyItem } from '@/interface/deposit';
 import { type GetPaymentItem } from '@/interface/deposit';
+import { type GetPersonalInfo } from '@/interface/deposit';
 import ValidationBox from '@/components/deposit/ValidationBox.vue';
+import Notification from "@/components/notification/index.vue";
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
 const { setDepositDialogToggle } = appBarStore();
@@ -103,26 +105,15 @@ const bonusCheck = ref<boolean>(false);
 
 const personalInfoToggle = ref<boolean>(false);
 
-const items = ref([
-    {
-        title: 'Foo',
-        value: 'foo',
-    },
-    {
-        title: 'Bar',
-        value: 'bar',
-    },
-    {
-        title: 'Fizz',
-        value: 'fizz',
-    },
-    {
-        title: 'Buzz',
-        value: 'buzz',
-    },
-]);
+const confirmValidation = ref<boolean>(false);
 
-const personalInfoItem = ref({
+const notificationShow = ref<boolean>(false);
+
+const checkIcon = ref<any>(new URL("@/assets/public/svg/icon_public_18.svg", import.meta.url).href);
+
+const notificationText = ref<string>("");
+
+const personalInfoItem = ref<GetPersonalInfo>({
     id: "",
     first_name: "",
     last_name: ""
@@ -178,6 +169,14 @@ const handleAmountInputBlur = (): void => {
     }
 }
 
+const handleConfirmValidation = (): void => {
+    if (confirmValidation.value) {
+        notificationText.value = t('deposit_dialog.personal_information.confirm_warning_text');
+        checkIcon.value = new URL("@/assets/public/svg/icon_public_17.svg", import.meta.url).href;
+        notificationShow.value = !notificationShow.value;
+    }
+}
+
 const handlePersonalInfoID = (): void => {
     if (personalInfoItem.value.id != "" && personalInfoItem.value.first_name != "" && personalInfoItem.value.last_name != "") {
         isPersonalBtnReady.value = true;
@@ -186,7 +185,7 @@ const handlePersonalInfoID = (): void => {
     }
 }
 
-const handlePersonalInfoFirstName = ():void => {
+const handlePersonalInfoFirstName = (): void => {
     if (personalInfoItem.value.id != "" && personalInfoItem.value.first_name != "" && personalInfoItem.value.last_name != "") {
         isPersonalBtnReady.value = true;
     } else {
@@ -194,7 +193,7 @@ const handlePersonalInfoFirstName = ():void => {
     }
 }
 
-const handlePersonalInfoLastName = ():void => {
+const handlePersonalInfoLastName = (): void => {
     if (personalInfoItem.value.id != "" && personalInfoItem.value.first_name != "" && personalInfoItem.value.last_name != "") {
         isPersonalBtnReady.value = true;
     } else {
@@ -202,8 +201,11 @@ const handlePersonalInfoLastName = ():void => {
     }
 }
 
-const handlePersonalInfoSubmit = ():void => {
-
+const handlePersonalInfoSubmit = (): void => {
+    confirmValidation.value = true;
+    notificationText.value = t('deposit_dialog.personal_information.confirm_success_text');
+    checkIcon.value = new URL("@/assets/public/svg/icon_public_18.svg", import.meta.url).href
+    notificationShow.value = !notificationShow.value;
 }
 
 const handleDepositSubmit = (): void => {
@@ -224,6 +226,7 @@ watch(depositAmount, (newValue) => {
     } else {
         isDepositBtnReady.value = false;
     }
+    isShowAmountValidaton.value = !validateAmount();
 })
 </script>
   
@@ -244,26 +247,35 @@ watch(depositAmount, (newValue) => {
                         </div>
                     </v-list-item>
                     <v-list-item>
-                        <v-text-field :label="t('deposit_dialog.personal_information.id_text')"
-                            class="form-textfield dark-textfield mx-2" variant="solo" density="comfortable"
-                            append-icon="mdi" color="#7782AA" v-model="personalInfoItem.id" @input="handlePersonalInfoID"/>
-                        <img src="@/assets/deposit/svg/icon_public_19.svg" class="personal-info-key-position" />
+                        <div @click="handleConfirmValidation">
+                            <v-text-field :label="t('deposit_dialog.personal_information.id_text')"
+                                class="form-textfield dark-textfield mx-2" variant="solo" density="comfortable"
+                                :disabled="confirmValidation" append-icon="mdi" color="#7782AA"
+                                v-model="personalInfoItem.id" @input="handlePersonalInfoID" />
+                            <img src="@/assets/deposit/svg/icon_public_19.svg" class="personal-info-key-position"
+                                v-if="confirmValidation" />
+                        </div>
                     </v-list-item>
                     <v-list-item>
-                        <div class="d-flex">
+                        <div class="d-flex" @click="handleConfirmValidation">
                             <v-text-field :label="t('deposit_dialog.personal_information.first_name')"
                                 class="form-textfield dark-textfield mx-1" variant="solo" density="comfortable"
-                                append-icon="mdi" color="#7782AA" v-model="personalInfoItem.first_name" @input="handlePersonalInfoFirstName"/>
-                            <img src="@/assets/deposit/svg/icon_public_19.svg" class="personal-info-key-position-1" />
+                                append-icon="mdi" color="#7782AA" v-model="personalInfoItem.first_name"
+                                :disabled="confirmValidation" @input="handlePersonalInfoFirstName"
+                                @mousedown="handleConfirmValidation" />
+                            <img src="@/assets/deposit/svg/icon_public_19.svg" class="personal-info-key-position-1"
+                                v-if="confirmValidation" />
                             <v-text-field :label="t('deposit_dialog.personal_information.last_name')"
                                 class="form-textfield dark-textfield mx-1" variant="solo" density="comfortable"
-                                append-icon="mdi" color="#7782AA" v-model="personalInfoItem.last_name" @input="handlePersonalInfoLastName"/>
-                            <img src="@/assets/deposit/svg/icon_public_19.svg" class="personal-info-key-position-2" />
+                                append-icon="mdi" color="#7782AA" v-model="personalInfoItem.last_name"
+                                :disabled="confirmValidation" @input="handlePersonalInfoLastName" />
+                            <img src="@/assets/deposit/svg/icon_public_19.svg" class="personal-info-key-position-2"
+                                v-if="confirmValidation" />
                         </div>
                     </v-list-item>
                     <v-list-item>
                         <v-btn class="mx-16 mt-2 mb-6 button-bright text-none" width="-webkit-fill-available" height="50px"
-                            :disabled="!isPersonalBtnReady" :onclick="handlePersonalInfoSubmit">
+                            :disabled="!isPersonalBtnReady || confirmValidation" :onclick="handlePersonalInfoSubmit">
                             {{ t('deposit_dialog.personal_information.confirm_text') }}
                         </v-btn>
                     </v-list-item>
@@ -351,7 +363,7 @@ watch(depositAmount, (newValue) => {
             <v-col cols="4" class="py-1 px-2" v-for="(depositAmountItem, depositAmountIndex) in depositAmountList"
                 :key="depositAmountIndex">
                 <v-btn class="my-1 text-none" height="46px"
-                    :class="[depositAmountIndex == 0 ? 'deposit-amout-btn-black' : 'deposit-amout-btn-white']"
+                    :class="[depositAmountItem == depositAmount ? 'deposit-amout-btn-black' : 'deposit-amout-btn-white']"
                     @click="handleDepositAmount(depositAmountItem)">
                     {{ depositAmountUnit }} {{ depositAmountItem }}
                     <div class="deposit-amount-area"></div>
@@ -384,6 +396,8 @@ watch(depositAmount, (newValue) => {
                 {{ t('deposit_dialog.deposit_btn_text') }}
             </v-btn>
         </v-row>
+        <Notification :notificationShow="notificationShow"
+            :notificationText="notificationText" :checkIcon="checkIcon" />
     </div>
 </template>
 
