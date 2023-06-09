@@ -368,7 +368,7 @@ watch(withdrawToggleSwitch, (newValue) => {
                 </v-row>
             </v-list>
         </v-menu>
-        <v-btn class="close-button" icon="true" @click="setDepositDialogToggle(false)">
+        <v-btn class="close-button" icon="true" @click="setWithdrawDialogToggle(false)">
             <v-icon color="#7782AA">
                 mdi-close
             </v-icon>
