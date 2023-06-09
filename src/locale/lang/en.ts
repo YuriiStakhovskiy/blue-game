@@ -215,7 +215,7 @@ export const lang: langType = {
     },
     check_text: "Not participating in promotional activities",
     other_text: "0.00% fee,R$20.00+R$20.00 bonus into your account",
-    deposit_btn_text: "DEPOSIT",    
+    deposit_btn_text: "DEPOSIT",
     personal_information: {
       header_text: "Enter your Pix details",
       id_text: "ID Number(CPF)",
@@ -234,6 +234,15 @@ export const lang: langType = {
     validation: {
       text_1: "Enter the amount you want to withdraw. ",
       text_2: "Minimum 149, Maximum 588.88.",
+    },
+    personal_information: {
+      header_text: "Enter your Pix details",
+      id_text: "ID Number(CPF)",
+      first_name: "Fist Name",
+      last_name: "Last Name",
+      confirm_text: "Confirm",
+      confirm_success_text: "Successfully submitted, need to modify please contact customer service",
+      confirm_warning_text: "Please contact customer service to make changes"
     },
     text_1: "Withdrawal fee: 2.5%.",
     text_2: "Free monthly withdrawal amount: 100",

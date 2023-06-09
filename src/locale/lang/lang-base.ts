@@ -233,6 +233,15 @@ export type langType = {
       text_1: string
       text_2: string
     }
+    personal_information: {
+      header_text: string
+      id_text: string
+      first_name: string
+      last_name: string
+      confirm_text: string
+      confirm_success_text: string
+      confirm_warning_text: string
+    }
     text_1: string
     text_2: string
     text_3: string

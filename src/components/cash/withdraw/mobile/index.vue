@@ -2,16 +2,18 @@
 import { ref, computed, watch } from 'vue';
 import moment from 'moment-timezone';
 import { appBarStore } from '@/store/appBar';
+import { mailStore } from '@/store/mail';
 import { type GetCurrencyItem } from '@/interface/deposit';
 import { type GetPaymentItem } from '@/interface/deposit';
-import { type GetPersonalInfo } from '@/interface/deposit';
-import { mailStore } from '@/store/mail';
-import ValidationBox from '@/components/withdraw/ValidationBox.vue';
+import ValidationBox from '@/components/cash/withdraw/ValidationBox.vue';
 import Notification from "@/components/notification/index.vue";
 import { useI18n } from 'vue-i18n';
+import { useDisplay } from 'vuetify';
+const { name, width } = useDisplay();
 const { t } = useI18n();
 const { setDepositDialogToggle } = appBarStore();
 const { setWithdrawDialogToggle } = appBarStore();
+const {setCashDialogToggle} = appBarStore();
 const {setMailList} = mailStore();
 
 const selectedCurrencyItem = ref<GetCurrencyItem>({
@@ -89,14 +91,8 @@ const paymentList = ref<Array<GetPaymentItem>>([
         description: "20~150.000 BRL"
     },
 ])
-// depoist or withdraw dialog switch
-const withdrawToggleSwitch = ref<boolean>(true);
 
 const withdrawAmount = ref<string>("")
-
-const personalInfoToggle = ref<boolean>(false);
-
-const confirmValidation = ref<boolean>(false);
 
 const notificationShow = ref<boolean>(false);
 
@@ -104,21 +100,9 @@ const checkIcon = ref<any>(new URL("@/assets/public/svg/icon_public_18.svg", imp
 
 const notificationText = ref<string>("");
 
-const personalInfoItem = ref<GetPersonalInfo>({
-    id: "",
-    first_name: "",
-    last_name: ""
-})
-
 const isShowAmountValidaton = ref<boolean>(false);
 
 const isDepositBtnReady = ref<boolean>(false);
-
-const isPersonalBtnReady = ref<boolean>(false);
-
-const handlePersonalInfoToggle = (): void => {
-    personalInfoToggle.value = !personalInfoToggle.value;
-}
 
 const handleSelectCurrency = (item: GetCurrencyItem) => {
     selectedCurrencyItem.value = item;
@@ -156,45 +140,6 @@ const handleAmountInputBlur = (): void => {
     }
 }
 
-const handleConfirmValidation = (): void => {
-    if (confirmValidation.value) {
-        notificationText.value = t('withdraw_dialog.personal_information.confirm_warning_text');
-        checkIcon.value = new URL("@/assets/public/svg/icon_public_17.svg", import.meta.url).href;
-        notificationShow.value = !notificationShow.value;
-    }
-}
-
-const handlePersonalInfoID = (): void => {
-    if (personalInfoItem.value.id != "" && personalInfoItem.value.first_name != "" && personalInfoItem.value.last_name != "") {
-        isPersonalBtnReady.value = true;
-    } else {
-        isPersonalBtnReady.value = false;
-    }
-}
-
-const handlePersonalInfoFirstName = (): void => {
-    if (personalInfoItem.value.id != "" && personalInfoItem.value.first_name != "" && personalInfoItem.value.last_name != "") {
-        isPersonalBtnReady.value = true;
-    } else {
-        isPersonalBtnReady.value = false;
-    }
-}
-
-const handlePersonalInfoLastName = (): void => {
-    if (personalInfoItem.value.id != "" && personalInfoItem.value.first_name != "" && personalInfoItem.value.last_name != "") {
-        isPersonalBtnReady.value = true;
-    } else {
-        isPersonalBtnReady.value = false;
-    }
-}
-
-const handlePersonalInfoSubmit = (): void => {
-    confirmValidation.value = true;
-    notificationText.value = t('withdraw_dialog.personal_information.confirm_success_text');
-    checkIcon.value = new URL("@/assets/public/svg/icon_public_18.svg", import.meta.url).href
-    notificationShow.value = !notificationShow.value;
-}
-
 const handleWithdrawSubmit = (): void => {
     let mailItem = {
         id: 5,
@@ -218,6 +163,7 @@ const handleWithdrawSubmit = (): void => {
     }
     setMailList(mailItem);
     setWithdrawDialogToggle(false);
+    setCashDialogToggle(false);
 }
 
 watch(withdrawAmount, (newValue) => {
@@ -228,89 +174,16 @@ watch(withdrawAmount, (newValue) => {
     }
     isShowAmountValidaton.value = !validateAmount();
 })
-
-watch(withdrawToggleSwitch, (newValue) => {
-    if (newValue) {
-        setWithdrawDialogToggle(true);
-        setDepositDialogToggle(false);
-    } else {
-        setWithdrawDialogToggle(false);
-        setDepositDialogToggle(true);
-    }
-})
 </script>
   
 <template>
-    <div class="withdraw-container">
-        <div class="header d-flex align-center relative">
-            <v-menu :close-on-content-click=false>
-                <template v-slot:activator="{ props }">
-                    <v-btn class="deposit-header-btn" v-bind="props" @click="handlePersonalInfoToggle">
-                        <img src="@/assets/deposit/image/Group 772544197.png" width="48" height="48" class="ml-4" />
-                        <v-icon class="header-mdi-icon">mdi-chevron-right</v-icon>
-                    </v-btn>
-                </template>
-                <v-list theme="dark" bg-color="#29253C" class="px-2" width="471">
-                    <v-list-item class="pt-4">
-                        <div class="text-center deposit-text">
-                            {{ t('withdraw_dialog.personal_information.header_text') }}
-                        </div>
-                    </v-list-item>
-                    <v-list-item>
-                        <div @click="handleConfirmValidation">
-                            <v-text-field :label="t('withdraw_dialog.personal_information.id_text')"
-                                class="form-textfield dark-textfield mx-2" variant="solo" density="comfortable"
-                                :disabled="confirmValidation" append-icon="mdi" color="#7782AA"
-                                v-model="personalInfoItem.id" @input="handlePersonalInfoID" />
-                            <img src="@/assets/deposit/svg/icon_public_19.svg" class="personal-info-key-position"
-                                v-if="confirmValidation" />
-                        </div>
-                    </v-list-item>
-                    <v-list-item>
-                        <div class="d-flex" @click="handleConfirmValidation">
-                            <v-text-field :label="t('withdraw_dialog.personal_information.first_name')"
-                                class="form-textfield dark-textfield mx-1" variant="solo" density="comfortable"
-                                append-icon="mdi" color="#7782AA" v-model="personalInfoItem.first_name"
-                                :disabled="confirmValidation" @input="handlePersonalInfoFirstName"
-                                @mousedown="handleConfirmValidation" />
-                            <img src="@/assets/deposit/svg/icon_public_19.svg" class="personal-info-key-position-1"
-                                v-if="confirmValidation" />
-                            <v-text-field :label="t('withdraw_dialog.personal_information.last_name')"
-                                class="form-textfield dark-textfield mx-1" variant="solo" density="comfortable"
-                                append-icon="mdi" color="#7782AA" v-model="personalInfoItem.last_name"
-                                :disabled="confirmValidation" @input="handlePersonalInfoLastName" />
-                            <img src="@/assets/deposit/svg/icon_public_19.svg" class="personal-info-key-position-2"
-                                v-if="confirmValidation" />
-                        </div>
-                    </v-list-item>
-                    <v-list-item>
-                        <v-btn class="mx-16 mt-2 mb-6 button-bright text-none" width="-webkit-fill-available" height="50px"
-                            :disabled="!isPersonalBtnReady || confirmValidation" :onclick="handlePersonalInfoSubmit">
-                            {{ t('withdraw_dialog.personal_information.confirm_text') }}
-                        </v-btn>
-                    </v-list-item>
-                </v-list>
-            </v-menu>
-            <div class="deposit-toggle">
-                <input type="checkbox" id="deposit-toggle" v-model="withdrawToggleSwitch" />
-                <label for="deposit-toggle">
-                    <div class="deposit">
-                        <img src="@/assets/app_bar/svg/icon_public_60.svg" />
-                        <P>{{ t('appBar.deposit') }}</P>
-                    </div>
-                    <div class="withdraw">
-                        <img src="@/assets/app_bar/svg/icon_public_65.svg" />
-                        <P>{{ t('appBar.withdraw') }}</P>
-                    </div>
-                </label>
-            </div>
-        </div>
-        <v-row class="mt-6 ml-16 deposit-text">
+    <div class="mobile-withdraw-container">
+        <v-row class="mt-6 mx-6 deposit-text">
             {{ t('withdraw_dialog.withdraw_currency') }}
         </v-row>
         <v-menu offset="4" class="mt-1">
             <template v-slot:activator="{ props }">
-                <v-card color="#1C1929" theme="dark" class="mx-12 mt-4 deposit-card-height">
+                <v-card color="#1C1929" theme="dark" class="mx-4 mt-4 deposit-card-height">
                     <v-list-item v-bind="props" class="currency-item deposit-card-height" value="currency dropdown"
                         append-icon="mdi-chevron-down">
                         <template v-slot:prepend>
@@ -331,12 +204,12 @@ watch(withdrawToggleSwitch, (newValue) => {
                 </v-list-item>
             </v-list>
         </v-menu>
-        <v-row class="mt-6 ml-16 deposit-text">
+        <v-row class="mt-6 mx-6 deposit-text">
             {{ t('withdraw_dialog.withdraw_payment_method') }}
         </v-row>
         <v-menu offset="4" class="mt-1">
             <template v-slot:activator="{ props }">
-                <v-card color="#1C1929" theme="dark" class="mx-12 mt-4 deposit-card-height">
+                <v-card color="#1C1929" theme="dark" class="mx-4 mt-4 deposit-card-height">
                     <v-list-item v-bind="props" class="payment-item deposit-card-height" value="payment dropdown"
                         append-icon="mdi-chevron-down">
                         <template v-slot:prepend>
@@ -361,34 +234,29 @@ watch(withdrawToggleSwitch, (newValue) => {
                 </v-row>
             </v-list>
         </v-menu>
-        <v-btn class="close-button" icon="true" @click="setWithdrawDialogToggle(false)">
-            <v-icon color="#7782AA">
-                mdi-close
-            </v-icon>
-        </v-btn>
-        <v-row class="mt-6 ml-16 withdraw-text">
+        <v-row class="mt-6 mx-6 withdraw-text">
             {{ t('withdraw_dialog.withdraw_amount') }}
         </v-row>
-        <v-row class="relative">
+        <v-row class="mt-4 mx-2 relative">
             <v-text-field :label="`${t('withdraw_dialog.amount')}(${selectedCurrencyItem.name})`"
-                class="form-textfield dark-textfield mx-14" variant="solo" density="comfortable" color="#7782AA"
+                class="form-textfield dark-textfield" variant="solo" density="comfortable" color="#7782AA"
                 v-model="withdrawAmount" :onfocus="handleAmountInputFocus" :onblur="handleAmountInputBlur"
                 @input="handleAmountInputChange" />
             <ValidationBox v-if="isShowAmountValidaton" />
         </v-row>
-        <v-row class="mt-4 ml-16 other-text">
+        <v-row class="mt-4 mx-6 other-text">
             {{ t('withdraw_dialog.text_1') }}
         </v-row>
-        <v-row class="mt-4 ml-16 other-text">
+        <v-row class="mt-4 mx-6 other-text">
             {{ t('withdraw_dialog.text_2') }}
         </v-row>
-        <v-row class="mt-4 ml-16 other-text">
+        <v-row class="mt-4 mx-6 other-text">
             {{ t('withdraw_dialog.text_3') }}
         </v-row>
-        <v-row class="mt-4 ml-16 other-text">
+        <v-row class="mt-4 mx-6 other-text">
             {{ t('withdraw_dialog.text_4') }}
         </v-row>
-        <v-row class="mt-16 deposit-other-text justify-center">
+        <v-row class="mt-16 deposit-other-text justify-center mx-2">
             {{ t('withdraw_dialog.other_text') }}
         </v-row>
         <v-row class="mt-2 mx-8">
@@ -403,132 +271,9 @@ watch(withdrawToggleSwitch, (newValue) => {
 
 <style lang="scss">
 // container
-.withdraw-container {
+.mobile-withdraw-container {
     background-color: #211F31;
-    border-radius: 16px !important;
-    height: 780px;
-
-    .header {
-        text-align: center;
-        background: #29253C;
-        border-radius: 16px 16px 0px 0px;
-        height: 80px;
-    }
-
-    .deposit-header-btn {
-        width: 100px;
-        height: 60px;
-        background: #29253C;
-        box-shadow: none !important;
-        border: none !important;
-    }
-
-    .header-mdi-icon {
-        font-weight: 800;
-        font-size: 28px;
-        color: #FFFFFF;
-    }
-
-    // close modal button
-    .close-button {
-        box-shadow: none !important;
-        background-color: transparent !important;
-        position: absolute !important;
-        top: 5px;
-        right: 5px;
-    }
-
-    // deposit and withdraw toggle switch
-    .deposit-toggle {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-
-        label {
-            width: 230px;
-            height: 40px;
-            position: relative;
-            display: block;
-            background: #211F31;
-            border-radius: 20px !important;
-            box-shadow: inset 0px 5px 15px rgba(0, 0, 0, 0.4), inset 0px -5px 15px rgba(255, 255, 255, 0.4);
-            cursor: pointer;
-            transition: 0.3s;
-
-            div {
-                position: absolute;
-                top: 50%;
-                transform: translateY(-50%);
-                z-index: 100;
-                display: flex;
-                align-items: center;
-                font-weight: 700;
-                font-size: 14px;
-            }
-
-            .deposit {
-                left: 14px;
-                transition: 0.3s;
-                color: black;
-
-                img {
-                    width: 20px;
-                    height: 24px;
-                    margin-right: 4px;
-                }
-            }
-
-            .withdraw {
-                left: 132px;
-                transition: 0.3s;
-                color: #7782AA;
-
-                img {
-                    width: 20px;
-                    margin-right: 4px;
-                }
-            }
-        }
-
-        label:after {
-            content: "";
-            width: 100px;
-            height: 36px;
-            position: absolute;
-            top: 2px;
-            left: 3px;
-            background: #32CFEC;
-            border-radius: 18px;
-            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
-            transition: 0.3s;
-        }
-
-        input {
-            width: 0;
-            height: 0;
-            visibility: hidden;
-            position: absolute;
-        }
-
-        input:checked+label:after {
-            left: 226px;
-            transform: translateX(-100%);
-        }
-
-        label:active:after {
-            width: 100px;
-        }
-
-        input:checked+label .deposit {
-            color: #7782AA
-        }
-
-        input:checked+label .withdraw {
-            color: black
-        }
-
-    }
+    height: 100%;
 
     .deposit-card-height {
         height: 48px;
@@ -619,33 +364,9 @@ watch(withdrawToggleSwitch, (newValue) => {
     }
 }
 
-.personal-info-key-position {
-    position: absolute;
-    top: 28px;
-    right: 85px;
-}
-
-.personal-info-key-position-1 {
-    position: absolute;
-    top: 28px;
-    left: 155px;
-}
-
-.personal-info-key-position-2 {
-    position: absolute;
-    top: 28px;
-    right: 70px;
-}
-
 .deposit-text {
     font-weight: 400;
     font-size: 14px;
-    color: #7782AA;
-}
-
-.other-text {
-    font-weight: 400;
-    font-size: 12px;
     color: #7782AA;
 }
 
@@ -658,6 +379,12 @@ watch(withdrawToggleSwitch, (newValue) => {
 .payment-select-item {
     font-weight: 300;
     font-size: 10px;
+    color: #7782AA;
+}
+
+.other-text {
+    font-weight: 400;
+    font-size: 12px;
     color: #7782AA;
 }
 

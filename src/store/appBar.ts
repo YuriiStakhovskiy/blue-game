@@ -7,6 +7,7 @@ export const appBarStore = defineStore({
     errMessage: '' as string,
     rightBarToggle: true as boolean,
     navBarToggle: true as boolean,
+    cashDialogToggle: false as boolean,
     depositDialogToggle: false as boolean,
     withdrawDialogToggle: false as boolean
   }),
@@ -17,6 +18,7 @@ export const appBarStore = defineStore({
     getNavBarToggle: (state) => state.navBarToggle,
     getDepositDialogToggle: (state) => state.depositDialogToggle,
     getWithdrawDialogToggle: (state) => state.withdrawDialogToggle,
+    getCashDialogToggle: (state) => state.cashDialogToggle,
   },
   actions: {
     setSuccess(success: boolean) {
@@ -36,6 +38,9 @@ export const appBarStore = defineStore({
     },
     setWithdrawDialogToggle(withdrawDialogToggle: boolean) {
       this.withdrawDialogToggle = withdrawDialogToggle;
+    },
+    setCashDialogToggle(cashDialogToggle: boolean) {
+      this.cashDialogToggle = cashDialogToggle;
     }
   }
 })

@@ -15,6 +15,7 @@ const { setRightBarToggle } = appBarStore();
 const { setNavBarToggle } = appBarStore();
 const { setDepositDialogToggle } = appBarStore();
 const { setWithdrawDialogToggle } = appBarStore();
+const { setCashDialogToggle } = appBarStore();
 
 const { name, width } = useDisplay()
 
@@ -108,6 +109,16 @@ const showSignoutDialog = () => {
   setAuthModalType("signout");
 }
 
+const depositDialogShow = () => {
+  setDepositDialogToggle(true);
+  setCashDialogToggle(true);
+}
+
+const withdrawDialogShow = () => {
+  setWithdrawDialogToggle(true);
+  setCashDialogToggle(true);
+}
+
 // watches
 watch(currentLanguage, (newLang, oldLang) => {
   setLang(newLang);
@@ -116,7 +127,7 @@ watch(currentLanguage, (newLang, oldLang) => {
 watch(mailList, (newValue) => {
   console.log(newValue);
   mailCount.value = newValue.length;
-}, {deep: true})
+}, { deep: true })
 
 
 onMounted(() => {
@@ -129,7 +140,7 @@ onMounted(() => {
   <v-app-bar app dark :color="color" :class="appBarWidth" class="app-bar-height">
     <v-app-bar-nav-icon @click.stop="setNavBarToggle(true)"
       v-if="!navBarToggle && mobileWidth > 600"></v-app-bar-nav-icon>
-    <v-toolbar-title v-if="mobileWidth > 800" v-ripple.center>
+    <v-toolbar-title v-if="mobileWidth > 800">
       <v-btn style="height: 60px">
         <img src="@/assets/public/svg/logo.svg" class="mt-3" />
       </v-btn>
@@ -155,7 +166,7 @@ onMounted(() => {
           <template v-slot:activator="{ props }">
             <v-card color="#29263C" theme="dark" class="mr-4 mt-2 user-card-height" v-if="mobileWidth > 600">
               <v-list-item class="deposit-item user-card-height" v-bind="props" value="deposit dropdown"
-                @click="setDepositDialogToggle(true)">
+                @click="depositDialogShow">
                 <div class="d-flex align-center">
                   <p class="mr-1">{{ user.currency }}</p>
                   <p class="mr-2">{{ user.wallet }}</p>
@@ -166,7 +177,7 @@ onMounted(() => {
             </v-card>
             <v-card color="#29263C" theme="dark" class="mr-2 mt-2 user-card-height" v-else>
               <v-list-item class="deposit-item user-card-height" v-bind="props" value="deposit dropdown"
-                @click="setDepositDialogToggle(true)">
+                @click="depositDialogShow">
                 <div class="d-flex align-center">
                   <p class="mr-1">{{ user.currency }}</p>
                   <p class="mr-2">{{ user.wallet }}</p>
@@ -234,7 +245,7 @@ onMounted(() => {
               </template>
               <v-list-item-title class="ml-2">{{ t('appBar.account') }}</v-list-item-title>
             </v-list-item>
-            <v-list-item class="user-item" value="deposit" @click="setDepositDialogToggle(true)">
+            <v-list-item class="user-item" value="deposit" @click="depositDialogShow">
               <template v-slot:prepend>
                 <img src="@/assets/app_bar/svg/icon_public_60.svg" />
               </template>
@@ -269,7 +280,7 @@ onMounted(() => {
                 <p class="refer-friend-text-position">{{ t('appBar.earn_money') }}</p>
               </template>
             </v-list-item>
-            <v-list-item class="user-item" value="withdraw" @click="setWithdrawDialogToggle(true)">
+            <v-list-item class="user-item" value="withdraw" @click="withdrawDialogShow">
               <template v-slot:prepend>
                 <img src="@/assets/app_bar/svg/icon_public_65.svg" />
               </template>

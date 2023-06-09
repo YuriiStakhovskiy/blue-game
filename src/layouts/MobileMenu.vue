@@ -40,11 +40,11 @@ const mailList = computed((): GetMailData[] => {
 
 watch(mailList, (newValue) => {
     mailCount.value = newValue.length;
-})
+}, {deep: true})
 
 watch(navToggle, (newValue) => {
     navbarToggle.value = newValue;
-})
+},{deep: true})
 
 const handleNavbarToggle = () => {
     navbarToggle.value = !navbarToggle.value
