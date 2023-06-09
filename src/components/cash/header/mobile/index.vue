@@ -121,7 +121,7 @@ onMounted(() => {
             <v-menu offset="-5" :close-on-content-click=false content-class="personal-info-menu">
                 <template v-slot:activator="{ props }">
                     <v-btn class="deposit-header-btn" v-bind="props" @click="handlePersonalInfoToggle">
-                        <img src="@/assets/deposit/image/Group 772544197.png" width="48" height="48"/>
+                        <img src="@/assets/deposit/image/Group 772544197.png" width="48" height="48" />
                         <v-icon class="header-mdi-icon">mdi-chevron-right</v-icon>
                     </v-btn>
                 </template>
@@ -336,19 +336,23 @@ onMounted(() => {
     .personal-info-key-position {
         position: absolute;
         top: 28px;
-        right: 70px;
+        right: 56px;
     }
 
     .personal-info-key-position-1 {
         position: absolute;
         top: 28px;
-        left: 130px;
+        left: 144px;
     }
 
     .personal-info-key-position-2 {
         position: absolute;
         top: 28px;
-        right: 64px;
+        right: 50px;
+    }
+
+    .v-input--horizontal .v-input__append {
+        margin-inline-start: 0px !important;
     }
 }
 </style>

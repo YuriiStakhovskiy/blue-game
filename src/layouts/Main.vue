@@ -12,6 +12,7 @@ import CashHeader from "@/components/cash/header/index.vue";
 const { name, width } = useDisplay();
 const { setDepositDialogToggle } = appBarStore();
 const { setWithdrawDialogToggle } = appBarStore();
+const { setCashDialogToggle } = appBarStore();
 
 // mobile or pc screen
 const mobileVersion = computed(() => {
@@ -56,9 +57,9 @@ watch(cashDialogToggle, (newValue) => {
   <v-main class="main-background">
     <v-dialog v-model="cashDialog" :width="mobileVersion == 'sm' ? '' : 471" :fullscreen="mobileVersion == 'sm'"
       :scrim="mobileVersion == 'sm' ? false : true" :transition="mobileVersion == 'sm' ? 'dialog-bottom-transition' : ''"
-      @click:outside="cashDialog = false">
-      <CashHeader v-if="mobileWidth > 600"/>
-      <MCashHeader v-else/>
+      @click:outside="setCashDialogToggle(false)">
+      <CashHeader v-if="mobileWidth > 600" />
+      <MCashHeader v-else />
       <template v-if="withdrawDialog">
         <Withdraw v-if="mobileWidth > 600" />
         <MWithdraw v-else />

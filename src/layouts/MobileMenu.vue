@@ -84,7 +84,7 @@ onMounted(() => {
                 {{ t('mobile_menu.sport') }}
             </div>
         </v-btn>
-        <v-menu content-class="mobile-mail-menu">
+        <v-menu content-class="mobile-mail-menu" :scrim="true">
             <template v-slot:activator="{ props }">
                 <v-btn class="menu-text-color" v-bind="props">
                     <div class="relative">

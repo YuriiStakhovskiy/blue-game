@@ -118,7 +118,7 @@ onMounted(() => {
 <template>
     <div class="cash-header">
         <div class="header d-flex align-center relative">
-            <v-menu :close-on-content-click=false>
+            <v-menu :close-on-content-click=false content-class="personal-menu">
                 <template v-slot:activator="{ props }">
                     <v-btn class="deposit-header-btn" v-bind="props" @click="handlePersonalInfoToggle">
                         <img src="@/assets/deposit/image/Group 772544197.png" width="48" height="48" class="ml-4" />
@@ -330,21 +330,27 @@ onMounted(() => {
     }
 }
 
-.personal-info-key-position {
-    position: absolute;
-    top: 28px;
-    right: 74px;
-}
+.personal-menu {
+    .personal-info-key-position {
+        position: absolute;
+        top: 28px;
+        right: 58px;
+    }
 
-.personal-info-key-position-1 {
-    position: absolute;
-    top: 28px;
-    left: 155px;
-}
+    .personal-info-key-position-1 {
+        position: absolute;
+        top: 28px;
+        left: 170px;
+    }
 
-.personal-info-key-position-2 {
-    position: absolute;
-    top: 28px;
-    right: 70px;
+    .personal-info-key-position-2 {
+        position: absolute;
+        top: 28px;
+        right: 52px;
+    }
+
+    .v-input--horizontal .v-input__append {
+        margin-inline-start: 0px !important;
+    }
 }
 </style>
