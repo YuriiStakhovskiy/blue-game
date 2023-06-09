@@ -1,17 +1,18 @@
 <script lang="ts" setup>
 import { ref, computed, watch } from 'vue';
+import moment from 'moment-timezone';
 import { appBarStore } from '@/store/appBar';
 import { type GetCurrencyItem } from '@/interface/deposit';
 import { type GetPaymentItem } from '@/interface/deposit';
 import { type GetPersonalInfo } from '@/interface/deposit';
-import ValidationBox from '@/components/deposit/ValidationBox.vue';
+import { mailStore } from '@/store/mail';
+import ValidationBox from '@/components/withdraw/ValidationBox.vue';
 import Notification from "@/components/notification/index.vue";
 import { useI18n } from 'vue-i18n';
-import { useDisplay } from 'vuetify';
-const { name, width } = useDisplay();
 const { t } = useI18n();
 const { setDepositDialogToggle } = appBarStore();
 const { setWithdrawDialogToggle } = appBarStore();
+const {setMailList} = mailStore();
 
 const selectedCurrencyItem = ref<GetCurrencyItem>({
     icon: new URL("@/assets/deposit/svg/deposit_1.svg", import.meta.url).href,
@@ -88,25 +89,10 @@ const paymentList = ref<Array<GetPaymentItem>>([
         description: "20~150.000 BRL"
     },
 ])
+// depoist or withdraw dialog switch
+const withdrawToggleSwitch = ref<boolean>(true);
 
-const depositAmountList = ref<Array<string>>([
-    '20',
-    '200',
-    '500',
-    '2000',
-    '5000',
-    '19999',
-])
-
-const depositToggleSwitch = ref<boolean>(false);
-
-const depositAmountUnit = ref<string>("R$");
-
-const depositRate = ref<string>("+100%");
-
-const depositAmount = ref<string>("")
-
-const bonusCheck = ref<boolean>(false);
+const withdrawAmount = ref<string>("")
 
 const personalInfoToggle = ref<boolean>(false);
 
@@ -130,16 +116,8 @@ const isDepositBtnReady = ref<boolean>(false);
 
 const isPersonalBtnReady = ref<boolean>(false);
 
-const mobileWidth = computed(() => {
-    return width.value
-})
-
 const handlePersonalInfoToggle = (): void => {
     personalInfoToggle.value = !personalInfoToggle.value;
-}
-
-const handleDepositAmount = (amount: string) => {
-    depositAmount.value = amount;
 }
 
 const handleSelectCurrency = (item: GetCurrencyItem) => {
@@ -151,7 +129,7 @@ const handleSelectPayment = (item: GetPaymentItem) => {
 }
 
 const validateAmount = (): boolean => {
-    return Number(depositAmount.value) >= 20 && Number(depositAmount.value) <= 100000;
+    return Number(withdrawAmount.value) >= 149 && Number(withdrawAmount.value) <= 600;
 }
 
 const handleAmountInputFocus = (): void => {
@@ -180,7 +158,7 @@ const handleAmountInputBlur = (): void => {
 
 const handleConfirmValidation = (): void => {
     if (confirmValidation.value) {
-        notificationText.value = t('deposit_dialog.personal_information.confirm_warning_text');
+        notificationText.value = t('withdraw_dialog.personal_information.confirm_warning_text');
         checkIcon.value = new URL("@/assets/public/svg/icon_public_17.svg", import.meta.url).href;
         notificationShow.value = !notificationShow.value;
     }
@@ -212,25 +190,38 @@ const handlePersonalInfoLastName = (): void => {
 
 const handlePersonalInfoSubmit = (): void => {
     confirmValidation.value = true;
-    notificationText.value = t('deposit_dialog.personal_information.confirm_success_text');
+    notificationText.value = t('withdraw_dialog.personal_information.confirm_success_text');
     checkIcon.value = new URL("@/assets/public/svg/icon_public_18.svg", import.meta.url).href
     notificationShow.value = !notificationShow.value;
 }
 
-const handleDepositSubmit = (): void => {
-    setDepositDialogToggle(false);
+const handleWithdrawSubmit = (): void => {
+    let mailItem = {
+        id: 5,
+        icon: new URL("@/assets/mail/svg/icon_public_16.svg", import.meta.url).href,
+        mail_content_1: {
+            color: "text-color-gray",
+            content: "Withdrawal Amount"
+        },
+        mail_content_2: {
+            color: "money-color-white",
+            content: "$" + Number(withdrawAmount.value).toFixed(2)
+        },
+        mail_rail_1: {
+            color: "text-color-gray",
+            content: moment().tz("Asia/Hong_Kong").format("YYYY/MM/DD HH:mm:ss")
+        },
+        mail_rail_2: {
+            color: "text-color-yellow",
+            content: "ln processing..."
+        }
+    }
+    setMailList(mailItem);
+    setWithdrawDialogToggle(false);
 }
 
-watch(bonusCheck, (newValue) => {
-    if (newValue && validateAmount()) {
-        isDepositBtnReady.value = true;
-    } else {
-        isDepositBtnReady.value = false;
-    }
-})
-
-watch(depositAmount, (newValue) => {
-    if (bonusCheck.value && validateAmount()) {
+watch(withdrawAmount, (newValue) => {
+    if (validateAmount()) {
         isDepositBtnReady.value = true;
     } else {
         isDepositBtnReady.value = false;
@@ -238,7 +229,7 @@ watch(depositAmount, (newValue) => {
     isShowAmountValidaton.value = !validateAmount();
 })
 
-watch(depositToggleSwitch, (newValue) => {
+watch(withdrawToggleSwitch, (newValue) => {
     if (newValue) {
         setWithdrawDialogToggle(true);
         setDepositDialogToggle(false);
@@ -250,25 +241,24 @@ watch(depositToggleSwitch, (newValue) => {
 </script>
   
 <template>
-    <div class="mobile-deposit-container">
+    <div class="withdraw-container">
         <div class="header d-flex align-center relative">
-            <v-menu offset="-6" :close-on-content-click=false content-class="personal-info-menu">
+            <v-menu :close-on-content-click=false>
                 <template v-slot:activator="{ props }">
                     <v-btn class="deposit-header-btn" v-bind="props" @click="handlePersonalInfoToggle">
-                        <img src="@/assets/deposit/image/Group 772544197.png" width="48" height="48"
-                            :class="mobileWidth > 600 ? 'ml-4' : ''" />
+                        <img src="@/assets/deposit/image/Group 772544197.png" width="48" height="48" class="ml-4" />
                         <v-icon class="header-mdi-icon">mdi-chevron-right</v-icon>
                     </v-btn>
                 </template>
-                <v-list theme="dark" bg-color="#29253C" class="px-2" :width="mobileWidth > 600 ? 471 : mobileWidth">
+                <v-list theme="dark" bg-color="#29253C" class="px-2" width="471">
                     <v-list-item class="pt-4">
                         <div class="text-center deposit-text">
-                            {{ t('deposit_dialog.personal_information.header_text') }}
+                            {{ t('withdraw_dialog.personal_information.header_text') }}
                         </div>
                     </v-list-item>
                     <v-list-item>
                         <div @click="handleConfirmValidation">
-                            <v-text-field :label="t('deposit_dialog.personal_information.id_text')"
+                            <v-text-field :label="t('withdraw_dialog.personal_information.id_text')"
                                 class="form-textfield dark-textfield mx-2" variant="solo" density="comfortable"
                                 :disabled="confirmValidation" append-icon="mdi" color="#7782AA"
                                 v-model="personalInfoItem.id" @input="handlePersonalInfoID" />
@@ -278,14 +268,14 @@ watch(depositToggleSwitch, (newValue) => {
                     </v-list-item>
                     <v-list-item>
                         <div class="d-flex" @click="handleConfirmValidation">
-                            <v-text-field :label="t('deposit_dialog.personal_information.first_name')"
+                            <v-text-field :label="t('withdraw_dialog.personal_information.first_name')"
                                 class="form-textfield dark-textfield mx-1" variant="solo" density="comfortable"
                                 append-icon="mdi" color="#7782AA" v-model="personalInfoItem.first_name"
                                 :disabled="confirmValidation" @input="handlePersonalInfoFirstName"
                                 @mousedown="handleConfirmValidation" />
                             <img src="@/assets/deposit/svg/icon_public_19.svg" class="personal-info-key-position-1"
                                 v-if="confirmValidation" />
-                            <v-text-field :label="t('deposit_dialog.personal_information.last_name')"
+                            <v-text-field :label="t('withdraw_dialog.personal_information.last_name')"
                                 class="form-textfield dark-textfield mx-1" variant="solo" density="comfortable"
                                 append-icon="mdi" color="#7782AA" v-model="personalInfoItem.last_name"
                                 :disabled="confirmValidation" @input="handlePersonalInfoLastName" />
@@ -296,13 +286,13 @@ watch(depositToggleSwitch, (newValue) => {
                     <v-list-item>
                         <v-btn class="mx-16 mt-2 mb-6 button-bright text-none" width="-webkit-fill-available" height="50px"
                             :disabled="!isPersonalBtnReady || confirmValidation" :onclick="handlePersonalInfoSubmit">
-                            {{ t('deposit_dialog.personal_information.confirm_text') }}
+                            {{ t('withdraw_dialog.personal_information.confirm_text') }}
                         </v-btn>
                     </v-list-item>
                 </v-list>
             </v-menu>
             <div class="deposit-toggle">
-                <input type="checkbox" id="deposit-toggle" v-model="depositToggleSwitch"/>
+                <input type="checkbox" id="deposit-toggle" v-model="withdrawToggleSwitch" />
                 <label for="deposit-toggle">
                     <div class="deposit">
                         <img src="@/assets/app_bar/svg/icon_public_60.svg" />
@@ -315,12 +305,12 @@ watch(depositToggleSwitch, (newValue) => {
                 </label>
             </div>
         </div>
-        <v-row class="mt-6 mx-6 deposit-text">
-            {{ t('deposit_dialog.deposit_currency') }}
+        <v-row class="mt-6 ml-16 deposit-text">
+            {{ t('withdraw_dialog.withdraw_currency') }}
         </v-row>
         <v-menu offset="4" class="mt-1">
             <template v-slot:activator="{ props }">
-                <v-card color="#1C1929" theme="dark" class="mx-4 mt-4 deposit-card-height">
+                <v-card color="#1C1929" theme="dark" class="mx-12 mt-4 deposit-card-height">
                     <v-list-item v-bind="props" class="currency-item deposit-card-height" value="currency dropdown"
                         append-icon="mdi-chevron-down">
                         <template v-slot:prepend>
@@ -341,12 +331,12 @@ watch(depositToggleSwitch, (newValue) => {
                 </v-list-item>
             </v-list>
         </v-menu>
-        <v-row class="mt-6 mx-6 deposit-text">
-            {{ t('deposit_dialog.choose_payment_method') }}
+        <v-row class="mt-6 ml-16 deposit-text">
+            {{ t('withdraw_dialog.withdraw_payment_method') }}
         </v-row>
         <v-menu offset="4" class="mt-1">
             <template v-slot:activator="{ props }">
-                <v-card color="#1C1929" theme="dark" class="mx-4 mt-4 deposit-card-height">
+                <v-card color="#1C1929" theme="dark" class="mx-12 mt-4 deposit-card-height">
                     <v-list-item v-bind="props" class="payment-item deposit-card-height" value="payment dropdown"
                         append-icon="mdi-chevron-down">
                         <template v-slot:prepend>
@@ -371,49 +361,40 @@ watch(depositToggleSwitch, (newValue) => {
                 </v-row>
             </v-list>
         </v-menu>
-        <v-btn class="close-button" icon="true" @click="setDepositDialogToggle(false)">
+        <v-btn class="close-button" icon="true" @click="setWithdrawDialogToggle(false)">
             <v-icon color="#7782AA">
                 mdi-close
             </v-icon>
         </v-btn>
-        <v-row class="mt-6 mx-6 deposit-text">
-            {{ t('deposit_dialog.deposit_amount') }}
+        <v-row class="mt-6 ml-16 withdraw-text">
+            {{ t('withdraw_dialog.withdraw_amount') }}
         </v-row>
-        <v-row class="mt-2 mx-2">
-            <v-col cols="4" class="py-1 px-2" v-for="(depositAmountItem, depositAmountIndex) in depositAmountList"
-                :key="depositAmountIndex">
-                <v-btn class="my-1 text-none" height="46px"
-                    :class="[depositAmountItem == depositAmount ? 'deposit-amout-btn-black' : 'deposit-amout-btn-white']"
-                    @click="handleDepositAmount(depositAmountItem)">
-                    {{ depositAmountUnit }} {{ depositAmountItem }}
-                    <div class="deposit-amount-area"></div>
-                    <div class="deposit-amount-rate-text">{{ depositRate }}</div>
-                </v-btn>
-            </v-col>
-        </v-row>
-        <v-row class="mt-4 mx-2 relative">
-            <v-text-field :label="`${t('deposit_dialog.amount')}(${selectedCurrencyItem.name})`"
-                class="form-textfield dark-textfield" variant="solo" density="comfortable" color="#7782AA"
-                v-model="depositAmount" :onfocus="handleAmountInputFocus" :onblur="handleAmountInputBlur"
+        <v-row class="relative">
+            <v-text-field :label="`${t('withdraw_dialog.amount')}(${selectedCurrencyItem.name})`"
+                class="form-textfield dark-textfield mx-14" variant="solo" density="comfortable" color="#7782AA"
+                v-model="withdrawAmount" :onfocus="handleAmountInputFocus" :onblur="handleAmountInputBlur"
                 @input="handleAmountInputChange" />
             <ValidationBox v-if="isShowAmountValidaton" />
         </v-row>
-        <v-row class="mt-0 mx-2 align-center">
-            <v-col cols="1">
-                <v-checkbox hide-details icon class="amount-checkbox" v-model="bonusCheck" />
-            </v-col>
-            <v-col cols="11" class="d-flex">
-                <p class="deposit-text mt-1 ml-1">{{ t('deposit_dialog.check_text') }}</p>
-                <img src="@/assets/deposit/svg/icon_public_22.svg" class="ml-auto" />
-            </v-col>
+        <v-row class="mt-4 ml-16 other-text">
+            {{ t('withdraw_dialog.text_1') }}
         </v-row>
-        <v-row class="mt-16 deposit-other-text justify-center mx-2">
-            {{ t('deposit_dialog.other_text') }}
+        <v-row class="mt-4 ml-16 other-text">
+            {{ t('withdraw_dialog.text_2') }}
+        </v-row>
+        <v-row class="mt-4 ml-16 other-text">
+            {{ t('withdraw_dialog.text_3') }}
+        </v-row>
+        <v-row class="mt-4 ml-16 other-text">
+            {{ t('withdraw_dialog.text_4') }}
+        </v-row>
+        <v-row class="mt-16 deposit-other-text justify-center">
+            {{ t('withdraw_dialog.other_text') }}
         </v-row>
         <v-row class="mt-2 mx-8">
             <v-btn class="ma-3 button-bright text-none" width="-webkit-fill-available" height="54px"
-                :disabled="!isDepositBtnReady" :onclick="handleDepositSubmit">
-                {{ t('deposit_dialog.deposit_btn_text') }}
+                :disabled="!isDepositBtnReady" :onclick="handleWithdrawSubmit">
+                {{ t('withdraw_dialog.withdraw_btn_text') }}
             </v-btn>
         </v-row>
         <Notification :notificationShow="notificationShow" :notificationText="notificationText" :checkIcon="checkIcon" />
@@ -422,15 +403,15 @@ watch(depositToggleSwitch, (newValue) => {
 
 <style lang="scss">
 // container
-.mobile-deposit-container {
+.withdraw-container {
     background-color: #211F31;
-    height: 100%;
+    border-radius: 16px !important;
+    height: 780px;
 
     .header {
         text-align: center;
         background: #29253C;
-        box-shadow: 0px 3px 4px 1px rgba(0, 0, 0, 0.21);
-        border-radius: 0px 0px 25px 25px;
+        border-radius: 16px 16px 0px 0px;
         height: 80px;
     }
 
@@ -662,6 +643,18 @@ watch(depositToggleSwitch, (newValue) => {
     color: #7782AA;
 }
 
+.other-text {
+    font-weight: 400;
+    font-size: 12px;
+    color: #7782AA;
+}
+
+.withdraw-text {
+    font-weight: 400;
+    font-size: 14px;
+    color: #FFFFFF;
+}
+
 .payment-select-item {
     font-weight: 300;
     font-size: 10px;
@@ -672,9 +665,5 @@ watch(depositToggleSwitch, (newValue) => {
     width: 370px !important;
     margin: auto;
     height: 440px !important;
-}
-
-.personal-info-menu {
-    left: unset !important;
 }
 </style>

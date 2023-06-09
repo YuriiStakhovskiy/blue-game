@@ -225,5 +225,25 @@ export const lang: langType = {
       confirm_success_text: "Successfully submitted, need to modify please contact customer service",
       confirm_warning_text: "Please contact customer service to make changes"
     }
+  },
+  withdraw_dialog: {
+    withdraw_currency: "Withdrawal Currency",
+    withdraw_payment_method: "Withdraw to",
+    withdraw_amount: "Available Balance: R$ 108.88",
+    amount: "Amount",
+    validation: {
+      text_1: "Enter the amount you want to withdraw. ",
+      text_2: "Minimum 149, Maximum 588.88.",
+    },
+    text_1: "Withdrawal fee: 2.5%.",
+    text_2: "Free monthly withdrawal amount: 100",
+    text_3: "Withdrawal hours: 11:00 - 19:00.",
+    text_4: "Payout time: from 5 minutes to 24 hours.",
+    other_text: "2.5% fee,R$19.5 into your account",
+    withdraw_btn_text: "WITHDRAW",
+    withdraw_warning_text: "Excess of withdrawable amount",
+  },
+  mail_dialog: {
+    header_text: "Personal Email"
   }
 };

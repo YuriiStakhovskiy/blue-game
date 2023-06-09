@@ -224,4 +224,24 @@ export type langType = {
       confirm_warning_text: string
     }
   }
+  withdraw_dialog: {
+    withdraw_currency: string
+    withdraw_payment_method: string
+    withdraw_amount: string
+    amount: string
+    validation: {
+      text_1: string
+      text_2: string
+    }
+    text_1: string
+    text_2: string
+    text_3: string
+    text_4: string
+    other_text: string
+    withdraw_btn_text: string
+    withdraw_warning_text: string
+  }
+  mail_dialog: {
+    header_text: string
+  }
 };

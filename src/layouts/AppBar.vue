@@ -4,14 +4,17 @@ import { useI18n } from "vue-i18n";
 import { setLang } from "@/locale/index";
 import { authStore } from "@/store/auth";
 import { appBarStore } from "@/store/appBar";
+import { mailStore } from "@/store/mail";
 import { storeToRefs } from "pinia";
 import { type GetUserData } from "@/interface/appBar";
+import { type GetMailData } from '@/interface/mail';
 import { useDisplay } from 'vuetify'
 
 const { setAuthModalType } = authStore();
 const { setRightBarToggle } = appBarStore();
 const { setNavBarToggle } = appBarStore();
 const { setDepositDialogToggle } = appBarStore();
+const { setWithdrawDialogToggle } = appBarStore();
 
 const { name, width } = useDisplay()
 
@@ -54,12 +57,20 @@ const navBarToggle = computed(() => {
   return getNavBarToggle.value
 })
 
+// pc or mobile screen switch
+
 const mobileVersion = computed(() => {
   return name.value
 });
 
 const mobileWidth: any = computed(() => {
   return width.value;
+})
+
+// get mail data
+const mailList = computed((): GetMailData[] => {
+  const { getMailList } = storeToRefs(mailStore())
+  return getMailList.value
 })
 
 watch(rightBarToggle, (newValue) => {
@@ -102,8 +113,15 @@ watch(currentLanguage, (newLang, oldLang) => {
   setLang(newLang);
 });
 
+watch(mailList, (newValue) => {
+  console.log(newValue);
+  mailCount.value = newValue.length;
+}, {deep: true})
+
+
 onMounted(() => {
   setAuthModalType("");
+  mailCount.value = mailList.value.length
 });
 </script>
 
@@ -136,7 +154,8 @@ onMounted(() => {
         <v-menu offset="10" class="deposit-menu">
           <template v-slot:activator="{ props }">
             <v-card color="#29263C" theme="dark" class="mr-4 mt-2 user-card-height" v-if="mobileWidth > 600">
-              <v-list-item class="deposit-item user-card-height" v-bind="props" value="deposit dropdown" @click="setDepositDialogToggle(true)">
+              <v-list-item class="deposit-item user-card-height" v-bind="props" value="deposit dropdown"
+                @click="setDepositDialogToggle(true)">
                 <div class="d-flex align-center">
                   <p class="mr-1">{{ user.currency }}</p>
                   <p class="mr-2">{{ user.wallet }}</p>
@@ -146,7 +165,8 @@ onMounted(() => {
               </v-list-item>
             </v-card>
             <v-card color="#29263C" theme="dark" class="mr-2 mt-2 user-card-height" v-else>
-              <v-list-item class="deposit-item user-card-height" v-bind="props" value="deposit dropdown" @click="setDepositDialogToggle(true)">
+              <v-list-item class="deposit-item user-card-height" v-bind="props" value="deposit dropdown"
+                @click="setDepositDialogToggle(true)">
                 <div class="d-flex align-center">
                   <p class="mr-1">{{ user.currency }}</p>
                   <p class="mr-2">{{ user.wallet }}</p>
@@ -214,7 +234,7 @@ onMounted(() => {
               </template>
               <v-list-item-title class="ml-2">{{ t('appBar.account') }}</v-list-item-title>
             </v-list-item>
-            <v-list-item class="user-item" value="deposit">
+            <v-list-item class="user-item" value="deposit" @click="setDepositDialogToggle(true)">
               <template v-slot:prepend>
                 <img src="@/assets/app_bar/svg/icon_public_60.svg" />
               </template>
@@ -249,7 +269,7 @@ onMounted(() => {
                 <p class="refer-friend-text-position">{{ t('appBar.earn_money') }}</p>
               </template>
             </v-list-item>
-            <v-list-item class="user-item" value="withdraw">
+            <v-list-item class="user-item" value="withdraw" @click="setWithdrawDialogToggle(true)">
               <template v-slot:prepend>
                 <img src="@/assets/app_bar/svg/icon_public_65.svg" />
               </template>
@@ -299,10 +319,30 @@ onMounted(() => {
             </v-list-item>
           </v-list>
         </v-menu>
-        <div class="mr-4 mt-5 relative mail-height" v-ripple.center v-if="mobileWidth > 600">
-          <img src="@/assets/app_bar/svg/icon_public_55.svg" />
-          <p class="chat-box-text">{{ mailCount }}</p>
-        </div>
+        <v-menu class="mail-menu">
+          <template v-slot:activator="{ props }">
+            <div class="mr-4 mt-5 relative mail-height" v-bind="props" v-ripple.center v-if="mobileWidth > 600">
+              <img src="@/assets/app_bar/svg/icon_public_55.svg" />
+              <p class="chat-box-text">{{ mailCount }}</p>
+            </div>
+          </template>
+          <v-list theme="dark" bg-color="#211F31" class="px-2" width="400">
+            <v-list-item class="mail-item" :value="mailItem.mail_content_1.content"
+              v-for="(mailItem, mailIndex) in mailList" :key="mailIndex">
+              <template v-slot:prepend>
+                <img :src="mailItem.icon" />
+              </template>
+              <v-list-item-title class="ml-2">
+                <div :class="mailItem.mail_content_1.color">{{ mailItem.mail_content_1.content }}</div>
+                <div :class="mailItem.mail_content_2.color">{{ mailItem.mail_content_2.content }}</div>
+              </v-list-item-title>
+              <template v-slot:append>
+                <div :class="mailItem.mail_rail_1.color">{{ mailItem.mail_rail_1.content }}</div>
+                <div class="completion-area" :class="mailItem.mail_rail_2.color">{{ mailItem.mail_rail_2.content }}</div>
+              </template>
+            </v-list-item>
+          </v-list>
+        </v-menu>
         <div class="mr-8 mt-5 relative mail-height" v-ripple @click="setRightBarToggle(true)" v-if="mobileWidth > 600">
           <img src="@/assets/app_bar/svg/icon_public_56.svg" />
           <p class="chat-box-text">{{ messageCount }}</p>
@@ -497,6 +537,84 @@ onMounted(() => {
     border-top-color: transparent;
     border-right-width: 7px;
     border-left-width: 7px;
+  }
+}
+
+.mail-menu {
+  margin-left: auto !important;
+
+  .v-overlay__content {
+    top: 80px !important;
+    left: unset !important;
+    right: 0px !important;
+  }
+
+  .v-overlay__content::after {
+    content: "";
+    position: absolute;
+    align-self: center;
+    right: 100px;
+    top: -18px;
+    border: 9px solid #211f31;
+    border-right-color: transparent;
+    border-left-color: transparent;
+    border-top-color: transparent;
+    border-right-width: 7px;
+    border-left-width: 7px;
+  }
+
+  .v-list-item-title {
+    font-weight: 500;
+    font-size: 12px;
+    color: #7782aa;
+  }
+
+  .v-list-item__append {
+    display: block !important;
+    text-align: center;
+  }
+
+  .completion-area {
+    background-color: #000000;
+    border-radius: 20px;
+    margin-top: 4px;
+  }
+
+  .text-color-gray {
+    font-weight: 500;
+    font-size: 12px;
+    color: #7782aa;
+  }
+
+  .text-color-white {
+    font-weight: 500;
+    font-size: 12px;
+    color: #ffffff;
+  }
+
+  .money-color-white {
+    font-weight: 900;
+    font-size: 16px;
+    color: #ffffff;
+  }
+
+  .text-color-yellow {
+    font-weight: 500;
+    font-size: 12px;
+    color: #F9BC01;
+  }
+
+  .text-color-green {
+    font-weight: 500;
+    font-size: 12px;
+    color: #01983A;
+  }
+
+  .mail-item {
+    margin-top: 4px !important;
+    background-color: #1C1929 !important;
+    padding: 4px 8px !important;
+    border-radius: 12px !important;
   }
 }
 

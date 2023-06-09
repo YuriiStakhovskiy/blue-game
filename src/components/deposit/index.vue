@@ -9,6 +9,7 @@ import Notification from "@/components/notification/index.vue";
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
 const { setDepositDialogToggle } = appBarStore();
+const { setWithdrawDialogToggle } = appBarStore();
 
 const selectedCurrencyItem = ref<GetCurrencyItem>({
     icon: new URL("@/assets/deposit/svg/deposit_1.svg", import.meta.url).href,
@@ -94,6 +95,8 @@ const depositAmountList = ref<Array<string>>([
     '5000',
     '19999',
 ])
+
+const depositToggleSwitch = ref<boolean>(false);
 
 const depositAmountUnit = ref<string>("R$");
 
@@ -228,6 +231,16 @@ watch(depositAmount, (newValue) => {
     }
     isShowAmountValidaton.value = !validateAmount();
 })
+
+watch(depositToggleSwitch, (newValue) => {
+    if (newValue) {
+        setWithdrawDialogToggle(true);
+        setDepositDialogToggle(false);
+    } else {
+        setWithdrawDialogToggle(false);
+        setDepositDialogToggle(true);
+    }
+})
 </script>
   
 <template>
@@ -282,7 +295,7 @@ watch(depositAmount, (newValue) => {
                 </v-list>
             </v-menu>
             <div class="deposit-toggle">
-                <input type="checkbox" id="deposit-toggle" />
+                <input type="checkbox" id="deposit-toggle" v-model="depositToggleSwitch" />
                 <label for="deposit-toggle">
                     <div class="deposit">
                         <img src="@/assets/app_bar/svg/icon_public_60.svg" />
