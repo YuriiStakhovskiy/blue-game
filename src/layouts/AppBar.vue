@@ -9,6 +9,7 @@ import { storeToRefs } from "pinia";
 import { type GetUserData } from "@/interface/appBar";
 import { type GetMailData } from '@/interface/mail';
 import { useDisplay } from 'vuetify'
+import { useRouter } from "vue-router";
 
 const { setAuthModalType } = authStore();
 const { setRightBarToggle } = appBarStore();
@@ -18,6 +19,7 @@ const { setWithdrawDialogToggle } = appBarStore();
 const { setCashDialogToggle } = appBarStore();
 
 const { name, width } = useDisplay()
+const router  = useRouter();
 
 type dialogType = "login" | "signup";
 const color = ref<string>("#29263C");
@@ -119,6 +121,10 @@ const withdrawDialogShow = () => {
   setCashDialogToggle(true);
 }
 
+const goHomePage = () => {
+  router.push({name: "Dashboard"});
+}
+
 // watches
 watch(currentLanguage, (newLang, oldLang) => {
   setLang(newLang);
@@ -141,12 +147,12 @@ onMounted(() => {
     <v-app-bar-nav-icon @click.stop="setNavBarToggle(true)"
       v-if="!navBarToggle && mobileWidth > 600"></v-app-bar-nav-icon>
     <v-toolbar-title v-if="mobileWidth > 800">
-      <v-btn style="height: 60px">
+      <v-btn style="height: 60px" @click="goHomePage">
         <img src="@/assets/public/svg/logo.svg" class="mt-3" />
       </v-btn>
     </v-toolbar-title>
     <v-toolbar-title v-else>
-      <div class="d-flex align-center" v-ripple.center style="width: 110px;">
+      <div class="d-flex align-center" v-ripple.center style="width: 110px;" @click="goHomePage">
         <div>
           <img src="@/assets/public/svg/logo2.svg" class="mt-3" />
         </div>

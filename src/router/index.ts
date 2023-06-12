@@ -12,6 +12,17 @@ const routes = [
       },
     ],
   },
+  {
+    path: '/affiliate',
+    component: () => import('@/layouts/index.vue'),
+    children: [
+      {
+        path: '',
+        name: 'Affiliate',
+        component: () => import('@/views/affiliate/index.vue'),
+      },
+    ],
+  },
 ]
 
 const router = createRouter({

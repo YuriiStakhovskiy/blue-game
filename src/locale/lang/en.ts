@@ -254,5 +254,31 @@ export const lang: langType = {
   },
   mail_dialog: {
     header_text: "Personal Email"
+  },
+  affiliate: {
+    tab: {
+      text_1: "Invite",
+      text_2: "Statistics",
+      text_3: "Forms"
+    },
+    invite: {
+      invite_partner: "INVITE A PARTNER",
+      invited_user: "Invited Users",
+      deposit_user: "Deposit Users",
+      bonus_today: "Bonus Today",
+      bonus_yesterday: "Yesterday's Bonus",
+      monthly_revenu_goal: "Monthly revenue goals",
+      more_people_text: " more people to invite before the goal is reached",
+      premiums_text: "PREMIUMS ISSUED SO FAR",
+      invitation_bonus: "Invitation Bonus",
+      betting_commision: "Betting Commission",
+      how_does_work: "HOW DOES THE INVITATION BONUS WORK?",
+      how_does_content_1: "Each deposit user can receive at least ",
+      how_does_content_2: " for each invitation. The more people you invite, the higher the invitation bonus for the corresponding level.",
+      achivement_bonus: "INVITE ACHIEVEMENT BONUS",
+      achivement_bonus_text_1: "When you invite a certain number of recharge users every day, you can unlock the corresponding [Invitation Achievement Reward].",
+      agent_realization_text: "Agent Realization",
+      receive_btn_text: "Receive",
+    }
   }
 };

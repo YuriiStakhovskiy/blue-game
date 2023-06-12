@@ -253,4 +253,30 @@ export type langType = {
   mail_dialog: {
     header_text: string
   }
+  affiliate: {
+    tab: {
+      text_1: string
+      text_2: string
+      text_3: string
+    }
+    invite: {
+      invite_partner: string
+      invited_user: string
+      deposit_user: string
+      bonus_today: string
+      bonus_yesterday: string
+      monthly_revenu_goal: string
+      more_people_text: string
+      premiums_text: string
+      invitation_bonus: string
+      betting_commision: string
+      how_does_work: string
+      how_does_content_1: string
+      how_does_content_2: string
+      achivement_bonus: string
+      achivement_bonus_text_1: string
+      agent_realization_text: string
+      receive_btn_text: string
+    }
+  }
 };

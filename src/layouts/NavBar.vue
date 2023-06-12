@@ -179,7 +179,7 @@ onMounted(() => {
             <v-list-item class="vip-club" prepend-avatar="@/assets/left_navigation/svg/icon_public_42.svg"
                 :title="t('navBar.menu_item_1.vip_club')" value="vip club"></v-list-item>
             <v-list-item class="avatar-img" prepend-avatar="@/assets/left_navigation/svg/icon_public_43.svg"
-                :title="t('navBar.menu_item_1.affiliate')" value="affiliate"></v-list-item>
+                :title="t('navBar.menu_item_1.affiliate')" value="affiliate" router :to="{ name: 'Affiliate' }"></v-list-item>
             <v-list-item class="avatar-img" prepend-avatar="@/assets/left_navigation/svg/icon_public_44.svg"
                 :title="t('navBar.menu_item_1.blog')" value="blog"></v-list-item>
         </v-list>

@@ -3,6 +3,7 @@ import { ref, computed, watch } from 'vue';
 import { useDisplay } from 'vuetify';
 import { appBarStore } from '@/store/appBar';
 import { storeToRefs } from 'pinia';
+import Footer from "./Footer.vue";
 import Deposit from "@/components/cash/deposit/index.vue";
 import MDeposit from "@/components/cash/deposit/mobile/index.vue";
 import Withdraw from "@/components/cash/withdraw/index.vue";
@@ -70,6 +71,7 @@ watch(cashDialogToggle, (newValue) => {
       </template>
     </v-dialog>
     <router-view />
+    <Footer/>
   </v-main>
 </template>
 <style lang="scss">
