@@ -277,6 +277,23 @@ export type langType = {
       achivement_bonus_text_1: string
       agent_realization_text: string
       receive_btn_text: string
+      commission_title_text: string
+      commission_content_text: string
+      invite_text_1: string
+      invite_text_2: string
+      invite_text_3_1: string
+      invite_text_3_2: string
+      invite_text_4_1: string
+      invite_text_4_2: string
+      invite_text_5_1: string
+      invite_text_5_2: string
+      invite_text_6: string
+      invite_text_7: string
+      invite_text_8: string
+      invite_text_9: string
+      invite_text_10: string
+      invite_text_11: string
+      invite_text_12: string
     }
   }
 };

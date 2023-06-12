@@ -34,41 +34,69 @@ const bettingCommissionItem = ref({
     content: "7755310 people received",
 })
 
+const slider = ref<number>(0);
+const min = 0;
+const max = 100;
 const slides = ref([
     [
-        new URL("@/assets/home/image/img_hp_01.png", import.meta.url).href,
-        new URL("@/assets/home/image/img_hp_02.png", import.meta.url).href,
-        new URL("@/assets/home/image/img_hp_03.png", import.meta.url).href,
+        {
+            headerImg: new URL("@/assets/affiliate/invite/image/img_agent_09.png", import.meta.url).href,
+            grade: 3,
+            gradeImg: new URL("@/assets/affiliate/invite/image/rate_3.png", import.meta.url).href,
+            cash: "R$ 10",
+        },
+        {
+            headerImg: new URL("@/assets/affiliate/invite/image/img_agent_08.png", import.meta.url).href,
+            grade: 10,
+            gradeImg: new URL("@/assets/affiliate/invite/image/rate_10.png", import.meta.url).href,
+            cash: "R$ 30",
+        },
+        {
+            headerImg: new URL("@/assets/affiliate/invite/image/img_agent_07.png", import.meta.url).href,
+            grade: 25,
+            gradeImg: new URL("@/assets/affiliate/invite/image/rate_25.png", import.meta.url).href,
+            cash: "R$ 60",
+        },
     ],
     [
-        new URL("@/assets/home/image/img_hp_02.png", import.meta.url).href,
-        new URL("@/assets/home/image/img_hp_01.png", import.meta.url).href,
-        new URL("@/assets/home/image/img_hp_03.png", import.meta.url).href,
+        {
+            headerImg: new URL("@/assets/affiliate/invite/image/img_agent_08.png", import.meta.url).href,
+            grade: 10,
+            gradeImg: new URL("@/assets/affiliate/invite/image/rate_10.png", import.meta.url).href,
+            cash: "R$ 30",
+        },
+        {
+            headerImg: new URL("@/assets/affiliate/invite/image/img_agent_09.png", import.meta.url).href,
+            grade: 3,
+            gradeImg: new URL("@/assets/affiliate/invite/image/rate_3.png", import.meta.url).href,
+            cash: "R$ 10",
+        },
+        {
+            headerImg: new URL("@/assets/affiliate/invite/image/img_agent_07.png", import.meta.url).href,
+            grade: 25,
+            gradeImg: new URL("@/assets/affiliate/invite/image/rate_25.png", import.meta.url).href,
+            cash: "R$ 60",
+        },
     ],
     [
-        new URL("@/assets/home/image/img_hp_03.png", import.meta.url).href,
-        new URL("@/assets/home/image/img_hp_02.png", import.meta.url).href,
-        new URL("@/assets/home/image/img_hp_01.png", import.meta.url).href,
-    ],
-    [
-        new URL("@/assets/home/image/img_hp_01.png", import.meta.url).href,
-        new URL("@/assets/home/image/img_hp_02.png", import.meta.url).href,
-        new URL("@/assets/home/image/img_hp_03.png", import.meta.url).href,
-    ],
-    [
-        new URL("@/assets/home/image/img_hp_02.png", import.meta.url).href,
-        new URL("@/assets/home/image/img_hp_01.png", import.meta.url).href,
-        new URL("@/assets/home/image/img_hp_03.png", import.meta.url).href,
-    ],
-    [
-        new URL("@/assets/home/image/img_hp_03.png", import.meta.url).href,
-        new URL("@/assets/home/image/img_hp_02.png", import.meta.url).href,
-        new URL("@/assets/home/image/img_hp_01.png", import.meta.url).href,
-    ],
-    [
-        new URL("@/assets/home/image/img_hp_01.png", import.meta.url).href,
-        new URL("@/assets/home/image/img_hp_02.png", import.meta.url).href,
-        new URL("@/assets/home/image/img_hp_03.png", import.meta.url).href,
+        {
+            headerImg: new URL("@/assets/affiliate/invite/image/img_agent_07.png", import.meta.url).href,
+            grade: 25,
+            gradeImg: new URL("@/assets/affiliate/invite/image/rate_25.png", import.meta.url).href,
+            cash: "R$ 60",
+        },
+        {
+            headerImg: new URL("@/assets/affiliate/invite/image/img_agent_08.png", import.meta.url).href,
+            grade: 10,
+            gradeImg: new URL("@/assets/affiliate/invite/image/rate_10.png", import.meta.url).href,
+            cash: "R$ 30",
+        },
+        {
+            headerImg: new URL("@/assets/affiliate/invite/image/img_agent_09.png", import.meta.url).href,
+            grade: 3,
+            gradeImg: new URL("@/assets/affiliate/invite/image/rate_3.png", import.meta.url).href,
+            cash: "R$ 10",
+        },
     ],
 ]);
 
@@ -128,26 +156,26 @@ onMounted(() => {
         <v-col cols="12" md="7" lg="7">
             <v-card color="#1C1929" class="pa-5">
                 <v-row>
-                    <v-col cols="3" class="invite-border text-center">
+                    <v-col cols="6" md="3" lg="3" class="invite-border text-center">
                         <div class="invite-url-title">{{ t('affiliate.invite.invited_user') }}</div>
                         <div class="invite-url-right-text mt-2">{{ inviteUserValue }}</div>
                     </v-col>
-                    <v-col cols="3" class="invite-border text-center">
+                    <v-col cols="6" md="3" lg="3" class="text-center" :class="[mobileWidth < 960 ? '' : 'invite-border']">
                         <div class="invite-url-title">{{ t('affiliate.invite.deposit_user') }}</div>
                         <div class="invite-url-right-text mt-2">{{ depositUserValue }}</div>
                     </v-col>
-                    <v-col cols="3" class="invite-border text-center">
+                    <v-col cols="6" md="3" lg="3" class="invite-border text-center">
                         <div class="invite-url-title">{{ t('affiliate.invite.bonus_today') }}</div>
                         <div class="invite-url-right-text mt-2">{{ bonusTodayValue }}</div>
                     </v-col>
-                    <v-col cols="3" class="text-center">
+                    <v-col cols="6" md="3" lg="3" class="text-center">
                         <div class="invite-url-title">{{ t('affiliate.invite.bonus_yesterday') }}</div>
                         <div class="invite-url-right-text mt-2">{{ bonusYesterdayValue }}</div>
                     </v-col>
                 </v-row>
             </v-card>
             <v-card class="mt-5 pa-5 invite-right-card-bg">
-                <v-row class="align-center">
+                <v-row class="align-center" v-if="mobileWidth > 600">
                     <v-col cols="3" class="text-center pa-0">
                         <div class="invite-revenu-text">{{ t('affiliate.invite.monthly_revenu_goal') }}</div>
                     </v-col>
@@ -163,6 +191,22 @@ onMounted(() => {
                             <span class="invite-more-people-value-text">{{ morePeople }}</span>
                             <span class="invite-more-people-text">{{ t('affiliate.invite.more_people_text') }}</span>
                         </div>
+                    </v-col>
+                </v-row>
+                <v-row class="align-center" v-else>
+                    <v-col cols="8" class="pa-2">
+                        <div class="invite-revenu-text">{{ t('affiliate.invite.monthly_revenu_goal') }}</div>
+                        <div class="d-flex mt-2">
+                            <div class="invite-revenu-cash-text">{{ revenuCash }}</div>
+                            <img src="@/assets/affiliate/invite/svg/icon_public_22.svg" class="ml-4" />
+                        </div>
+                        <div>
+                            <span class="invite-more-people-value-text">{{ morePeople }}</span>
+                            <span class="invite-more-people-text">{{ t('affiliate.invite.more_people_text') }}</span>
+                        </div>
+                    </v-col>
+                    <v-col cols="4" class="text-center pa-0">
+                        <img src="@/assets/affiliate/invite/image/img_public_06.png" width="92" height="84" />
                     </v-col>
                 </v-row>
             </v-card>
@@ -237,15 +281,15 @@ onMounted(() => {
             <img src="@/assets/affiliate/invite/svg/icon_public_22.svg" class="ml-4" />
         </v-row>
         <v-row class="justify-center">
-            <v-col cols="2" md="3" lg="3"></v-col>
-            <v-col cols="8" md="6" lg="6" class="text-center">
+            <v-col cols="1" md="3" lg="3"></v-col>
+            <v-col cols="10" md="6" lg="6" class="text-center">
                 <p class="achivement-bonus-text">{{ t('affiliate.invite.achivement_bonus_text_1') }}</p>
             </v-col>
-            <v-col cols="2" md="3" lg="3"></v-col>
+            <v-col cols="1" md="3" lg="3"></v-col>
         </v-row>
         <!-- card carousel -->
         <v-row class="mt-10">
-            <v-carousel cycle interval="6000" height="386" hide-delimiter-background :hide-delimiters="slides.length <= 1"
+            <v-carousel interval="6000" height="386" hide-delimiter-background :hide-delimiters="slides.length <= 1"
                 show-arrows="hover">
                 <!-- prev, next button hide when slides array length is less than 2 -->
                 <template v-slot:prev="{ props }">
@@ -264,25 +308,128 @@ onMounted(() => {
                             <v-col v-for="(i, index) in 3" :key="index" cols="4" v-if="mobileWidth > 960">
                                 <v-card color="#29253C" class="mt-4 relative invite-carousel-card">
                                     <div class="invite-carousel-card-header"></div>
-                                    <img src="@/assets/affiliate/invite/image/img_agent_07.png" class="invite-carousel-header-img"/>
+                                    <img :src="slide[index].headerImg" class="invite-carousel-header-img" />
+                                    <div class="invite-carousel-header-text">
+                                        {{ t('affiliate.invite.agent_realization_text') }} {{ slide[index].grade }}
+                                    </div>
+                                    <img :src="slide[index].gradeImg" class="invite-carousel-header-rate" />
+                                    <div class="invite-carousel-body-text">
+                                        {{ slide[index].cash }}
+                                    </div>
+                                    <div class="text-center">
+                                        <v-btn class="invite-carousel-btn button-bright text-none" width="164px"
+                                            height="48px">
+                                            {{ t('affiliate.invite.receive_btn_text') }}
+                                        </v-btn>
+                                    </div>
                                 </v-card>
                             </v-col>
-                            <v-col v-for="(i, index1) in 2" :key="index1" cols="6" v-else-if="mobileWidth > 600 && mobileWidth <= 960">
+                            <v-col v-for="(i, index1) in 2" :key="index1" cols="6"
+                                v-else-if="mobileWidth > 600 && mobileWidth <= 960">
                                 <v-card color="#29253C" class="mt-4 relative invite-carousel-card">
                                     <div class="invite-carousel-card-header"></div>
-                                    <img src="@/assets/affiliate/invite/image/img_agent_07.png" class="invite-carousel-header-img"/>
+                                    <img :src="slide[index1].headerImg" class="invite-carousel-header-img" />
+                                    <div class="invite-carousel-header-text">
+                                        {{ t('affiliate.invite.agent_realization_text') }} {{ slide[index1].grade }}
+                                    </div>
+                                    <img :src="slide[index1].gradeImg" class="invite-carousel-header-rate" />
+                                    <div class="invite-carousel-body-text">
+                                        {{ slide[index1].cash }}
+                                    </div>
+                                    <div class="text-center">
+                                        <v-btn class="invite-carousel-btn button-bright text-none" width="164px"
+                                            height="48px">
+                                            {{ t('affiliate.invite.receive_btn_text') }}
+                                        </v-btn>
+                                    </div>
                                 </v-card>
                             </v-col>
                             <v-col v-for="(i, index2) in 1" :key="index2" cols="12" v-else>
                                 <v-card color="#29253C" class="mt-4 relative invite-carousel-card">
                                     <div class="invite-carousel-card-header"></div>
-                                    <img src="@/assets/affiliate/invite/image/img_agent_07.png" class="invite-carousel-header-img"/>
+                                    <img :src="slide[index2].headerImg" class="invite-carousel-header-img" />
+                                    <div class="invite-carousel-header-text">
+                                        {{ t('affiliate.invite.agent_realization_text') }} {{ slide[index2].grade }}
+                                    </div>
+                                    <img :src="slide[index2].gradeImg" class="invite-carousel-header-rate" />
+                                    <div class="invite-carousel-body-text" :style="[mobileWidth < 600 ? 'font-size: 26px' : '']">
+                                        {{ slide[index2].cash }}
+                                    </div>
+                                    <div class="text-center">
+                                        <v-btn class="invite-carousel-btn button-bright text-none" width="164px"
+                                            height="48px">
+                                            {{ t('affiliate.invite.receive_btn_text') }}
+                                        </v-btn>
+                                    </div>
                                 </v-card>
                             </v-col>
                         </v-row>
                     </v-sheet>
                 </v-carousel-item>
             </v-carousel>
+        </v-row>
+    </v-card>
+    <v-row class="mt-6 justify-center">
+        <div class="premiums-text">{{ t('affiliate.invite.commission_title_text') }}</div>
+        <img src="@/assets/affiliate/invite/svg/icon_public_22.svg" class="ml-4" />
+    </v-row>
+    <v-row class="mt-4 justify-center px-10">
+        <div class="commission-content-text">{{ t('affiliate.invite.commission_content_text') }}</div>
+    </v-row>
+    <v-card class="invite-right-card-bg mt-5 mx-3 pa-3 py-5">
+        <v-row :class="mobileWidth < 600 ? 'mx-0' : 'mx-6'">
+            <v-col cols="12" md="6" lg="6">
+                <div class="premiums-text">{{ t('affiliate.invite.invite_text_1') }}</div>
+                <div class="invitation-bonus-text-2 mt-4">{{ t('affiliate.invite.invite_text_2') }}</div>
+                <div class="invitation-bonus-text-2 mt-4">
+                    <span>{{ t('affiliate.invite.invite_text_3_1') }}</span>
+                    <Font color="#F9BC01">30 %</Font>
+                    <span>{{ t('affiliate.invite.invite_text_3_2') }}</span>
+                </div>
+                <div class="invitation-bonus-text-2 mt-4">
+                    <span>{{ t('affiliate.invite.invite_text_4_1') }}</span>
+                    <Font color="#F9BC01">30 %</Font>
+                    <span>{{ t('affiliate.invite.invite_text_4_2') }}</span>
+                </div>
+                <div class="invitation-bonus-text-2 mt-4">
+                    <span>{{ t('affiliate.invite.invite_text_5_1') }}</span>
+                    <Font color="#F9BC01">30 %</Font>
+                    <span>{{ t('affiliate.invite.invite_text_5_2') }}</span>
+                </div>
+                <img src="@/assets/affiliate/invite/image/user_group.png" class="mt-10"
+                    style="width: 100%; max-width: 630px;" />
+            </v-col>
+            <v-col cols="12" md="6" lg="6" class="text-center">
+                <img src="@/assets/affiliate/invite/image/img_agent_02.png" class="mt-1"
+                    style="width: 60%; max-width: 410px;" />
+                <div class="footer-body-bg">
+                    <div class="premiums-text" :class="[mobileWidth < 600 ? 'pt-4' : 'pt-10']">{{ t('affiliate.invite.invite_text_6') }}</div>
+                    <div class="footer-body-cash-text"  :class="[mobileWidth < 600 ? 'pt-2' : 'pt-4']" :style="[mobileWidth < 600 ? 'font-size: 26px' : '']">R$ {{ Math.ceil(slider) }}</div>
+                    <div class="footer-text-7">
+                        <span>{{ t('affiliate.invite.invite_text_7') }}</span>
+                        <Font color="#F9BC01">{{ Math.ceil(slider) }}</Font>
+                        <span>{{ t('affiliate.invite.invite_text_8') }}</span>
+                    </div>
+                    <div :class="[mobileWidth < 600 ? 'px-0 py-3' : 'pa-6']">
+                        <v-slider v-model="slider" color="#32CFEC" class="align-center" :max="max" :min="min" hide-details>
+                        </v-slider>
+                    </div>
+                </div>
+            </v-col>
+        </v-row>
+    </v-card>
+    <v-card class="invite-footer-card-bg mt-5 mx-3 pa-3 py-5">
+        <v-row class="mx-1 align-center">
+            <v-col cols="12" md="6" lg="6" class="d-flex align-center justify-center">
+                <img src="@/assets/affiliate/invite/image/img_agent_03.png" class="mt-10"
+                    style="width: 100%; max-width: 400px;" />
+            </v-col>
+            <v-col cols="12" md="6" lg="6">
+                <div class="mt-4 invite-url-right-text">{{ t('affiliate.invite.invite_text_9') }}</div>
+                <div class="mt-4 invitation-bonus-text-2">{{ t('affiliate.invite.invite_text_10') }}</div>
+                <div class="mt-4 footer-url-text">{{ t('affiliate.invite.invite_text_11') }}</div>
+                <div class="mt-4 invitation-bonus-text-2">{{ t('affiliate.invite.invite_text_12') }}</div>
+            </v-col>
         </v-row>
     </v-card>
 </template>
@@ -304,6 +451,18 @@ onMounted(() => {
     font-weight: 400;
     font-size: 14px;
     color: #7782AA;
+}
+
+.footer-text-7 {
+    font-weight: 700;
+    font-size: 14px;
+    color: #7782AA;
+}
+
+.footer-url-text {
+    font-weight: 800;
+    font-size: 16px;
+    color: #1ACB51;
 }
 
 .invite-border {
@@ -448,5 +607,64 @@ onMounted(() => {
     transform: translateX(-50%);
     width: 89px;
     height: 125px;
+}
+
+.invite-carousel-header-rate {
+    position: absolute;
+    top: 158px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.invite-carousel-header-text {
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    top: 127px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-weight: 800;
+    font-size: 16px;
+    color: #FFFFFF;
+}
+
+.invite-carousel-body-text {
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    top: 215px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-weight: 800;
+    font-size: 32px;
+    color: #F9BC01;
+}
+
+.invite-carousel-btn {
+    margin-top: 70px;
+}
+
+.commission-content-text {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 22px;
+    color: #7782AA;
+    text-align: center;
+}
+
+.footer-body-bg {
+    background: #211F31;
+    border-radius: 12px;
+}
+
+.footer-body-cash-text {
+    font-weight: 800;
+    font-size: 32px;
+    color: #F9BC01;
+}
+
+.invite-footer-card-bg {
+    background: linear-gradient(90deg, #DE8245 0%, #D84594 100%) !important;
+    border-radius: 8px !important;
 }
 </style>
