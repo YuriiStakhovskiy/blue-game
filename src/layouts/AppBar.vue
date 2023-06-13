@@ -17,6 +17,7 @@ const { setNavBarToggle } = appBarStore();
 const { setDepositDialogToggle } = appBarStore();
 const { setWithdrawDialogToggle } = appBarStore();
 const { setCashDialogToggle } = appBarStore();
+const {setUserNavBarToggle} = appBarStore();
 
 const { name, width } = useDisplay()
 const router  = useRouter();
@@ -121,6 +122,13 @@ const withdrawDialogShow = () => {
   setCashDialogToggle(true);
 }
 
+const userNavBarToggle = ref(false);
+
+const showUserNavBar = (): void => {
+  userNavBarToggle.value = !userNavBarToggle.value
+  setUserNavBarToggle(userNavBarToggle.value);
+}
+
 const goHomePage = () => {
   router.push({name: "Dashboard"});
 }
@@ -139,6 +147,15 @@ watch(mailList, (newValue) => {
 onMounted(() => {
   setAuthModalType("");
   mailCount.value = mailList.value.length
+  if (mobileWidth.value > 1280) {
+    if (rightBarToggle.value) {
+      appBarWidth.value = "app-bar-pc";
+    } else {
+      appBarWidth.value = "app-bar-pc-1";
+    }
+  } else {
+    appBarWidth.value = "app-bar-mobile";
+  }
 });
 </script>
 
@@ -194,7 +211,7 @@ onMounted(() => {
             </v-card>
           </template>
         </v-menu>
-        <v-menu offset="10" class="user-menu">
+        <v-menu offset="10" class="user-menu" :scrim="true">
           <template v-slot:activator="{ props }">
             <v-card color="#29263C" theme="dark" class="mr-4 mt-2 user-card-height" v-if="mobileWidth > 600">
               <v-list-item class="user-item" v-bind="props" value="user dropdown">
@@ -211,7 +228,7 @@ onMounted(() => {
               </v-list-item>
             </v-card>
             <div class="d-flex align-center" v-else>
-              <v-list-item class="user-item" v-bind="props" value="user dropdown">
+              <v-list-item class="user-item" value="user dropdown" @click="showUserNavBar">
                 <img :src="user.avatar" width="40" height="40" class="mt-3" />
               </v-list-item>
             </div>
@@ -336,7 +353,7 @@ onMounted(() => {
             </v-list-item>
           </v-list>
         </v-menu>
-        <v-menu class="mail-menu">
+        <v-menu class="mail-menu" :scrim="true">
           <template v-slot:activator="{ props }">
             <div class="mr-4 mt-5 relative mail-height" v-bind="props" v-ripple.center v-if="mobileWidth > 600">
               <img src="@/assets/app_bar/svg/icon_public_55.svg" />
@@ -382,6 +399,9 @@ onMounted(() => {
 </template>
 
 <style lang="scss">
+.user-menu .v-menu__content {
+  max-height: 100% !important;
+}
 .logo-text-1 {
   position: absolute;
   top: -28px;

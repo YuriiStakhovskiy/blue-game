@@ -294,6 +294,13 @@ export type langType = {
       invite_text_10: string
       invite_text_11: string
       invite_text_12: string
+      help_text_1: string
+      help_text_2: string
+      bonus_dialog: {
+        text_1: string
+        text_2: string
+        text_3: string
+      }
     }
   }
 };

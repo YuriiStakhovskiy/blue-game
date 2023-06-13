@@ -5,6 +5,9 @@ import { useI18n } from 'vue-i18n';
 import { useDisplay } from "vuetify";
 import { type GetInvitaionBonusData } from "@/interface/affiliate/invite"
 import { type GetBettingCommissionData } from "@/interface/affiliate/invite"
+import Notification from "@/components/notification/index.vue";
+import BonusDialog from "./bonus_dailog/index.vue";
+import MBonusDialog from "./bonus_dailog/mobile/index.vue";
 
 const { t } = useI18n();
 const { width } = useDisplay();
@@ -33,7 +36,7 @@ const bettingCommissionItem = ref({
     cash: "R$ 38.776.550",
     content: "7755310 people received",
 })
-
+const bonusDialog = ref<boolean>(false);
 const slider = ref<number>(0);
 const min = 0;
 const max = 100;
@@ -132,6 +135,19 @@ const invitationBonusList = ref<GetInvitaionBonusData[]>([
     }
 ])
 
+const notificationShow = ref<boolean>(false);
+const notificationText = ref<string>("");
+const checkIcon = ref<any>(new URL("@/assets/public/svg/icon_public_18.svg", import.meta.url).href);
+
+const inviteUrlCopy = () => {
+    notificationText.value = "Successful replication"
+    notificationShow.value = !notificationShow.value;
+}
+
+const closeBonusDialog = () => {
+    bonusDialog.value = false;
+}
+
 onMounted(() => {
 })
 </script>
@@ -146,7 +162,7 @@ onMounted(() => {
                         <div>{{ item.content }}</div>
                     </v-list-item-title>
                     <template v-slot:append>
-                        <v-btn icon="">
+                        <v-btn icon="" @click="inviteUrlCopy">
                             <img src="@/assets/app_bar/svg/icon_public_71.svg" />
                         </v-btn>
                     </template>
@@ -185,7 +201,15 @@ onMounted(() => {
                     <v-col cols="6" class="pa-0">
                         <div class="d-flex">
                             <div class="invite-revenu-cash-text">{{ revenuCash }}</div>
-                            <img src="@/assets/affiliate/invite/svg/icon_public_22.svg" class="ml-4" />
+                            <v-menu>
+                                <template v-slot:activator="{ props }">
+                                    <img src="@/assets/affiliate/invite/svg/icon_public_22.svg" class="ml-4"
+                                        style="cursor: pointer;" v-bind="props" />
+                                </template>
+                                <v-list theme="dark" bg-color="#211F31" width="400">
+                                    <p class="pa-4 invite-url-title"> {{ t('affiliate.invite.help_text_1') }}</p>
+                                </v-list>
+                            </v-menu>
                         </div>
                         <div>
                             <span class="invite-more-people-value-text">{{ morePeople }}</span>
@@ -198,7 +222,15 @@ onMounted(() => {
                         <div class="invite-revenu-text">{{ t('affiliate.invite.monthly_revenu_goal') }}</div>
                         <div class="d-flex mt-2">
                             <div class="invite-revenu-cash-text">{{ revenuCash }}</div>
-                            <img src="@/assets/affiliate/invite/svg/icon_public_22.svg" class="ml-4" />
+                            <v-menu>
+                                <template v-slot:activator="{ props }">
+                                    <img src="@/assets/affiliate/invite/svg/icon_public_22.svg" class="ml-4"
+                                        v-bind="props" />
+                                </template>
+                                <v-list theme="dark" bg-color="#211F31" class="px-2" width="400">
+                                    <p class="pa-4 invite-url-title"> {{ t('affiliate.invite.help_text_1') }}</p>
+                                </v-list>
+                            </v-menu>
                         </div>
                         <div>
                             <span class="invite-more-people-value-text">{{ morePeople }}</span>
@@ -278,8 +310,13 @@ onMounted(() => {
     <v-card color="#29253C" class="mt-5 mx-3 pa-3 py-5">
         <v-row class="justify-center">
             <div class="premiums-text">{{ t('affiliate.invite.achivement_bonus') }}</div>
-            <img src="@/assets/affiliate/invite/svg/icon_public_22.svg" class="ml-4" />
+            <img src="@/assets/affiliate/invite/svg/icon_public_22.svg" class="ml-4" style="cursor: pointer;"
+                @click="bonusDialog = true" />
         </v-row>
+        <v-dialog v-model="bonusDialog" :width="mobileWidth < 600 ? 328 : 471">
+            <BonusDialog @close="closeBonusDialog" v-if="mobileWidth > 600" />
+            <MBonusDialog @close="closeBonusDialog" v-else />
+        </v-dialog>
         <v-row class="justify-center">
             <v-col cols="1" md="3" lg="3"></v-col>
             <v-col cols="10" md="6" lg="6" class="text-center">
@@ -317,8 +354,8 @@ onMounted(() => {
                                         {{ slide[index].cash }}
                                     </div>
                                     <div class="text-center">
-                                        <v-btn class="invite-carousel-btn button-bright text-none" width="164px"
-                                            height="48px">
+                                        <v-btn class="invite-carousel-btn text-none" width="164px" height="48px"
+                                            :class="[slide[index].grade == 3 ? 'button-bright' : 'invite-receive-btn']">
                                             {{ t('affiliate.invite.receive_btn_text') }}
                                         </v-btn>
                                     </div>
@@ -337,8 +374,8 @@ onMounted(() => {
                                         {{ slide[index1].cash }}
                                     </div>
                                     <div class="text-center">
-                                        <v-btn class="invite-carousel-btn button-bright text-none" width="164px"
-                                            height="48px">
+                                        <v-btn class="invite-carousel-btn text-none" width="164px" height="48px"
+                                            :class="[slide[index1].grade == 3 ? 'button-bright' : 'invite-receive-btn']">
                                             {{ t('affiliate.invite.receive_btn_text') }}
                                         </v-btn>
                                     </div>
@@ -352,12 +389,13 @@ onMounted(() => {
                                         {{ t('affiliate.invite.agent_realization_text') }} {{ slide[index2].grade }}
                                     </div>
                                     <img :src="slide[index2].gradeImg" class="invite-carousel-header-rate" />
-                                    <div class="invite-carousel-body-text" :style="[mobileWidth < 600 ? 'font-size: 26px' : '']">
+                                    <div class="invite-carousel-body-text"
+                                        :style="[mobileWidth < 600 ? 'font-size: 26px' : '']">
                                         {{ slide[index2].cash }}
                                     </div>
                                     <div class="text-center">
-                                        <v-btn class="invite-carousel-btn button-bright text-none" width="164px"
-                                            height="48px">
+                                        <v-btn class="invite-carousel-btn text-none" width="164px" height="48px"
+                                            :class="[slide[index2].grade == 3 ? 'button-bright' : 'invite-receive-btn']">
                                             {{ t('affiliate.invite.receive_btn_text') }}
                                         </v-btn>
                                     </div>
@@ -371,7 +409,15 @@ onMounted(() => {
     </v-card>
     <v-row class="mt-6 justify-center">
         <div class="premiums-text">{{ t('affiliate.invite.commission_title_text') }}</div>
-        <img src="@/assets/affiliate/invite/svg/icon_public_22.svg" class="ml-4" />
+        <v-menu>
+            <template v-slot:activator="{ props }">
+                <img src="@/assets/affiliate/invite/svg/icon_public_22.svg" class="ml-4" v-bind="props"
+                    style="cursor: pointer;" />
+            </template>
+            <v-list theme="dark" bg-color="#211F31" class="px-2" width="400">
+                <p class="pa-4 invite-url-title"> {{ t('affiliate.invite.help_text_2') }}</p>
+            </v-list>
+        </v-menu>
     </v-row>
     <v-row class="mt-4 justify-center px-10">
         <div class="commission-content-text">{{ t('affiliate.invite.commission_content_text') }}</div>
@@ -403,8 +449,10 @@ onMounted(() => {
                 <img src="@/assets/affiliate/invite/image/img_agent_02.png" class="mt-1"
                     style="width: 60%; max-width: 410px;" />
                 <div class="footer-body-bg">
-                    <div class="premiums-text" :class="[mobileWidth < 600 ? 'pt-4' : 'pt-10']">{{ t('affiliate.invite.invite_text_6') }}</div>
-                    <div class="footer-body-cash-text"  :class="[mobileWidth < 600 ? 'pt-2' : 'pt-4']" :style="[mobileWidth < 600 ? 'font-size: 26px' : '']">R$ {{ Math.ceil(slider) }}</div>
+                    <div class="premiums-text" :class="[mobileWidth < 600 ? 'pt-4' : 'pt-10']">{{
+                        t('affiliate.invite.invite_text_6') }}</div>
+                    <div class="footer-body-cash-text" :class="[mobileWidth < 600 ? 'pt-2' : 'pt-4']"
+                        :style="[mobileWidth < 600 ? 'font-size: 26px' : '']">R$ {{ Math.ceil(slider) }}</div>
                     <div class="footer-text-7">
                         <span>{{ t('affiliate.invite.invite_text_7') }}</span>
                         <Font color="#F9BC01">{{ Math.ceil(slider) }}</Font>
@@ -432,6 +480,7 @@ onMounted(() => {
             </v-col>
         </v-row>
     </v-card>
+    <Notification :notificationShow="notificationShow" :notificationText="notificationText" :checkIcon="checkIcon" />
 </template>
 <style lang="scss">
 .invite-partner-text {
@@ -445,6 +494,19 @@ onMounted(() => {
     background-color: #1C1929 !important;
     padding: 4px 8px !important;
     border-radius: 12px !important;
+
+    .v-btn--icon {
+        border-radius: 10px;
+    }
+}
+
+.invite-receive-btn {
+    background: #353652 !important;
+    box-shadow: 0px 3px 4px 1px rgba(0, 0, 0, 0.21) !important;
+    border-radius: 16px !important;
+    font-weight: 700 !important;
+    font-size: 16px !important;
+    color: #FFFFFF !important;
 }
 
 .invite-url-title {

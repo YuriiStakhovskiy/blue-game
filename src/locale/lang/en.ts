@@ -296,6 +296,13 @@ export const lang: langType = {
       invite_text_10: "Please contact our manager to discuss the terms.",
       invite_text_11: "https://wa.me/message/3E5IOHH5J2BCL1",
       invite_text_12: "Important: Only users who have passed the requirements and have been approved by their manager can participate in the program.",
+      help_text_1: "The estimated value is derived from the average of all the guest users' earnings within the platform. Your earnings consist of 2 parts, the bonus for inviting Deposited Users, the commission for discounts on the bets of subordinate users, where the value of the lower level user's betting bonus depends on the value of his bets from the lower level user, the more his accumulated betting value, the higher his earnings.",
+      help_text_2: "Betting commissions will give you commission income every day. The more level 1 depositors you invite or indirectly invite level 2-3 depositors, the more they bet on games, the more commissions you earn!",
+      bonus_dialog: {
+        text_1: "The number of invited deposit users is accumulated within 24 hours starting at 00:00 every day. For example, if your number of valid invitations reaches 50, this means that you will receive achievement bonuses in three gradients,",
+        text_2: "Cumulative Deposit Users",
+        text_3: "Bonus"
+      }
     }
   }
 };

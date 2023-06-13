@@ -9,7 +9,8 @@ export const appBarStore = defineStore({
     navBarToggle: true as boolean,
     cashDialogToggle: false as boolean,
     depositDialogToggle: false as boolean,
-    withdrawDialogToggle: false as boolean
+    withdrawDialogToggle: false as boolean,
+    userNavBarToggle: false as boolean,
   }),
   getters: {
     getSuccess: (state) => state.success,
@@ -19,6 +20,7 @@ export const appBarStore = defineStore({
     getDepositDialogToggle: (state) => state.depositDialogToggle,
     getWithdrawDialogToggle: (state) => state.withdrawDialogToggle,
     getCashDialogToggle: (state) => state.cashDialogToggle,
+    getUserNavBarToggle: (state) => state.userNavBarToggle,
   },
   actions: {
     setSuccess(success: boolean) {
@@ -41,6 +43,9 @@ export const appBarStore = defineStore({
     },
     setCashDialogToggle(cashDialogToggle: boolean) {
       this.cashDialogToggle = cashDialogToggle;
+    },
+    setUserNavBarToggle(userNavBarToggle: boolean) {
+      this.userNavBarToggle = userNavBarToggle
     }
   }
 })
