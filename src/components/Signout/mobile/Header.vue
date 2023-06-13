@@ -2,17 +2,19 @@
 import { ref, toRefs, watch, onMounted } from "vue";
 import { useI18n } from 'vue-i18n';
 
+type dialogType = "login" | "signup" | "signout";
+
 const props = defineProps<{mobileDialogCheck: boolean}>();
 const emit = defineEmits<{
-  (e: 'switchDialog', value: string): void
+  (e: 'switch', value: dialogType): void
 }>()
 const {mobileDialogCheck} = toRefs(props);
 const { t } = useI18n();
 const dialogCheckBox = ref<boolean>(false);
 
-const handleCheckBox = ():void => {
+const handleCheckBox = ():void => {    
     console.log(dialogCheckBox.value);
-    emit('switchDialog', dialogCheckBox.value ? "signup" : "login")
+    emit('switch', dialogCheckBox.value ? "signup" : "login")
 }
 
 watch(mobileDialogCheck, (newValue: boolean) => {

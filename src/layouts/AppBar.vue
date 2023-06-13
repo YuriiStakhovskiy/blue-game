@@ -61,6 +61,11 @@ const navBarToggle = computed(() => {
   return getNavBarToggle.value
 })
 
+const userNavToggle = computed(() => {
+  const {getUserNavBarToggle} = storeToRefs(appBarStore());
+  return getUserNavBarToggle.value
+})
+
 // pc or mobile screen switch
 
 const mobileVersion = computed(() => {
@@ -128,6 +133,11 @@ const showUserNavBar = (): void => {
   userNavBarToggle.value = !userNavBarToggle.value
   setUserNavBarToggle(userNavBarToggle.value);
 }
+
+watch(userNavToggle, (newValue) => {
+  console.log(navBarToggle.value);
+  userNavBarToggle.value = newValue;
+}, {deep: true});
 
 const goHomePage = () => {
   router.push({name: "Dashboard"});

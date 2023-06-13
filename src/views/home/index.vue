@@ -8,32 +8,13 @@ import {
   computed,
   onMounted,
 } from "vue";
-import Signup from "@/components/Signup/index.vue";
-import MSignup from "@/components/Signup/mobile/index.vue";
-import Login from "@/components/Login/index.vue";
-import MLogin from "@/components/Login/mobile/index.vue";
-import Signout from "@/components/Signout/index.vue";
-import MSignout from "@/components/Signout/mobile/index.vue";
-import MobileDialog from "@/components/Signout/mobile/Header.vue";
-import { authStore } from "@/store/auth";
-import { storeToRefs } from "pinia";
 import { useI18n } from "vue-i18n";
 import { useDisplay } from 'vuetify'
 
-type dialogType = "login" | "signup" | "signout";
-
 const Dashboard = defineComponent({
   components: {
-    Signup,
-    Login,
-    Signout,
-    MSignup,
-    MLogin,
-    MSignout,
-    MobileDialog
   },
   setup() {
-    const { setAuthModalType } = authStore();
     const { t } = useI18n();
     const { name } = useDisplay()
 
@@ -122,41 +103,6 @@ const Dashboard = defineComponent({
         new URL("@/assets/home/image/img_lc_07.png", import.meta.url).href,
       ],
     });
-
-    // methods
-    const closeDialog = (type: dialogType) => {
-      if (type === "login") {
-        state.loginDialog = false;
-      } else if (type == "signup") {
-        state.signupDialog = false;
-      } else {
-        state.signoutDialog = false;
-      }
-      state.mobileDialog = false;
-      setAuthModalType("");
-    };
-
-    const switchDialog = (type: dialogType) => {
-      if (type === "login") {
-        state.mobileDialog = true;
-        state.mobileDialogCheck = true;
-        state.loginDialog = false;
-        state.signoutDialog = false;
-        state.signupDialog = true;
-      } else if (type == "signup") {
-        state.mobileDialog = true;
-        state.mobileDialogCheck = false;
-        state.loginDialog = true;
-        state.signupDialog = false;
-        state.signoutDialog = false;
-      }
-    };
-
-    const authModalType = computed(() => {
-      const { getAuthModalType } = storeToRefs(authStore());
-      return getAuthModalType.value;
-    });
-
     const mobileVersion = computed(() => {
       return name.value
     });
@@ -169,31 +115,9 @@ const Dashboard = defineComponent({
       }
     })
 
-    // trigger when authModalType changed
-
-    watch(authModalType, (newValue: string) => {
-      if (newValue == "login") {
-        state.mobileDialog = true;
-        state.mobileDialogCheck = false;
-        state.loginDialog = true;
-      } else if (newValue == "signup") {
-        state.mobileDialog = true;
-        state.mobileDialogCheck = true;
-        state.signupDialog = true;
-      } else if (newValue == "signout") {
-        state.signoutDialog = true;
-        state.mobileDialog = false;
-      } else {
-        state.mobileDialog = false;
-      }
-    });
-
     return {
       t,
       ...toRefs(state),
-      closeDialog,
-      switchDialog,
-      authModalType,
       mobileVersion
     };
   },
@@ -204,31 +128,6 @@ export default Dashboard;
 
 <template>
   <div class="my-4 mx-2 home-body">
-    <v-dialog v-model="mobileDialog" :fullscreen="mobileVersion == 'sm'" transition="dialog-top-transition"
-      class="mobile-dialog-toggle-height" v-if="mobileVersion == 'sm'">
-      <MobileDialog :mobileDialogCheck="mobileDialogCheck" @switchDialog="switchDialog" />
-    </v-dialog>
-    <v-dialog v-model="signupDialog" :width="mobileVersion == 'sm' ? '' : 471" :fullscreen="mobileVersion == 'sm'"
-      :scrim="mobileVersion == 'sm' ? false : true" :transition="mobileVersion == 'sm' ? 'dialog-bottom-transition' : ''"
-      :class="[mobileVersion == 'sm' ? 'mobile-login-dialog-position' : '']" @click:outside="closeDialog('signup')">
-      <!------------  PC Version ------------>
-      <Signup v-if="mobileVersion != 'sm'" @close="closeDialog('signup')" @switch="switchDialog('signup')" />
-      <!------------  Mobile Version ------------>
-      <MSignup v-else @close="closeDialog('signup')" @switch="switchDialog('signup')" />
-    </v-dialog>
-    <v-dialog v-model="loginDialog" :width="mobileVersion == 'sm' ? '' : 471" :fullscreen="mobileVersion == 'sm'"
-      :scrim="mobileVersion == 'sm' ? false : true" :transition="mobileVersion == 'sm' ? 'dialog-bottom-transition' : ''"
-      :class="[mobileVersion == 'sm' ? 'mobile-login-dialog-position' : '']" @click:outside="closeDialog('login')">
-      <!------------  PC Version ------------>
-      <Login v-if="mobileVersion != 'sm'" @close="closeDialog('login')" @switch="switchDialog('login')" />
-      <!------------  Mobile Version ------------>
-      <MLogin v-else @close="closeDialog('login')" @switch="switchDialog('login')" />
-    </v-dialog>
-    <v-dialog v-model="signoutDialog" :width="mobileVersion == 'sm' ? '' : 471" :fullscreen="mobileVersion == 'sm'"
-      :transition="mobileVersion == 'sm' ? 'dialog-bottom-transition' : ''" @click:outside="closeDialog('signout')">
-      <Signout v-if="mobileVersion != 'sm'" @close="closeDialog('signout')" />
-      <MSignout v-else @close="closeDialog('signout')" />
-    </v-dialog>
     <!-- image carousel -->
     <v-carousel cycle interval="6000" height="225" hide-delimiter-background :hide-delimiters="slides.length <= 1"
       show-arrows="hover">

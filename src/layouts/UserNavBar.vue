@@ -46,15 +46,18 @@ const mobileWidth: any = computed(() => {
 const depositDialogShow = () => {
     setDepositDialogToggle(true);
     setCashDialogToggle(true);
+    setUserNavBarToggle(false);
 }
 
 const withdrawDialogShow = () => {
     setWithdrawDialogToggle(true);
     setCashDialogToggle(true);
+    setUserNavBarToggle(false);
 }
 
 const showSignoutDialog = () => {
     setAuthModalType("signout");
+    setUserNavBarToggle(false);
 }
 
 watch(userNavBarToggle, (newValue) => {
@@ -189,7 +192,7 @@ watch(mobileWidth, (newValue: number) => {
             </v-list-item>
             <v-list-item class="user-item">
                 <v-list-item-title>
-                    <div class="d-flex justify-center sign-out-btn" v-ripple.center @click="showSignoutDialog">
+                    <div class="d-flex justify-center align-center sign-out-btn" v-ripple.center @click="showSignoutDialog">
                         <img src="@/assets/app_bar/svg/icon_public_70.svg" class="mr-4" />
                         {{ t('appBar.sign_out') }}
                     </div>
@@ -202,11 +205,12 @@ watch(mobileWidth, (newValue: number) => {
 <style lang="scss">
 .nav-background {
     background-color: #211F31 !important;
-    // color: #7782AA !important;
+    color: #7782AA !important;
     border: 2px !important;
     box-shadow: 2px 0px 4px rgba(0, 0, 0, 0.25) !important;
     top: 0px !important;
     height: 100% !important;
+    will-change: auto !important;
 }
 
 .user-navbar-position {
@@ -245,15 +249,15 @@ watch(mobileWidth, (newValue: number) => {
 }
 
 .refer-friend-text-position {
-  position: absolute;
-  right: 9px;
-  top: 20px;
-  background: #211F31;
-  border-radius: 20px;
-  padding: 4px 6px;
-  font-weight: 500;
-  font-size: 12px;
-  color: #FFFFFF !important;
+    position: absolute;
+    right: 9px;
+    top: 20px;
+    background: #211F31;
+    border-radius: 20px;
+    padding: 4px 6px;
+    font-weight: 500;
+    font-size: 12px;
+    color: #FFFFFF !important;
 }
 
 .app-text-position {

@@ -2,6 +2,7 @@
 import { ref, computed, watch } from 'vue';
 import { useDisplay } from 'vuetify';
 import { appBarStore } from '@/store/appBar';
+import { authStore } from "@/store/auth";
 import { storeToRefs } from 'pinia';
 import Footer from "./Footer.vue";
 import Deposit from "@/components/cash/deposit/index.vue";
@@ -10,10 +11,20 @@ import Withdraw from "@/components/cash/withdraw/index.vue";
 import MWithdraw from "@/components/cash/withdraw/mobile/index.vue";
 import MCashHeader from "@/components/cash/header/mobile/index.vue";
 import CashHeader from "@/components/cash/header/index.vue";
+import Signup from "@/components/Signup/index.vue";
+import MSignup from "@/components/Signup/mobile/index.vue";
+import Login from "@/components/Login/index.vue";
+import MLogin from "@/components/Login/mobile/index.vue";
+import Signout from "@/components/Signout/index.vue";
+import MSignout from "@/components/Signout/mobile/index.vue";
+import MobileDialog from "@/components/Signout/mobile/Header.vue";
 const { name, width } = useDisplay();
 const { setDepositDialogToggle } = appBarStore();
 const { setWithdrawDialogToggle } = appBarStore();
 const { setCashDialogToggle } = appBarStore();
+const { setAuthModalType } = authStore();
+
+type dialogType = "login" | "signup" | "signout";
 
 // mobile or pc screen
 const mobileVersion = computed(() => {
@@ -22,6 +33,74 @@ const mobileVersion = computed(() => {
 const mobileWidth = computed(() => {
   return width.value
 })
+
+// authentication dialog
+const signupDialog = ref<boolean>(false);
+const signoutDialog = ref<boolean>(false);
+const loginDialog = ref<boolean>(false);
+const mobileDialog = ref<boolean>(false);
+const mobileDialogCheck = ref<boolean>(false);
+
+// methods
+const closeDialog = (type: dialogType) => {
+  if (type === "login") {
+    loginDialog.value = false;
+  } else if (type == "signup") {
+    signupDialog.value = false;
+  } else {
+    signoutDialog.value = false;
+  }
+  mobileDialog.value = false;
+  setAuthModalType("");
+};
+
+const switchDialog = (type: dialogType):void => {
+  if (type === "login") {
+    mobileDialog.value = true;
+    mobileDialogCheck.value = true;
+    loginDialog.value = false;
+    signoutDialog.value = false;
+    signupDialog.value = true;
+  } else if (type == "signup") {
+    mobileDialog.value = true;
+    mobileDialogCheck.value = false;
+    loginDialog .value= true;
+    signupDialog.value = false;
+    signoutDialog.value = false;
+  }
+};
+
+const authModalType = computed(() => {
+  const { getAuthModalType } = storeToRefs(authStore());
+  return getAuthModalType.value;
+});
+
+watch(mobileVersion, (newValue) => {
+  if (newValue == "sm") {
+    loginDialog.value = false;
+    signupDialog.value = false;
+    mobileDialog.value = false;
+  }
+})
+
+// trigger when authModalType changed
+
+watch(authModalType, (newValue: string) => {
+  if (newValue == "login") {
+    mobileDialog.value = true;
+    mobileDialogCheck.value = false;
+    loginDialog.value = true;
+  } else if (newValue == "signup") {
+    mobileDialog.value = true;
+    mobileDialogCheck.value = true;
+    signupDialog.value = true;
+  } else if (newValue == "signout") {
+    signoutDialog.value = true;
+    mobileDialog.value = false;
+  } else {
+    mobileDialog.value = false;
+  }
+});
 
 // deposit dialog
 const depositDialog = ref<boolean>(true);
@@ -56,6 +135,9 @@ watch(cashDialogToggle, (newValue) => {
 
 <template>
   <v-main class="main-background">
+
+    <!---------------------- Deposit Dialog ----------------------------------------------->
+
     <v-dialog v-model="cashDialog" :width="mobileVersion == 'sm' ? '' : 471" :fullscreen="mobileVersion == 'sm'"
       :scrim="mobileVersion == 'sm' ? false : true" :transition="mobileVersion == 'sm' ? 'dialog-bottom-transition' : ''"
       @click:outside="setCashDialogToggle(false)">
@@ -70,8 +152,41 @@ watch(cashDialogToggle, (newValue) => {
         <MDeposit v-else />
       </template>
     </v-dialog>
+
+    <!-----------------------Authentication Dialog --------------------------------------->
+
+    <v-dialog v-model="mobileDialog" :fullscreen="mobileVersion == 'sm'" transition="dialog-top-transition"
+      class="mobile-dialog-toggle-height" v-if="mobileVersion == 'sm'">
+      <MobileDialog :mobileDialogCheck="mobileDialogCheck" @switch="switchDialog" />
+    </v-dialog>
+    <v-dialog v-model="signupDialog" :width="mobileVersion == 'sm' ? '' : 471" :fullscreen="mobileVersion == 'sm'"
+      :scrim="mobileVersion == 'sm' ? false : true" :transition="mobileVersion == 'sm' ? 'dialog-bottom-transition' : ''"
+      :class="[mobileVersion == 'sm' ? 'mobile-login-dialog-position' : '']" @click:outside="closeDialog('signup')">
+      <!------------  PC Version ------------>
+      <Signup v-if="mobileVersion != 'sm'" @close="closeDialog('signup')" @switch="switchDialog('signup')" />
+      <!------------  Mobile Version ------------>
+      <MSignup v-else @close="closeDialog('signup')" @switch="switchDialog('signup')" />
+    </v-dialog>
+    <v-dialog v-model="loginDialog" :width="mobileVersion == 'sm' ? '' : 471" :fullscreen="mobileVersion == 'sm'"
+      :scrim="mobileVersion == 'sm' ? false : true" :transition="mobileVersion == 'sm' ? 'dialog-bottom-transition' : ''"
+      :class="[mobileVersion == 'sm' ? 'mobile-login-dialog-position' : '']" @click:outside="closeDialog('login')">
+      <!------------  PC Version ------------>
+      <Login v-if="mobileVersion != 'sm'" @close="closeDialog('login')" @switch="switchDialog('login')" />
+      <!------------  Mobile Version ------------>
+      <MLogin v-else @close="closeDialog('login')" @switch="switchDialog('login')" />
+    </v-dialog>
+    <v-dialog v-model="signoutDialog" :width="mobileVersion == 'sm' ? '' : 471" :fullscreen="mobileVersion == 'sm'"
+      :transition="mobileVersion == 'sm' ? 'dialog-bottom-transition' : ''" @click:outside="closeDialog('signout')">
+      <Signout v-if="mobileVersion != 'sm'" @close="closeDialog('signout')" />
+      <MSignout v-else @close="closeDialog('signout')" />
+    </v-dialog>
+
+    <!------------------------------ Main Page ------------------------------------------->
+
     <router-view />
-    <Footer/>
+
+    <!-------------------------------- Footer Tab ----------------------------------------->
+    <Footer />
   </v-main>
 </template>
 <style lang="scss">
