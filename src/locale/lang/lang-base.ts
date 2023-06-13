@@ -301,6 +301,32 @@ export type langType = {
         text_2: string
         text_3: string
       }
+    },
+    statistics: {
+      total_profit_text: string
+      mobile_profit_title: string
+      text_1: string
+      text_2: string
+      text_3: string
+      tab: {
+        text_1: string
+        text_2: string
+        text_3: string
+        today: {
+          profit_today_text: string
+        }
+        week: {
+          profit_this_week_text: string
+        }
+        month: {
+          profit_this_month_text: string
+        }
+        profit_tab_text_1: string
+        profit_tab_text_2: string
+        profit_tab_text_3: string
+        profit_tab_text_4: string
+        profit_tab_text_5: string
+      }
     }
   }
 };

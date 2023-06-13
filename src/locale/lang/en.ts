@@ -264,7 +264,7 @@ export const lang: langType = {
     invite: {
       invite_partner: "INVITE A PARTNER",
       invited_user: "Invited Users",
-      deposit_user: "Deposit Users",
+      deposit_user: "Deposited Users",
       bonus_today: "Bonus Today",
       bonus_yesterday: "Yesterday's Bonus",
       monthly_revenu_goal: "Monthly revenue goals",
@@ -302,6 +302,32 @@ export const lang: langType = {
         text_1: "The number of invited deposit users is accumulated within 24 hours starting at 00:00 every day. For example, if your number of valid invitations reaches 50, this means that you will receive achievement bonuses in three gradients,",
         text_2: "Cumulative Deposit Users",
         text_3: "Bonus"
+      }
+    },
+    statistics: {
+      total_profit_text: "TOTAL PROFIT",
+      mobile_profit_title: "PREMIUMS ISSUED SO FAR",
+      text_1: "You receive a commission for every bet you invite users to make, win or lose.",
+      text_2: "So all you have to do is improve your playing skills, think about how to win the game, and share it with everyone to help more people win with your method.",
+      text_3: "We want all players to have fun at BETFIERY, whether it's the fun of winning bets or the game itself!",
+      tab: {
+        text_1: "PROFIT TODAY",
+        text_2: "PROFIT WEEK",
+        text_3: "PROFIT MONTH",
+        today: {
+          profit_today_text: "PROFIT TODAY",
+        },
+        week: {
+          profit_this_week_text: "PROFIT THIS WEEK"
+        },
+        month: {
+          profit_this_month_text: "PROFIT THIS MONTH"
+        },
+        profit_tab_text_1: "Your profit will consist of two parts, namely [Invitation Bonus] [Betting Commission].",
+        profit_tab_text_2: "Betting Commission:",
+        profit_tab_text_3: "This will be your main income and you will receive a different percentage of each bet you invite players to place for commission.",
+        profit_tab_text_4: "Invitation Bonus:",
+        profit_tab_text_5: "The user that you invite to deposit for the first time, you will receive a cash bonus of ",
       }
     }
   }

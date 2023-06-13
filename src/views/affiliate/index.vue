@@ -5,6 +5,8 @@ import { storeToRefs } from "pinia";
 import { useI18n } from "vue-i18n";
 import { useDisplay } from "vuetify";
 import Invite from "@/components/affiliate/invite/index.vue";
+import Statistics from "@/components/affiliate/statistics/index.vue";
+import MStatistics from "@/components/affiliate/statistics/mobile/index.vue";
 
 const { t } = useI18n();
 const { width } = useDisplay()
@@ -91,7 +93,11 @@ onMounted(() => {
             </div>
         </div>
         <div class="affiliate-body">
-            <Invite v-if="selectedTabIndex == 0"/>
+            <Invite v-if="selectedTabIndex == 0" />
+            <div v-if="selectedTabIndex == 1">
+                <Statistics v-if="mobileWidth > 600" />
+                <MStatistics v-else />
+            </div>
         </div>
     </div>
 </template>
