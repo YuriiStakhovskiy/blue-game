@@ -16,6 +16,7 @@ import { registerPlugins } from '@/plugins'
 // I18n Plugin
 import { i18n } from '@/locale/index'
 import ElementPlus from 'element-plus'
+import 'element-plus/dist/index.css';
 
 const app = createApp(App)
 
