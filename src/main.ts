@@ -15,11 +15,14 @@ import { registerPlugins } from '@/plugins'
 
 // I18n Plugin
 import { i18n } from '@/locale/index'
+import ElementPlus from 'element-plus'
 
 const app = createApp(App)
 
 registerPlugins(app)
 
 app.use(i18n)
+
+app.use(ElementPlus)
 
 app.mount('#app')

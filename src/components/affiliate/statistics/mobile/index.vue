@@ -57,16 +57,19 @@ const mobileWidth = computed(() => {
         </v-row>
     </v-card>
     <v-tabs v-model="profitTab" bg-color="#211F31" class="mt-4 mx-6">
-        <v-tab value="today" :class="[profitTab == 'today' ? 'm-statistics-tab-active' : 'm-statistics-tab']">{{
-            t('affiliate.statistics.tab.text_1') }}</v-tab>
-        <v-tab value="week" :class="[profitTab == 'week' ? 'm-statistics-tab-active' : 'm-statistics-tab']">{{
-            t('affiliate.statistics.tab.text_2') }}</v-tab>
-        <v-tab value="month" :class="[profitTab == 'month' ? 'm-statistics-tab-active' : 'm-statistics-tab']">{{
-            t('affiliate.statistics.tab.text_3') }}</v-tab>
+        <v-tab value="today" :class="[profitTab == 'today' ? 'm-statistics-tab-active' : 'm-statistics-tab']">
+            {{ t('affiliate.statistics.tab.text_1') }}
+        </v-tab>
+        <v-tab value="week" :class="[profitTab == 'week' ? 'm-statistics-tab-active' : 'm-statistics-tab']" class="pa-0">
+            {{ t('affiliate.statistics.tab.text_2') }}
+        </v-tab>
+        <v-tab value="month" :class="[profitTab == 'month' ? 'm-statistics-tab-active' : 'm-statistics-tab']" class="pa-0">
+            {{ t('affiliate.statistics.tab.text_3') }}
+        </v-tab>
     </v-tabs>
     <v-window v-model="profitTab">
         <v-window-item value="today">
-            <v-card class="m-statistics-profit-card-today">                
+            <v-card class="m-statistics-profit-card-today">
                 <v-row class="justify-center">
                     <v-col cols="12" class="text-center mt-4">
                         <v-row class="justify-center align-center">
@@ -232,8 +235,10 @@ const mobileWidth = computed(() => {
 
     .v-btn__content {
         font-weight: 700 !important;
-        font-size: 13px !important;
+        font-size: 12px !important;
         white-space: normal !important;
+        letter-spacing: normal !important;
+        line-height: inherit !important;
     }
 }
 
@@ -246,8 +251,10 @@ const mobileWidth = computed(() => {
 
     .v-btn__content {
         font-weight: 700 !important;
-        font-size: 13px !important;
+        font-size: 12px !important;
         white-space: normal !important;
+        letter-spacing: normal !important;
+        line-height: inherit !important;
     }
 }
 

@@ -7,6 +7,7 @@ import { useDisplay } from "vuetify";
 import Invite from "@/components/affiliate/invite/index.vue";
 import Statistics from "@/components/affiliate/statistics/index.vue";
 import MStatistics from "@/components/affiliate/statistics/mobile/index.vue";
+import Forms from "@/components/affiliate/forms/index.vue";
 
 const { t } = useI18n();
 const { width } = useDisplay()
@@ -97,6 +98,9 @@ onMounted(() => {
             <div v-if="selectedTabIndex == 1">
                 <Statistics v-if="mobileWidth > 600" />
                 <MStatistics v-else />
+            </div>
+            <div v-if="selectedTabIndex == 2">
+                <Forms v-if="mobileWidth > 600" />
             </div>
         </div>
     </div>

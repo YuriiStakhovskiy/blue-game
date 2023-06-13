@@ -312,8 +312,8 @@ export const lang: langType = {
       text_3: "We want all players to have fun at BETFIERY, whether it's the fun of winning bets or the game itself!",
       tab: {
         text_1: "PROFIT TODAY",
-        text_2: "PROFIT WEEK",
-        text_3: "PROFIT MONTH",
+        text_2: "PROFIT THIS WEEK",
+        text_3: "PROFIT THIS MONTH",
         today: {
           profit_today_text: "PROFIT TODAY",
         },
