@@ -328,5 +328,12 @@ export type langType = {
         profit_tab_text_5: string
       }
     }
+    forms: {
+      table: {
+        time: string
+        user: string
+        bonus: string
+      }
+    }
   }
 };

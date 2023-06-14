@@ -176,7 +176,7 @@ watch(cashDialogToggle, (newValue) => {
       <MLogin v-else @close="closeDialog('login')" @switch="switchDialog('login')" />
     </v-dialog>
     <v-dialog v-model="signoutDialog" :width="mobileVersion == 'sm' ? '' : 471" :fullscreen="mobileVersion == 'sm'"
-      :transition="mobileVersion == 'sm' ? 'dialog-bottom-transition' : ''" @click:outside="closeDialog('signout')">
+      :transition="mobileVersion == 'sm' ? 'dialog-bottom-transition' : ''" :class="[mobileVersion == 'sm' ? 'mobile-login-dialog-position' : '']" @click:outside="closeDialog('signout')">
       <Signout v-if="mobileVersion != 'sm'" @close="closeDialog('signout')" />
       <MSignout v-else @close="closeDialog('signout')" />
     </v-dialog>
@@ -192,5 +192,20 @@ watch(cashDialogToggle, (newValue) => {
 <style lang="scss">
 .main-background {
   background: #31275C;
+}
+.mobile-dialog-toggle-height {
+  height: 100px !important;
+  position: absolute !important;
+  margin: 0 !important;
+  bottom: unset !important;
+  top: 0 !important;
+}
+
+.mobile-login-dialog-position {
+  position: absolute !important;
+  margin: 0 !important;
+  height: 660px !important;
+  bottom: 0 !important;
+  top: unset !important;
 }
 </style>

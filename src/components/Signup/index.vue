@@ -345,7 +345,7 @@ export default Signup
                                 @click="props.onClick"></v-btn>
                         </template>
                         <v-carousel-item v-for="(slide, i) in slides" :key="i">
-                            <img src="@/assets/login/image/nickname-avatar.png">
+                            <img src="@/assets/login/image/nickname_avatar.png">
                         </v-carousel-item>
                     </v-carousel>
                 </v-row>

@@ -329,6 +329,13 @@ export const lang: langType = {
         profit_tab_text_4: "Invitation Bonus:",
         profit_tab_text_5: "The user that you invite to deposit for the first time, you will receive a cash bonus of ",
       }
+    },
+    forms: {
+      table: {
+        time: "Time",
+        user: "User",
+        bonus: "Bonus",
+      }
     }
   }
 };

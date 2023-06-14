@@ -18,7 +18,8 @@
       "vuetify"
     ],
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "element-plus/packages/popper": ["node_modules/element-plus/packages/popper"]
     },
   },
   "include": [

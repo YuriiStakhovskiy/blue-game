@@ -1,7 +1,9 @@
 <script lang="ts" setup>
 import { ref, computed, h, shallowRef, watch } from 'vue';
+import Pagination from '@/components/global/pagination/index.vue';
 import { useI18n } from 'vue-i18n';
 import { useDisplay } from 'vuetify';
+import moment from "moment-timezone";
 
 const { t } = useI18n()
 const { width } = useDisplay();
@@ -27,21 +29,99 @@ const bonusItems = ref<Array<string>>([
     "Betting Commission"
 ])
 
+const selectedCashItem = ref<number>(10);
+
+const cashItems = ref<Array<number>>([
+    10,
+    11,
+    12,
+])
+
+const formsList = ref<Array<any>>([
+    {
+        time: "04/08 12:29:42",
+        user: "User6910821714",
+        bonus: "R$ 12"
+    },
+    {
+        time: "04/08 12:29:42",
+        user: "User6910821714",
+        bonus: "R$ 12"
+    },
+    {
+        time: "04/08 12:29:42",
+        user: "User6910821714",
+        bonus: "R$ 12"
+    },
+    {
+        time: "04/08 12:29:42",
+        user: "User6910821714",
+        bonus: "R$ 12"
+    },
+    {
+        time: "04/08 12:29:42",
+        user: "User6910821714",
+        bonus: "R$ 12"
+    },
+    {
+        time: "04/08 12:29:42",
+        user: "User6910821714",
+        bonus: "R$ 12"
+    },
+    {
+        time: "04/08 12:29:42",
+        user: "User6910821714",
+        bonus: "R$ 12"
+    },
+    {
+        time: "04/08 12:29:42",
+        user: "User6910821714",
+        bonus: "R$ 12"
+    },
+    {
+        time: "04/08 12:29:42",
+        user: "User6910821714",
+        bonus: "R$ 12"
+    },
+    {
+        time: "04/08 12:29:42",
+        user: "User6910821714",
+        bonus: "R$ 12"
+    },
+    {
+        time: "04/08 12:29:42",
+        user: "User6910821714",
+        bonus: "R$ 12"
+    },
+    {
+        time: "04/08 12:29:42",
+        user: "User6910821714",
+        bonus: "R$ 12"
+    },
+])
+
 const handleDropdown = (item: string) => {
     selectedBonusItem.value = item;
 }
 
-const selectedDate = ref([]);
+const handleCashDropdown = (item: number) => {
+    selectedCashItem.value = item;
+}
+
+const selectedDate = ref([
+    moment().tz("Asia/Hong_Kong").format("YYYY/MM/DD"),
+    moment().tz("Asia/Hong_Kong").format("YYYY/MM/DD")
+]);
 
 const mobileWidth = computed(() => {
     return width.value
 })
 </script>
 <template>
-    <v-row class="mt-6 justify-end mx-4">
+    <v-row class="mt-6 justify-end mx-6">
         <v-menu offset="10" class="bonus-menu">
             <template v-slot:activator="{ props }">
-                <v-card color="#1C1929" theme="dark" class="ml-auto">
+                <v-card color="#1C1929" theme="dark">
                     <v-list-item class="bonus-item" v-bind="props" :title="selectedBonusItem" append-icon="mdi-chevron-down"
                         value="sport">
                     </v-list-item>
@@ -64,6 +144,48 @@ const mobileWidth = computed(() => {
             </el-date-picker>
             <img src="@/assets/affiliate/forms/svg/icon_public_23.svg" class="date-icon-position" />
         </div>
+        <v-menu offset="10" class="bonus-menu">
+            <template v-slot:activator="{ props }">
+                <v-card color="#1C1929" theme="dark" class="ml-2">
+                    <v-list-item class="bonus-item" v-bind="props" :title="selectedCashItem" append-icon="mdi-chevron-down"
+                        value="sport">
+                    </v-list-item>
+                </v-card>
+            </template>
+            <v-list theme="dark" bg-color="#211F31">
+                <v-list-item v-for="(item, i) in cashItems" :key="i" :value="item" class="bonus-item"
+                    @click="handleCashDropdown(item)">
+                    <v-list-item-title>{{ item }}</v-list-item-title>
+                </v-list-item>
+            </v-list>
+        </v-menu>
+    </v-row>
+    <v-row class="mx-4 mt-6">
+        <v-table class="forms-bonus-table-bg" theme="dark" fixed-header height="600px">
+            <thead class="forms-table-header">
+                <tr>
+                    <th class="forms-table-header-text" style="border-radius: 8px 0px 0px 8px;">
+                        {{ t('affiliate.forms.table.time') }}
+                    </th>
+                    <th class="forms-table-header-text">
+                        <div class="forms-table-border">{{ t('affiliate.forms.table.user') }}</div>
+                    </th>
+                    <th class="forms-table-header-text" style="border-radius: 0px 8px 8px 0px;">
+                        {{ t('affiliate.forms.table.bonus') }}
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="forms-table-body">
+                <tr v-for="(item, index) in formsList" :key="index">
+                    <td class="forms-td-border">{{ item.time }}</td>
+                    <td>{{ item.user }}</td>
+                    <td>{{ item.bonus }}</td>
+                </tr>
+            </tbody>
+        </v-table>
+    </v-row>
+    <v-row class="mt-6 justify-end mx-4">
+        <Pagination />
     </v-row>
 </template>
 <style lang="scss">
@@ -98,10 +220,58 @@ const mobileWidth = computed(() => {
     }
 }
 
+tbody {
+    width: 400px !important;
+}
+
 .date-icon-position {
     position: absolute;
     top: 11px;
     right: 13px;
+}
+
+.forms-bonus-table-bg {
+    background: #1C1929 !important;
+    box-shadow: inset 2px 0px 4px 1px rgba(0, 0, 0, 0.12) !important;
+    border-radius: 12px !important;
+    width: 100% !important;
+
+    .v-table__wrapper {
+        // margin: 8px 60px !important;
+    }
+}
+
+.v-table .v-table__wrapper>table>tbody>tr:not(:last-child)>td,
+.v-table .v-table__wrapper>table>tbody>tr:not(:last-child)>th {
+    border-bottom: 1px solid #414968;
+}
+
+.v-table.v-table--fixed-header>.v-table__wrapper>table>thead>tr>th {
+    background: #414968;
+}
+
+.forms-table-header {
+    border-radius: 8px !important;
+}
+
+.forms-table-body {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    color: #FFFFFF;
+    text-align: center;
+}
+
+.forms-table-header-text {
+    font-weight: 700 !important;
+    font-size: 16px !important;
+    text-align: center !important;
+    color: #000000 !important;
+}
+
+.forms-table-border {
+    border-left: 1px solid #000000 !important;
+    border-right: 1px solid #000000 !important;
 }
 
 .el-date-editor.el-input__wrapper {

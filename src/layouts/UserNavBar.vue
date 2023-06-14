@@ -100,7 +100,7 @@ watch(mobileWidth, (newValue: number) => {
                         <div class="grade-text-position">{{ user.grade }}</div>
                     </div>
                     <div>
-                        <img src="@/assets/app_bar/image/Group 399.png">
+                        <img src="@/assets/app_bar/image/cash_rate.png">
                     </div>
                 </v-list-item-title>
                 <template v-slot:append>

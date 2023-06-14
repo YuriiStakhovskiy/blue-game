@@ -16,7 +16,7 @@ const emit = defineEmits<{ (e: 'close'): void }>()
             {{ t('affiliate.invite.achivement_bonus') }}
         </v-row>
         <div class="mt-6">
-            <img src="@/assets/affiliate/invite/image/bg_public_02_01.png/" />
+            <img src="@/assets/affiliate/invite/image/bg_public_02_01.png" />
         </div>
         <div class="mt-6 text-center mx-10 bonus-dialog-text-1">
             {{ t('affiliate.invite.bonus_dialog.text_1') }}
@@ -29,41 +29,149 @@ const emit = defineEmits<{ (e: 'close'): void }>()
                 <div class="bonus-dialog-text-2 pt-6 text-center">{{ t('affiliate.invite.bonus_dialog.text_3') }}</div>
             </v-col>
         </v-row>
-        <v-row class="mt-4 mx-10">
-            <img src="@/assets/affiliate/invite/image/Group 772543719.png" />
+        <v-row class="justify-center mt-4">
+            <div class="bonus-dialog-card relative d-flex align-center" style="background: #E3E0D9;">
+                <v-row>
+                    <v-col cols="6" class="text-center">
+                        <p class="bonus-dialog-text-3">3</p>
+                    </v-col>
+                    <v-col cols="6" class="text-center">
+                        <p class="bonus-dialog-text-3">10</p>
+                    </v-col>
+                </v-row>
+            </div>
         </v-row>
-        <v-row class="mt-4 mx-10">
-            <img src="@/assets/affiliate/invite/image/Group 772543720.png" />
+        <v-row class="justify-center mt-4">
+            <div class="bonus-dialog-card relative d-flex align-center" style="background: #E1DDD5;">
+                <v-row>
+                    <v-col cols="6" class="text-center">
+                        <p class="bonus-dialog-text-3">10</p>
+                    </v-col>
+                    <v-col cols="6" class="text-center">
+                        <p class="bonus-dialog-text-3">30</p>
+                    </v-col>
+                </v-row>
+            </div>
         </v-row>
-        <v-row class="mt-4 mx-10">
-            <img src="@/assets/affiliate/invite/image/Group 772543721.png" />
+        <v-row class="justify-center mt-4">
+            <div class="bonus-dialog-card relative d-flex align-center" style="background: #E4DFD2;">
+                <v-row>
+                    <v-col cols="6" class="text-center">
+                        <p class="bonus-dialog-text-3">25</p>
+                    </v-col>
+                    <v-col cols="6" class="text-center">
+                        <p class="bonus-dialog-text-3">60</p>
+                    </v-col>
+                </v-row>
+            </div>
         </v-row>
-        <v-row class="mt-4 mx-10">
-            <img src="@/assets/affiliate/invite/image/Group 772543722.png" />
+        <v-row class="justify-center mt-4">
+            <div class="bonus-dialog-card relative d-flex align-center" style="background: #E4DFD2;">
+                <v-row>
+                    <v-col cols="6" class="text-center">
+                        <p class="bonus-dialog-text-3">50</p>
+                    </v-col>
+                    <v-col cols="6" class="text-center">
+                        <p class="bonus-dialog-text-3">120</p>
+                    </v-col>
+                </v-row>
+            </div>
         </v-row>
-        <v-row class="mt-4 mx-10">
-            <img src="@/assets/affiliate/invite/image/Group 772543723.png" />
+        <v-row class="justify-center mt-4">
+            <div class="bonus-dialog-card relative d-flex align-center" style="background: #E6E0CF;">
+                <v-row>
+                    <v-col cols="6" class="text-center">
+                        <p class="bonus-dialog-text-3">100</p>
+                    </v-col>
+                    <v-col cols="6" class="text-center">
+                        <p class="bonus-dialog-text-3">250</p>
+                    </v-col>
+                </v-row>
+            </div>
         </v-row>
-        <v-row class="mt-4 mx-10">
-            <img src="@/assets/affiliate/invite/image/Group 772543724.png" />
+        <v-row class="justify-center mt-4">
+            <div class="bonus-dialog-card relative d-flex align-center" style="background: #EBE5D2;">
+                <v-row>
+                    <v-col cols="6" class="text-center">
+                        <p class="bonus-dialog-text-3">250</p>
+                    </v-col>
+                    <v-col cols="6" class="text-center">
+                        <p class="bonus-dialog-text-3">600</p>
+                    </v-col>
+                </v-row>
+            </div>
         </v-row>
-        <v-row class="mt-4 mx-10">
-            <img src="@/assets/affiliate/invite/image/Group 772543725.png" />
+        <v-row class="justify-center mt-4">
+            <div class="bonus-dialog-card relative d-flex align-center" style="background: #EDE5CD;">
+                <v-row>
+                    <v-col cols="6" class="text-center">
+                        <p class="bonus-dialog-text-3">500</p>
+                    </v-col>
+                    <v-col cols="6" class="text-center">
+                        <p class="bonus-dialog-text-3">1200</p>
+                    </v-col>
+                </v-row>
+            </div>
         </v-row>
-        <v-row class="mt-4 mx-10">
-            <img src="@/assets/affiliate/invite/image/Group 772543726.png" />
+        <v-row class="justify-center mt-4">
+            <div class="bonus-dialog-card relative d-flex align-center" style="background: #EFE4C4;">
+                <v-row>
+                    <v-col cols="6" class="text-center">
+                        <p class="bonus-dialog-text-3">1000</p>
+                    </v-col>
+                    <v-col cols="6" class="text-center">
+                        <p class="bonus-dialog-text-3">3000</p>
+                    </v-col>
+                </v-row>
+            </div>
         </v-row>
-        <v-row class="mt-4 mx-10">
-            <img src="@/assets/affiliate/invite/image/Group 772543728.png" />
+        <v-row class="justify-center mt-4">
+            <div class="bonus-dialog-card relative d-flex align-center" style="background: #F3E4B7;">
+                <v-row>
+                    <v-col cols="6" class="text-center">
+                        <p class="bonus-dialog-text-3">2000</p>
+                    </v-col>
+                    <v-col cols="6" class="text-center">
+                        <p class="bonus-dialog-text-3">6000</p>
+                    </v-col>
+                </v-row>
+            </div>
         </v-row>
-        <v-row class="mt-4 mx-10">
-            <img src="@/assets/affiliate/invite/image/Group 772543729.png" />
+        <v-row class="justify-center mt-4">
+            <div class="bonus-dialog-card relative d-flex align-center" style="background: #F5E2A8;">
+                <v-row>
+                    <v-col cols="6" class="text-center">
+                        <p class="bonus-dialog-text-3">5000</p>
+                    </v-col>
+                    <v-col cols="6" class="text-center">
+                        <p class="bonus-dialog-text-3">20000</p>
+                    </v-col>
+                </v-row>
+            </div>
         </v-row>
-        <v-row class="mt-4 mx-10">
-            <img src="@/assets/affiliate/invite/image/Group 772543730.png" />
+        <v-row class="justify-center mt-4">
+            <div class="bonus-dialog-card relative d-flex align-center" style="background: #F4D36D;">
+                <v-row>
+                    <v-col cols="6" class="text-center">
+                        <p class="bonus-dialog-text-3">10000</p>
+                    </v-col>
+                    <v-col cols="6" class="text-center">
+                        <p class="bonus-dialog-text-3">40000</p>
+                    </v-col>
+                </v-row>
+            </div>
         </v-row>
-        <v-row class="mt-4 mx-10">
-            <img src="@/assets/affiliate/invite/image/Group 772543731.png" />
+        <v-row class="justify-center mt-4">
+            <div class="bonus-dialog-card relative d-flex align-center" style="background: #F9BC01;">
+                <v-row>
+                    <v-col cols="6" class="text-center">
+                        <p class="bonus-dialog-text-3">20000</p>
+                    </v-col>
+                    <v-col cols="6" class="text-center">
+                        <p class="bonus-dialog-text-3">80000</p>
+                    </v-col>
+                </v-row>
+            </div>
         </v-row>
     </div>
 </template>
@@ -108,5 +216,17 @@ const emit = defineEmits<{ (e: 'close'): void }>()
     font-weight: 700;
     font-size: 16px;
     color: #FFFFFF;
+}
+
+.bonus-dialog-card {
+    width: 390px;
+    height: 40px;
+    border-radius: 20px;
+}
+
+.bonus-dialog-text-3 {
+    font-weight: 800;
+    font-size: 16px;
+    color: #211F31;
 }
 </style>

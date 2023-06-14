@@ -274,21 +274,6 @@ export default Dashboard;
 </template>
 
 <style lang="scss">
-.mobile-dialog-toggle-height {
-  height: 100px !important;
-  position: absolute !important;
-  margin: 0 !important;
-  bottom: unset !important;
-  top: 0 !important;
-}
-
-.mobile-login-dialog-position {
-  position: absolute !important;
-  margin: 0 !important;
-  height: 660px !important;
-  bottom: 0 !important;
-  top: unset !important;
-}
 
 .slider-img-width {
   width: 100%;
@@ -300,17 +285,17 @@ export default Dashboard;
 }
 
 .prev-btn-position {
-  position: absolute;
-  top: 36%;
-  left: 5px;
+  position: absolute !important;
+  top: 36% !important;
+  left: 5px !important;
   width: 32px !important;
   height: 32px !important;
 }
 
 .next-btn-position {
-  position: absolute;
-  top: 36%;
-  right: 5px;
+  position: absolute !important;
+  top: 36% !important;
+  right: 5px !important;
   width: 32px !important;
   height: 32px !important;
 }
@@ -343,9 +328,9 @@ export default Dashboard;
 }
 
 .lobby-btn-color {
-  background: #32cfec;
-  color: #000000;
-  width: 160px;
+  background: #32cfec !important;
+  color: #000000 !important;
+  width: 160px !important;
 
   .v-btn__content {
     font-weight: 700 !important;
@@ -354,9 +339,9 @@ export default Dashboard;
 }
 
 .popular-btn-color {
-  background: #211f31;
-  color: #7782aa;
-  width: 160px;
+  background: #211f31 !important;
+  color: #7782aa !important;
+  width: 160px !important;
 
   .v-btn__content {
     font-weight: 700 !important;

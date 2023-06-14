@@ -8,6 +8,7 @@ import Invite from "@/components/affiliate/invite/index.vue";
 import Statistics from "@/components/affiliate/statistics/index.vue";
 import MStatistics from "@/components/affiliate/statistics/mobile/index.vue";
 import Forms from "@/components/affiliate/forms/index.vue";
+import MForms from "@/components/affiliate/forms/mobile/index.vue";
 
 const { t } = useI18n();
 const { width } = useDisplay()
@@ -76,7 +77,7 @@ onMounted(() => {
                 <p class="affiliate-tab-text" v-ripple.center @click="tabSelect(2)"
                     :class="[selectedTabIndex == 2 ? 'selected-tab-text' : '']">{{ t('affiliate.tab.text_3') }}</p>
             </div>
-            <div class="affiliate-tab-body" v-else>
+            <div class="m-affiliate-tab-body" v-else>
                 <v-row class="text-center">
                     <v-col cols="4">
                         <p v-ripple.center @click="tabSelect(0)" class="cursor-pointer"
@@ -101,6 +102,7 @@ onMounted(() => {
             </div>
             <div v-if="selectedTabIndex == 2">
                 <Forms v-if="mobileWidth > 600" />
+                <MForms v-else />
             </div>
         </div>
     </div>
@@ -128,7 +130,7 @@ onMounted(() => {
 }
 
 .affiliate-tabs {
-    padding-top: 40px;
+    padding-top: 30px;
 
     .affiliate-tab-body {
         display: flex;
@@ -137,6 +139,20 @@ onMounted(() => {
         background: #29253C;
         height: 64px;
         margin: 8px;
+        box-shadow: 0px 3px 4px 1px rgba(0, 0, 0, 0.21);
+        border-radius: 8px;
+        font-weight: 400;
+        font-size: 16px;
+        color: #7782AA;
+    }
+
+    .m-affiliate-tab-body {
+        display: flex;
+        padding: 0px 60px;
+        align-items: center;
+        background: #29253C;
+        height: 54px;
+        margin: 0px 8px;
         box-shadow: 0px 3px 4px 1px rgba(0, 0, 0, 0.21);
         border-radius: 8px;
         font-weight: 400;
