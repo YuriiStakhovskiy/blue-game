@@ -302,6 +302,11 @@ const mobileWidth = computed(() => {
         justify-content: start;
     }
 
+    .el-date-editor .el-range-input {
+        font-weight: 500 !important;
+        font-size: 14px !important;
+        color: #7782AA !important;
+    }
 }
 
 .m-date-picker-background {
@@ -366,15 +371,6 @@ const mobileWidth = computed(() => {
 
     .el-date-range-picker .el-picker-panel__body {
         min-width: unset !important;
-    }
-
-    .el-date-editor .el-range-input {
-        font-family: 'Inter';
-        font-style: normal;
-        font-weight: 500;
-        font-size: 14px;
-        text-align: center;
-        color: #7782AA;
     }
 
     .el-date-range-picker__content {
