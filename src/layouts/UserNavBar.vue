@@ -121,7 +121,7 @@ watch(mobileWidth, (newValue: number) => {
                 </template>
                 <v-list-item-title class="ml-2">{{ t('appBar.deposit') }}</v-list-item-title>
             </v-list-item>
-            <v-list-item class="user-item" value="bonuses">
+            <v-list-item class="user-item" value="bonuses" router :to="{ name: 'Bonuses And Transactions' }">
                 <template v-slot:prepend>
                     <img src="@/assets/app_bar/svg/icon_public_61.svg" />
                 </template>
@@ -133,7 +133,7 @@ watch(mobileWidth, (newValue: number) => {
                 </template>
                 <v-list-item-title class="ml-2">{{ t('appBar.game_history') }}</v-list-item-title>
             </v-list-item>
-            <v-list-item class="user-item" value="transactions">
+            <v-list-item class="user-item" value="transactions" router :to="{ name: 'Bonuses And Transactions' }">
                 <template v-slot:prepend>
                     <img src="@/assets/app_bar/svg/icon_public_63.svg" />
                 </template>

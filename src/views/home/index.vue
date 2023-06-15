@@ -232,7 +232,7 @@ export default Dashboard;
     </v-row>
 
     <!-------------------- game providers -------------->
-    <GameProviders/>
+    <GameProviders />
 
     <!-------------------- slot games -------------->
     <v-row class="ml-4 mt-6 mb-2 original_game_text">
@@ -269,7 +269,6 @@ export default Dashboard;
 </template>
 
 <style lang="scss">
-
 .slider-img-width {
   width: 100%;
   height: 200px;
@@ -349,6 +348,12 @@ export default Dashboard;
   color: #ffffff;
   font-weight: 700;
   font-size: 22px;
+}
+
+@media (max-width: 600px) {
+  .original_game_text {
+    font-size: 14px;
+  }
 }
 
 .original-game-img-border {

@@ -340,5 +340,14 @@ export type langType = {
     title_text: string
     total_text: string
     withdraw_text: string
+    super_bonus_text: string
+    bonus_text: string
+    no_active_text: string
+    table: {
+      date: string
+      deposit: string
+      receive: string
+      wager: string
+    }
   }
 };

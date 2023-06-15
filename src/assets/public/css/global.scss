@@ -19,6 +19,10 @@
     color: #7782AA;
 }
 
+.color-FF6200 {
+    color: #FF6200;
+}
+
 .transparent {
     background-color: transparent !important;
 }
@@ -101,14 +105,34 @@
     font-size: 12px;
 }
 
+.text-400-10 {
+    font-weight: 400;
+    font-size: 10px;
+}
+
 .text-500-12 {
     font-weight: 500;
     font-size: 12px;
 }
 
+.text-500-10 {
+    font-weight: 500;
+    font-size: 10px;
+}
+
+.text-500-14 {
+    font-weight: 500;
+    font-size: 14px;
+}
+
 .text-600-14 {
     font-weight: 600;
     font-size: 14px;
+}
+
+.text-600-12 {
+    font-weight: 600;
+    font-size: 12px;
 }
 
 .text-700-16 {
@@ -135,6 +159,10 @@
 
 .text-gray {
     color: #7782AA;
+}
+
+.gray {
+    color: #7782AA;    
 }
 
 // textfield

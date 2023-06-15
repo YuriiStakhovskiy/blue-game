@@ -341,6 +341,15 @@ export const lang: langType = {
   bonus: {
     title_text: "Your Account balance and bonuses",
     total_text: "Total",
-    withdraw_text: "Withdrawal Amount"
+    withdraw_text: "Withdrawal Amount",
+    super_bonus_text: "5% Supper BONUS",
+    bonus_text: "Bonus",
+    no_active_text: "No active bonues found",
+    table: {
+      date: "Date",
+      deposit: "Deposit",
+      receive: "Receive",
+      wager: "Wager requirement"
+    }
   }
 };

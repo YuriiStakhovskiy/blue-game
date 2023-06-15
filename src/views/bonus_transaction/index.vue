@@ -5,6 +5,7 @@ import { storeToRefs } from "pinia";
 import { useI18n } from "vue-i18n";
 import { useDisplay } from "vuetify";
 import Bonus from "@/components/bonus_transaction/bonus/index.vue";
+import MBonus from "@/components/bonus_transaction/bonus/mobile/index.vue";
 import GameProviders from "@/components/global/game_provider/index.vue";
 
 const { t } = useI18n();
@@ -86,7 +87,10 @@ onMounted(() => {
             </div>
         </div>
         <div class="affiliate-body">
-            <Bonus v-if="selectedTabIndex == 0" />
+            <div v-if="selectedTabIndex == 0">
+                <Bonus v-if="mobileWidth > 600" />
+                <MBonus v-else />
+            </div>
         </div>
     </div>
     <div class="mx-2 mt-10">
