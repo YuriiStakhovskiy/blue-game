@@ -7,7 +7,7 @@ import { type GetPaymentItem } from '@/interface/deposit';
 import { type GetPersonalInfo } from '@/interface/deposit';
 import { mailStore } from '@/store/mail';
 import ValidationBox from '@/components/cash/withdraw/ValidationBox.vue';
-import Notification from "@/components/notification/index.vue";
+import Notification from "@/components/global/notification/index.vue";
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
 const { setDepositDialogToggle } = appBarStore();

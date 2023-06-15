@@ -23,6 +23,17 @@ const routes = [
       },
     ],
   },
+  {
+    path: '/bonus-transaction',
+    component: () => import('@/layouts/index.vue'),
+    children: [
+      {
+        path: '',
+        name: 'Bonuses And Transactions',
+        component: () => import('@/views/bonus_transaction/index.vue'),
+      },
+    ],
+  },
 ]
 
 const router = createRouter({

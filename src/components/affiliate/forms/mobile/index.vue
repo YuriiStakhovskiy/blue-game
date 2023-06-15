@@ -151,7 +151,7 @@ const mobileWidth = computed(() => {
         </div>
     </v-row>
     <v-row class="mt-6 mx-2">
-        <v-menu offset="10" class="bonus-menu">
+        <v-menu offset="10" content-class="bonus-menu">
             <template v-slot:activator="{ props }">
                 <v-card color="#1C1929" theme="dark">
                     <v-list-item class="bonus-item" v-bind="props" :title="selectedBonusItem" append-icon="mdi-chevron-down"
@@ -212,9 +212,7 @@ const mobileWidth = computed(() => {
 </template>
 <style lang="scss">
 .bonus-menu {
-    margin-left: auto !important;
-
-
+    
     .v-overlay__content::after {
         content: "";
         position: absolute;

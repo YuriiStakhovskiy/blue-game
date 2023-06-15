@@ -5,7 +5,7 @@ import { useI18n } from 'vue-i18n';
 import { useDisplay } from "vuetify";
 import { type GetInvitaionBonusData } from "@/interface/affiliate/invite"
 import { type GetBettingCommissionData } from "@/interface/affiliate/invite"
-import Notification from "@/components/notification/index.vue";
+import Notification from "@/components/global/notification/index.vue";
 import BonusDialog from "./bonus_dailog/index.vue";
 import MBonusDialog from "./bonus_dailog/mobile/index.vue";
 

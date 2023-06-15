@@ -97,6 +97,18 @@ const mobileVersion = computed(() => {
     margin-bottom: 6px;
 }
 
+@media (max-width: 600px) {
+
+    .footer-title {
+        font-size: 14px;
+    }
+
+    .footer-text-1 {
+        font-size: 12px;
+    }
+
+}
+
 .footer-icon-button {
     background-color: #131828 !important;
     width: 34px !important;

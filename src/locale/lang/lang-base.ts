@@ -336,4 +336,9 @@ export type langType = {
       }
     }
   }
+  bonus: {
+    title_text: string
+    total_text: string
+    withdraw_text: string
+  }
 };

@@ -17,10 +17,10 @@ const { setNavBarToggle } = appBarStore();
 const { setDepositDialogToggle } = appBarStore();
 const { setWithdrawDialogToggle } = appBarStore();
 const { setCashDialogToggle } = appBarStore();
-const {setUserNavBarToggle} = appBarStore();
+const { setUserNavBarToggle } = appBarStore();
 
 const { name, width } = useDisplay()
-const router  = useRouter();
+const router = useRouter();
 
 type dialogType = "login" | "signup";
 const color = ref<string>("#29263C");
@@ -62,7 +62,7 @@ const navBarToggle = computed(() => {
 })
 
 const userNavToggle = computed(() => {
-  const {getUserNavBarToggle} = storeToRefs(appBarStore());
+  const { getUserNavBarToggle } = storeToRefs(appBarStore());
   return getUserNavBarToggle.value
 })
 
@@ -137,10 +137,10 @@ const showUserNavBar = (): void => {
 watch(userNavToggle, (newValue) => {
   console.log(navBarToggle.value);
   userNavBarToggle.value = newValue;
-}, {deep: true});
+}, { deep: true });
 
 const goHomePage = () => {
-  router.push({name: "Dashboard"});
+  router.push({ name: "Dashboard" });
 }
 
 // watches
@@ -284,11 +284,13 @@ onMounted(() => {
               </template>
               <v-list-item-title class="ml-2">{{ t('appBar.deposit') }}</v-list-item-title>
             </v-list-item>
-            <v-list-item class="user-item" value="bonuses">
+            <v-list-item class="user-item" value="bonuses" router :to="{ name: 'Bonuses And Transactions' }">
               <template v-slot:prepend>
                 <img src="@/assets/app_bar/svg/icon_public_61.svg" />
               </template>
-              <v-list-item-title class="ml-2">{{ t('appBar.bonuses') }}</v-list-item-title>
+              <v-list-item-title class="ml-2">
+                {{ t('appBar.bonuses') }}
+              </v-list-item-title>
             </v-list-item>
             <v-list-item class="user-item" value="game_history">
               <template v-slot:prepend>
@@ -296,7 +298,7 @@ onMounted(() => {
               </template>
               <v-list-item-title class="ml-2">{{ t('appBar.game_history') }}</v-list-item-title>
             </v-list-item>
-            <v-list-item class="user-item" value="transactions">
+            <v-list-item class="user-item" value="transactions" router :to="{ name: 'Bonuses And Transactions' }">
               <template v-slot:prepend>
                 <img src="@/assets/app_bar/svg/icon_public_63.svg" />
               </template>
@@ -412,6 +414,7 @@ onMounted(() => {
 .user-menu .v-menu__content {
   max-height: 100% !important;
 }
+
 .logo-text-1 {
   position: absolute;
   top: -28px;

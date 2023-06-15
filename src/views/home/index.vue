@@ -9,10 +9,12 @@ import {
   onMounted,
 } from "vue";
 import { useI18n } from "vue-i18n";
-import { useDisplay } from 'vuetify'
+import { useDisplay } from 'vuetify';
+import GameProviders from "@/components/global/game_provider/index.vue";
 
 const Dashboard = defineComponent({
   components: {
+    GameProviders
   },
   setup() {
     const { t } = useI18n();
@@ -230,15 +232,8 @@ export default Dashboard;
     </v-row>
 
     <!-------------------- game providers -------------->
-    <v-row class="ml-4 mt-6 mb-2 original_game_text">
-      {{ t("home.game_providers") }}
-    </v-row>
-    <v-row class="mx-2 mt-2">
-      <v-col cols="4" lg="2" md="2" sm="3" class="px-2 py-1" v-ripple.center
-        v-for="(gameProviderItem, gameProviderIndex) in gameProviders" :key="gameProviderIndex">
-        <v-img :src="gameProviderItem" class="original-game-img-width" />
-      </v-col>
-    </v-row>
+    <GameProviders/>
+
     <!-------------------- slot games -------------->
     <v-row class="ml-4 mt-6 mb-2 original_game_text">
       {{ t("home.slots") }}
@@ -363,14 +358,15 @@ export default Dashboard;
 }
 
 .original-game-img-width {
+  max-width: 230px !important;
   width: 100%;
   height: 100%;
   cursor: pointer;
 }
 
 .more-btn-color {
-  background: #2f2756;
-  color: #6842ec;
+  background: #2f2756 !important;
+  color: #6842ec !important;
 
   .v-btn__content {
     font-weight: 700 !important;

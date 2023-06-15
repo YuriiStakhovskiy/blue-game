@@ -337,5 +337,10 @@ export const lang: langType = {
         bonus: "Bonus",
       }
     }
+  },
+  bonus: {
+    title_text: "Your Account balance and bonuses",
+    total_text: "Total",
+    withdraw_text: "Withdrawal Amount"
   }
 };

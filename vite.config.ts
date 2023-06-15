@@ -20,7 +20,7 @@ export default (configEnv: ConfigEnv): UserConfigExport => {
       vuetify({
         autoImport: true,
         styles: {
-          configFile: 'src/styles/settings.scss',
+          configFile: 'src/assets/public/css/settings.scss',
         },
       }),
     ],
@@ -41,7 +41,7 @@ export default (configEnv: ConfigEnv): UserConfigExport => {
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: `@import "@/styles/global.scss";`
+          additionalData: `@import "@/assets/public/css/global.scss";`
         }
       }
     },

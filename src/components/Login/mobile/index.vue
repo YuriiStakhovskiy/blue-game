@@ -4,7 +4,7 @@ import { defineComponent, reactive, toRefs, computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import LoginHeader from './Header.vue'
 import { authStore } from "@/store/auth";
-import Notification from "@/components/notification/index.vue";
+import Notification from "@/components/global/notification/index.vue";
 
 const Login = defineComponent({
     components: {
