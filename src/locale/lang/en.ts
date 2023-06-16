@@ -132,6 +132,7 @@ export const lang: langType = {
     id: "ID",
     account: "Account",
     deposit: "Deposit",
+    wager: "Wager",
     bonuses: "Bonuses",
     game_history: "Game History",
     transactions: "Transactions",

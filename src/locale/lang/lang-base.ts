@@ -130,6 +130,7 @@ export type langType = {
     id: string
     account: string
     deposit: string
+    wager: string
     bonuses: string
     game_history: string
     transactions: string

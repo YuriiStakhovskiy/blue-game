@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { ref, watch, computed, onMounted } from "vue"
 import { appBarStore } from "@/store/appBar";
+import { bonusTransactionStore } from "@/store/bonusTransaction";
 import { storeToRefs } from "pinia";
 import { useI18n } from "vue-i18n";
 import { useDisplay } from "vuetify";
@@ -20,9 +21,18 @@ const rightBarToggle = computed(() => {
     return getRightBarToggle.value;
 })
 
+const  bonusTabIndex = computed(() => {
+    const { getBonusTabIndex} = storeToRefs(bonusTransactionStore());
+    return getBonusTabIndex.value
+})
+
 const mobileWidth: any = computed(() => {
     return width.value;
 })
+
+watch(bonusTabIndex, (newValue) => {
+    selectedTabIndex.value = newValue;
+}, {deep: true});
 
 watch(rightBarToggle, (newValue) => {
     if (mobileWidth.value > 1280) {

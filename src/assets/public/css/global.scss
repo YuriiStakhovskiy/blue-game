@@ -162,6 +162,11 @@
     font-size: 22px;
 }
 
+.text-800-14 {
+    font-weight: 800;
+    font-size: 14px;
+}
+
 .text-gray {
     color: #7782AA !important;
 }
@@ -178,6 +183,14 @@
 .color-F9BC01 {
     color: #F9BC01;
 }
+.color-623AEC {
+    color: #623AEC;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
 // textfield
 .dark-textfield .v-field__field {
     background-color: #211F31;

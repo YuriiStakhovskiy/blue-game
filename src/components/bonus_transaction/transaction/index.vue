@@ -1,5 +1,7 @@
 <script lang="ts" setup>
 import { ref, watch, computed, onMounted, onUnmounted } from 'vue';
+import { storeToRefs } from "pinia";
+import { bonusTransactionStore } from "@/store/bonusTransaction";
 import { useI18n } from 'vue-i18n';
 import { useDisplay } from 'vuetify';
 import GameHistory from "./game_history/index.vue";
@@ -25,6 +27,24 @@ const transactionTabs = ref<Array<string>>([
 
 const selectedTab = ref(t('transaction.tab.game_history'))
 
+const transactionTab = computed(() => {
+    const { getTransactionTab } = storeToRefs(bonusTransactionStore());
+    return getTransactionTab.value
+})
+
+watch(transactionTab, (newValue) => {
+    console.log(newValue);
+    selectedTab.value = newValue;
+}, {deep: true})
+
+const touchless = () => {
+    return false;
+}
+
+onMounted(() => {
+    console.log(transactionTab.value);
+    selectedTab.value = transactionTab.value
+})
 </script>
 <template>
     <v-slide-group class="mt-2" v-model="selectedTab" show-arrows style="touch-action: none;">
@@ -36,7 +56,7 @@ const selectedTab = ref(t('transaction.tab.game_history'))
             </v-btn>
         </v-slide-group-item>
     </v-slide-group>
-    <v-window v-model="selectedTab" v-on:touchend.prevent>
+    <v-window v-model="selectedTab" :disable-swipe="true" :touch="touchless()">
         <v-window-item :value="t('transaction.tab.game_history')">
             <GameHistory />
         </v-window-item>

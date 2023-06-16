@@ -4,10 +4,12 @@ import { useI18n } from "vue-i18n";
 import { setLang } from "@/locale/index";
 import { authStore } from "@/store/auth";
 import { appBarStore } from "@/store/appBar";
+import { bonusTransactionStore } from "@/store/bonusTransaction";
 import { mailStore } from "@/store/mail";
 import { storeToRefs } from "pinia";
 import { type GetUserData } from "@/interface/appBar";
 import { type GetMailData } from '@/interface/mail';
+import { type GetCurrencyItem } from '@/interface/deposit';
 import { useDisplay } from 'vuetify'
 import { useRouter } from "vue-router";
 
@@ -18,6 +20,8 @@ const { setDepositDialogToggle } = appBarStore();
 const { setWithdrawDialogToggle } = appBarStore();
 const { setCashDialogToggle } = appBarStore();
 const { setUserNavBarToggle } = appBarStore();
+const { setBonusTabIndex } = bonusTransactionStore();
+const {setTransactionTab} = bonusTransactionStore();
 
 const { name, width } = useDisplay()
 const router = useRouter();
@@ -44,6 +48,10 @@ const user = ref<GetUserData>({
 const mailCount = ref<number>(10);
 // message count
 const messageCount = ref<number>(299);
+
+const depositRate = ref<number>(56);
+
+const wagerRate = ref<number>(56);
 
 // get Token
 const token = computed(() => {
@@ -129,6 +137,39 @@ const withdrawDialogShow = () => {
 
 const userNavBarToggle = ref(false);
 
+const selectedCurrencyItem = ref<GetCurrencyItem>({
+  icon: new URL("@/assets/deposit/svg/deposit_1.svg", import.meta.url).href,
+  name: "BRL"
+})
+
+const currencyList = ref<Array<GetCurrencyItem>>([
+  {
+    icon: new URL("@/assets/deposit/svg/deposit_1.svg", import.meta.url).href,
+    name: "BRL_1"
+  },
+  {
+    icon: new URL("@/assets/deposit/svg/deposit_2.svg", import.meta.url).href,
+    name: "BRL_2"
+  },
+  {
+    icon: new URL("@/assets/deposit/svg/deposit_3.svg", import.meta.url).href,
+    name: "BRL_3"
+  },
+  {
+    icon: new URL("@/assets/deposit/svg/deposit_4.svg", import.meta.url).href,
+    name: "BRL_4"
+  },
+  {
+    icon: new URL("@/assets/deposit/svg/deposit_5.svg", import.meta.url).href,
+    name: "BRL_5"
+  },
+])
+
+const handleSelectCurrency = (item: GetCurrencyItem) => {
+  selectedCurrencyItem.value = item;
+  user.value.currency = item.name
+}
+
 const showUserNavBar = (): void => {
   userNavBarToggle.value = !userNavBarToggle.value
   setUserNavBarToggle(userNavBarToggle.value);
@@ -141,6 +182,35 @@ watch(userNavToggle, (newValue) => {
 
 const goHomePage = () => {
   router.push({ name: "Dashboard" });
+}
+
+const goBonusPage = () => {
+  router.push({ name: 'Bonuses And Transactions' });
+  setBonusTabIndex(0);
+}
+
+const goTransactionPage = () => {
+  router.push({ name: 'Bonuses And Transactions' });
+  setBonusTabIndex(1);
+  setTransactionTab(t('transaction.tab.transactions'));
+}
+
+const goDepositPage = () => {
+  router.push({ name: 'Bonuses And Transactions' });
+  setBonusTabIndex(1);
+  setTransactionTab(t('transaction.tab.transactions'));
+}
+
+const goWithdrawPage = () => {
+  router.push({ name: 'Bonuses And Transactions' });
+  setBonusTabIndex(1);
+  setTransactionTab(t('transaction.tab.withdrawal'));
+}
+
+const goGameHistoryPage = () => {
+  router.push({ name: 'Bonuses And Transactions' });
+  setBonusTabIndex(1);
+  setTransactionTab(t('transaction.tab.game_history'));
 }
 
 // watches
@@ -198,26 +268,67 @@ onMounted(() => {
         <v-menu offset="10" class="deposit-menu">
           <template v-slot:activator="{ props }">
             <v-card color="#29263C" theme="dark" class="mr-4 mt-2 user-card-height" v-if="mobileWidth > 600">
-              <v-list-item class="deposit-item user-card-height" v-bind="props" value="deposit dropdown"
-                @click="depositDialogShow">
+              <v-list-item class="deposit-item user-card-height" v-bind="props">
                 <div class="d-flex align-center">
-                  <p class="mr-1">{{ user.currency }}</p>
-                  <p class="mr-2">{{ user.wallet }}</p>
-                  <img src="@/assets/app_bar/svg/down.svg" class="mr-2" />
-                  <img src="@/assets/app_bar/svg/deposit.svg" class="deposit-icon-position" />
+                  <v-menu offset="20">
+                    <template v-slot:activator="{ props }">
+                      <div class="d-flex align-center" v-bind="props" style="height: 40px;">
+                        <p class="mr-1">{{ user.currency }}</p>
+                        <p class="mr-2">{{ user.wallet }}</p>
+                        <img src="@/assets/app_bar/svg/down.svg" class="mr-2" width="15" />
+                      </div>
+                    </template>
+                    <v-list theme="dark" bg-color="#211F31" class="px-2" width="200px">
+                      <v-list-item class="currency-item pl-6" :value="currencyItem.name"
+                        v-for="(currencyItem, currencyIndex) in currencyList" :key="currencyIndex"
+                        @click="handleSelectCurrency(currencyItem)">
+                        <template v-slot:prepend>
+                          <img :src="currencyItem.icon" width="26" />
+                        </template>
+                        <v-list-item-title class="ml-2">{{ currencyItem.name }}</v-list-item-title>
+                      </v-list-item>
+                    </v-list>
+                  </v-menu>
+                  <img src="@/assets/app_bar/svg/deposit.svg" class="deposit-icon-position cursor-pointer"
+                    @click="depositDialogShow" />
                 </div>
               </v-list-item>
             </v-card>
-            <v-card color="#29263C" theme="dark" class="mr-2 mt-2 user-card-height" v-else>
-              <v-list-item class="deposit-item user-card-height" v-bind="props" value="deposit dropdown"
-                @click="depositDialogShow">
+            <v-card color="#29263C" theme="dark" class="mr-2 mt-3 m-user-card-height" v-else>
+              <v-list-item class="deposit-item m-user-card-height" v-bind="props">
                 <div class="d-flex align-center">
-                  <p class="mr-1">{{ user.currency }}</p>
-                  <p class="mr-2">{{ user.wallet }}</p>
-                  <img src="@/assets/app_bar/svg/down.svg" class="mr-2" />
-                  <img src="@/assets/app_bar/svg/deposit.svg" class="deposit-icon-position" width="50" />
+                  <v-menu offset="20">
+                    <template v-slot:activator="{ props }">
+                      <div class="d-flex align-center" v-bind="props" style="height: 40px;">
+                        <p class="mr-1">{{ user.currency }}</p>
+                        <p class="mr-2">{{ user.wallet }}</p>
+                        <img src="@/assets/app_bar/svg/down.svg" class="mr-2" width="15" />
+                      </div>
+                    </template>
+                    <v-list theme="dark" bg-color="#211F31" class="px-2" width="200px">
+                      <v-list-item class="currency-item pl-6" :value="currencyItem.name"
+                        v-for="(currencyItem, currencyIndex) in currencyList" :key="currencyIndex"
+                        @click="handleSelectCurrency(currencyItem)">
+                        <template v-slot:prepend>
+                          <img :src="currencyItem.icon" width="26" />
+                        </template>
+                        <v-list-item-title class="ml-2">{{ currencyItem.name }}</v-list-item-title>
+                      </v-list-item>
+                    </v-list>
+                  </v-menu>
+                  <img src="@/assets/app_bar/svg/deposit.svg" class="deposit-icon-position cursor-pointer"
+                    @click="depositDialogShow" width="50" />
                 </div>
               </v-list-item>
+              <!-- <v-list-item class="deposit-item user-card-height" v-bind="props" value="deposit dropdown"
+                          @click="depositDialogShow">
+                          <div class="d-flex align-center">
+                            <p class="mr-1">{{ user.currency }}</p>
+                            <p class="mr-2">{{ user.wallet }}</p>
+                            <img src="@/assets/app_bar/svg/down.svg" class="mr-2" />
+                            <img src="@/assets/app_bar/svg/deposit.svg" class="deposit-icon-position" width="50" />
+                          </div>
+                        </v-list-item> -->
             </v-card>
           </template>
         </v-menu>
@@ -253,24 +364,58 @@ onMounted(() => {
                 <img src="@/assets/app_bar/svg/icon_public_71.svg" v-ripple.center class="ml-6" />
               </template>
             </v-list-item>
-            <v-list-item class="user-item vip-background-img" value="vip">
+            <v-list-item class="user-item" value="vip">
               <template v-slot:prepend>
-                <img src="@/assets/app_bar/svg/img_vip_02.svg" style="margin-left: -6px;" />
+                <div>
+                  <div style="height: 40px;">
+                    <img src="@/assets/app_bar/svg/img_vip_02.svg" />
+                  </div>
+                  <div class="text-800-14 color-F9BC01">{{ user.grade }}</div>
+                </div>
               </template>
               <v-list-item-title class="ml-2">
-                <div class="grade-color d-flex">
-                  <div>{{ user.grade_level }}</div>
-                  <div class="grade-text-position">{{ user.grade }}</div>
+                <div class="deposit-progress-bg">
+                  <div class="d-flex">
+                    <div class="white">{{ t('appBar.deposit') }}</div>
+                    <div class="ml-auto">
+                      <Font>R$ 5642</Font> / <Font color="#F9BC01">R$ 10000</Font>
+                    </div>
+                  </div>
+                  <div>
+                    <v-progress-linear v-model="depositRate" height="18" class="deposit-progress">
+                    </v-progress-linear>
+                  </div>
                 </div>
-                <div>
-                  <img src="@/assets/app_bar/image/cash_rate.png">
+                <div class="deposit-progress-bg">
+                  <div class="d-flex">
+                    <div class="white">{{ t('appBar.wager') }}</div>
+                    <div class="ml-auto">
+                      <Font>R$ 5642</Font> / <Font color="#623AEC">R$ 10000</Font>
+                    </div>
+                  </div>
+                  <div>
+                    <v-progress-linear v-model="depositRate" height="18" class="wager-progress">
+                    </v-progress-linear>
+                  </div>
                 </div>
               </v-list-item-title>
-              <template v-slot:append>
-                <img src="@/assets/app_bar/svg/img_public_05.svg" v-ripple.center class="ml-6" />
-                <img src="@/assets/app_bar/svg/img_public_05.svg" v-ripple.center class="ml-1" />
-                <img src="@/assets/app_bar/svg/img_public_05.svg" v-ripple.center class="ml-1" />
-              </template>
+              <!-- <template v-slot:prepend>
+                        <img src="@/assets/app_bar/svg/img_vip_02.svg" style="margin-left: -6px;" />
+                      </template>
+                      <v-list-item-title class="ml-2">
+                        <div class="grade-color d-flex">
+                          <div>{{ user.grade_level }}</div>
+                          <div class="grade-text-position">{{ user.grade }}</div>
+                        </div>
+                        <div>
+                          <img src="@/assets/app_bar/image/cash_rate.png">
+                        </div>
+                      </v-list-item-title>
+                      <template v-slot:append>
+                        <img src="@/assets/app_bar/svg/img_public_05.svg" v-ripple.center class="ml-6" />
+                        <img src="@/assets/app_bar/svg/img_public_05.svg" v-ripple.center class="ml-1" />
+                        <img src="@/assets/app_bar/svg/img_public_05.svg" v-ripple.center class="ml-1" />
+                      </template> -->
             </v-list-item>
             <v-list-item class="user-item" value="account">
               <template v-slot:prepend>
@@ -284,7 +429,7 @@ onMounted(() => {
               </template>
               <v-list-item-title class="ml-2">{{ t('appBar.deposit') }}</v-list-item-title>
             </v-list-item>
-            <v-list-item class="user-item" value="bonuses" router :to="{ name: 'Bonuses And Transactions' }">
+            <v-list-item class="user-item" value="bonuses" @click="goBonusPage">
               <template v-slot:prepend>
                 <img src="@/assets/app_bar/svg/icon_public_61.svg" />
               </template>
@@ -292,13 +437,13 @@ onMounted(() => {
                 {{ t('appBar.bonuses') }}
               </v-list-item-title>
             </v-list-item>
-            <v-list-item class="user-item" value="game_history">
+            <v-list-item class="user-item" value="game_history" @click="goGameHistoryPage">
               <template v-slot:prepend>
                 <img src="@/assets/app_bar/svg/icon_public_62.svg" />
               </template>
               <v-list-item-title class="ml-2">{{ t('appBar.game_history') }}</v-list-item-title>
             </v-list-item>
-            <v-list-item class="user-item" value="transactions" router :to="{ name: 'Bonuses And Transactions' }">
+            <v-list-item class="user-item" value="transactions" @click="goTransactionPage">
               <template v-slot:prepend>
                 <img src="@/assets/app_bar/svg/icon_public_63.svg" />
               </template>
@@ -543,6 +688,10 @@ onMounted(() => {
   height: 56px !important;
 }
 
+.m-user-card-height {
+  height: 48px !important;
+}
+
 .user-drop-arrow-position {
   margin-left: auto;
 }
@@ -728,5 +877,27 @@ onMounted(() => {
   border-radius: 12px;
   padding: 13px;
   margin: 0px 20px;
+}
+
+.deposit-progress {
+  .v-progress-linear__determinate {
+    background: linear-gradient(180deg, #F9BC01 0%, #F99301 100%);
+    border-radius: 20px;
+  }
+}
+
+.wager-progress {
+  .v-progress-linear__determinate {
+    background: linear-gradient(180deg, #6D44F8 0%, #5726FC 100%);
+    border-radius: 20px;
+  }
+}
+
+.deposit-progress-bg {
+  .v-progress-linear {
+    background: #1C1929 !important;
+    box-shadow: inset 2px 0px 4px 1px rgba(0, 0, 0, 0.12) !important;
+    border-radius: 20px !important;
+  }
 }
 </style>

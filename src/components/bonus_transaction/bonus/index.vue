@@ -221,7 +221,7 @@ const formsList = ref<Array<any>>([
 .v-progress-linear {
     background: #211F31 !important;
     box-shadow: inset 2px 0px 4px 1px rgba(0, 0, 0, 0.12) !important;
-    border-radius: 8px !important;
+    border-radius: 20px !important;
 }
 
 .v-progress-linear__background {
@@ -231,14 +231,14 @@ const formsList = ref<Array<any>>([
 .completion-progress {
     .v-progress-linear__determinate {
         background: linear-gradient(180deg, #6D44F8 0%, #5726FC 100%) !important;
-        border-radius: 8px !important;
+        border-radius: 20px !important;
     }
 }
 
 .failure-progress {
     .v-progress-linear__determinate {
         background: linear-gradient(0deg, #1C1929 0%, #393A71 100%);
-        border-radius: 8px;
+        border-radius: 20px;
     }
 }
 

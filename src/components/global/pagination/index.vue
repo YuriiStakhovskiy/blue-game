@@ -4,7 +4,7 @@ import { ref } from 'vue';
 const page = ref(2);
 </script>
 <template>
-    <v-pagination v-model="page" :length="4"></v-pagination>
+    <v-pagination v-model="page" :length="4" :total-visible="3"></v-pagination>
 </template>
 <style lang="scss">
 .v-pagination__prev,
