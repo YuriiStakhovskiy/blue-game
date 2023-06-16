@@ -350,4 +350,35 @@ export type langType = {
       wager: string
     }
   }
+  transaction: {
+    tab: {
+      game_history: string
+      transactions: string
+      deposit: string
+      withdrawal: string
+      vip: string
+      referral: string
+    }
+    game_history: {      
+      game: string
+      date: string
+      amount: string
+      multilier: string
+      betId: string
+      status: string
+      profit: string
+    }
+    transactions: {
+      date: string
+      amount: string
+      type: string
+      id: string
+      note: string
+      balance: string
+    }
+    withdraw: {
+      action: string
+      refund: string
+    }
+  }
 };

@@ -196,14 +196,14 @@ export const lang: langType = {
         text: "© 2023 Blue.game All rights reserved."
       }
     }
-  },  
+  },
   mobile_menu: {
     menu: "Menu",
     casino: "Casino",
     share: "SHARE",
     sport: "Sport",
     mail: "Mail"
-  },  
+  },
   deposit_dialog: {
     deposit_currency: "Deposit Currency",
     choose_payment_method: "Choose a Payment Method",
@@ -350,6 +350,37 @@ export const lang: langType = {
       deposit: "Deposit",
       receive: "Receive",
       wager: "Wager requirement"
+    }
+  },
+  transaction: {
+    tab: {
+      game_history: "Game History",
+      transactions: "Transactions",
+      deposit: "Deposit",
+      withdrawal: "Withdrawal",
+      vip: "VIP",
+      referral: "Referral"
+    },
+    game_history: {
+      game: "Game",
+      date: "Date",
+      amount: "Amount",
+      multilier: "Multilier",
+      betId: "Betid",
+      status: "Status",
+      profit: "Profit"
+    },
+    transactions: {
+      date: "Date",
+      amount: "Amount",
+      type: "Type",
+      id: "ID",
+      note: "Note",
+      balance: "Closing Balance"
+    },
+    withdraw: {
+      action: "Action",
+      refund: "Refund"
     }
   }
 };

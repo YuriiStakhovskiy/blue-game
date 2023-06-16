@@ -6,6 +6,7 @@ import { useI18n } from "vue-i18n";
 import { useDisplay } from "vuetify";
 import Bonus from "@/components/bonus_transaction/bonus/index.vue";
 import MBonus from "@/components/bonus_transaction/bonus/mobile/index.vue";
+import Transaction from "@/components/bonus_transaction/transaction/index.vue";
 import GameProviders from "@/components/global/game_provider/index.vue";
 
 const { t } = useI18n();
@@ -90,6 +91,9 @@ onMounted(() => {
             <div v-if="selectedTabIndex == 0">
                 <Bonus v-if="mobileWidth > 600" />
                 <MBonus v-else />
+            </div>
+            <div v-else>
+                <Transaction/>
             </div>
         </div>
     </div>
