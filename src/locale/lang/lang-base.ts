@@ -6,7 +6,7 @@ export type langType = {
   login: {
     formPage: {
       header: {
-        titleLine1: string, 
+        titleLine1: string,
         titleLine2: string,
       },
       button: string,
@@ -145,7 +145,7 @@ export type langType = {
     statistics: string
     sign_out: string
     vip: {
-      bronze: string,      
+      bronze: string,
     }
   }
   home: {
@@ -360,7 +360,7 @@ export type langType = {
       vip: string
       referral: string
     }
-    game_history: {      
+    game_history: {
       game: string
       date: string
       amount: string
@@ -381,5 +381,21 @@ export type langType = {
       action: string
       refund: string
     }
+  }
+  account: {
+    menu: {
+      user_info_text: string
+      personal_info_text: string
+      document_text: string
+      preference_text: string
+      suspend_account_text: string
+    }
+    item: {
+      nick_name_text: string
+      email_text: string
+      area_text: string
+      current_pwd_text: string
+    }
+    edit_text: string
   }
 };

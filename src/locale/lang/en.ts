@@ -383,5 +383,21 @@ export const lang: langType = {
       action: "Action",
       refund: "Refund"
     }
+  },
+  account: {
+    menu: {
+      user_info_text: "User lnformation",
+      personal_info_text: "Personal lnfo",
+      document_text: "Documents",
+      preference_text: "Preferences",
+      suspend_account_text: "Suspend Account",
+    },
+    item: {
+      nick_name_text: "Nickname",
+      email_text: "Email Address",
+      area_text: "Area",
+      current_pwd_text: "Current Password",
+    },
+    edit_text: "Edit"
   }
 };

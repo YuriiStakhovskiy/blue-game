@@ -72,6 +72,7 @@ onMounted(() => {
     } else {
         affiliateWidth.value = "m-affiliate-container";
     }
+    selectedTabIndex.value = bonusTabIndex.value;
 })
 </script>
 

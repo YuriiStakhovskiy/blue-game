@@ -4,7 +4,7 @@ import { defineComponent, reactive, toRefs, computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import ValidationBox from '@/components/Signup/ValidationBox.vue';
 import SignupHeader from '@/components/Signup/Header.vue';
-import { useDisplay } from 'vuetify/lib/framework.mjs';
+import { useDisplay } from 'vuetify';
 
 const Signup = defineComponent({
     components: {

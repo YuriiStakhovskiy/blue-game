@@ -417,7 +417,7 @@ onMounted(() => {
                         <img src="@/assets/app_bar/svg/img_public_05.svg" v-ripple.center class="ml-1" />
                       </template> -->
             </v-list-item>
-            <v-list-item class="user-item" value="account">
+            <v-list-item class="user-item" value="account" router :to="{ name: 'Account' }">
               <template v-slot:prepend>
                 <img src="@/assets/app_bar/svg/icon_public_59.svg" />
               </template>

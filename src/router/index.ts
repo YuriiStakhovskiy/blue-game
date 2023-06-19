@@ -10,30 +10,56 @@ const routes = [
         name: 'Dashboard',
         component: () => import('@/views/home/index.vue'),
       },
-    ],
-  },
-  {
-    path: '/affiliate',
-    component: () => import('@/layouts/index.vue'),
-    children: [
       {
-        path: '',
+        path: 'affiliate',
         name: 'Affiliate',
         component: () => import('@/views/affiliate/index.vue'),
       },
-    ],
-  },
-  {
-    path: '/bonus-transaction',
-    component: () => import('@/layouts/index.vue'),
-    children: [
       {
-        path: '',
+        path: 'bonus-transaction',
         name: 'Bonuses And Transactions',
         component: () => import('@/views/bonus_transaction/index.vue'),
       },
+      {
+        path: 'account',
+        name: 'Account',
+        component: () => import('@/views/account/index.vue'),
+      },
     ],
   },
+  // {
+  //   path: '/affiliate',
+  //   component: () => import('@/layouts/index.vue'),
+  //   children: [
+  //     {
+  //       path: '',
+  //       name: 'Affiliate',
+  //       component: () => import('@/views/affiliate/index.vue'),
+  //     },
+  //   ],
+  // },
+  // {
+  //   path: '/bonus-transaction',
+  //   component: () => import('@/layouts/index.vue'),
+  //   children: [
+  //     {
+  //       path: '',
+  //       name: 'Bonuses And Transactions',
+  //       component: () => import('@/views/bonus_transaction/index.vue'),
+  //     },
+  //   ],
+  // },
+  // {
+  //   path: '/account',
+  //   component: () => import('@/layouts/index.vue'),
+  //   children: [
+  //     {
+  //       path: '',
+  //       name: 'Account',
+  //       component: () => import('@/views/account/index.vue'),
+  //     },
+  //   ],
+  // },
 ]
 
 const router = createRouter({
