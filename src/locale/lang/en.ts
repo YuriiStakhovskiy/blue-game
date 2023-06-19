@@ -398,6 +398,18 @@ export const lang: langType = {
       area_text: "Area",
       current_pwd_text: "Current Password",
     },
-    edit_text: "Edit"
+    edit_text: "Edit",
+    save_text: "Save",
+    exist_validation_text: "This nickname already exists, please enter a new one",
+    phone_warning_text: "Please contact customer service for modification",
+    verify_code_text: "Resend the verification code",
+    edit_password_text: "Edit Password",
+    edit_nick_name_text: "Edit Nickname",
+    password: {
+      current_text: "Current Password",
+      new_text: "New Password",
+      repeat_text: "Repeat New Password"
+    },
+    repeat_validation_text: "Repeat password inconsistency"
   }
 };

@@ -397,5 +397,17 @@ export type langType = {
       current_pwd_text: string
     }
     edit_text: string
+    save_text: string
+    exist_validation_text: string
+    phone_warning_text: string
+    verify_code_text: string
+    edit_password_text: string
+    edit_nick_name_text: string
+    password: {
+      current_text: string
+      new_text: string
+      repeat_text: string
+    }
+    repeat_validation_text: string
   }
 };

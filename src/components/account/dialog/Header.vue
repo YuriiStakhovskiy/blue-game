@@ -1,11 +1,13 @@
 <script lang="ts" setup>
-import { ref, computed, watch, onMounted } from 'vue';
+import { ref, computed, watch, onMounted, toRefs } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useDisplay } from 'vuetify';
 import { storeToRefs } from 'pinia';
 
 const { name, width } = useDisplay();
 const { t } = useI18n();
+const props = defineProps<{title: string}>();
+const {title} = toRefs(props);
 const emit = defineEmits<{ (e: 'userDialogHide'): void }>()
 
 const mobileWidth = computed(() => {
@@ -19,7 +21,8 @@ const userDialogHide = () => {
   
 <template>
     <div class="account-header">
-        <div class="header d-flex align-center relative">
+        <div class="header d-flex align-center justify-center relative">
+            <div class="text-700-18 white">{{ title }}</div>
             <v-btn class="close-button" icon="true" @click="userDialogHide">
                 <v-icon color="#7782AA">
                     mdi-close

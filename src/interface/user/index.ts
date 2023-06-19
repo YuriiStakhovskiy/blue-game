@@ -4,5 +4,6 @@ export interface GetUserInfo {
     email: string,
     password: string,
     area: string,
-    phoneNumber: string
+    phoneNumber: string,
+    verified: boolean
 }

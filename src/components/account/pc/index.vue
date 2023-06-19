@@ -6,6 +6,8 @@ import { appBarStore } from "@/store/appBar";
 import { storeToRefs } from "pinia";
 import { type GetUserInfo } from "@/interface/user";
 import EditNickname from "@/components/account/dialog/EditNickname.vue";
+import EditPassword from "@/components/account/dialog/EditPassword.vue";
+import Notification from "@/components/global/notification/index.vue";
 
 const { t } = useI18n();
 const { width } = useDisplay()
@@ -17,6 +19,7 @@ const userInfo = ref<GetUserInfo>({
     password: "",
     area: "en",
     phoneNumber: "+5517991696669",
+    verified: false,
 })
 
 const mobileWidth: any = computed(() => {
@@ -28,6 +31,12 @@ const activeMenuIndex = ref<number>(0);
 const dialogVisible = ref<boolean>(false);
 const editNicknameDialog = ref<boolean>(false);
 const editPasswordDialog = ref<boolean>(false);
+
+const notificationShow = ref<boolean>(false);
+
+const checkIcon = ref<any>(new URL("@/assets/public/svg/icon_public_17.svg", import.meta.url).href);
+
+const notificationText = ref<string>(t('account.phone_warning_text'));
 
 const menuList = ref<Array<string>>([
     t('account.menu.user_info_text'),
@@ -46,13 +55,30 @@ const handleMenu = (index: number) => {
     activeMenuIndex.value = index;
 }
 
+const handlePhonNumber = () => {
+    notificationShow.value = true;
+}
+
 const editNicknameDialogShow = () => {
     dialogVisible.value = true;
     editNicknameDialog.value = true;
+    editPasswordDialog.value = false;
+}
+
+const editPasswordDialogShow = () => {
+    dialogVisible.value = true;
+    editPasswordDialog.value = true;
+    editNicknameDialog.value = false;
 }
 
 const userDialogHide = () => {
     dialogVisible.value = false;
+    editPasswordDialog.value = false;
+    editNicknameDialog.value = false;
+}
+
+const handleVerifyCode = () => {
+    userInfo.value.verified = true;
 }
 
 watch(rightBarToggle, (newValue) => {
@@ -124,10 +150,14 @@ onMounted(() => {
                                             <div class="text-600-14">{{ userInfo.nickName }}</div>
                                         </v-list-item-title>
                                         <template v-slot:append>
-                                            <v-btn class="account-edit-btn" @click="editNicknameDialogShow">{{ t('account.edit_text') }}</v-btn>
+                                            <v-btn class="account-edit-btn" @click="editNicknameDialogShow">{{
+                                                t('account.edit_text') }}</v-btn>
                                         </template>
                                     </v-list-item>
                                 </v-card>
+                            </div>
+                            <div class="text-400-12" style="visibility: hidden;">
+                                {{ t('account.verify_code_text') }}
                             </div>
                             <div class="mt-6">
                                 <v-row>
@@ -153,7 +183,7 @@ onMounted(() => {
                                                     <div class="text-600-14 text-gray">{{ userInfo.phoneNumber }}</div>
                                                 </v-list-item-title>
                                                 <template v-slot:append>
-                                                    <v-btn class="account-edit-btn">
+                                                    <v-btn class="account-edit-btn" @click="handlePhonNumber">
                                                         <img src="@/assets/public/svg/icon_public_12.svg" />
                                                     </v-btn>
                                                 </template>
@@ -172,12 +202,16 @@ onMounted(() => {
                                     </v-list-item-title>
                                     <template v-slot:append>
                                         <v-btn class="account-edit-btn">
-                                            <img src="@/assets/public/svg/icon_public_08.svg" />
+                                            <img src="@/assets/public/svg/icon_public_08.svg" v-if="userInfo.verified"/>
+                                            <img src="@/assets/public/svg/icon_public_09.svg" v-else/>
                                             {{ t('account.edit_text') }}
                                         </v-btn>
                                     </template>
                                 </v-list-item>
                             </v-card>
+                            <div class="text-400-12 text-gray text-right mr-2 cursor-pointer mt-1" @click="handleVerifyCode">
+                                {{ t('account.verify_code_text') }}
+                            </div>
                             <v-card color="#1C1929" theme="dark" class="user-info-item mt-6">
                                 <v-list-item>
                                     <v-list-item-title class="ml-2">
@@ -185,7 +219,7 @@ onMounted(() => {
                                         <div class="text-600-14 user-pwd-spacing">*******************</div>
                                     </v-list-item-title>
                                     <template v-slot:append>
-                                        <v-btn class="account-edit-btn">
+                                        <v-btn class="account-edit-btn" @click="editPasswordDialogShow">
                                             {{ t('account.edit_text') }}
                                         </v-btn>
                                     </template>
@@ -197,8 +231,10 @@ onMounted(() => {
             </v-col>
         </v-row>
         <v-dialog v-model="dialogVisible" width="471">
-            <EditNickname v-if="editNicknameDialog" @userDialogHide="userDialogHide" :email="userInfo.email"/>
+            <EditNickname v-if="editNicknameDialog" @userDialogHide="userDialogHide" :email="userInfo.email" />
+            <EditPassword v-if="editPasswordDialog" @userDialogHide="userDialogHide" />
         </v-dialog>
+        <Notification :notificationShow="notificationShow" :notificationText="notificationText" :checkIcon="checkIcon" />
     </div>
 </template>
 

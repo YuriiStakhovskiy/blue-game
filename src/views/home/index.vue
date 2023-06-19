@@ -163,7 +163,7 @@ export default Dashboard;
 
     <!-- buttons for filter -->
     <v-row :class="[mobileVersion == 'sm' ? 'mx-2' : 'mx-4']">
-      <template #default="scope" v-if="mobileVersion != 'sm'">
+      <template v-if="mobileVersion != 'sm'">
         <v-btn class="mr-2 my-2 text-none lobby-btn-color">
           {{ t("home.button.lobby") }}
         </v-btn>
@@ -180,7 +180,7 @@ export default Dashboard;
           {{ t("home.button.blue_originals") }}
         </v-btn>
       </template>
-      <template #default="scope" v-else>
+      <template v-else>
         <v-col cols="4" class="px-1">
           <v-btn class="mr-2 my-2 text-none lobby-btn-color">
             {{ t("home.button.lobby") }}
