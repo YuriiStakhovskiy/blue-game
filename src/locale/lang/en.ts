@@ -1,3 +1,4 @@
+import { duration } from "moment-timezone";
 import { langType } from "./lang-base";
 
 export const lang: langType = {
@@ -391,6 +392,13 @@ export const lang: langType = {
       document_text: "Documents",
       preference_text: "Preferences",
       suspend_account_text: "Suspend Account",
+    },    
+    sub_menu: {
+      user_info_text: "Your account details",
+      personal_info_text: "Your personal details an contact information",
+      document_text: "Upload and verify your documents",
+      preference_text: "",
+      suspend_account_text: "Suspend your account",
     },
     item: {
       nick_name_text: "Nickname",
@@ -405,11 +413,25 @@ export const lang: langType = {
     verify_code_text: "Resend the verification code",
     edit_password_text: "Edit Password",
     edit_nick_name_text: "Edit Nickname",
+    edit_email_text: "Edit Email",
     password: {
       current_text: "Current Password",
       new_text: "New Password",
       repeat_text: "Repeat New Password"
     },
-    repeat_validation_text: "Repeat password inconsistency"
+    repeat_validation_text: "Repeat password inconsistency",
+    suspend_account: {
+      help_text: "Temporarily suspend your account from all beting activities for a set duration of time.Warning!once you account has ben suspended you will have to wait out the suspension or contact support to revoke the suspension",
+      duration_text: "Duration(Days)",
+      minimum_duration_text: "Minimum suspension: 1 day(s)",
+      confirm_text: "Confirm",
+      dialog: {
+        title_text: "Blue.game Show",
+        content_text_1: "Are you sure you want to suspend your account for ",
+        content_text_2: " days?",
+        determine_btn_text: "Determine",
+        cancel_btn_text: "Cancel",
+      }
+    }
   }
 };

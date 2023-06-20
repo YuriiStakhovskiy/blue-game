@@ -61,7 +61,7 @@ export default ValidationBox
     float: right;
     top: 16px;
     bottom: 0px;
-    right: 172px;
+    right: 50%;
     width: 0px;
     height: 0px;
     border: 9px solid #211f31;

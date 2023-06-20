@@ -390,6 +390,13 @@ export type langType = {
       preference_text: string
       suspend_account_text: string
     }
+    sub_menu: {
+      user_info_text: string
+      personal_info_text: string
+      document_text: string
+      preference_text: string
+      suspend_account_text: string
+    }
     item: {
       nick_name_text: string
       email_text: string
@@ -403,11 +410,25 @@ export type langType = {
     verify_code_text: string
     edit_password_text: string
     edit_nick_name_text: string
+    edit_email_text: string
     password: {
       current_text: string
       new_text: string
       repeat_text: string
     }
     repeat_validation_text: string
+    suspend_account: {
+      help_text: string
+      duration_text: string
+      minimum_duration_text: string
+      confirm_text: string
+      dialog: {
+        title_text: string
+        content_text_1: string
+        content_text_2: string
+        determine_btn_text: string
+        cancel_btn_text: string
+      }
+    }
   }
 };

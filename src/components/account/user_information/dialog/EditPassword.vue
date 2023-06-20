@@ -7,9 +7,8 @@ import Header from './Header.vue';
 import { useDisplay } from 'vuetify';
 
 const { t } = useI18n();
+const { width } = useDisplay();
 const emit = defineEmits<{ (e: 'userDialogHide'): void }>()
-const props = defineProps<{ email: string }>();
-const { email } = toRefs(props);
 
 const currentPassword = ref<string>("");
 const newPassword = ref<string>("");
@@ -23,6 +22,10 @@ const title = ref<string>(t('account.edit_password_text'));
 const isShowCurrentPassword = ref<boolean>(false);
 const isShowNewPassword = ref<boolean>(false);
 const isShowRepeatPassword = ref<boolean>(false);
+
+const mobileWidth = computed(() => {
+    return width.value
+})
 
 const passwordValidationList = computed((): boolean[] => {
     // 8-30 characters in length
@@ -75,7 +78,7 @@ const showRepeatPassword = () => {
 <template>
     <div class="user-container">
         <Header @userDialogHide="emit('userDialogHide')" :title="title" />
-        <v-row class="mx-10 mt-4 relative">
+        <v-row class="mt-4 relative" :class="mobileWidth < 600 ? 'ma-2' : 'ma-10'">
             <v-text-field :label="t('account.password.current_text')" class="form-textfield dark-textfield" variant="solo"
                 density="comfortable" v-model="currentPassword" :type="isShowCurrentPassword ? 'text' : 'password'"
                 :onblur="handleCurrentPasswordInputBlur" />
@@ -83,7 +86,7 @@ const showRepeatPassword = () => {
                 @click="showCurrentPassword" />
             <img v-else src="@/assets/login/svg/eye.svg" class="disable-password" @click="showCurrentPassword" />
         </v-row>
-        <v-row class="mx-10 mt-4 relative">
+        <v-row class="mt-4 relative" :class="mobileWidth < 600 ? 'ma-2' : 'ma-10'">
             <v-text-field :label="t('account.password.new_text')" class="form-textfield dark-textfield" variant="solo"
                 density="comfortable" v-model="newPassword" :onfocus="handleNewPasswordInputFocus"
                 :type="isShowNewPassword ? 'text' : 'password'" :onblur="handleNewPasswordInputBlur" />
@@ -93,7 +96,7 @@ const showRepeatPassword = () => {
             <ValidationBox v-if="isShowPasswordValidation" :title="t('signup.displayNamePage.validation.username.title')"
                 :descriptionList="passwordValidationStrList" :validationList="passwordValidationList" />
         </v-row>
-        <v-row class="mx-10 mt-4 relative">
+        <v-row class="mt-4 relative" :class="mobileWidth < 600 ? 'ma-2' : 'ma-10'">
             <v-text-field :label="t('account.password.repeat_text')" class="form-textfield dark-textfield" variant="solo"
                 density="comfortable" v-model="repeatPassword" :onfocus="handleRepeatPasswordInputFocus"
                 :type="isShowRepeatPassword ? 'text' : 'password'" :onblur="handleRepeatPasswordInputBlur" />
@@ -103,9 +106,9 @@ const showRepeatPassword = () => {
             <ExistValidationBox v-if="isExistValidation" :title="t('account.repeat_validation_text')"
                 :withCautionIcon="true" />
         </v-row>
-        <v-row class="mx-10 mt-4">
-            <v-btn class="ma-3 mt-8 button-bright text-none" width="-webkit-fill-available" height="60px"
-                :disabled="!validatePassword()" @click="$emit('userDialogHide')">
+        <v-row class="mt-4" :class="mobileWidth < 600 ? 'ma-2' : 'ma-10'">
+            <v-btn class="ma-3 mt-8 button-bright text-none" width="-webkit-fill-available" :height="mobileWidth < 600 ? '46px' : '60px'"
+                :disabled="!validatePassword()" @click="emit('userDialogHide')">
                 {{ t('account.save_text') }}
             </v-btn>
         </v-row>

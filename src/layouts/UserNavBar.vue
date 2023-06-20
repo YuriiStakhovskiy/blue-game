@@ -2,20 +2,25 @@
 import { ref, computed, watch, onMounted } from "vue";
 import { useI18n } from "vue-i18n";
 import { type GetUserData } from "@/interface/appBar";
+import { bonusTransactionStore } from "@/store/bonusTransaction";
 import { appBarStore } from "@/store/appBar";
 import { authStore } from "@/store/auth";
 import { storeToRefs } from "pinia";
-import { useDisplay } from 'vuetify'
+import { useDisplay } from 'vuetify';
+import { useRouter } from "vue-router";
 
 const { setAuthModalType } = authStore();
 const { setUserNavBarToggle } = appBarStore();
 const { setDepositDialogToggle } = appBarStore();
 const { setWithdrawDialogToggle } = appBarStore();
 const { setCashDialogToggle } = appBarStore();
+const { setBonusTabIndex } = bonusTransactionStore();
+const { setTransactionTab } = bonusTransactionStore();
 
 // mobile version name
 const { name, width } = useDisplay()
 const { t } = useI18n();
+const router = useRouter();
 
 const drawer = ref<boolean>(false);
 
@@ -57,6 +62,40 @@ const withdrawDialogShow = () => {
 
 const showSignoutDialog = () => {
     setAuthModalType("signout");
+    setUserNavBarToggle(false);
+}
+
+const goBonusPage = () => {
+    router.push({ name: 'Bonuses And Transactions' });
+    setBonusTabIndex(0);
+    setUserNavBarToggle(false);
+}
+
+const goTransactionPage = () => {
+    router.push({ name: 'Bonuses And Transactions' });
+    setBonusTabIndex(1);
+    setTransactionTab(t('transaction.tab.transactions'));
+    setUserNavBarToggle(false);
+}
+
+const goDepositPage = () => {
+    router.push({ name: 'Bonuses And Transactions' });
+    setBonusTabIndex(1);
+    setTransactionTab(t('transaction.tab.transactions'));
+    setUserNavBarToggle(false);
+}
+
+const goWithdrawPage = () => {
+    router.push({ name: 'Bonuses And Transactions' });
+    setBonusTabIndex(1);
+    setTransactionTab(t('transaction.tab.withdrawal'));
+    setUserNavBarToggle(false);
+}
+
+const goGameHistoryPage = () => {
+    router.push({ name: 'Bonuses And Transactions' });
+    setBonusTabIndex(1);
+    setTransactionTab(t('transaction.tab.game_history'));
     setUserNavBarToggle(false);
 }
 
@@ -109,7 +148,7 @@ watch(mobileWidth, (newValue: number) => {
                     <img src="@/assets/app_bar/svg/img_public_05.svg" v-ripple.center class="ml-1" />
                 </template>
             </v-list-item>
-            <v-list-item class="user-item" value="account">
+            <v-list-item class="user-item" value="account" router :to="{ name: 'Account' }">
                 <template v-slot:prepend>
                     <img src="@/assets/app_bar/svg/icon_public_59.svg" />
                 </template>
@@ -121,19 +160,19 @@ watch(mobileWidth, (newValue: number) => {
                 </template>
                 <v-list-item-title class="ml-2">{{ t('appBar.deposit') }}</v-list-item-title>
             </v-list-item>
-            <v-list-item class="user-item" value="bonuses" router :to="{ name: 'Bonuses And Transactions' }">
+            <v-list-item class="user-item" value="bonuses" @click="goBonusPage">
                 <template v-slot:prepend>
                     <img src="@/assets/app_bar/svg/icon_public_61.svg" />
                 </template>
                 <v-list-item-title class="ml-2">{{ t('appBar.bonuses') }}</v-list-item-title>
             </v-list-item>
-            <v-list-item class="user-item" value="game_history">
+            <v-list-item class="user-item" value="game_history" @click="goGameHistoryPage">
                 <template v-slot:prepend>
                     <img src="@/assets/app_bar/svg/icon_public_62.svg" />
                 </template>
                 <v-list-item-title class="ml-2">{{ t('appBar.game_history') }}</v-list-item-title>
             </v-list-item>
-            <v-list-item class="user-item" value="transactions" router :to="{ name: 'Bonuses And Transactions' }">
+            <v-list-item class="user-item" value="transactions" @click="goTransactionPage">
                 <template v-slot:prepend>
                     <img src="@/assets/app_bar/svg/icon_public_63.svg" />
                 </template>

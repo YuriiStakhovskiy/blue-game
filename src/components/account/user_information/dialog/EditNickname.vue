@@ -11,6 +11,7 @@ const { t } = useI18n();
 const emit = defineEmits<{ (e: 'userDialogHide'): void }>()
 const props = defineProps<{ email: string }>();
 const { email } = toRefs(props);
+const { width } = useDisplay();
 
 const nickName = ref<string>("");
 const isShowNicknameValidation = ref<boolean>(false);
@@ -21,7 +22,9 @@ const nickNameValidationStrList = ref<Array<string>>([
 ])
 const title = ref<string>(t('account.edit_nick_name_text'))
 
-
+const mobileWidth = computed(() => {
+    return width.value
+})
 const nickNameValidationList = computed((): boolean[] => {
     // 2-20 characters in length
     const condition1 = nickName.value.length <= 20 && nickName.value.length >= 2;
@@ -52,8 +55,8 @@ const handleNickNameInputBlur = (): void => {
 const handleNickNameChange = () => {
     if (nickName.value == "DanDan") {
         isExistValidation.value = true;
-        isShowNicknameValidation.value = false       
-    } else if(validateNickName() && nickName.value != "DanDan") {
+        isShowNicknameValidation.value = false
+    } else if (validateNickName() && nickName.value != "DanDan") {
         isExistValidation.value = false;
         isShowNicknameValidation.value = false;
     } else {
@@ -65,19 +68,19 @@ const handleNickNameChange = () => {
 
 <template>
     <div class="user-container">
-        <Header @userDialogHide="emit('userDialogHide')" :title="title"/>
-        <v-row class="ma-10 relative">
+        <Header @userDialogHide="emit('userDialogHide')" :title="title" />
+        <v-row class="relative mt-10" :class="mobileWidth < 600 ? 'ma-2' : 'ma-10'">
             <v-text-field :label="t('account.item.nick_name_text')" class="form-textfield dark-textfield" variant="solo"
-                density="comfortable" v-model="nickName" :onfocus="handleNickNameInputFocus" :onChange="handleNickNameChange"
-                :onblur="handleNickNameInputBlur" />
+                density="comfortable" v-model="nickName" :onfocus="handleNickNameInputFocus"
+                :onChange="handleNickNameChange" :onblur="handleNickNameInputBlur" />
             <ValidationBox v-if="isShowNicknameValidation" :title="t('signup.displayNamePage.validation.username.title')"
                 :descriptionList="nickNameValidationStrList" :validationList="nickNameValidationList" />
             <ExistValidationBox v-if="isExistValidation" :title="t('account.exist_validation_text')"
                 :withCautionIcon="true" />
         </v-row>
-        <v-row class="ma-10">
-            <v-btn class="ma-3 mt-8 button-bright text-none" width="-webkit-fill-available" height="60px"
-                :disabled="!validateNickName()" @click="$emit('userDialogHide')">
+        <v-row  :class="mobileWidth < 600 ? 'ma-2' : 'ma-10'" class="mt-10">
+            <v-btn class="ma-3 mt-8 button-bright text-none" width="-webkit-fill-available" :height="mobileWidth < 600 ? '46px' : '60px'"
+                :disabled="!validateNickName()" @click="emit('userDialogHide')">
                 {{ t('account.save_text') }}
             </v-btn>
         </v-row>

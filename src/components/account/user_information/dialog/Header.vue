@@ -45,6 +45,12 @@ const userDialogHide = () => {
         height: 72px;
     }
 
+    @media (max-width: 600px) {
+        .header {
+            height: 60px;
+        }
+    }
+
     // close modal button
     .close-button {
         box-shadow: none !important;
