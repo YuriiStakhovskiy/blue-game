@@ -4,6 +4,7 @@ import { useI18n } from 'vue-i18n';
 import { type GetGameOriginalData } from "@/interface/navBar";
 import { useDisplay } from 'vuetify'
 import { appBarStore } from "@/store/appBar";
+import { refferalStore } from "@/store/refferal";
 import { storeToRefs } from "pinia";
 
 const { setNavBarToggle } = appBarStore();
@@ -23,6 +24,11 @@ const mobileVersion = computed(() => {
 
 const mobileWidth = computed(() => {
     return width.value
+})
+
+const refferalAppBarShow = computed(() => {
+  const {getRefferalAppBarShow} = storeToRefs(refferalStore());
+  return getRefferalAppBarShow.value
 })
 
 const navBarToggle = computed(() => {
@@ -93,7 +99,7 @@ onMounted(() => {
     <v-navigation-drawer :temporary="mobileWidth < 1280" expand-on-hover :scrim-opacity="0.6" class="nav-background"
         :width="240" v-model="drawer" :class="[mobileWidth < 600 ? 'pb-16' : '']">
         <template v-slot:prepend>
-            <v-list-item class="casino-toggle mt-10">
+            <v-list-item class="casino-toggle" :class="refferalAppBarShow ? 'mt-10' : ''">
                 <input type="checkbox" id="casino-toggle" />
                 <label for="casino-toggle">
                     <div class="casino">

@@ -9,8 +9,15 @@ import MainLayout from './Main.vue'
 import MobileMenuLayout from './MobileMenu.vue';
 import RefferalLayout from './RefferalBar.vue';
 import { useDisplay } from 'vuetify';
+import { refferalStore } from '@/store/refferal';
+import { storeToRefs } from "pinia";
 
 const { width } = useDisplay();
+
+const refferalAppBarShow = computed(() => {
+  const {getRefferalAppBarShow} = storeToRefs(refferalStore());
+  return getRefferalAppBarShow.value
+})
 
 const mobileWidth = computed(() => {
   return width.value
@@ -19,12 +26,12 @@ const mobileWidth = computed(() => {
 
 <template>
   <v-app>
-    <RefferalLayout/>
+    <RefferalLayout v-if="refferalAppBarShow"/>
     <AppBarLayout />
     <NavBarLayout />
     <UserNavBarLayout />
     <MainLayout />
-    <RightBarLayout v-if="mobileWidth > 600"/>
+    <RightBarLayout v-if="mobileWidth > 600" />
     <MobileMenuLayout v-if="mobileWidth < 600" />
   </v-app>
 </template>

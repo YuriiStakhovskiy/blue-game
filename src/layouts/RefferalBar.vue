@@ -1,16 +1,18 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
-import { useI18n } from 'vue-i18n';;
+import { useI18n } from 'vue-i18n';
+import { refferalStore } from '@/store/refferal';
 
 const { t } = useI18n();
+const { setRefferalAppBarShow } = refferalStore();
 
 const invertedScroll = ref<boolean>(true);
 const elevateOnScroll = ref<boolean>(true);
 </script>
 
 <template>
-    <v-app-bar class="refferal-app-bar-background justify-center" density="compact" :inverted-scroll="invertedScroll" 
-      :elevate-on-scroll="elevateOnScroll">
+    <v-app-bar app class="refferal-app-bar-background justify-center" density="compact" :inverted-scroll="invertedScroll"
+        :elevate-on-scroll="elevateOnScroll">
         <v-toolbar-title class="d-flex align-center justify-center">
             <p class="text-700-16 white">
                 {{ t('refferal.app_bar_title') }}
@@ -19,7 +21,7 @@ const elevateOnScroll = ref<boolean>(true);
             <v-btn rounded height="28px" class="text-none ml-4 earn-btn-bg">{{ t('refferal.earn_btn_text') }}</v-btn>
         </v-toolbar-title>
         <v-btn icon density="compact">
-            <v-icon color="#FFFFFF" style="font-size: 20px;" @click="elevateOnScroll => !elevateOnScroll">mdi-close</v-icon>
+            <v-icon color="#FFFFFF" style="font-size: 20px;" @click="setRefferalAppBarShow(false)">mdi-close</v-icon>
         </v-btn>
     </v-app-bar>
 </template>
