@@ -431,4 +431,8 @@ export type langType = {
       }
     }
   }
+  refferal: {
+    app_bar_title: string
+    earn_btn_text: string
+  }
 };

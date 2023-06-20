@@ -19,7 +19,8 @@ const sportItems = ref<Array<string>>([
 ]);
 // selected sport item
 const selectedItem = ref<string>("Sport");
-const drawer = ref<boolean>(true);
+// const drawer = ref<boolean>(true);
+  const drawer = ref<boolean>(false);
 
 const rightBarToggle = computed(() => {
   const { getRightBarToggle } = storeToRefs(appBarStore());
@@ -244,12 +245,13 @@ const messages = ref<Array<ChatRequestData>>([
   },
 ]);
 onMounted(() => {
-  drawer.value = mobileWidth.value < 1280 ? false : true;
+  // drawer.value = mobileWidth.value < 1280 ? false : true;
 })
 </script>
 
 <template>
-  <v-navigation-drawer :temporary="mobileWidth < 1280" class="nav-background" location="right" width="340"
+  <!-------------        :temporary="mobileWidth < 1280"                   ------------>
+  <v-navigation-drawer class="nav-background" location="right" width="340"
     v-model="drawer" :fullWidth="mobileVersion == 'sm'" :class="[mobileWidth < 600 ? 'pb-14' : '']">
     <template v-slot:prepend>
       <v-card color="#211F31" theme="dark" class="right-bar-card-border">

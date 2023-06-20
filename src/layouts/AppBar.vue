@@ -534,10 +534,14 @@ onMounted(() => {
             </v-list-item>
           </v-list>
         </v-menu>
-        <div class="mr-8 mt-5 relative mail-height" v-ripple @click="setRightBarToggle(true)" v-if="mobileWidth > 600">
+
+        <!----------------------------       chatting menu toggle       ----------------------------->
+
+        <!-- <div class="mr-8 mt-5 relative mail-height" v-ripple @click="setRightBarToggle(true)" v-if="mobileWidth > 600">
           <img src="@/assets/app_bar/svg/icon_public_56.svg" />
           <p class="chat-box-text">{{ messageCount }}</p>
-        </div>
+        </div> -->
+
       </div>
     </div>
     <div v-else>

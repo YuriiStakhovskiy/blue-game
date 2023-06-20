@@ -433,5 +433,9 @@ export const lang: langType = {
         cancel_btn_text: "Cancel",
       }
     }
+  },
+  refferal: {
+    app_bar_title: "Earn up to $20 per guest deposit user.",
+    earn_btn_text: "Earn"
   }
 };

@@ -7,6 +7,7 @@ import RightBarLayout from './RightBar.vue';
 import AppBarLayout from './AppBar.vue'
 import MainLayout from './Main.vue'
 import MobileMenuLayout from './MobileMenu.vue';
+import RefferalLayout from './RefferalBar.vue';
 import { useDisplay } from 'vuetify';
 
 const { width } = useDisplay();
@@ -18,6 +19,7 @@ const mobileWidth = computed(() => {
 
 <template>
   <v-app>
+    <RefferalLayout/>
     <AppBarLayout />
     <NavBarLayout />
     <UserNavBarLayout />

@@ -50,6 +50,7 @@ const handleDropdown = (item: string, index: number) => {
 
 const selectActiveIndex = (index: number) => {
     activeMenuIndex.value = index;
+    selectedMenuItem.value = menuList.value[index];
     mobileDialogVisible.value = false;
 }
 
@@ -70,7 +71,7 @@ watch(rightBarToggle, (newValue) => {
             accountWidth.value = "account-container-1";
         }
     } else {
-        accountWidth.value = "m-account-container";
+        accountWidth.value = "account-container-2";
     }
 })
 
@@ -82,7 +83,7 @@ watch(mobileWidth, (newValue: number) => {
             accountWidth.value = "account-container-1";
         }
     } else {
-        accountWidth.value = "m-account-container";
+        accountWidth.value = "account-container-2";
     }
 })
 
@@ -98,7 +99,7 @@ onMounted(() => {
             accountWidth.value = "account-container-1";
         }
     } else {
-        accountWidth.value = "m-account-container";
+        accountWidth.value = "account-container-2";
     }
     if (mobileWidth.value < 600) {
         mobileDialogVisible.value = true;
@@ -109,7 +110,7 @@ onMounted(() => {
 <template>
     <div :class="accountWidth" v-if="mobileWidth > 600">
         <v-row class="ma-0">
-            <v-col cols="12" md="3" lg="3" class="account-menu pt-10" style="height: 320px;">
+            <v-col cols="3" md="3" lg="3" class="account-menu pt-10" style="height: 320px;">
                 <v-list theme="dark">
                     <template v-for="(item, index) in menuList" :key="index">
                         <v-list-item :value="item" @click="handleMenu(index)">
@@ -123,7 +124,7 @@ onMounted(() => {
                     </template>
                 </v-list>
             </v-col>
-            <v-col cols="12" md="9" lg="9" class="pa-0 pl-4">
+            <v-col cols="9" md="9" lg="9" class="pa-0 pl-4">
                 <UserInformation v-if="activeMenuIndex == 0" />
                 <SuspendAccount v-if="activeMenuIndex == 4" />
             </v-col>
@@ -175,6 +176,13 @@ onMounted(() => {
 .account-container-1 {
     margin: -20px 10px;
     padding-bottom: 20px;
+}
+
+.account-container-2 {
+    // background: #211F31;
+    margin: -20px 0px;
+    padding-bottom: 20px;
+    border-radius: 8px;
 }
 
 .m-account-container {

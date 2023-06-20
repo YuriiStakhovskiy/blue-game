@@ -5,7 +5,7 @@ export const appBarStore = defineStore({
   state: () => ({
     success: false as boolean,
     errMessage: '' as string,
-    rightBarToggle: true as boolean,
+    rightBarToggle: false as boolean,
     navBarToggle: true as boolean,
     cashDialogToggle: false as boolean,
     depositDialogToggle: false as boolean,

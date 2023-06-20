@@ -93,7 +93,7 @@ onMounted(() => {
     <v-navigation-drawer :temporary="mobileWidth < 1280" expand-on-hover :scrim-opacity="0.6" class="nav-background"
         :width="240" v-model="drawer" :class="[mobileWidth < 600 ? 'pb-16' : '']">
         <template v-slot:prepend>
-            <v-list-item class="casino-toggle">
+            <v-list-item class="casino-toggle mt-10">
                 <input type="checkbox" id="casino-toggle" />
                 <label for="casino-toggle">
                     <div class="casino">

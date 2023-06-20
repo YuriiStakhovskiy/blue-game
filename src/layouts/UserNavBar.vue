@@ -24,6 +24,10 @@ const router = useRouter();
 
 const drawer = ref<boolean>(false);
 
+const depositRate = ref<number>(56);
+
+const wagerRate = ref<number>(56);
+
 // logged in user info
 const user = ref<GetUserData>({
     id: "User6696608024",
@@ -129,8 +133,42 @@ watch(mobileWidth, (newValue: number) => {
                     <img src="@/assets/app_bar/svg/icon_public_71.svg" v-ripple.center class="ml-6" />
                 </template>
             </v-list-item>
-            <v-list-item class="user-item vip-background-img" value="vip">
+            <v-list-item class="user-item" value="vip">
                 <template v-slot:prepend>
+                    <div>
+                        <div style="height: 40px;">
+                            <img src="@/assets/app_bar/svg/img_vip_02.svg" />
+                        </div>
+                        <div class="text-800-14 color-F9BC01">{{ user.grade }}</div>
+                    </div>
+                </template>
+                <v-list-item-title class="ml-2">
+                    <div class="deposit-progress-bg">
+                        <div class="d-flex">
+                            <div class="white text-700-12">{{ t('appBar.deposit') }}</div>
+                            <div class="ml-auto">
+                                <Font>R$ 5642</Font> / <Font color="#F9BC01">R$ 10000</Font>
+                            </div>
+                        </div>
+                        <div>
+                            <v-progress-linear v-model="depositRate" height="18" class="deposit-progress">
+                            </v-progress-linear>
+                        </div>
+                    </div>
+                    <div class="deposit-progress-bg">
+                        <div class="d-flex">
+                            <div class="white text-700-12">{{ t('appBar.wager') }}</div>
+                            <div class="ml-auto">
+                                <Font>R$ 5642</Font> / <Font color="#623AEC">R$ 10000</Font>
+                            </div>
+                        </div>
+                        <div>
+                            <v-progress-linear v-model="depositRate" height="18" class="wager-progress">
+                            </v-progress-linear>
+                        </div>
+                    </div>
+                </v-list-item-title>
+                <!-- <template v-slot:prepend>
                     <img src="@/assets/app_bar/svg/img_vip_02.svg" style="margin-left: -6px;" />
                 </template>
                 <v-list-item-title class="ml-2">
@@ -146,7 +184,7 @@ watch(mobileWidth, (newValue: number) => {
                     <img src="@/assets/app_bar/svg/img_public_05.svg" v-ripple.center class="ml-6" />
                     <img src="@/assets/app_bar/svg/img_public_05.svg" v-ripple.center class="ml-1" />
                     <img src="@/assets/app_bar/svg/img_public_05.svg" v-ripple.center class="ml-1" />
-                </template>
+                </template> -->
             </v-list-item>
             <v-list-item class="user-item" value="account" router :to="{ name: 'Account' }">
                 <template v-slot:prepend>
@@ -301,5 +339,13 @@ watch(mobileWidth, (newValue: number) => {
 
 .app-text-position {
     color: #FFFFFF !important;
+}
+
+.deposit-progress-bg {
+  .v-progress-linear {
+    background: #1C1929 !important;
+    box-shadow: inset 2px 0px 4px 1px rgba(0, 0, 0, 0.12) !important;
+    border-radius: 20px !important;
+  }
 }
 </style>
