@@ -115,7 +115,7 @@ onMounted(() => {
         </template>
         <v-list density="compact" nav class="mt-6">
             <v-card color="#211F31" theme="dark">
-                <v-row class="ma-4 align-center">
+                <v-row class="ma-4 align-center" v-ripple.center>
                     <span class="card-title">{{ t('navBar.my_vip_perks') }}</span>
                     <span class="ml-10 more-font">{{ t('navBar.more') }}</span>
                     <v-btn class="right-btn" icon="true">
@@ -124,12 +124,12 @@ onMounted(() => {
                 </v-row>
                 <v-row class="ma-1">
                     <v-col cols="6" class="pa-1">
-                        <v-list-item value="casino" class="ma-0 pa-0">
+                        <v-list-item value="casino" class="ma-0 pa-0" height="48px">
                             <img src="@/assets/left_navigation/svg/task.svg" class="img-width" />
                         </v-list-item>
                     </v-col>
                     <v-col cols="6" class="pa-1">
-                        <v-list-item value="sport" class="ma-0 pa-0">
+                        <v-list-item value="sport" class="ma-0 pa-0" height="48px">
                             <img src="@/assets/left_navigation/svg/spin.svg" class="spin-img-width" />
                         </v-list-item>
                     </v-col>
@@ -183,7 +183,7 @@ onMounted(() => {
             <v-list-item class="avatar-img" prepend-avatar="@/assets/left_navigation/svg/icon_public_41.svg"
                 :title="t('navBar.menu_item_1.promotions')" value="promotions"></v-list-item>
             <v-list-item class="vip-club" prepend-avatar="@/assets/left_navigation/svg/icon_public_42.svg"
-                :title="t('navBar.menu_item_1.vip_club')" value="vip club"></v-list-item>
+                :title="t('navBar.menu_item_1.vip_club')" value="vip club" router :to="{name: 'VIP'}"></v-list-item>
             <v-list-item class="avatar-img" prepend-avatar="@/assets/left_navigation/svg/icon_public_43.svg"
                 :title="t('navBar.menu_item_1.affiliate')" value="affiliate" router :to="{ name: 'Affiliate' }"></v-list-item>
             <v-list-item class="avatar-img" prepend-avatar="@/assets/left_navigation/svg/icon_public_44.svg"

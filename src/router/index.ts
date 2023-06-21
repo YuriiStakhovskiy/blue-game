@@ -45,6 +45,17 @@ const routes = [
       },
     ],
   },
+  {
+    path: '/vip',
+    component: () => import('@/layouts/index.vue'),
+    children: [
+      {
+        path: '',
+        name: 'VIP',
+        component: () => import('@/views/vip/index.vue'),
+      },
+    ],
+  },
 ]
 
 const router = createRouter({
