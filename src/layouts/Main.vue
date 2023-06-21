@@ -2,6 +2,7 @@
 import { ref, computed, watch } from 'vue';
 import { useDisplay } from 'vuetify';
 import { appBarStore } from '@/store/appBar';
+import { refferalStore } from '@/store/refferal';
 import { authStore } from "@/store/auth";
 import { storeToRefs } from 'pinia';
 import Footer from "./Footer.vue";
@@ -18,11 +19,15 @@ import MLogin from "@/components/Login/mobile/index.vue";
 import Signout from "@/components/Signout/index.vue";
 import MSignout from "@/components/Signout/mobile/index.vue";
 import MobileDialog from "@/components/Signout/mobile/Header.vue";
+import RefferalDialog from "@/components/refferal/index.vue";
+import MRefferalDialog from "@/components/refferal/mobile/index.vue";
+import store from '@/store';
 const { name, width } = useDisplay();
 const { setDepositDialogToggle } = appBarStore();
 const { setWithdrawDialogToggle } = appBarStore();
 const { setCashDialogToggle } = appBarStore();
 const { setAuthModalType } = authStore();
+const { setRefferalDialogShow } = refferalStore();
 
 type dialogType = "login" | "signup" | "signout";
 
@@ -54,7 +59,7 @@ const closeDialog = (type: dialogType) => {
   setAuthModalType("");
 };
 
-const switchDialog = (type: dialogType):void => {
+const switchDialog = (type: dialogType): void => {
   if (type === "login") {
     mobileDialog.value = true;
     mobileDialogCheck.value = true;
@@ -64,7 +69,7 @@ const switchDialog = (type: dialogType):void => {
   } else if (type == "signup") {
     mobileDialog.value = true;
     mobileDialogCheck.value = false;
-    loginDialog .value= true;
+    loginDialog.value = true;
     signupDialog.value = false;
     signoutDialog.value = false;
   }
@@ -131,6 +136,16 @@ const cashDialogToggle = computed(() => {
 watch(cashDialogToggle, (newValue) => {
   cashDialog.value = newValue;
 })
+
+// refferal dialog
+const refferalDialog = ref<boolean>(false);
+const refferalDialogVisible = computed(() => {
+  const { getRefferalDialogVisible } = storeToRefs(refferalStore());
+  return getRefferalDialogVisible.value;
+})
+watch(refferalDialogVisible, (newValue) => {
+  refferalDialog.value = newValue;
+}, { deep: true });
 </script>
 
 <template>
@@ -176,9 +191,18 @@ watch(cashDialogToggle, (newValue) => {
       <MLogin v-else @close="closeDialog('login')" @switch="switchDialog('login')" />
     </v-dialog>
     <v-dialog v-model="signoutDialog" :width="mobileVersion == 'sm' ? '' : 471" :fullscreen="mobileVersion == 'sm'"
-      :transition="mobileVersion == 'sm' ? 'dialog-bottom-transition' : ''" :class="[mobileVersion == 'sm' ? 'mobile-login-dialog-position' : '']" @click:outside="closeDialog('signout')">
+      :transition="mobileVersion == 'sm' ? 'dialog-bottom-transition' : ''"
+      :class="[mobileVersion == 'sm' ? 'mobile-login-dialog-position' : '']" @click:outside="closeDialog('signout')">
       <Signout v-if="mobileVersion != 'sm'" @close="closeDialog('signout')" />
       <MSignout v-else @close="closeDialog('signout')" />
+    </v-dialog>
+
+    <!----------------------------------- refferal dialog --------------------------------->
+
+    <v-dialog v-model="refferalDialog" :width="mobileWidth < 600 ? '360' : '471'"
+      @click:outside="setRefferalDialogShow(false)">
+      <RefferalDialog v-if="mobileWidth > 600"/>
+      <MRefferalDialog v-else/>
     </v-dialog>
 
     <!------------------------------ Main Page ------------------------------------------->
@@ -193,6 +217,7 @@ watch(cashDialogToggle, (newValue) => {
 .main-background {
   background: #31275C;
 }
+
 .mobile-dialog-toggle-height {
   height: 100px !important;
   position: absolute !important;

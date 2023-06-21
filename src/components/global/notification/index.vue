@@ -40,7 +40,7 @@ watch(notificationShow, (newValue) => {
 .snack-bar {
     .v-overlay__content {
         position: absolute;
-        bottom: 85% !important;
+        bottom: 90% !important;
         right: -190px !important;
         left: unset !important;
     }

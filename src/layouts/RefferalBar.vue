@@ -1,24 +1,34 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
+import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { refferalStore } from '@/store/refferal';
+import { useDisplay } from 'vuetify';
 
 const { t } = useI18n();
+const { width } = useDisplay();
 const { setRefferalAppBarShow } = refferalStore();
+const { setRefferalDialogShow } = refferalStore();
 
 const invertedScroll = ref<boolean>(true);
 const elevateOnScroll = ref<boolean>(true);
+
+const mobileWidth = computed((): number => {
+    return width.value
+})
 </script>
 
 <template>
     <v-app-bar app class="refferal-app-bar-background justify-center" density="compact" :inverted-scroll="invertedScroll"
         :elevate-on-scroll="elevateOnScroll">
         <v-toolbar-title class="d-flex align-center justify-center">
-            <p class="text-700-16 white">
+            <p class="white" :class="mobileWidth < 600 ? 'text-500-10' : 'text-700-16'">
                 {{ t('refferal.app_bar_title') }}
             </p>
             <img src="@/assets/refferal/svg/img_public_09.svg" class="ml-2" />
-            <v-btn rounded height="28px" class="text-none ml-4 earn-btn-bg">{{ t('refferal.earn_btn_text') }}</v-btn>
+            <v-btn rounded height="28px" class="text-none ml-4 earn-btn-bg" @click="setRefferalDialogShow(true)">
+                {{ t('refferal.earn_btn_text') }}
+            </v-btn>
         </v-toolbar-title>
         <v-btn icon density="compact">
             <v-icon color="#FFFFFF" style="font-size: 20px;" @click="setRefferalAppBarShow(false)">mdi-close</v-icon>
@@ -43,6 +53,13 @@ const elevateOnScroll = ref<boolean>(true);
             font-weight: 700;
             font-size: 16px;
             color: #FFFFFF;
+        }
+
+        @media (max-width: 600px) {
+
+            .v-btn__content {
+                font-size: 12px;
+            }
         }
     }
 }

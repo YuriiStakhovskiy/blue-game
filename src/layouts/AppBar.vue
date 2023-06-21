@@ -4,6 +4,7 @@ import { useI18n } from "vue-i18n";
 import { setLang } from "@/locale/index";
 import { authStore } from "@/store/auth";
 import { appBarStore } from "@/store/appBar";
+import { refferalStore } from '@/store/refferal';
 import { bonusTransactionStore } from "@/store/bonusTransaction";
 import { mailStore } from "@/store/mail";
 import { storeToRefs } from "pinia";
@@ -21,7 +22,8 @@ const { setWithdrawDialogToggle } = appBarStore();
 const { setCashDialogToggle } = appBarStore();
 const { setUserNavBarToggle } = appBarStore();
 const { setBonusTabIndex } = bonusTransactionStore();
-const {setTransactionTab} = bonusTransactionStore();
+const { setTransactionTab } = bonusTransactionStore();
+const { setRefferalDialogShow } = refferalStore();
 
 const { name, width } = useDisplay()
 const router = useRouter();
@@ -223,6 +225,10 @@ watch(mailList, (newValue) => {
   mailCount.value = newValue.length;
 }, { deep: true })
 
+const refferalDialogShow = () => {
+  setRefferalDialogShow(true);
+  setUserNavBarToggle(false);
+}
 
 onMounted(() => {
   setAuthModalType("");
@@ -449,7 +455,7 @@ onMounted(() => {
               </template>
               <v-list-item-title class="ml-2">{{ t('appBar.transactions') }}</v-list-item-title>
             </v-list-item>
-            <v-list-item class="user-item refer-friend-background" value="refer_friend">
+            <v-list-item class="user-item refer-friend-background" value="refer_friend" @click="refferalDialogShow">
               <template v-slot:prepend>
                 <img src="@/assets/app_bar/svg/icon_public_64.svg" />
               </template>

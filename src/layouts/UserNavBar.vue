@@ -2,6 +2,7 @@
 import { ref, computed, watch, onMounted } from "vue";
 import { useI18n } from "vue-i18n";
 import { type GetUserData } from "@/interface/appBar";
+import { refferalStore } from '@/store/refferal';
 import { bonusTransactionStore } from "@/store/bonusTransaction";
 import { appBarStore } from "@/store/appBar";
 import { authStore } from "@/store/auth";
@@ -16,6 +17,7 @@ const { setWithdrawDialogToggle } = appBarStore();
 const { setCashDialogToggle } = appBarStore();
 const { setBonusTabIndex } = bonusTransactionStore();
 const { setTransactionTab } = bonusTransactionStore();
+const { setRefferalDialogShow } = refferalStore();
 
 // mobile version name
 const { name, width } = useDisplay()
@@ -100,6 +102,11 @@ const goGameHistoryPage = () => {
     router.push({ name: 'Bonuses And Transactions' });
     setBonusTabIndex(1);
     setTransactionTab(t('transaction.tab.game_history'));
+    setUserNavBarToggle(false);
+}
+
+const refferalDialogShow = () => {
+    setRefferalDialogShow(true);
     setUserNavBarToggle(false);
 }
 
@@ -216,7 +223,7 @@ watch(mobileWidth, (newValue: number) => {
                 </template>
                 <v-list-item-title class="ml-2">{{ t('appBar.transactions') }}</v-list-item-title>
             </v-list-item>
-            <v-list-item class="user-item refer-friend-background" value="refer_friend">
+            <v-list-item class="user-item refer-friend-background" value="refer_friend" @click="refferalDialogShow">
                 <template v-slot:prepend>
                     <img src="@/assets/app_bar/svg/icon_public_64.svg" />
                 </template>

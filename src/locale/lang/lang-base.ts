@@ -434,5 +434,29 @@ export type langType = {
   refferal: {
     app_bar_title: string
     earn_btn_text: string
+    dialog: {
+      header: {
+        title_text: string
+        body_text: string
+        body_text_1: string
+        body_text_2: string
+        body_text_3: string
+        body_text_4: string
+      }
+      body: {
+        text_1: string
+        text_2: string
+        text_3: string
+        copy_btn_text: string
+      }
+    }
+    copy_success_text: string
+    description: {
+      text_1: string
+      text_2: string
+      term_text: string
+      text_3: string
+      back_btn_text: string
+    }
   }
 };
