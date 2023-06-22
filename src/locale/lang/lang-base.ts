@@ -459,4 +459,62 @@ export type langType = {
       back_btn_text: string
     }
   }
+  vip: {
+    slider: {
+      title_text: string
+    }
+    all_bonus_text: string
+    cash_back_text: string
+    super_carousel_text: string
+    welfare_task: string
+    reward_text: string
+    reward_card_1: {
+      daily_free_bonus_text: string
+      text_1: string
+      text_2: string      
+    }
+    reward_card_2: {
+      vip_week_gift_text: string
+      text_1: string
+      text_2: string
+      text_3: string
+      text_4: string
+    }
+    reward_card_3: {
+      vip_month_gift_text: string
+      text_1: string
+      text_2: string
+      text_3: string
+      text_4: string
+    }
+    reward_card_4: {
+      vip_upgrage_gift_text: string
+      text_1: string
+      text_2: string
+      text_3: string   
+    }
+    receive_btn_text: string
+    cashback_body: {
+      text_1: string
+      text_2: string
+      text_3: string
+      text_4: string
+      text_5: string
+      text_7: string
+      text_8: string
+      text_9: string
+      text_10: string
+      text_11: string
+      text_12: string
+      text_13: string
+      text_14: string
+    }    
+    super_spin_body: {
+      text_1: string
+      text_2: string
+      text_3: string
+      text_4: string
+      text_5: string
+    }
+  }
 };

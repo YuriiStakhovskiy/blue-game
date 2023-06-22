@@ -176,7 +176,19 @@
     font-weight: 800;
     font-size: 14px;
 }
-
+.text-800-16 {
+    font-weight: 800;
+    font-size: 16px;
+}
+.text-800-20 {
+    font-weight: 800;
+    font-size: 20px;
+}
+.text-800-32 {
+    font-weight: 800;
+    font-size: 32px;
+    font-family: 'Inter';
+}
 .text-gray {
     color: #7782AA !important;
 }
@@ -201,6 +213,9 @@
 }
 .color-31E598 {
     color: #31E598
+}
+.color-04D981 {
+    color: #04D981
 }
 
 .cursor-pointer {
@@ -276,6 +291,11 @@ button {
     color: white !important;
 }
 
+.button-yellow {    
+    background-color: #F9BC01 !important;
+    color: black !important;
+}
+
 .v-btn--disabled {
     background-color: #353652 !important;
     color: white !important;
@@ -327,4 +347,8 @@ button {
 
 .text-justify {
     text-align: justify;
+}
+
+.full-height {
+    height: 100%;
 }

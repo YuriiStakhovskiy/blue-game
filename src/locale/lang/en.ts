@@ -461,5 +461,63 @@ export const lang: langType = {
       text_3: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
       back_btn_text: "Back"
     }
+  },
+  vip: {
+    slider: {
+      title_text: "My VIP Rating"
+    },
+    all_bonus_text: "All Bonus",
+    cash_back_text: "Cashback",
+    super_carousel_text: "Super Carousel",
+    welfare_task: "Welfare Tasks",
+    reward_text: "Reward available for ",
+    reward_card_1: {
+      daily_free_bonus_text: "Daily Free Bonuses",
+      text_1: "Free spin times*1",
+      text_2: "Available at "      
+    },
+    reward_card_2: {
+      vip_week_gift_text: "VIP Week Gift",
+      text_1: "VIP Bonus: R$ 5",
+      text_2: "Free spin times*2",
+      text_3: "Collectable after ",
+      text_4: " days"
+    },
+    reward_card_3: {
+      vip_month_gift_text: "VIP Month Gift",
+      text_1: "VIP Bonus: R$ 5",
+      text_2: "Free spin times*2",
+      text_3: "Collectable after ",
+      text_4: " days"
+    },
+    reward_card_4: {
+      vip_upgrage_gift_text: "VIP Upgrade Gift",
+      text_1: "VIP Bonus: R$ 5",
+      text_2: "Free spin times*2",
+      text_3: "Available for first upgrade only",     
+    },
+    receive_btn_text: "Receive",
+    cashback_body: {
+      text_1: "My CASHBACK Bonus",
+      text_2: "Get my CASHBACK",
+      text_3: "CASHBACK ratio of ",
+      text_4: "How to get CASHBACK bonus?",
+      text_5: "Next Level VIP ",
+      text_7: "Yesterday’s CASHBACK Bonus",
+      text_8: "Historical cumulative CASHBACK bonuses",
+      text_9: "CASHBACK bonus collection records",
+      text_10: "",
+      text_11: "Original Games",
+      text_12: "SLOT",
+      text_13: "SPORTS",
+      text_14: "LIVE CASINO",
+    },
+    super_spin_body: {
+      text_1: "My Super Spin",
+      text_2: "Number of opportunities left: ",
+      text_3: "Spin  Now",
+      text_4: "VIP2 has the possibility of winning he following awards",
+      text_5: "See all",
+    }
   }
 };
