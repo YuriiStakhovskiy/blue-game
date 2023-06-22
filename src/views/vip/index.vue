@@ -2,6 +2,7 @@
 import { ref, watch, computed, onMounted } from "vue"
 import { appBarStore } from "@/store/appBar";
 import { type GetVIPData } from "@/interface/vip";
+import { type GetSpinData } from "@/interface/vip";
 import { storeToRefs } from "pinia";
 import { useI18n } from "vue-i18n";
 import { useDisplay } from "vuetify";
@@ -70,7 +71,108 @@ const vipTabs = ref<Array<string>>([
 
 const selectedVIPTab = ref<string>(t('vip.all_bonus_text'));
 
+const spinItems = ref<Array<GetSpinData>>([
+    {
+        id: 1,
+        image: new URL("@/assets/vip/images/game_1046_2.png", import.meta.url).href,
+        title: "Free Spins Hot Fiesta",
+        content: "Free Spins on our Hot Fiesta game, Good luck!"
+    },
+    {
+        id: 2,
+        image: new URL("@/assets/vip/images/game_1046_2.png", import.meta.url).href,
+        title: "Free Spins Hot Fiesta",
+        content: "Free Spins on our Hot Fiesta game, Good luck!"
+    },
+    {
+        id: 3,
+        image: new URL("@/assets/vip/images/game_1046_1.png", import.meta.url).href,
+        title: "Free Spins Hot Fiesta",
+        content: "Free Spins on our Hot Fiesta game, Good luck!"
+    },
+    {
+        id: 4,
+        image: new URL("@/assets/vip/images/game_1046_1.png", import.meta.url).href,
+        title: "Free Spins Hot Fiesta",
+        content: "Free Spins on our Hot Fiesta game, Good luck!"
+    },
+    {
+        id: 5,
+        image: new URL("@/assets/vip/images/game_1046_3.png", import.meta.url).href,
+        title: "Free Spins Hot Fiesta",
+        content: "Free Spins on our Hot Fiesta game, Good luck!"
+    },
+    {
+        id: 6,
+        image: new URL("@/assets/vip/images/game_1046_3.png", import.meta.url).href,
+        title: "Free Spins Hot Fiesta",
+        content: "Free Spins on our Hot Fiesta game, Good luck!"
+    },
+    {
+        id: 7,
+        image: new URL("@/assets/vip/images/game_1046_2.png", import.meta.url).href,
+        title: "Free Spins Hot Fiesta",
+        content: "Free Spins on our Hot Fiesta game, Good luck!"
+    },
+    {
+        id: 8,
+        image: new URL("@/assets/vip/images/game_1046_2.png", import.meta.url).href,
+        title: "Free Spins Hot Fiesta",
+        content: "Free Spins on our Hot Fiesta game, Good luck!"
+    },
+    {
+        id: 9,
+        image: new URL("@/assets/vip/images/game_1046_1.png", import.meta.url).href,
+        title: "Free Spins Hot Fiesta",
+        content: "Free Spins on our Hot Fiesta game, Good luck!"
+    },
+    {
+        id: 10,
+        image: new URL("@/assets/vip/images/game_1046_1.png", import.meta.url).href,
+        title: "Free Spins Hot Fiesta",
+        content: "Free Spins on our Hot Fiesta game, Good luck!"
+    },
+    {
+        id: 11,
+        image: new URL("@/assets/vip/images/game_1046_3.png", import.meta.url).href,
+        title: "Free Spins Hot Fiesta",
+        content: "Free Spins on our Hot Fiesta game, Good luck!"
+    },
+    {
+        id: 12,
+        image: new URL("@/assets/vip/images/game_1046_3.png", import.meta.url).href,
+        title: "Free Spins Hot Fiesta",
+        content: "Free Spins on our Hot Fiesta game, Good luck!"
+    },
+    {
+        id: 13,
+        image: new URL("@/assets/vip/images/game_1046_2.png", import.meta.url).href,
+        title: "Free Spins Hot Fiesta",
+        content: "Free Spins on our Hot Fiesta game, Good luck!"
+    },
+    {
+        id: 14,
+        image: new URL("@/assets/vip/images/game_1046_1.png", import.meta.url).href,
+        title: "Free Spins Hot Fiesta",
+        content: "Free Spins on our Hot Fiesta game, Good luck!"
+    },
+    {
+        id: 15,
+        image: new URL("@/assets/vip/images/game_1046_3.png", import.meta.url).href,
+        title: "Free Spins Hot Fiesta",
+        content: "Free Spins on our Hot Fiesta game, Good luck!"
+    }
+])
+
+const spinCardHeight = ref<number>(400)
+
+const spanCardShow = ref<boolean>(false);
+
 const selectedIndex = ref<number>(0);
+
+const handleSpinCardHeight = () => {
+    spinCardHeight.value = spinCardHeight.value == 400 ? undefined : 400;
+}
 
 const calculateTransform = (index: number) => {
     const selectedItemIndex = selectedIndex.value;
@@ -368,7 +470,7 @@ onMounted(() => {
                     </div>
                 </v-card>
             </div>
-            <div class="super-spin-body mt-6 mx-2 pb-6">
+            <div class="super-spin-body relative mt-6 mx-2 pb-6">
                 <div class="text-800-16 white pt-8 mx-10 d-flex">
                     {{ t('vip.super_spin_body.text_1') }}
                     <v-card theme="dark" color="#1C1929" class="ml-auto d-flex align-center" height="60" width="470">
@@ -380,6 +482,26 @@ onMounted(() => {
                         </v-btn>
                     </v-card>
                 </div>
+                <transition name="fade">
+                    <v-card color="#1C1929" class="ma-4 pa-6 spin-game-card" :class="{ 'spin-card-height': spanCardShow }">
+                        <p class="text-500-16 white">{{ t('vip.super_spin_body.text_4') }}</p>
+                        <v-row class="mt-4 justify-center align-center">
+                            <v-col cols="3" md="3" lg="2" v-for="(item, index) in spinItems" :key="index"
+                                class="text-center d-flex justify-center">
+                                <v-card theme="dark" color="#29253C" class="py-10" width="210" height="256">
+                                    <img :src="item.image" />
+                                    <p class="text-600-16 white mt-4">{{ item.title }}</p>
+                                    <p class="text-500-12 text-gray mt-4">{{ item.title }}</p>
+                                </v-card>
+                            </v-col>
+                        </v-row>
+                    </v-card>
+                </transition>
+                <v-btn class="text-none button-1C1929 spin-more-btn-position" width="215px" height="45px"
+                    style="transform: translateX(-50%) !important;" @click="spanCardShow = !spanCardShow">
+                    {{ t('vip.super_spin_body.text_5') }}
+                    <v-icon class="mdi-down-position">mdi-chevron-down</v-icon>
+                </v-btn>
             </div>
         </div>
     </div>
@@ -512,5 +634,40 @@ onMounted(() => {
         font-family: Inter;
         font-weight: 800;
     }
+}
+
+.button-1C1929 {
+
+    .v-btn__content {
+        color: var(--white-bg, #FFF);
+        text-align: center;
+        font-size: 18px;
+        font-family: Inter;
+        font-weight: 600;
+    }
+}
+
+.spin-more-btn-position {
+    position: absolute !important;
+    bottom: 14px;
+    left: 50%;
+}
+
+.mdi-down-position {
+    position: absolute !important;
+    top: 10px;
+    right: 10px;
+}
+.spin-card-height {
+    height: 400px;
+}
+.fade-enter-spin-card-height,
+.fade-leave-spin-card-height {
+  transition: height 1s;
+}
+
+.fade-enter,
+.fade-leave-to {
+    height: auto;
 }
 </style>

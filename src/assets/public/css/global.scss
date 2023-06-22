@@ -109,6 +109,7 @@
     font-weight: 400;
     font-size: 14px;
 }
+
 .text-400-16 {
     font-weight: 400;
     font-size: 16px;
@@ -143,14 +144,17 @@
     font-weight: 600;
     font-size: 16px;
 }
+
 .text-700-12 {
     font-weight: 700 !important;
     font-size: 12px !important;
 }
+
 .text-700-14 {
     font-weight: 700 !important;
     font-size: 14px !important;
 }
+
 .text-700-16 {
     font-weight: 700;
     font-size: 16px;
@@ -160,60 +164,75 @@
     font-weight: 700;
     font-size: 18px;
 }
+
 .text-700-22 {
     font-weight: 700;
     font-size: 22px;
 }
+
 .text-700-20 {
     font-weight: 700;
     font-size: 20px;
 }
+
 .text-800-12 {
     font-weight: 800;
     font-size: 12px;
 }
+
 .text-800-14 {
     font-weight: 800;
     font-size: 14px;
 }
+
 .text-800-16 {
     font-weight: 800;
     font-size: 16px;
 }
+
 .text-800-20 {
     font-weight: 800;
     font-size: 20px;
 }
+
 .text-800-32 {
     font-weight: 800;
     font-size: 32px;
     font-family: 'Inter';
 }
+
 .text-gray {
     color: #7782AA !important;
 }
 
 .gray {
-    color: #7782AA !important;    
+    color: #7782AA !important;
 }
+
 .color-01983A {
     color: #01983A;
 }
+
 .color-31E598 {
     color: #31E598
 }
+
 .color-D42763 {
     color: #D42763;
 }
+
 .color-F9BC01 {
     color: #F9BC01;
 }
+
 .color-623AEC {
     color: #623AEC;
 }
+
 .color-31E598 {
     color: #31E598
 }
+
 .color-04D981 {
     color: #04D981
 }
@@ -291,9 +310,18 @@ button {
     color: white !important;
 }
 
-.button-yellow {    
+.button-yellow {
     background-color: #F9BC01 !important;
     color: black !important;
+}
+
+.button-1C1929 {
+    border-radius: 12px;
+    border: 1px solid #4E7141;
+    background: #1C1929;
+
+    /* Button Shadow */
+    box-shadow: 0px 3px 4px 1px rgba(0, 0, 0, 0.21);
 }
 
 .v-btn--disabled {
