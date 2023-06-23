@@ -82,7 +82,7 @@ const vipDescriptionItems = ref([
     "VIP5",
 ])
 
-const selectedVIPDescriptionIndex = ref([1]);
+const selectedVIPDescriptionIndex = ref<number>(1);
 
 const selectedVIPTab = ref<string>(t('vip.all_bonus_text'));
 
@@ -251,7 +251,7 @@ const vipMissionItems = ref([
     },
 ])
 
-const spinCardHeight1 = ref<number | undefined>(400)
+const spinCardHeight1 = ref<number | undefined>(350)
 
 // spin card height when spin card item show totally
 const spinCardHeight2 = ref<string | undefined>(undefined);
@@ -316,7 +316,7 @@ watch(rightBarToggle, (newValue) => {
 })
 
 watch(mobileWidth, (newValue: number) => {
-    spinCardHeight2.value = spinCardItem.value?.$el?.clientHeight + 80;
+    spinCardHeight2.value = spinCardItem.value?.$el?.clientHeight + 60;
     vipMissionHeight2.value = missionCardItem.value?.$el?.clientHeight + 20;
 })
 
@@ -325,7 +325,7 @@ const tabSelect = (index: number) => {
 }
 
 onMounted(() => {
-    spinCardHeight2.value = spinCardItem.value?.$el?.clientHeight + 80;
+    spinCardHeight2.value = spinCardItem.value?.$el?.clientHeight + 60;
     vipMissionHeight2.value = missionCardItem.value?.$el?.clientHeight + 20;
 })
 </script>
@@ -609,15 +609,15 @@ onMounted(() => {
                     <v-row class="mt-4 justify-center align-center" ref="spinCardItem">
                         <v-col cols="6" md="3" lg="2" v-for="(item, index) in spinItems" :key="index"
                             class="text-center d-flex justify-center">
-                            <v-card theme="dark" color="#29253C" class="py-10" width="210" height="256">
+                            <v-card theme="dark" color="#29253C" class="py-6">
                                 <img :src="item.image" />
-                                <p class="text-600-16 white mt-4">{{ item.title }}</p>
-                                <p class="text-500-12 text-gray mt-4">{{ item.title }}</p>
+                                <p class="text-600-12 white mt-4">{{ item.title }}</p>
+                                <p class="text-500-10 text-gray mt-2 mx-2">{{ item.content }}</p>
                             </v-card>
                         </v-col>
                     </v-row>
                 </div>
-                <v-btn class="text-none button-1C1929 spin-more-btn-position" width="215px" height="45px"
+                <v-btn class="text-none button-1C1929 m-spin-more-btn-position" width="140px" height="40px"
                     style="transform: translateX(-50%) !important;" @click="spinCardShow = !spinCardShow">
                     {{ t('vip.super_spin_body.text_5') }}
                     <v-icon class="mdi-down-position">mdi-chevron-down</v-icon>
@@ -627,94 +627,102 @@ onMounted(() => {
             <!------------------------   My VIP Mission -------------------------------->
 
             <div class="vip-mission-body relative mt-6 mx-2 pb-2">
-                <div class="text-800-16 white pt-8 mx-10 d-flex">
+                <div class="text-800-14 white pt-4 mx-4 d-flex">
                     {{ t('vip.vip_mission_body.text_1') }}
                     <p class="ml-auto">{{ t('vip.vip_mission_body.text_2') }} <Font class="text-800-20">0</Font> {{
                         t('vip.vip_mission_body.text_3') }}</p>
                 </div>
-                <div color="#1C1929" class="ma-4 pa-6 spin-game-card box"
+                <div color="#1C1929" class="ma-2 pa-4 spin-game-card box"
                     :style="{ height: missionCardShow ? vipMissionHeight2 + 'px' : vipMissionHeight1 + 'px' }">
                     <v-row class="justify-center align-center" ref="missionCardItem">
-                        <v-col cols="4" md="3" lg="2" v-for="(item, index) in vipMissionItems" :key="index"
+                        <v-col cols="6" v-for="(item, index) in vipMissionItems" :key="index"
                             class="text-center d-flex justify-center">
-                            <v-card theme="dark" color="#29253C" class="py-5" width="210" height="256"
-                                v-if="item.type == 1">
-                                <img src="@/assets/vip/images/img_public_11.png" />
-                                <p class="text-500-12 text-gray mt-2">{{ t('vip.vip_mission_body.text_4') }}</p>
-                                <p class="text-600-12 white mt-1">{{ t('vip.vip_mission_body.text_5') }}</p>
-                                <v-btn class="text-none button-bright mission-btn-1 mt-12" height="34px" width="180px">
+                            <v-card theme="dark" color="#29253C" class="py-6" v-if="item.type == 1" height="240"
+                                style="width: 100%;">
+                                <img src="@/assets/vip/images/img_public_11.png" width="56" />
+                                <p class="text-500-10 text-gray mt-2">{{ t('vip.vip_mission_body.text_4') }}</p>
+                                <p class="text-600-10 white mt-1">{{ t('vip.vip_mission_body.text_5') }}</p>
+                                <v-btn class="text-none button-bright m-mission-btn-1 mt-14 mx-2" height="28px"
+                                    width="-webkit-fill-available">
                                     {{ t('vip.vip_mission_body.text_6') }}
                                 </v-btn>
                             </v-card>
-                            <v-card theme="dark" color="#29253C" class="py-5" width="210" height="256"
+                            <v-card theme="dark" color="#29253C" class="py-6" height="240" style="width: 100%;"
                                 v-if="item.type == 2">
-                                <div class="mission-ongoing-position text-500-12 white">
+                                <div class="m-mission-ongoing-position text-600-8 white align-center d-flex justify-center">
                                     {{ t('vip.vip_mission_body.text_7') }}
                                 </div>
-                                <div class="mission-time-position text-500-12 white">
+                                <div class="mission-time-position text-600-8 white">
                                     {{ item.time }}
                                 </div>
-                                <img src="@/assets/vip/images/img_public_11.png" />
-                                <p class="text-500-12 text-gray mt-2">{{ t('vip.vip_mission_body.text_4') }}</p>
-                                <p class="text-600-12 white mt-1">{{ t('vip.vip_mission_body.text_8') }}</p>
-                                <div class="mission-progress-bg mx-4 mt-6">
-                                    <v-progress-linear v-model="item.missionRate" height="17" class="mission-progress">
-                                        <div class="text-500-12 white">{{ item.currentRate }} / {{ item.totalRate }}</div>
+                                <img src="@/assets/vip/images/img_public_11.png" width="56" />
+                                <p class="text-500-10 text-gray mt-2">{{ t('vip.vip_mission_body.text_4') }}</p>
+                                <p class="text-600-10 white mt-1">{{ t('vip.vip_mission_body.text_8') }}</p>
+                                <div class="mission-progress-bg mx-4 mt-8">
+                                    <v-progress-linear v-model="item.missionRate" height="10" class="mission-progress">
+                                        <div class="text-500-10 white">{{ item.currentRate }} / {{ item.totalRate }}</div>
                                     </v-progress-linear>
                                 </div>
-                                <v-btn class="text-none button-purple mission-btn-2 mt-2" height="34px" width="180px">
+                                <v-btn class="text-none button-purple m-mission-btn-2 mt-4 mx-2" height="28px"
+                                    width="-webkit-fill-available">
                                     {{ t('vip.vip_mission_body.text_11') }}
                                 </v-btn>
                             </v-card>
-                            <v-card theme="dark" class="py-5 mission-card-bg-3" width="210" height="256"
+                            <v-card theme="dark" class="py-6 mission-card-bg-3" height="240" style="width: 100%;"
                                 v-if="item.type == 3">
-                                <div class="mission-ongoing-position text-500-12 white">
+                                <div class="m-mission-ongoing-position text-600-8 white align-center d-flex justify-center">
                                     {{ t('vip.vip_mission_body.text_7') }}
                                 </div>
-                                <div class="mission-time-position text-500-12 white">
+                                <div class="mission-time-position text-600-8 white">
                                     {{ item.time }}
                                 </div>
-                                <img src="@/assets/vip/images/img_public_11.png" />
-                                <p class="text-500-12 text-gray mt-2">{{ t('vip.vip_mission_body.text_4') }}</p>
-                                <p class="text-600-12 white mt-1">{{ t('vip.vip_mission_body.text_8') }}</p>
-                                <p class="text-600-12 white mt-1">{{ t('vip.vip_mission_body.text_10') }}</p>
-                                <div class="mission-progress-bg mx-4 mt-1">
-                                    <v-progress-linear v-model="item.missionRate" height="17" class="mission-progress">
-                                        <div class="text-500-12 white">{{ item.currentRate }} / {{ item.totalRate }}</div>
+                                <img src="@/assets/vip/images/img_public_11.png" width="56" />
+                                <p class="text-500-10 text-gray mt-2">{{ t('vip.vip_mission_body.text_4') }}</p>
+                                <p class="text-600-10 white mt-1">{{ t('vip.vip_mission_body.text_8') }}</p>
+                                <p class="text-600-10 white mt-1">{{ t('vip.vip_mission_body.text_10') }}</p>
+                                <div class="mission-progress-bg mx-4 mt-4">
+                                    <v-progress-linear v-model="item.missionRate" height="10" class="mission-progress">
+                                        <div class="text-500-10 white">{{ item.currentRate }} / {{ item.totalRate }}</div>
                                     </v-progress-linear>
                                 </div>
-                                <v-btn class="text-none button-bright mission-btn-1 mt-2" height="34px" width="180px">
-                                    <img src="@/assets/vip/images/img_public_14.png" class="mission-gift-img-position" />
+                                <v-btn class="text-none button-bright m-mission-btn-1 mt-4 mx-2" height="28px"
+                                    width="-webkit-fill-available">
+                                    <img src="@/assets/vip/images/img_public_14.png" class="m-mission-gift-img-position"
+                                        width="34" />
                                     {{ t('vip.vip_mission_body.text_12') }}
                                 </v-btn>
                             </v-card>
-                            <v-card theme="dark" color="#29253C" class="py-5" width="210" height="256"
+                            <v-card theme="dark" color="#29253C" class="py-6" height="240" style="width: 100%;"
                                 v-if="item.type == 4">
-                                <div class="mission-completed-position text-500-12 white">
+                                <div
+                                    class="m-mission-completed-position text-600-8 white align-center d-flex justify-center">
                                     {{ t('vip.vip_mission_body.text_2') }}
                                 </div>
-                                <img src="@/assets/vip/images/img_public_11.png" />
-                                <p class="text-500-12 text-gray mt-2">{{ t('vip.vip_mission_body.text_4') }}</p>
-                                <p class="text-600-12 white mt-1">{{ t('vip.vip_mission_body.text_5') }}</p>
-                                <p class="text-500-12 text-gray mt-6">{{ t('vip.vip_mission_body.text_13') }}</p>
-                                <v-btn class="text-none button-dark mission-btn-3 mt-2" height="34px" width="180px">
+                                <img src="@/assets/vip/images/img_public_11.png" width="56" />
+                                <p class="text-500-10 text-gray mt-2">{{ t('vip.vip_mission_body.text_4') }}</p>
+                                <p class="text-600-10 white mt-1">{{ t('vip.vip_mission_body.text_5') }}</p>
+                                <p class="text-500-10 text-gray mt-8">{{ t('vip.vip_mission_body.text_13') }}</p>
+                                <v-btn class="text-none button-dark m-mission-btn-3 mt-4 mx-2" height="28px"
+                                    width="-webkit-fill-available">
                                     {{ t('vip.vip_mission_body.text_2') }}
                                 </v-btn>
                             </v-card>
-                            <v-card theme="dark" color="#29253C" class="py-5" width="210" height="256"
+                            <v-card theme="dark" color="#29253C" class="py-6" height="240" style="width: 100%;"
                                 v-if="item.type == 5">
-                                <img src="@/assets/vip/images/img_public_13.png" />
-                                <p class="text-500-12 text-gray mt-2">{{ t('vip.vip_mission_body.text_4') }}</p>
-                                <p class="text-600-12 white mt-1">{{ t('vip.vip_mission_body.text_5') }}</p>
-                                <p class="text-600-12 white mt-1">{{ t('vip.vip_mission_body.text_10') }}</p>
-                                <v-btn class="text-none button-dark mission-btn-3 mt-6" height="34px" width="180px">
+                                <img src="@/assets/vip/images/img_public_13.png" width="56" />
+                                <p class="text-500-10 text-gray mt-2">{{ t('vip.vip_mission_body.text_4') }}</p>
+                                <p class="text-600-10 white mt-1">{{ t('vip.vip_mission_body.text_5') }}</p>
+                                <p class="text-600-10 white mt-1">{{ t('vip.vip_mission_body.text_10') }}</p>
+                                <v-btn class="text-none button-dark m-mission-btn-3 mt-8 mx-2" height="28px"
+                                    width="-webkit-fill-available">
+                                    <img src="@/assets/vip/svg/icon_public_77.svg" class="m-mission-warning-img-position" />
                                     {{ t('vip.vip_mission_body.text_15') }}
                                 </v-btn>
                             </v-card>
                         </v-col>
                     </v-row>
                 </div>
-                <v-btn class="text-none button-1C1929 spin-more-btn-position" width="215px" height="45px"
+                <v-btn class="text-none button-1C1929 m-spin-more-btn-position" width="140px" height="40px"
                     style="transform: translateX(-50%) !important;" @click="missionCardShow = !missionCardShow">
                     {{ t('vip.super_spin_body.text_5') }}
                     <v-icon class="mdi-down-position">mdi-chevron-down</v-icon>
@@ -722,153 +730,144 @@ onMounted(() => {
             </div>
 
             <!--------------------------    VIP Benifit Description ---------------------->
-            <div class="benifit-description-body mt-6 mx-2 pb-2 relative">
-                <div class="benifit-description-header pa-8 text-800-16 white">
+            <div class="m-benifit-description-body mt-6 mx-2 pb-2 relative">
+                <div class="m-benifit-description-header pa-4 text-700-16 white">
                     {{ t('vip.benifit_description_body.text_1') }}
                 </div>
                 <v-window v-model="descriptionTab">
                     <v-window-item v-for="(item, index) in vipDescriptionItems" :key="index" :value="item">
-                        <v-row class="mt-6 mx-8">
-                            <v-col cols="6">
-                                <p class="text-700-16 white ml-6">{{ t('vip.benifit_description_body.text_2') }}</p>
-                                <v-card theme="dark" color="#1C1929" class="mt-2"
-                                    :height="mobileWidth > 960 ? 75 : undefined">
-                                    <v-row class="mx-4 my-0 pa-0 align-center justify-center">
-                                        <v-col cols="6">
-                                            <div class="benifit-description-border">
-                                                <p class="text-500-16 text-gray">
-                                                    {{ t('vip.benifit_description_body.text_4') }}
-                                                </p>
-                                                <p class="text-700-20 yellow">R$ 100</p>
-                                            </div>
-                                        </v-col>
-                                        <v-col cols="6" class="d-flex justify-center">
-                                            <div>
-                                                <p class="text-500-16 text-gray">
-                                                    {{ t('vip.benifit_description_body.text_5') }}
-                                                </p>
-                                                <p class="text-700-20 yellow">R$ 800</p>
-                                            </div>
-                                        </v-col>
-                                    </v-row>
-                                </v-card>
-                            </v-col>
-                            <v-col cols="6">
-                                <p class="text-700-16 white ml-6">{{ t('vip.benifit_description_body.text_3') }}</p>
-                                <v-card theme="dark" color="#1C1929" class="mt-2">
-                                    <v-row class="mx-4 my-0 pa-0 align-center">
+                        <v-row class="mt-2 mx-0">
+                            <v-col cols="6" class="ma-0 pa-2">
+                                <p class="text-700-12 white ml-2">{{ t('vip.benifit_description_body.text_2') }}</p>
+                                <v-card theme="dark" color="#1C1929" class="mt-2" height="140">
+                                    <v-row class="mx-2 my-0 pa-0">
                                         <v-col cols="12">
-                                            <p class="text-500-16 text-gray">
+                                            <p class="text-500-12 text-gray">
+                                                {{ t('vip.benifit_description_body.text_4') }}
+                                            </p>
+                                            <p class="text-700-16 yellow mt-1">R$ 100</p>
+                                        </v-col>
+                                        <v-divider></v-divider>
+                                        <v-col cols="12">
+                                            <p class="text-500-12 text-gray">
                                                 {{ t('vip.benifit_description_body.text_5') }}
                                             </p>
-                                            <p class="text-700-20 yellow">R$ 800</p>
+                                            <p class="text-700-16 yellow mt-1">R$ 800</p>
+                                        </v-col>
+                                    </v-row>
+                                </v-card>
+                            </v-col>
+                            <v-col cols="6" class="ma-0 pa-2">
+                                <p class="text-700-12 white ml-2">{{ t('vip.benifit_description_body.text_3') }}</p>
+                                <v-card theme="dark" color="#1C1929" class="mt-2" height="140">
+                                    <v-row class="mx-2 my-0 pa-0 align-center">
+                                        <v-col cols="12">
+                                            <p class="text-500-12 text-gray">
+                                                {{ t('vip.benifit_description_body.text_5') }}
+                                            </p>
+                                            <p class="text-700-16 yellow mt-1">R$ 800</p>
                                         </v-col>
                                     </v-row>
                                 </v-card>
                             </v-col>
                         </v-row>
-                        <v-row class="mt-4 mx-8">
-                            <v-col cols="12">
-                                <p class="text-700-16 white ml-6">{{ t('vip.benifit_description_body.text_6') }}</p>
-                                <v-card theme="dark" color="#1C1929" class="mt-2"
-                                    :height="mobileWidth > 960 ? 75 : undefined">
-                                    <v-row class="mx-4 my-0 pa-0 align-center justify-center">
-                                        <v-col cols="4">
-                                            <div class="benifit-description-border">
-                                                <p class="text-500-16 text-gray">
-                                                    {{ t('vip.benifit_description_body.text_7') }}
-                                                </p>
-                                                <p class="text-700-20 yellow">R$ 10</p>
-                                            </div>
-                                        </v-col>
-                                        <v-col cols="4">
-                                            <div class="benifit-description-border d-flex justify-center">
-                                                <div>
-                                                    <p class="text-500-16 text-gray">
-                                                        {{ t('vip.benifit_description_body.text_8') }}
-                                                    </p>
-                                                    <p class="text-700-20 yellow">R$ 10 + 1 free spin</p>
-                                                </div>
-                                            </div>
-                                        </v-col>
-                                        <v-col cols="4" class="d-flex justify-center">
-                                            <div>
-                                                <p class="text-500-16 text-gray">
-                                                    {{ t('vip.benifit_description_body.text_9') }}
-                                                </p>
-                                                <p class="text-700-20 yellow">R$ 30 + 5 free spin</p>
-                                            </div>
-                                        </v-col>
-                                    </v-row>
-                                </v-card>
-                            </v-col>
-                        </v-row>
-                        <v-row class="mt-4 mx-8">
-                            <v-col cols="12">
-                                <p class="text-700-16 white ml-6">{{ t('vip.benifit_description_body.text_10') }}</p>
-                                <v-card theme="dark" color="#1C1929" class="mt-2"
-                                    :height="mobileWidth > 960 ? 75 : undefined">
-                                    <v-row class="mx-4 my-0 pa-0 align-center justify-center">
-                                        <v-col cols="3">
-                                            <div class="benifit-description-border">
-                                                <p class="text-500-16 text-gray">
-                                                    {{ t('vip.benifit_description_body.text_11') }}
-                                                </p>
-                                                <p class="text-700-20 yellow">0.4%</p>
-                                            </div>
-                                        </v-col>
-                                        <v-col cols="3">
-                                            <div class="benifit-description-border d-flex justify-center">
-                                                <div>
-                                                    <p class="text-500-16 text-gray">
-                                                        {{ t('vip.benifit_description_body.text_12') }}
-                                                    </p>
-                                                    <p class="text-700-20 yellow">0.5%</p>
-                                                </div>
-                                            </div>
-                                        </v-col>
-                                        <v-col cols="3">
-                                            <div class="benifit-description-border d-flex justify-center">
-                                                <div>
-                                                    <p class="text-500-16 text-gray">
-                                                        {{ t('vip.benifit_description_body.text_13') }}
-                                                    </p>
-                                                    <p class="text-700-20 yellow">0.5%</p>
-                                                </div>
-                                            </div>
-                                        </v-col>
-                                        <v-col cols="3" class="d-flex justify-center">
-                                            <div>
-                                                <p class="text-500-16 text-gray">
-                                                    {{ t('vip.benifit_description_body.text_14') }}
-                                                </p>
-                                                <p class="text-700-20 yellow">0.4%</p>
-                                            </div>
-                                        </v-col>
-                                    </v-row>
-                                </v-card>
-                            </v-col>
-                        </v-row>
-                        <v-row class="mt-4 mx-8">
-                            <v-col cols="12" md="8" lg="6">
-                                <p class="text-700-16 white ml-6">{{ t('vip.benifit_description_body.text_17') }}</p>
-                                <v-card theme="dark" color="#1C1929" class="mt-2"
-                                    :height="mobileWidth > 960 ? 75 : undefined">
-                                    <v-row class="mx-4 my-0 pa-0 align-center justify-center">
+                        <v-row class="mt-2 mx-0">
+                            <v-col cols="12" class="ma-0 pa-2">
+                                <p class="text-700-12 white ml-2">{{ t('vip.benifit_description_body.text_6') }}</p>
+                                <v-card theme="dark" color="#1C1929" class="mt-2">
+                                    <v-row class="mx-2 my-0 pa-0 align-center justify-center">
                                         <v-col cols="6">
                                             <div class="benifit-description-border">
-                                                <p class="text-500-16 text-gray">
-                                                    {{ t('vip.benifit_description_body.text_15') }}
+                                                <p class="text-500-12 text-gray">
+                                                    {{ t('vip.benifit_description_body.text_7') }}
                                                 </p>
-                                                <p class="text-700-20 yellow">100BRL/ Monthly</p>
+                                                <p class="text-700-16 yellow mt-1">R$ 10</p>
+                                            </div>
+                                        </v-col>
+                                        <v-col cols="6">
+                                            <div class="d-flex justify-center">
+                                                <div>
+                                                    <p class="text-500-12 text-gray">
+                                                        {{ t('vip.benifit_description_body.text_8') }}
+                                                    </p>
+                                                    <p class="text-700-16 yellow mt-1">R$ 10 + 1 free spin</p>
+                                                </div>
+                                            </div>
+                                        </v-col>
+                                        <v-col cols="12">
+                                            <p class="text-500-12 text-gray">
+                                                {{ t('vip.benifit_description_body.text_9') }}
+                                            </p>
+                                            <p class="text-700-16 yellow mt-1">R$ 30 + 5 free spin</p>
+                                        </v-col>
+                                    </v-row>
+                                </v-card>
+                            </v-col>
+                        </v-row>
+                        <v-row class="mt-2 mx-0">
+                            <v-col cols="12" class="ma-0 pa-2">
+                                <p class="text-700-12 white ml-2">{{ t('vip.benifit_description_body.text_10') }}</p>
+                                <v-card theme="dark" color="#1C1929" class="mt-2">
+                                    <v-row class="mx-2 my-0 pa-0 align-center justify-center">
+                                        <v-col cols="6">
+                                            <div class="benifit-description-border">
+                                                <p class="text-500-12 text-gray">
+                                                    {{ t('vip.benifit_description_body.text_11') }}
+                                                </p>
+                                                <p class="text-700-16 yellow mt-1">0.4%</p>
+                                            </div>
+                                        </v-col>
+                                        <v-col cols="6">
+                                            <div class="d-flex justify-center">
+                                                <div>
+                                                    <p class="text-500-12 text-gray">
+                                                        {{ t('vip.benifit_description_body.text_12') }}
+                                                    </p>
+                                                    <p class="text-700-16 yellow mt-1">0.5%</p>
+                                                </div>
+                                            </div>
+                                        </v-col>
+                                        <v-col cols="6">
+                                            <div class="benifit-description-border">
+                                                <div>
+                                                    <p class="text-500-12 text-gray">
+                                                        {{ t('vip.benifit_description_body.text_13') }}
+                                                    </p>
+                                                    <p class="text-700-16 yellow mt-1">0.5%</p>
+                                                </div>
                                             </div>
                                         </v-col>
                                         <v-col cols="6" class="d-flex justify-center">
                                             <div>
-                                                <p class="text-500-16 text-gray">
+                                                <p class="text-500-12 text-gray">
+                                                    {{ t('vip.benifit_description_body.text_14') }}
+                                                </p>
+                                                <p class="text-700-16 yellow mt-1">0.4%</p>
+                                            </div>
+                                        </v-col>
+                                    </v-row>
+                                </v-card>
+                            </v-col>
+                        </v-row>
+                        <v-row class="mt-2 mx-0">
+                            <v-col cols="12">
+                                <p class="text-700-12 white ml-2">{{ t('vip.benifit_description_body.text_17') }}</p>
+                                <v-card theme="dark" color="#1C1929" class="mt-2">
+                                    <v-row class="mx-2 my-0 pa-0 align-center justify-center">
+                                        <v-col cols="6">
+                                            <div class="benifit-description-border">
+                                                <p class="text-500-12 text-gray">
+                                                    {{ t('vip.benifit_description_body.text_15') }}
+                                                </p>
+                                                <p class="text-700-16 yellow mt-1">100BRL/ Monthly</p>
+                                            </div>
+                                        </v-col>
+                                        <v-col cols="6" class="d-flex justify-center">
+                                            <div>
+                                                <p class="text-500-12 text-gray">
                                                     {{ t('vip.benifit_description_body.text_16') }}
                                                 </p>
-                                                <p class="text-700-20 yellow">2.5%</p>
+                                                <p class="text-700-16 yellow mt-1">2.5%</p>
                                             </div>
                                         </v-col>
                                     </v-row>
@@ -877,7 +876,7 @@ onMounted(() => {
                         </v-row>
                     </v-window-item>
                 </v-window>
-                <div class="d-flex align-center"
+                <div class="d-flex align-center justify-center"
                     :class="mobileWidth < 960 ? 'mt-2 mr-4 justify-end' : 'benifit-description-pagination'">
                     <v-btn class="button-black description-prev-btn" theme="dark" icon @click="prevDescription">
                         <v-icon>mdi-chevron-left</v-icon>
@@ -893,15 +892,15 @@ onMounted(() => {
             <div class="vip-footer-body relative mt-6 mx-2">
                 <v-row class="ma-0 pa-0 align-center justify-center">
                     <v-col cols="12" md="3">
-                        <p class="vip-footer-title text-center"> {{ t('vip.footer_body.text_1') }}</p>
+                        <p class="m-vip-footer-title text-center"> {{ t('vip.footer_body.text_1') }}</p>
                     </v-col>
                     <v-col cols="12" md="6">
-                        <p class="vip-footer-content text-center"> {{ t('vip.footer_body.text_2') }}</p>
+                        <p class="m-vip-footer-content text-center"> {{ t('vip.footer_body.text_2') }}</p>
                     </v-col>
                     <v-col cols="12" md="3">
-                        <v-btn class="text-none button-yellow vip-footer-btn" width="-webkit-fill-available" height="60px">
-                            <div class="vip-telegram-img mr-4">
-                                <img src="@/assets/vip/svg/icon_public_78.svg" />
+                        <v-btn class="text-none button-yellow m-vip-footer-btn" width="-webkit-fill-available" height="49px">
+                            <div class="m-vip-telegram-img mr-4">
+                                <img src="@/assets/vip/svg/icon_public_78.svg" class="mr-1"/>
                             </div>
                             {{ t('vip.footer_body.text_3') }}
                         </v-btn>
@@ -1027,21 +1026,18 @@ onMounted(() => {
     }
 }
 
-.button-1C1929 {
+.m-spin-more-btn-position {
+    position: absolute !important;
+    bottom: -8px;
+    left: 50%;
 
     .v-btn__content {
         color: var(--white-bg, #FFF);
         text-align: center;
-        font-size: 18px;
+        font-size: 14px;
         font-family: Inter;
         font-weight: 600;
     }
-}
-
-.spin-more-btn-position {
-    position: absolute !important;
-    bottom: -8px;
-    left: 50%;
 }
 
 .mdi-down-position {
@@ -1063,50 +1059,50 @@ onMounted(() => {
     background: linear-gradient(90deg, #29263F 0%, #D84693 100%);
 }
 
-.mission-btn-1 {
+.m-mission-btn-1 {
     .v-btn__content {
         color: #000;
-        font-size: 12px;
+        font-size: 10px;
         font-family: Inter;
         font-weight: 700;
     }
 }
 
-.mission-btn-2 {
+.m-mission-btn-2 {
     .v-btn__content {
         color: #6842EC;
         text-align: center;
-        font-size: 12px;
+        font-size: 10px;
         font-family: Inter;
         font-weight: 700;
     }
 }
 
-.mission-btn-3 {
+.m-mission-btn-3 {
     .v-btn__content {
         color: #FFF;
         text-align: center;
-        font-size: 12px;
+        font-size: 10px;
         font-family: Inter;
         font-weight: 700;
     }
 }
 
-.mission-ongoing-position {
+.m-mission-ongoing-position {
     position: absolute;
     top: 12px;
     left: 0;
-    width: 80px;
+    width: 53px;
     height: 20px;
     border-radius: 0px 6px 6px 0px;
     background: #4932A9;
 }
 
-.mission-completed-position {
+.m-mission-completed-position {
     position: absolute;
     top: 12px;
     left: 0;
-    width: 80px;
+    width: 53px;
     height: 20px;
     border-radius: 0px 6px 6px 0px;
     background: #67A12C;
@@ -1145,20 +1141,20 @@ onMounted(() => {
     background: linear-gradient(0deg, #275798 0%, #9419F0 100%) !important;
 }
 
-.mission-gift-img-position {
+.m-mission-gift-img-position {
     position: absolute;
-    top: -7px;
-    left: -13px;
+    top: -5px;
+    left: -9px;
 }
 
-.benifit-description-body {
+.m-benifit-description-body {
     border-radius: 8px;
     background: #29253C;
 
-    .benifit-description-header {
+    .m-benifit-description-header {
         border-radius: 8px;
         background: linear-gradient(90deg, #29263F 0%, #4A32AA 100%);
-        height: 80px;
+        height: 49px;
     }
 }
 
@@ -1183,36 +1179,36 @@ onMounted(() => {
     background: linear-gradient(90deg, #1F87E8 0%, #66A12D 100%);
 }
 
-.vip-footer-title {
+.m-vip-footer-title {
     color: #FFF;
     text-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.25);
-    font-size: 40px;
-    font-family: Inter;
-    font-style: italic;
-    font-weight: 700;
-}
-
-.vip-footer-content {
-    color: #FFF;
     font-size: 24px;
     font-family: Inter;
     font-style: italic;
     font-weight: 700;
 }
 
-.vip-footer-btn {
+.m-vip-footer-content {
+    color: #FFF;
+    font-size: 16px;
+    font-family: Inter;
+    font-style: italic;
+    font-weight: 700;
+}
+
+.m-vip-footer-btn {
     .v-btn__content {
         color: #000;
-        font-size: 20px;
+        font-size: 16px;
         font-family: Inter;
         font-weight: 800;
     }
 }
 
-.vip-telegram-img {
+.m-vip-telegram-img {
     border-radius: 40px;
     background: #000;
-    padding: 6px;
+    padding: 4px;
 }
 
 .m-transaction-tab-btn {
@@ -1231,5 +1227,11 @@ onMounted(() => {
         font-family: Inter;
         font-weight: 700;
     }
+}
+
+.m-mission-warning-img-position {
+    position: absolute;
+    top: 5px;
+    left: 5px
 }
 </style>

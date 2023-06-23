@@ -82,7 +82,7 @@ const vipDescriptionItems = ref([
     "VIP5",
 ])
 
-const selectedVIPDescriptionIndex = ref([1]);
+const selectedVIPDescriptionIndex = ref<number>(1);
 
 const selectedVIPTab = ref<string>(t('vip.all_bonus_text'));
 
@@ -598,12 +598,12 @@ onMounted(() => {
                     :style="{ height: spinCardShow ? spinCardHeight2 + 'px' : spinCardHeight1 + 'px' }">
                     <p class="text-500-16 white">{{ t('vip.super_spin_body.text_4') }}</p>
                     <v-row class="mt-4 justify-center align-center" ref="spinCardItem">
-                        <v-col cols="4" md="3" lg="2" v-for="(item, index) in spinItems" :key="index"
+                        <v-col cols="4" md="3" xl="2" v-for="(item, index) in spinItems" :key="index"
                             class="text-center d-flex justify-center">
                             <v-card theme="dark" color="#29253C" class="py-10" width="210" height="256">
                                 <img :src="item.image" />
                                 <p class="text-600-16 white mt-4">{{ item.title }}</p>
-                                <p class="text-500-12 text-gray mt-4">{{ item.title }}</p>
+                                <p class="text-500-12 text-gray mt-4">{{ item.content }}</p>
                             </v-card>
                         </v-col>
                     </v-row>
@@ -626,7 +626,7 @@ onMounted(() => {
                 <div color="#1C1929" class="ma-4 pa-6 spin-game-card box"
                     :style="{ height: missionCardShow ? vipMissionHeight2 + 'px' : vipMissionHeight1 + 'px' }">
                     <v-row class="justify-center align-center" ref="missionCardItem">
-                        <v-col cols="4" md="3" lg="2" v-for="(item, index) in vipMissionItems" :key="index"
+                        <v-col cols="4" md="3" xl="2" v-for="(item, index) in vipMissionItems" :key="index"
                             class="text-center d-flex justify-center">
                             <v-card theme="dark" color="#29253C" class="py-5" width="210" height="256"
                                 v-if="item.type == 1">
@@ -675,7 +675,7 @@ onMounted(() => {
                                     </v-progress-linear>
                                 </div>
                                 <v-btn class="text-none button-bright mission-btn-1 mt-2" height="34px" width="180px">
-                                    <img src="@/assets/vip/images/img_public_14.png" class="mission-gift-img-position" />
+                                    <img src="@/assets/vip/images/img_public_14.png" class="mission-gift-img-position"/>
                                     {{ t('vip.vip_mission_body.text_12') }}
                                 </v-btn>
                             </v-card>
@@ -699,6 +699,7 @@ onMounted(() => {
                                 <p class="text-600-12 white mt-1">{{ t('vip.vip_mission_body.text_5') }}</p>
                                 <p class="text-600-12 white mt-1">{{ t('vip.vip_mission_body.text_10') }}</p>
                                 <v-btn class="text-none button-dark mission-btn-3 mt-6" height="34px" width="180px">
+                                    <img src="@/assets/vip/svg/icon_public_77.svg" class="mission-warning-img-position"/>
                                     {{ t('vip.vip_mission_body.text_15') }}
                                 </v-btn>
                             </v-card>
@@ -888,7 +889,7 @@ onMounted(() => {
                     <v-col cols="12" md="3">
                         <v-btn class="text-none button-yellow vip-footer-btn" width="-webkit-fill-available" height="60px">
                             <div class="vip-telegram-img mr-4">
-                                <img src="@/assets/vip/svg/icon_public_78.svg" />
+                                <img src="@/assets/vip/svg/icon_public_78.svg" class="mr-1"/>
                             </div>
                             {{ t('vip.footer_body.text_3') }}
                         </v-btn>
@@ -1214,5 +1215,9 @@ onMounted(() => {
     border-radius: 40px;
     background: #000;
     padding: 6px;
+}
+.mission-warning-img-position {
+    position: absolute;
+    left: 10px;
 }
 </style>
