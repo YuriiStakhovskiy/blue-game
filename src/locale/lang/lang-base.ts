@@ -516,5 +516,45 @@ export type langType = {
       text_4: string
       text_5: string
     }
+    vip_mission_body: {
+      text_1: string
+      text_2: string
+      text_3: string
+      text_4: string
+      text_5: string
+      text_6: string
+      text_7: string
+      text_8: string
+      text_9: string
+      text_10: string
+      text_11: string
+      text_12: string
+      text_13: string
+      text_15: string
+    }
+    benifit_description_body: {
+      text_1: string
+      text_2: string
+      text_3: string
+      text_4: string
+      text_5: string
+      text_6: string
+      text_7: string
+      text_8: string
+      text_9: string
+      text_10: string
+      text_11: string
+      text_12: string
+      text_13: string
+      text_14: string
+      text_15: string
+      text_16: string
+      text_17: string
+    }
+    footer_body: {
+      text_1: string
+      text_2: string
+      text_3: string
+    }
   }
 };

@@ -252,7 +252,7 @@ watch(mobileWidth, (newValue: number) => {
             </v-list-item>
             <v-list-item class="user-item" value="fairness">
                 <template v-slot:prepend>
-                    <img src="@/assets/app_bar/svg/icon_public_66 (1).svg" />
+                    <img src="@/assets/app_bar/svg/icon_public_72.svg" />
                 </template>
                 <v-list-item-title class="ml-2">{{ t('appBar.fairness') }}</v-list-item-title>
             </v-list-item>

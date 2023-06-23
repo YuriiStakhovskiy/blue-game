@@ -392,7 +392,7 @@ export const lang: langType = {
       document_text: "Documents",
       preference_text: "Preferences",
       suspend_account_text: "Suspend Account",
-    },    
+    },
     sub_menu: {
       user_info_text: "Your account details",
       personal_info_text: "Your personal details an contact information",
@@ -474,7 +474,7 @@ export const lang: langType = {
     reward_card_1: {
       daily_free_bonus_text: "Daily Free Bonuses",
       text_1: "Free spin times*1",
-      text_2: "Available at "      
+      text_2: "Available at "
     },
     reward_card_2: {
       vip_week_gift_text: "VIP Week Gift",
@@ -494,7 +494,7 @@ export const lang: langType = {
       vip_upgrage_gift_text: "VIP Upgrade Gift",
       text_1: "VIP Bonus: R$ 5",
       text_2: "Free spin times*2",
-      text_3: "Available for first upgrade only",     
+      text_3: "Available for first upgrade only",
     },
     receive_btn_text: "Receive",
     cashback_body: {
@@ -518,6 +518,46 @@ export const lang: langType = {
       text_3: "Spin  Now",
       text_4: "VIP2 has the possibility of winning he following awards",
       text_5: "See all",
+    },
+    vip_mission_body: {
+      text_1: "My VIP Mission",
+      text_2: "Completed ",
+      text_3: " today",
+      text_4: "Get 10 Crash on $10 x 2.5x win",
+      text_5: "Prize: Free spinning wheel*1",
+      text_6: "Start",
+      text_7: "Ongoing...",
+      text_8: "Prize: Free spinning wheel*2",
+      text_9: "Prize: Free spinning wheel*3",
+      text_10: "VIP Bonus:  R$ 3",
+      text_11: "Go to the game",
+      text_12: "Receive Reward",
+      text_13: "Can start again tomorrow",
+      text_15: "VIP 3 can start",
+    },
+    benifit_description_body: {
+      text_1: "VIP2 all rights and benefits description",
+      text_2: "Upgrade Conditions",
+      text_3: "Relegation Conditions",
+      text_4: "Total deposits",
+      text_5: "Total Bets",
+      text_6: "VIP Level Reward Pack",
+      text_7: "VIP2 Upgrade Bonus",
+      text_8: "VIP Weekly Gift Pack",
+      text_9: "VIP Monthly Gift Pack",
+      text_10: "VIP Cashback Bonus",
+      text_11: "Original Games",
+      text_12: "Slot",
+      text_13: "Sports",
+      text_14: "Live Casino",
+      text_15: "Free withdrawal amount",
+      text_16: "Withdrawal fees",
+      text_17: "Withdrawal Benefits"
+    },
+    footer_body: {
+      text_1: "VIP GROUP",
+      text_2: "Join our VIP group Get instant access to more  events and bonuses",
+      text_3: "Join in now",
     }
   }
 };

@@ -218,11 +218,11 @@ onMounted(() => {
                 <input type="checkbox" id="theme-toggle" />
                 <label for="theme-toggle">
                     <div class="dark">
-                        <img src="@/assets/left_navigation/svg/icon_public_46 (1).svg" />
+                        <img src="@/assets/left_navigation/svg/icon_public_58.svg" />
                         <p>{{ t('navBar.sound_mode.on') }}</p>
                     </div>
                     <div class="light">
-                        <img src="@/assets/left_navigation/svg/icon_public_47 (1).svg" />
+                        <img src="@/assets/left_navigation/svg/icon_public_59.svg" />
                         <p>{{ t('navBar.sound_mode.off') }}</p>
                     </div>
                 </label>
