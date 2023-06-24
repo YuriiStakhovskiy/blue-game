@@ -1780,6 +1780,11 @@
     "@vue/server-renderer" "3.3.4"
     "@vue/shared" "3.3.4"
 
+"vue3-carousel@^0.3.1":
+  "integrity" "sha512-86vUkNPBzL2PVuR9w6hUsI90ccFjLp+K8cSFpRTISf+SjUQY3fMHc5CFF5MUL62v1xYYm27zEBmQupO9VQx9Kw=="
+  "resolved" "https://registry.npmjs.org/vue3-carousel/-/vue3-carousel-0.3.1.tgz"
+  "version" "0.3.1"
+
 "vuetify@^3.0.0", "vuetify@^3.0.0-beta.4":
   "integrity" "sha512-HuLIydRkigGIfqDbwEjFw5LEtWCw8lV4K1isMv/7vAt8n5fns+8kKqVnktIQkfzSxQgPD6Lve/58j4dEKA/vTA=="
   "resolved" "https://registry.npmjs.org/vuetify/-/vuetify-3.2.5.tgz"

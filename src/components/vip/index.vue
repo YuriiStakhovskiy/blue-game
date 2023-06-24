@@ -1,5 +1,7 @@
 <script lang="ts" setup>
 import { ref, watch, computed, onMounted } from "vue"
+import { Carousel, Navigation, Slide } from 'vue3-carousel'
+import 'vue3-carousel/dist/carousel.css'
 import { appBarStore } from "@/store/appBar";
 import { type GetVIPData } from "@/interface/vip";
 import { type GetSpinData } from "@/interface/vip";
@@ -265,24 +267,7 @@ const spinCardShow = ref<boolean>(false);
 
 const missionCardShow = ref<boolean>(false);
 
-const selectedIndex = ref<number>(0);
-
-const calculateTransform = (index: number) => {
-    const selectedItemIndex = selectedIndex.value;
-    const itemWidth = 100 / vipItems.value.length;
-    const maxTranslation = (vipItems.value.length - 1) * itemWidth;
-    let transform = (index - selectedItemIndex) * itemWidth;
-    if (transform > maxTranslation / 2) {
-        transform -= maxTranslation;
-    } else if (transform < -maxTranslation / 2) {
-        transform += maxTranslation;
-    }
-    return transform;
-}
-
-const handleCarouselChange = (index: number): void => {
-    selectedIndex.value = index;
-}
+const selectedIndex = ref<number>(1);
 
 const nextDescription = () => {
     selectedVIPDescriptionIndex.value = (selectedVIPDescriptionIndex.value + 1) % vipDescriptionItems.value.length;
@@ -351,46 +336,52 @@ onMounted(() => {
 <template>
     <div :class="vipWidth">
         <div class="vip-body">
-            <el-carousel :interval="6000" type="card" height="200px" class="mx-2 mt-4" :autoplay="false"
-                @change="handleCarouselChange">
-                <el-carousel-item v-for="(item, index) in vipItems" :key="index">
-                    <div class="text-800-20 white text-center mt-4">{{ t('vip.slider.title_text') }}</div>
-                    <v-row class="full-height mx-2">
-                        <v-col cols="3" class="text-center">
-                            <img src="@/assets/vip/svg/img_vip_02.svg" width="70" />
-                            <p class="text-800-20 yellow">{{ item.vipGrade }}</p>
-                        </v-col>
-                        <v-col cols="9">
-                            <div class="deposit-progress-bg">
-                                <div class="d-flex mx-4">
-                                    <div class="white">{{ t('appBar.deposit') }}</div>
-                                    <div class="ml-auto">
-                                        <Font class="text-gray">R$ {{ item.currentDepositAmount }} / </Font>
-                                        <Font color="#F9BC01">R$ {{ item.totalDepositAmount }}</Font>
+
+            <Carousel :itemsToShow="1.4" :wrapAround="true" :transition="500">
+                <Slide v-for="(item, index) in vipItems" :key="index">
+                    <div class="vip-carousel-body">
+                        <div class="text-800-20 white text-center mt-4">{{ t('vip.slider.title_text') }}</div>
+                        <v-row class="full-height mx-2">
+                            <v-col cols="3" class="text-center">
+                                <img src="@/assets/vip/svg/img_vip_02.svg" width="70" />
+                                <p class="text-800-20 yellow">{{ item.vipGrade }}</p>
+                            </v-col>
+                            <v-col cols="9">
+                                <div class="deposit-progress-bg">
+                                    <div class="d-flex mx-4">
+                                        <div class="white">{{ t('appBar.deposit') }}</div>
+                                        <div class="ml-auto">
+                                            <Font class="text-gray">R$ {{ item.currentDepositAmount }} / </Font>
+                                            <Font color="#F9BC01">R$ {{ item.totalDepositAmount }}</Font>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <v-progress-linear v-model="item.vipRate" height="20" class="deposit-progress">
+                                        </v-progress-linear>
                                     </div>
                                 </div>
-                                <div>
-                                    <v-progress-linear v-model="item.vipRate" height="20" class="deposit-progress">
-                                    </v-progress-linear>
-                                </div>
-                            </div>
-                            <div class="deposit-progress-bg mt-4">
-                                <div class="d-flex mx-4">
-                                    <div class="white">{{ t('appBar.wager') }}</div>
-                                    <div class="ml-auto">
-                                        <Font class="text-gray">R$ {{ item.currentWagerAmount }} / </Font>
-                                        <Font color="#623AEC">R$ {{ item.totalWagerAmount }}</Font>
+                                <div class="deposit-progress-bg mt-4">
+                                    <div class="d-flex mx-4">
+                                        <div class="white">{{ t('appBar.wager') }}</div>
+                                        <div class="ml-auto">
+                                            <Font class="text-gray">R$ {{ item.currentWagerAmount }} / </Font>
+                                            <Font color="#623AEC">R$ {{ item.totalWagerAmount }}</Font>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <v-progress-linear v-model="depositRate" height="20" class="wager-progress">
+                                        </v-progress-linear>
                                     </div>
                                 </div>
-                                <div>
-                                    <v-progress-linear v-model="depositRate" height="20" class="wager-progress">
-                                    </v-progress-linear>
-                                </div>
-                            </div>
-                        </v-col>
-                    </v-row>
-                </el-carousel-item>
-            </el-carousel>
+                            </v-col>
+                        </v-row>
+                    </div>
+                </Slide>
+                <template #addons>
+                    <Navigation />
+                </template>
+            </Carousel>
+
             <div class="mt-8">
                 <v-slide-group v-model="selectedVIPTab" show-arrows>
                     <v-slide-group-item v-for="(item, index) in vipTabs" :key="index" v-slot="{ isSelected, toggle }"
@@ -405,6 +396,7 @@ onMounted(() => {
             </div>
 
             <!------------------------- vip reward ----------------------------->
+
             <div class="reward-body mt-2 mx-2">
                 <div class="text-800-16 white pt-8 mx-10">{{ t('vip.reward_text') }} {{ vipItems[selectedIndex].vipGrade }}
                 </div>
@@ -503,6 +495,7 @@ onMounted(() => {
             </div>
 
             <!---------------------------- cashback bonus --------------------------------->
+
             <div class="cashback-bonus-body mt-6 mx-2 pb-6">
                 <div class="text-800-16 white pt-8 mx-10 d-flex">
                     {{ t('vip.cashback_body.text_1') }}
@@ -580,6 +573,7 @@ onMounted(() => {
                     </div>
                 </v-card>
             </div>
+
             <!-------------------------- My Super Spin ---------------------------------->
 
             <div class="super-spin-body relative mt-6 mx-2 pb-2">
@@ -675,7 +669,7 @@ onMounted(() => {
                                     </v-progress-linear>
                                 </div>
                                 <v-btn class="text-none button-bright mission-btn-1 mt-2" height="34px" width="180px">
-                                    <img src="@/assets/vip/images/img_public_14.png" class="mission-gift-img-position"/>
+                                    <img src="@/assets/vip/images/img_public_14.png" class="mission-gift-img-position" />
                                     {{ t('vip.vip_mission_body.text_12') }}
                                 </v-btn>
                             </v-card>
@@ -699,7 +693,7 @@ onMounted(() => {
                                 <p class="text-600-12 white mt-1">{{ t('vip.vip_mission_body.text_5') }}</p>
                                 <p class="text-600-12 white mt-1">{{ t('vip.vip_mission_body.text_10') }}</p>
                                 <v-btn class="text-none button-dark mission-btn-3 mt-6" height="34px" width="180px">
-                                    <img src="@/assets/vip/svg/icon_public_77.svg" class="mission-warning-img-position"/>
+                                    <img src="@/assets/vip/svg/icon_public_77.svg" class="mission-warning-img-position" />
                                     {{ t('vip.vip_mission_body.text_15') }}
                                 </v-btn>
                             </v-card>
@@ -723,7 +717,8 @@ onMounted(() => {
                         <v-row class="mt-6 mx-8">
                             <v-col cols="6">
                                 <p class="text-700-16 white ml-6">{{ t('vip.benifit_description_body.text_2') }}</p>
-                                <v-card theme="dark" color="#1C1929" class="mt-2" :height="mobileWidth > 960 ? 75 : undefined">
+                                <v-card theme="dark" color="#1C1929" class="mt-2"
+                                    :height="mobileWidth > 960 ? 75 : undefined">
                                     <v-row class="mx-4 my-0 pa-0 align-center justify-center">
                                         <v-col cols="6">
                                             <div class="benifit-description-border">
@@ -761,7 +756,8 @@ onMounted(() => {
                         <v-row class="mt-4 mx-8">
                             <v-col cols="12">
                                 <p class="text-700-16 white ml-6">{{ t('vip.benifit_description_body.text_6') }}</p>
-                                <v-card theme="dark" color="#1C1929" class="mt-2" :height="mobileWidth > 960 ? 75 : undefined">
+                                <v-card theme="dark" color="#1C1929" class="mt-2"
+                                    :height="mobileWidth > 960 ? 75 : undefined">
                                     <v-row class="mx-4 my-0 pa-0 align-center justify-center">
                                         <v-col cols="4">
                                             <div class="benifit-description-border">
@@ -796,7 +792,8 @@ onMounted(() => {
                         <v-row class="mt-4 mx-8">
                             <v-col cols="12">
                                 <p class="text-700-16 white ml-6">{{ t('vip.benifit_description_body.text_10') }}</p>
-                                <v-card theme="dark" color="#1C1929" class="mt-2" :height="mobileWidth > 960 ? 75 : undefined">
+                                <v-card theme="dark" color="#1C1929" class="mt-2"
+                                    :height="mobileWidth > 960 ? 75 : undefined">
                                     <v-row class="mx-4 my-0 pa-0 align-center justify-center">
                                         <v-col cols="3">
                                             <div class="benifit-description-border">
@@ -841,7 +838,8 @@ onMounted(() => {
                         <v-row class="mt-4 mx-8">
                             <v-col cols="12" md="8" lg="6">
                                 <p class="text-700-16 white ml-6">{{ t('vip.benifit_description_body.text_17') }}</p>
-                                <v-card theme="dark" color="#1C1929" class="mt-2" :height="mobileWidth > 960 ? 75 : undefined">
+                                <v-card theme="dark" color="#1C1929" class="mt-2"
+                                    :height="mobileWidth > 960 ? 75 : undefined">
                                     <v-row class="mx-4 my-0 pa-0 align-center justify-center">
                                         <v-col cols="6">
                                             <div class="benifit-description-border">
@@ -889,7 +887,7 @@ onMounted(() => {
                     <v-col cols="12" md="3">
                         <v-btn class="text-none button-yellow vip-footer-btn" width="-webkit-fill-available" height="60px">
                             <div class="vip-telegram-img mr-4">
-                                <img src="@/assets/vip/svg/icon_public_78.svg" class="mr-1"/>
+                                <img src="@/assets/vip/svg/icon_public_78.svg" class="mr-1" />
                             </div>
                             {{ t('vip.footer_body.text_3') }}
                         </v-btn>
@@ -944,24 +942,12 @@ onMounted(() => {
     }
 }
 
-.el-carousel__indicators {
-    display: none;
-}
-
-.el-carousel__arrow {
-    border-radius: 8px;
-    background: #000;
-
-    .el-icon {
-        font-size: 20px;
-        font-weight: 800;
-    }
-}
-
-.el-carousel__item--card {
+.vip-carousel-body {
+    width: 100%;
+    height: 200px;
+    margin: 0 10px;
     border-radius: 8px;
     background: linear-gradient(179deg, #4A32AA 0%, #29263F 100%);
-
 }
 
 .reward-body {
@@ -1216,8 +1202,48 @@ onMounted(() => {
     background: #000;
     padding: 6px;
 }
+
 .mission-warning-img-position {
     position: absolute;
     left: 10px;
+}
+
+.carousel {
+    margin: 10px !important;
+}
+
+.carousel__slide--prev {
+    opacity: 0.8;
+    transform: rotateY(-10deg) scale(0.9);
+}
+
+.carousel__slide--next {
+    opacity: 0.8;
+    transform: rotateY(10deg) scale(0.9);
+}
+
+.carousel__prev {
+    border-radius: 8px;
+    background: #000;
+    color: #FFF;
+    position: absolute;
+    left: 10%;
+}
+
+.carousel__prev:hover {    
+    color: #FFF !important;
+}
+
+.carousel__next {
+    border-radius: 8px;
+    background: #000;
+    color: #FFF;
+    position: absolute;
+    right: 10%;
+}
+
+
+.carousel__next:hover {    
+    color: #FFF !important;
 }
 </style>

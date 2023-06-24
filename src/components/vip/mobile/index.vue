@@ -1,5 +1,7 @@
 <script lang="ts" setup>
 import { ref, watch, computed, onMounted } from "vue"
+import { Carousel, Navigation, Slide } from 'vue3-carousel'
+import 'vue3-carousel/dist/carousel.css'
 import { appBarStore } from "@/store/appBar";
 import { type GetVIPData } from "@/interface/vip";
 import { type GetSpinData } from "@/interface/vip";
@@ -267,19 +269,6 @@ const missionCardShow = ref<boolean>(false);
 
 const selectedIndex = ref<number>(0);
 
-const calculateTransform = (index: number) => {
-    const selectedItemIndex = selectedIndex.value;
-    const itemWidth = 100 / vipItems.value.length;
-    const maxTranslation = (vipItems.value.length - 1) * itemWidth;
-    let transform = (index - selectedItemIndex) * itemWidth;
-    if (transform > maxTranslation / 2) {
-        transform -= maxTranslation;
-    } else if (transform < -maxTranslation / 2) {
-        transform += maxTranslation;
-    }
-    return transform;
-}
-
 const handleCarouselChange = (index: number): void => {
     selectedIndex.value = index;
 }
@@ -333,46 +322,49 @@ onMounted(() => {
 <template>
     <div class="m-vip-container">
         <div class="m-vip-body">
-            <el-carousel :interval="6000" type="card" height="166px" class="mx-2 mt-2" :autoplay="false"
-                @change="handleCarouselChange">
-                <el-carousel-item v-for="(item, index) in vipItems" :key="index">
-                    <div class="text-800-16 white text-center mt-4">{{ t('vip.slider.title_text') }}</div>
-                    <v-row class="full-height mx-2">
-                        <v-col cols="3" class="text-center">
-                            <img src="@/assets/vip/svg/img_vip_02.svg" width="49" />
-                            <p class="text-800-14 yellow">{{ item.vipGrade }}</p>
-                        </v-col>
-                        <v-col cols="9">
-                            <div class="deposit-progress-bg">
-                                <div class="d-flex mx-4 align-center">
-                                    <div class="text-500-10 white">{{ t('appBar.deposit') }}</div>
-                                    <div class="ml-auto">
-                                        <Font class="text-800-10 text-gray">R$ {{ item.currentDepositAmount }} / </Font>
-                                        <Font color="#F9BC01" class="text-800-8">R$ {{ item.totalDepositAmount }}</Font>
+
+            <Carousel :itemsToShow="1.2" :wrapAround="true" :transition="500">
+                <Slide v-for="(item, index) in vipItems" :key="index">
+                    <div class="m-vip-carousel-body">
+                        <div class="text-800-16 white text-center mt-4">{{ t('vip.slider.title_text') }}</div>
+                        <v-row class="full-height mx-2">
+                            <v-col cols="3" class="text-center">
+                                <img src="@/assets/vip/svg/img_vip_02.svg" width="49" />
+                                <p class="text-800-14 yellow">{{ item.vipGrade }}</p>
+                            </v-col>
+                            <v-col cols="9">
+                                <div class="deposit-progress-bg">
+                                    <div class="d-flex mx-4 align-center">
+                                        <div class="text-500-10 white">{{ t('appBar.deposit') }}</div>
+                                        <div class="ml-auto">
+                                            <Font class="text-800-10 text-gray">R$ {{ item.currentDepositAmount }} / </Font>
+                                            <Font color="#F9BC01" class="text-800-8">R$ {{ item.totalDepositAmount }}</Font>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <v-progress-linear v-model="item.vipRate" height="16" class="deposit-progress">
+                                        </v-progress-linear>
                                     </div>
                                 </div>
-                                <div>
-                                    <v-progress-linear v-model="item.vipRate" height="16" class="deposit-progress">
-                                    </v-progress-linear>
-                                </div>
-                            </div>
-                            <div class="deposit-progress-bg mt-4">
-                                <div class="d-flex mx-4 align-center">
-                                    <div class="text-500-10 white">{{ t('appBar.wager') }}</div>
-                                    <div class="ml-auto">
-                                        <Font class="text-800-10 text-gray">R$ {{ item.currentWagerAmount }} / </Font>
-                                        <Font color="#623AEC" class="text-800-8">R$ {{ item.totalWagerAmount }}</Font>
+                                <div class="deposit-progress-bg mt-4">
+                                    <div class="d-flex mx-4 align-center">
+                                        <div class="text-500-10 white">{{ t('appBar.wager') }}</div>
+                                        <div class="ml-auto">
+                                            <Font class="text-800-10 text-gray">R$ {{ item.currentWagerAmount }} / </Font>
+                                            <Font color="#623AEC" class="text-800-8">R$ {{ item.totalWagerAmount }}</Font>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <v-progress-linear v-model="depositRate" height="16" class="wager-progress">
+                                        </v-progress-linear>
                                     </div>
                                 </div>
-                                <div>
-                                    <v-progress-linear v-model="depositRate" height="16" class="wager-progress">
-                                    </v-progress-linear>
-                                </div>
-                            </div>
-                        </v-col>
-                    </v-row>
-                </el-carousel-item>
-            </el-carousel>
+                            </v-col>
+                        </v-row>
+                    </div>
+                </Slide>
+            </Carousel>
+
             <div class="mt-4">
                 <v-slide-group v-model="selectedVIPTab" show-arrows>
                     <v-slide-group-item v-for="(item, index) in vipTabs" :key="index" v-slot="{ isSelected, toggle }"
@@ -898,9 +890,10 @@ onMounted(() => {
                         <p class="m-vip-footer-content text-center"> {{ t('vip.footer_body.text_2') }}</p>
                     </v-col>
                     <v-col cols="12" md="3">
-                        <v-btn class="text-none button-yellow m-vip-footer-btn" width="-webkit-fill-available" height="49px">
+                        <v-btn class="text-none button-yellow m-vip-footer-btn" width="-webkit-fill-available"
+                            height="49px">
                             <div class="m-vip-telegram-img mr-4">
-                                <img src="@/assets/vip/svg/icon_public_78.svg" class="mr-1"/>
+                                <img src="@/assets/vip/svg/icon_public_78.svg" class="mr-1" />
                             </div>
                             {{ t('vip.footer_body.text_3') }}
                         </v-btn>
@@ -941,24 +934,12 @@ onMounted(() => {
     }
 }
 
-.el-carousel__indicators {
-    display: none;
-}
 
-.el-carousel__arrow {
-    border-radius: 8px;
-    background: #000;
-
-    .el-icon {
-        font-size: 20px;
-        font-weight: 800;
-    }
-}
-
-.el-carousel__item--card {
+.m-vip-carousel-body {
+    width: 100%;
+    height: 166px;
     border-radius: 8px;
     background: linear-gradient(179deg, #4A32AA 0%, #29263F 100%);
-
 }
 
 .reward-body {
