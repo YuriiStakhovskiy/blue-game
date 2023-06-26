@@ -349,29 +349,33 @@ const handleWindowScroll = () => {
         vipSlidePosition.value = true;
     }
 
-    if (rewardPosition < 170) {
-        selectedVIPTab.value = t('vip.all_bonus_text');
-    }
+    // if (!tabSelect.value) {
 
-    if (cashPosition < 170) {
-        selectedVIPTab.value = t('vip.cash_back_text');
-    }
+        if (rewardPosition <= 180) {
+            selectedVIPTab.value = t('vip.all_bonus_text');
+        }
 
-    if (spinPosition < 170) {
-        selectedVIPTab.value = t('vip.super_carousel_text');
-    }
+        if (cashPosition <=180) {
+            selectedVIPTab.value = t('vip.cash_back_text');
+        }
 
-    if (vipPosition < 170) {
-        selectedVIPTab.value = t('vip.welfare_task');
-    }
+        if (spinPosition <= 180) {
+            selectedVIPTab.value = t('vip.super_carousel_text');
+        }
 
-    if (benefitPosition < 170) {
-        selectedVIPTab.value = t('vip.all_bonus_text');
-    }
+        if (vipPosition <= 180) {
+            selectedVIPTab.value = t('vip.welfare_task');
+        }
 
-    if (window.scrollY < 1) {
-        vipSlidePosition.value = false;
-    }
+        if (benefitPosition <= 180) {
+            selectedVIPTab.value = t('vip.all_bonus_text');
+        }
+
+        if (window.scrollY < 1) {
+            vipSlidePosition.value = false;
+        }
+
+    // }
 }
 
 const tabSelect = ref(false);
@@ -379,37 +383,64 @@ const tabSelect = ref(false);
 const handleVIPTab = () => {
     vipSlidePosition.value = true;
     tabSelect.value = true;
+    const offset = 180;
+    const bodyRect = document.body.getBoundingClientRect().top;
     setTimeout(() => {
         switch (selectedVIPTab.value) {
             case t('vip.all_bonus_text'):
-                rewardElement.value.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start',
-                    inline: 'nearest',
+                // rewardElement.value.scrollIntoView({
+                //     behavior: 'smooth',
+                //     block: 'start',
+                //     inline: 'nearest',
+                // });
+                const rewardRect = rewardElement.value.getBoundingClientRect().top;
+                const rewardPosition = rewardRect - bodyRect - offset;
+                window.scrollTo({
+                    top: rewardPosition,
+                    behavior: 'smooth'
                 });
                 break;
             case t('vip.cash_back_text'):
-                cashbackElement.value.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start',
-                    inline: 'nearest',
+                // cashbackElement.value.scrollIntoView({
+                //     behavior: 'smooth',
+                //     block: 'start',
+                //     inline: 'nearest',
+                // });
+                const cashRect = cashbackElement.value.getBoundingClientRect().top;
+                const cashPosition = cashRect - bodyRect - offset;
+                window.scrollTo({
+                    top: cashPosition,
+                    behavior: 'smooth'
                 });
                 break;
             case t('vip.super_carousel_text'):
-                spinElement.value.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start',
-                    inline: 'nearest',
+                // spinElement.value.scrollIntoView({
+                //     behavior: 'smooth',
+                //     block: 'start',
+                //     inline: 'nearest',
+                // });
+                const spinRect = spinElement.value.getBoundingClientRect().top;
+                const spinPosition = spinRect - bodyRect - offset;
+                window.scrollTo({
+                    top: spinPosition,
+                    behavior: 'smooth'
                 });
                 break;
             case t('vip.welfare_task'):
-                vipElement.value.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start',
-                    inline: 'nearest',
+                // vipElement.value.scrollIntoView({
+                //     behavior: 'smooth',
+                //     block: 'start',
+                //     inline: 'nearest',
+                // });
+                const vipRect = vipElement.value.getBoundingClientRect().top;
+                const vipPosition = vipRect - bodyRect - offset;
+                window.scrollTo({
+                    top: vipPosition,
+                    behavior: 'smooth'
                 });
                 break;
         }
+
     }, 10);
 }
 
@@ -495,7 +526,7 @@ onMounted(() => {
 
             <!------------------------- vip reward ----------------------------->
 
-            <div class="reward-body mt-2 mx-2" ref="rewardElement">
+            <div class="reward-body mx-2" ref="rewardElement" :class="tabSelect ? 'mt-16' : 'mt-2'">
                 <div class="text-800-16 white pt-8 mx-10">{{ t('vip.reward_text') }} {{ vipItems[selectedIndex].vipGrade }}
                 </div>
                 <v-row class="mt-6 justify-center pb-6" :class="mobileWidth < 1200 ? 'mx-2' : 'mx-12'">
@@ -594,7 +625,7 @@ onMounted(() => {
 
             <!---------------------------- cashback bonus --------------------------------->
 
-            <div class="cashback-bonus-body mt-6 mx-2 pb-6" ref="cashbackElement">
+            <div class="cashback-bonus-body mx-2 pb-2" ref="cashbackElement" :class="tabSelect ? 'mt-16' : 'mt-6'">
                 <div class="text-800-16 white pt-8 mx-10 d-flex">
                     {{ t('vip.cashback_body.text_1') }}
                     <v-btn class="text-none button-yellow ml-auto relative" height="60px" width="262px">
@@ -674,7 +705,7 @@ onMounted(() => {
 
             <!-------------------------- My Super Spin ---------------------------------->
 
-            <div class="super-spin-body relative mt-6 mx-2 pb-2" ref="spinElement">
+            <div class="super-spin-body relative mx-2 pb-2" ref="spinElement" :class="tabSelect ? 'mt-16' : 'mt-6'">
                 <div class="text-800-16 white pt-8 mx-10 d-flex">
                     {{ t('vip.super_spin_body.text_1') }}
                     <v-card theme="dark" color="#1C1929" class="ml-auto d-flex align-center" height="60" width="470">
@@ -709,7 +740,7 @@ onMounted(() => {
 
             <!------------------------   My VIP Mission -------------------------------->
 
-            <div class="vip-mission-body relative mt-6 mx-2 pb-2" ref="vipElement">
+            <div class="vip-mission-body mx-2 pb-2" ref="vipElement" :class="tabSelect ? 'mt-16' : 'mt-6'">
                 <div class="text-800-16 white pt-8 mx-10 d-flex">
                     {{ t('vip.vip_mission_body.text_1') }}
                     <p class="ml-auto">{{ t('vip.vip_mission_body.text_2') }} <Font class="text-800-20">0</Font> {{
