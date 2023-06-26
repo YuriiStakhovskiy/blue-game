@@ -31,9 +31,9 @@ export default SignupHeader
                 </p>
             </v-row>
         </v-col>
-        <img src="@/assets/login/image/signup_header.png" class="bg-image">
+        <img src="@/assets/login/image/bg_su_01.png" class="bg-image">
         <img src="@/assets/public/svg/logo.svg" class="logo-image">
-        <img src="@/assets/login/image/coin.png" class="coin-image">
+        <img src="@/assets/login/image/img_su_01.png" class="coin-image">
     </v-row>
 </template>
 

@@ -30,10 +30,10 @@ const Login = defineComponent({
                 password: ""
             },
             iconNameList: [
-                "facebook",
-                "twitter",
-                "tiktok",
-                "linkedin",
+                "icon_public_28",
+                "icon_public_29",
+                "icon_public_30",
+                "icon_public_31",
             ],
             isShowPassword: false,
             notificationShow: false,
@@ -86,9 +86,9 @@ export default Login
                     <v-text-field :label="t('signup.formPage.password')" class="form-textfield dark-textfield"
                         variant="solo" density="comfortable" :type="isShowPassword ? 'text' : 'password'"
                         v-model="formData.password" />
-                    <img v-if="isShowPassword" src="@/assets/login/svg/eye_1.svg" class="disable-password"
+                    <img v-if="isShowPassword" src="@/assets/login/svg/icon_public_07.svg" class="disable-password"
                         @click="showPassword" />
-                    <img v-else src="@/assets/login/svg/eye.svg" class="disable-password" @click="showPassword" />
+                    <img v-else src="@/assets/login/svg/icon_public_06.svg" class="disable-password" @click="showPassword" />
                 </v-row>
                 <v-row>
                     <p class="ml-9 login-forget-passwrod-text" @click="currentPage = PAGE_TYPE.FORGOT_PASSWORD">

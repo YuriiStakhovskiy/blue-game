@@ -16,7 +16,7 @@ const signOut = (): void => {
 <template>
     <div class="m-signout-container">
         <div class="m-header">
-            <img src="@/assets/login/image/logout_logo.png" class="m-logout-logo" />
+            <img src="@/assets/login/image/img_public_03.png" class="m-logout-logo" />
             <p class="logo-text">{{ t('signout.text_1') }}</p>
         </div>
         <p class="m-signout-text">{{ t('signout.text_2') }}</p>

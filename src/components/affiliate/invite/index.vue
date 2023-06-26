@@ -45,59 +45,68 @@ const slides = ref([
         {
             headerImg: new URL("@/assets/affiliate/invite/image/img_agent_09.png", import.meta.url).href,
             grade: 3,
-            gradeImg: new URL("@/assets/affiliate/invite/image/rate_3.png", import.meta.url).href,
+            totalGrade: 3,
+            rate: 100,
             cash: "R$ 10",
         },
         {
             headerImg: new URL("@/assets/affiliate/invite/image/img_agent_08.png", import.meta.url).href,
-            grade: 10,
-            gradeImg: new URL("@/assets/affiliate/invite/image/rate_10.png", import.meta.url).href,
+            grade: 3,
+            totalGrade: 10,
+            rate: 30,
             cash: "R$ 30",
         },
         {
             headerImg: new URL("@/assets/affiliate/invite/image/img_agent_07.png", import.meta.url).href,
-            grade: 25,
-            gradeImg: new URL("@/assets/affiliate/invite/image/rate_25.png", import.meta.url).href,
+            grade: 3,
+            totalGrade: 25,
+            rate: 20,
             cash: "R$ 60",
         },
     ],
     [
         {
             headerImg: new URL("@/assets/affiliate/invite/image/img_agent_08.png", import.meta.url).href,
-            grade: 10,
-            gradeImg: new URL("@/assets/affiliate/invite/image/rate_10.png", import.meta.url).href,
+            grade: 3,
+            totalGrade: 10,
+            rate: 30,
             cash: "R$ 30",
         },
         {
             headerImg: new URL("@/assets/affiliate/invite/image/img_agent_09.png", import.meta.url).href,
             grade: 3,
-            gradeImg: new URL("@/assets/affiliate/invite/image/rate_3.png", import.meta.url).href,
+            totalGrade: 3,
+            rate: 100,
             cash: "R$ 10",
         },
         {
             headerImg: new URL("@/assets/affiliate/invite/image/img_agent_07.png", import.meta.url).href,
-            grade: 25,
-            gradeImg: new URL("@/assets/affiliate/invite/image/rate_25.png", import.meta.url).href,
+            grade: 3,
+            totalGrade: 25,
+            rate: 20,
             cash: "R$ 60",
         },
     ],
     [
         {
             headerImg: new URL("@/assets/affiliate/invite/image/img_agent_07.png", import.meta.url).href,
-            grade: 25,
-            gradeImg: new URL("@/assets/affiliate/invite/image/rate_25.png", import.meta.url).href,
+            grade: 3,
+            totalGrade: 25,
+            rate: 20,
             cash: "R$ 60",
         },
         {
             headerImg: new URL("@/assets/affiliate/invite/image/img_agent_08.png", import.meta.url).href,
-            grade: 10,
-            gradeImg: new URL("@/assets/affiliate/invite/image/rate_10.png", import.meta.url).href,
+            grade: 3,
+            totalGrade: 10,
+            rate: 30,
             cash: "R$ 30",
         },
         {
             headerImg: new URL("@/assets/affiliate/invite/image/img_agent_09.png", import.meta.url).href,
             grade: 3,
-            gradeImg: new URL("@/assets/affiliate/invite/image/rate_3.png", import.meta.url).href,
+            totalGrade: 3,
+            rate: 100,
             cash: "R$ 10",
         },
     ],
@@ -343,13 +352,20 @@ onMounted(() => {
                     <v-sheet color="#29253C" height="100%" tile>
                         <v-row align="center" justify="center" class="mx-10 justify-center">
                             <v-col v-for="(i, index) in 3" :key="index" cols="4" v-if="mobileWidth > 960">
-                                <v-card color="#29253C" class="mt-4 relative invite-carousel-card">
+                                <v-card color="#211F31" class="mt-4 relative invite-carousel-card">
                                     <div class="invite-carousel-card-header"></div>
                                     <img :src="slide[index].headerImg" class="invite-carousel-header-img" />
                                     <div class="invite-carousel-header-text">
-                                        {{ t('affiliate.invite.agent_realization_text') }} {{ slide[index].grade }}
+                                        {{ t('affiliate.invite.agent_realization_text') }} {{ slide[index].totalGrade }}
                                     </div>
-                                    <img :src="slide[index].gradeImg" class="invite-carousel-header-rate" />
+                                    <div class="invite-carousel-header-rate bonus-progress-bg">
+                                        <v-progress-linear v-model="slide[index].rate" height="23" class="bonus-progress">
+                                            <div class="text-800-16 white">
+                                                <Font class="active">{{ slide[index].grade }} / </Font>
+                                                {{ slide[index].totalGrade }}
+                                            </div>
+                                        </v-progress-linear>
+                                    </div>
                                     <div class="invite-carousel-body-text">
                                         {{ slide[index].cash }}
                                     </div>
@@ -363,13 +379,20 @@ onMounted(() => {
                             </v-col>
                             <v-col v-for="(i, index1) in 2" :key="index1" cols="6"
                                 v-else-if="mobileWidth > 600 && mobileWidth <= 960">
-                                <v-card color="#29253C" class="mt-4 relative invite-carousel-card">
+                                <v-card color="#211F31" class="mt-4 relative invite-carousel-card">
                                     <div class="invite-carousel-card-header"></div>
                                     <img :src="slide[index1].headerImg" class="invite-carousel-header-img" />
                                     <div class="invite-carousel-header-text">
                                         {{ t('affiliate.invite.agent_realization_text') }} {{ slide[index1].grade }}
                                     </div>
-                                    <img :src="slide[index1].gradeImg" class="invite-carousel-header-rate" />
+                                    <div class="invite-carousel-header-rate bonus-progress-bg">
+                                        <v-progress-linear v-model="slide[index1].rate" height="21" class="bonus-progress">
+                                            <div class="text-800-16 white">
+                                                <Font class="active">{{ slide[index1].grade }} / </Font>
+                                                {{ slide[index1].totalGrade }}
+                                            </div>
+                                        </v-progress-linear>
+                                    </div>
                                     <div class="invite-carousel-body-text">
                                         {{ slide[index1].cash }}
                                     </div>
@@ -382,13 +405,20 @@ onMounted(() => {
                                 </v-card>
                             </v-col>
                             <v-col v-for="(i, index2) in 1" :key="index2" cols="12" v-else>
-                                <v-card color="#29253C" class="mt-4 relative invite-carousel-card">
+                                <v-card color="#211F31" class="mt-4 relative invite-carousel-card">
                                     <div class="invite-carousel-card-header"></div>
                                     <img :src="slide[index2].headerImg" class="invite-carousel-header-img" />
                                     <div class="invite-carousel-header-text">
                                         {{ t('affiliate.invite.agent_realization_text') }} {{ slide[index2].grade }}
                                     </div>
-                                    <img :src="slide[index2].gradeImg" class="invite-carousel-header-rate" />
+                                    <div class="invite-carousel-header-rate bonus-progress-bg">
+                                        <v-progress-linear v-model="slide[index2].rate" height="21" class="bonus-progress">
+                                            <div class="text-800-16 white">
+                                                <Font class="active">{{ slide[index2].grade }} / </Font>
+                                                {{ slide[index2].totalGrade }}
+                                            </div>
+                                        </v-progress-linear>
+                                    </div>
                                     <div class="invite-carousel-body-text"
                                         :style="[mobileWidth < 600 ? 'font-size: 26px' : '']">
                                         {{ slide[index2].cash }}
@@ -672,6 +702,7 @@ onMounted(() => {
 }
 
 .invite-carousel-header-rate {
+    width: 80%;
     position: absolute;
     top: 158px;
     left: 50%;
@@ -729,4 +760,16 @@ onMounted(() => {
     background: linear-gradient(90deg, #DE8245 0%, #D84594 100%) !important;
     border-radius: 8px !important;
 }
-</style>
+
+.bonus-progress {
+    .v-progress-linear__determinate {
+        border-radius: 30px;
+        background: linear-gradient(180deg, #6D44F8 0%, #5726FC 100%);
+    }
+}
+
+.bonus-progress-bg .v-progress-linear {
+    background: #211F31 !important;
+    box-shadow: inset 2px 0px 4px 1px rgba(0, 0, 0, 0.12) !important;
+    border-radius: 20px !important;
+}</style>

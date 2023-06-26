@@ -184,7 +184,8 @@ watch(mobileWidth, (newValue: number) => {
                         <div class="grade-text-position">{{ user.grade }}</div>
                     </div>
                     <div>
-                        <img src="@/assets/app_bar/image/cash_rate.png">
+                        <v-progress-linear v-model="depositRate" height="18" class="deposit-progress">
+                        </v-progress-linear>
                     </div>
                 </v-list-item-title>
                 <template v-slot:append>
@@ -349,10 +350,10 @@ watch(mobileWidth, (newValue: number) => {
 }
 
 .deposit-progress-bg {
-  .v-progress-linear {
-    background: #1C1929 !important;
-    box-shadow: inset 2px 0px 4px 1px rgba(0, 0, 0, 0.12) !important;
-    border-radius: 20px !important;
-  }
+    .v-progress-linear {
+        background: #1C1929 !important;
+        box-shadow: inset 2px 0px 4px 1px rgba(0, 0, 0, 0.12) !important;
+        border-radius: 20px !important;
+    }
 }
 </style>

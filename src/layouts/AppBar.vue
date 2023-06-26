@@ -414,7 +414,8 @@ onMounted(() => {
                           <div class="grade-text-position">{{ user.grade }}</div>
                         </div>
                         <div>
-                          <img src="@/assets/app_bar/image/cash_rate.png">
+                          <v-progress-linear v-model="depositRate" height="18" class="deposit-progress">
+                          </v-progress-linear>
                         </div>
                       </v-list-item-title>
                       <template v-slot:append>

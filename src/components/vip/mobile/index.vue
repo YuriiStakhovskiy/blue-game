@@ -269,6 +269,8 @@ const missionCardShow = ref<boolean>(false);
 
 const selectedIndex = ref<number>(0);
 
+const vipSlidePosition = ref<boolean>(false);
+
 const handleCarouselChange = (index: number): void => {
     selectedIndex.value = index;
 }
@@ -309,9 +311,105 @@ watch(mobileWidth, (newValue: number) => {
     vipMissionHeight2.value = missionCardItem.value?.$el?.clientHeight + 20;
 })
 
-const tabSelect = (index: number) => {
-    selectedTabIndex.value = index;
+watch(selectedVIPTab, (newValue: string) => {
+    // console.log(newValue)
+}, { deep: true })
+
+const cashbackElement = ref<any | null>(null);
+
+const slideElement = ref<any | null>(null);
+
+const rewardElement = ref<any | null>(null);
+
+const spinElement = ref<any | null>(null);
+
+const vipElement = ref<any | null>(null);
+
+const benefitElement = ref<any | null>(null);
+
+const handleWindowScroll = () => {
+
+    const cashPosition = cashbackElement.value.getBoundingClientRect().top;
+
+    const slidePosition = slideElement.value.getBoundingClientRect().top;
+
+    const rewardPosition = rewardElement.value.getBoundingClientRect().top;
+
+    const spinPosition = spinElement.value.getBoundingClientRect().top;
+
+    const vipPosition = vipElement.value.getBoundingClientRect().top;
+
+    const benefitPosition = benefitElement.value.getBoundingClientRect().top;
+
+    if (slidePosition < 116) {
+        vipSlidePosition.value = true;
+    }
+
+    if (rewardPosition < 170) {
+        selectedVIPTab.value = t('vip.all_bonus_text');
+    }
+
+    if (cashPosition < 170) {
+        selectedVIPTab.value = t('vip.cash_back_text');
+    }
+
+    if (spinPosition < 170) {
+        selectedVIPTab.value = t('vip.super_carousel_text');
+    }
+
+    if (vipPosition < 170) {
+        selectedVIPTab.value = t('vip.welfare_task');
+    }
+
+    if (benefitPosition < 170) {
+        selectedVIPTab.value = t('vip.all_bonus_text');
+    }
+
+    if (window.scrollY < 1) {
+        vipSlidePosition.value = false;
+    }
 }
+
+const tabSelect = ref(false);
+
+const handleVIPTab = () => {
+    vipSlidePosition.value = true;
+    tabSelect.value = true;
+    setTimeout(() => {
+        switch (selectedVIPTab.value) {
+            case t('vip.all_bonus_text'):
+                rewardElement.value.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start',
+                    inline: 'nearest',
+                });
+                break;
+            case t('vip.cash_back_text'):
+                cashbackElement.value.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start',
+                    inline: 'nearest',
+                });
+                break;
+            case t('vip.super_carousel_text'):
+                spinElement.value.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start',
+                    inline: 'nearest',
+                });
+                break;
+            case t('vip.welfare_task'):
+                vipElement.value.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start',
+                    inline: 'nearest',
+                });
+                break;
+        }
+    }, 10);
+}
+
+window.addEventListener('scroll', handleWindowScroll);
 
 onMounted(() => {
     spinCardHeight2.value = spinCardItem.value?.$el?.clientHeight + 60;
@@ -365,7 +463,8 @@ onMounted(() => {
                 </Slide>
             </Carousel>
 
-            <div class="mt-4">
+            <div class="mt-4" :class="vipSlidePosition ? 'vip-slide-position' : ''" ref="slideElement"
+                @click="handleVIPTab">
                 <v-slide-group v-model="selectedVIPTab" show-arrows>
                     <v-slide-group-item v-for="(item, index) in vipTabs" :key="index" v-slot="{ isSelected, toggle }"
                         :value="item">
@@ -379,7 +478,7 @@ onMounted(() => {
             </div>
 
             <!------------------------- vip reward ----------------------------->
-            <div class="reward-body mt-2 mx-2">
+            <div class="reward-body mt-2 mx-2" ref="rewardElement">
                 <div class="text-800-14 white pt-4 mx-4">{{ t('vip.reward_text') }} {{ vipItems[selectedIndex].vipGrade }}
                 </div>
                 <v-row class="mt-2 justify-center pb-2 mx-2">
@@ -481,7 +580,7 @@ onMounted(() => {
             </div>
 
             <!---------------------------- cashback bonus --------------------------------->
-            <div class="m-cashback-bonus-body mt-6 mx-2 pb-4">
+            <div class="m-cashback-bonus-body mt-6 mx-2 pb-4" ref="cashbackElement">
                 <div class="text-800-14 white pt-4 mx-2 d-flex">
                     {{ t('vip.cashback_body.text_1') }}
                     <v-btn class="text-none button-yellow ml-auto relative" height="49px" width="180px">
@@ -568,7 +667,7 @@ onMounted(() => {
             </div>
             <!-------------------------- My Super Spin ---------------------------------->
 
-            <div class="m-super-spin-body relative mt-6 mx-2 pb-2">
+            <div class="m-super-spin-body relative mt-6 mx-2 pb-2" ref="spinElement">
                 <v-row class="mx-2 d-flex">
                     <v-col cols="12" class="text-800-14 white">
                         {{ t('vip.super_spin_body.text_1') }}
@@ -618,7 +717,7 @@ onMounted(() => {
 
             <!------------------------   My VIP Mission -------------------------------->
 
-            <div class="vip-mission-body relative mt-6 mx-2 pb-2">
+            <div class="vip-mission-body relative mt-6 mx-2 pb-2" ref="vipElement">
                 <div class="text-800-14 white pt-4 mx-4 d-flex">
                     {{ t('vip.vip_mission_body.text_1') }}
                     <p class="ml-auto">{{ t('vip.vip_mission_body.text_2') }} <Font class="text-800-20">0</Font> {{
@@ -722,7 +821,7 @@ onMounted(() => {
             </div>
 
             <!--------------------------    VIP Benifit Description ---------------------->
-            <div class="m-benifit-description-body mt-6 mx-2 pb-2 relative">
+            <div class="m-benifit-description-body mt-6 mx-2 pb-2 relative" ref="benefitElement">
                 <div class="m-benifit-description-header pa-4 text-700-16 white">
                     {{ t('vip.benifit_description_body.text_1') }}
                 </div>

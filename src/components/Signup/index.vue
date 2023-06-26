@@ -23,10 +23,10 @@ const Signup = defineComponent({
             dialog: true,
             isAgreed: false,
             iconNameList: [
-                "facebook",
-                "twitter",
-                "tiktok",
-                "linkedin",
+                "icon_public_28",
+                "icon_public_29",
+                "icon_public_30",
+                "icon_public_31",
             ],
             PAGE_TYPE: {
                 SIGNUP_FORM: 0,
@@ -233,9 +233,9 @@ export default Signup
                         variant="solo" density="comfortable" :type="isShowPassword ? 'text' : 'password'"
                         v-model="formData.password" :onfocus="handleOnPasswordInputFocus"
                         :onblur="handleOnPasswordInputBlur" />
-                    <img v-if="isShowPassword" src="@/assets/login/svg/eye_1.svg" class="disable-password"
+                    <img v-if="isShowPassword" src="@/assets/login/svg/icon_public_07.svg" class="disable-password"
                         @click="showPassword" />
-                    <img v-else src="@/assets/login/svg/eye.svg" class="disable-password" @click="showPassword" />
+                    <img v-else src="@/assets/login/svg/icon_public_06.svg" class="disable-password" @click="showPassword" />
                     <ValidationBox v-if="isShowPasswordValidation" :descriptionList="passwordValidationStrList"
                         :validationList="passwordValidationList" />
                 </v-row>
@@ -345,7 +345,7 @@ export default Signup
                                 @click="props.onClick"></v-btn>
                         </template>
                         <v-carousel-item v-for="(slide, i) in slides" :key="i">
-                            <img src="@/assets/login/image/nickname_avatar.png">
+                            <img src="@/assets/login/image/ua_public_01.png">
                         </v-carousel-item>
                     </v-carousel>
                 </v-row>

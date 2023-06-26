@@ -13,7 +13,6 @@ const { t } = useI18n();
 const { width } = useDisplay()
 
 const vipWidth = ref<string>('vip-container');
-const selectedTabIndex = ref<number>(0)
 const depositRate = ref<number>(56);
 const spinCardItem = ref<any | null>(null)
 const missionCardItem = ref<any | null>(null)
@@ -269,6 +268,8 @@ const missionCardShow = ref<boolean>(false);
 
 const selectedIndex = ref<number>(1);
 
+const vipSlidePosition = ref<boolean>(false);
+
 const nextDescription = () => {
     selectedVIPDescriptionIndex.value = (selectedVIPDescriptionIndex.value + 1) % vipDescriptionItems.value.length;
     descriptionTab.value = vipDescriptionItems.value[selectedVIPDescriptionIndex.value];
@@ -314,9 +315,105 @@ watch(mobileWidth, (newValue: number) => {
     vipMissionHeight2.value = missionCardItem.value?.$el?.clientHeight + 20;
 })
 
-const tabSelect = (index: number) => {
-    selectedTabIndex.value = index;
+watch(selectedVIPTab, (newValue: string) => {
+    // console.log(newValue)
+}, { deep: true })
+
+const cashbackElement = ref<any | null>(null);
+
+const slideElement = ref<any | null>(null);
+
+const rewardElement = ref<any | null>(null);
+
+const spinElement = ref<any | null>(null);
+
+const vipElement = ref<any | null>(null);
+
+const benefitElement = ref<any | null>(null);
+
+const handleWindowScroll = () => {
+
+    const cashPosition = cashbackElement.value.getBoundingClientRect().top;
+
+    const slidePosition = slideElement.value.getBoundingClientRect().top;
+
+    const rewardPosition = rewardElement.value.getBoundingClientRect().top;
+
+    const spinPosition = spinElement.value.getBoundingClientRect().top;
+
+    const vipPosition = vipElement.value.getBoundingClientRect().top;
+
+    const benefitPosition = benefitElement.value.getBoundingClientRect().top;
+
+    if (slidePosition < 116) {
+        vipSlidePosition.value = true;
+    }
+
+    if (rewardPosition < 170) {
+        selectedVIPTab.value = t('vip.all_bonus_text');
+    }
+
+    if (cashPosition < 170) {
+        selectedVIPTab.value = t('vip.cash_back_text');
+    }
+
+    if (spinPosition < 170) {
+        selectedVIPTab.value = t('vip.super_carousel_text');
+    }
+
+    if (vipPosition < 170) {
+        selectedVIPTab.value = t('vip.welfare_task');
+    }
+
+    if (benefitPosition < 170) {
+        selectedVIPTab.value = t('vip.all_bonus_text');
+    }
+
+    if (window.scrollY < 1) {
+        vipSlidePosition.value = false;
+    }
 }
+
+const tabSelect = ref(false);
+
+const handleVIPTab = () => {
+    vipSlidePosition.value = true;
+    tabSelect.value = true;
+    setTimeout(() => {
+        switch (selectedVIPTab.value) {
+            case t('vip.all_bonus_text'):
+                rewardElement.value.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start',
+                    inline: 'nearest',
+                });
+                break;
+            case t('vip.cash_back_text'):
+                cashbackElement.value.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start',
+                    inline: 'nearest',
+                });
+                break;
+            case t('vip.super_carousel_text'):
+                spinElement.value.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start',
+                    inline: 'nearest',
+                });
+                break;
+            case t('vip.welfare_task'):
+                vipElement.value.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start',
+                    inline: 'nearest',
+                });
+                break;
+        }
+    }, 10);
+}
+
+window.addEventListener('scroll', handleWindowScroll);
 
 onMounted(() => {
     if (mobileWidth.value > 1280) {
@@ -337,7 +434,7 @@ onMounted(() => {
     <div :class="vipWidth">
         <div class="vip-body">
 
-            <Carousel :itemsToShow="1.4" :wrapAround="true" :transition="500">
+            <Carousel :itemsToShow="1.4" :wrapAround="true" :transition="500" v-if="!vipSlidePosition">
                 <Slide v-for="(item, index) in vipItems" :key="index">
                     <div class="vip-carousel-body">
                         <div class="text-800-20 white text-center mt-4">{{ t('vip.slider.title_text') }}</div>
@@ -382,7 +479,8 @@ onMounted(() => {
                 </template>
             </Carousel>
 
-            <div class="mt-8">
+            <div class="mt-8" :class="vipSlidePosition ? 'vip-slide-position' : ''" ref="slideElement"
+                @click="handleVIPTab">
                 <v-slide-group v-model="selectedVIPTab" show-arrows>
                     <v-slide-group-item v-for="(item, index) in vipTabs" :key="index" v-slot="{ isSelected, toggle }"
                         :value="item">
@@ -397,7 +495,7 @@ onMounted(() => {
 
             <!------------------------- vip reward ----------------------------->
 
-            <div class="reward-body mt-2 mx-2">
+            <div class="reward-body mt-2 mx-2" ref="rewardElement">
                 <div class="text-800-16 white pt-8 mx-10">{{ t('vip.reward_text') }} {{ vipItems[selectedIndex].vipGrade }}
                 </div>
                 <v-row class="mt-6 justify-center pb-6" :class="mobileWidth < 1200 ? 'mx-2' : 'mx-12'">
@@ -496,7 +594,7 @@ onMounted(() => {
 
             <!---------------------------- cashback bonus --------------------------------->
 
-            <div class="cashback-bonus-body mt-6 mx-2 pb-6">
+            <div class="cashback-bonus-body mt-6 mx-2 pb-6" ref="cashbackElement">
                 <div class="text-800-16 white pt-8 mx-10 d-flex">
                     {{ t('vip.cashback_body.text_1') }}
                     <v-btn class="text-none button-yellow ml-auto relative" height="60px" width="262px">
@@ -576,7 +674,7 @@ onMounted(() => {
 
             <!-------------------------- My Super Spin ---------------------------------->
 
-            <div class="super-spin-body relative mt-6 mx-2 pb-2">
+            <div class="super-spin-body relative mt-6 mx-2 pb-2" ref="spinElement">
                 <div class="text-800-16 white pt-8 mx-10 d-flex">
                     {{ t('vip.super_spin_body.text_1') }}
                     <v-card theme="dark" color="#1C1929" class="ml-auto d-flex align-center" height="60" width="470">
@@ -611,7 +709,7 @@ onMounted(() => {
 
             <!------------------------   My VIP Mission -------------------------------->
 
-            <div class="vip-mission-body relative mt-6 mx-2 pb-2">
+            <div class="vip-mission-body relative mt-6 mx-2 pb-2" ref="vipElement">
                 <div class="text-800-16 white pt-8 mx-10 d-flex">
                     {{ t('vip.vip_mission_body.text_1') }}
                     <p class="ml-auto">{{ t('vip.vip_mission_body.text_2') }} <Font class="text-800-20">0</Font> {{
@@ -708,7 +806,7 @@ onMounted(() => {
             </div>
 
             <!--------------------------    VIP Benifit Description ---------------------->
-            <div class="benifit-description-body mt-6 mx-2 pb-2 relative">
+            <div class="benifit-description-body mt-6 mx-2 pb-2 relative" ref="benefitElement">
                 <div class="benifit-description-header pa-8 text-800-16 white">
                     {{ t('vip.benifit_description_body.text_1') }}
                 </div>
@@ -924,8 +1022,8 @@ onMounted(() => {
 
     .v-slide-group {
         background: #1C1929 !important;
-        margin: 8px !important;
-        border-radius: 8px !important;
+        margin: 0px !important;
+        border-radius: 0px !important;
     }
 
     .v-slide-group__content {
@@ -1230,7 +1328,7 @@ onMounted(() => {
     left: 10%;
 }
 
-.carousel__prev:hover {    
+.carousel__prev:hover {
     color: #FFF !important;
 }
 
@@ -1243,7 +1341,14 @@ onMounted(() => {
 }
 
 
-.carousel__next:hover {    
+.carousel__next:hover {
     color: #FFF !important;
+}
+
+.vip-slide-position {
+    position: fixed;
+    top: 84px;
+    width: 100%;
+    z-index: 100000000;
 }
 </style>
