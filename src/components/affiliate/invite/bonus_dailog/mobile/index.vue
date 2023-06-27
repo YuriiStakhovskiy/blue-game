@@ -16,7 +16,7 @@ const emit = defineEmits<{ (e: 'close'): void }>()
             {{ t('affiliate.invite.achivement_bonus') }}
         </v-row>
         <div class="mt-4">
-            <img src="@/assets/affiliate/invite/image/bg_public_02_01.png" style="width: 100%;" />
+            <img src="@/assets/public/image/bg_public_02_01.png" style="width: 100%;" />
         </div>
         <div class="mt-4 text-center mx-6 m-bonus-dialog-text-1">
             {{ t('affiliate.invite.bonus_dialog.text_1') }}

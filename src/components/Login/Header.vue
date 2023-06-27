@@ -39,11 +39,11 @@ export default LoginHeader
                 {{ t('login.formPage.header.titleLine2') }}
             </span>
         </p>
-        <img src="@/assets/login/svg/img_li_01.svg" class="logo-image2">
-        <img src="@/assets/login/svg/img_li_02.svg" class="logo-image3">
-        <img src="@/assets/login/svg/img_li_03.svg" class="logo-image4">
-        <img src="@/assets/login/svg/img_li_04.svg" class="logo-image5">
-        <img src="@/assets/login/svg/img_li_05.svg" class="logo-image6">
+        <img src="@/assets/login/image/img_li_01.png" class="logo-image2">
+        <img src="@/assets/login/image/img_li_02.png" class="logo-image3">
+        <img src="@/assets/login/image/img_li_03.png" class="logo-image4">
+        <img src="@/assets/login/image/img_li_04.png" class="logo-image5">
+        <img src="@/assets/login/image/img_li_05.png" class="logo-image6">
     </v-row>
 </template>
 

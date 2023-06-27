@@ -8,3 +8,8 @@ export interface GetUserInfo {
     phoneNumber: string,
     verified: boolean
 }
+export type GetUserInfoResponseData = {
+    code: number
+    data: GetUserInfo
+    message: string
+}

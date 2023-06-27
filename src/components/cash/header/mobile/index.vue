@@ -121,7 +121,7 @@ onMounted(() => {
             <v-menu offset="-5" :close-on-content-click=false content-class="personal-info-menu">
                 <template v-slot:activator="{ props }">
                     <v-btn class="deposit-header-btn" v-bind="props" @click="handlePersonalInfoToggle">
-                        <img src="@/assets/deposit/svg/icon_public_58.svg" width="48" height="48" />
+                        <img src="@/assets/public/svg/icon_public_58.svg" width="48" height="48" />
                         <v-icon class="header-mdi-icon">mdi-chevron-right</v-icon>
                     </v-btn>
                 </template>
@@ -137,7 +137,7 @@ onMounted(() => {
                                 class="form-textfield dark-textfield mx-2" variant="solo" density="comfortable"
                                 :disabled="confirmValidation" append-icon="mdi" color="#7782AA"
                                 v-model="personalInfoItem.id" @input="handlePersonalInfoID" />
-                            <img src="@/assets/deposit/svg/icon_public_19.svg" class="personal-info-key-position"
+                            <img src="@/assets/public/svg/icon_public_19.svg" class="personal-info-key-position"
                                 v-if="confirmValidation" />
                         </div>
                     </v-list-item>
@@ -148,13 +148,13 @@ onMounted(() => {
                                 append-icon="mdi" color="#7782AA" v-model="personalInfoItem.first_name"
                                 :disabled="confirmValidation" @input="handlePersonalInfoFirstName"
                                 @mousedown="handleConfirmValidation" />
-                            <img src="@/assets/deposit/svg/icon_public_19.svg" class="personal-info-key-position-1"
+                            <img src="@/assets/public/svg/icon_public_19.svg" class="personal-info-key-position-1"
                                 v-if="confirmValidation" />
                             <v-text-field :label="t('deposit_dialog.personal_information.last_name')"
                                 class="form-textfield dark-textfield mx-1" variant="solo" density="comfortable"
                                 append-icon="mdi" color="#7782AA" v-model="personalInfoItem.last_name"
                                 :disabled="confirmValidation" @input="handlePersonalInfoLastName" />
-                            <img src="@/assets/deposit/svg/icon_public_19.svg" class="personal-info-key-position-2"
+                            <img src="@/assets/public/svg/icon_public_19.svg" class="personal-info-key-position-2"
                                 v-if="confirmValidation" />
                         </div>
                     </v-list-item>
@@ -170,11 +170,11 @@ onMounted(() => {
                 <input type="checkbox" id="deposit-toggle" v-model="cashToggleSwitch" />
                 <label for="deposit-toggle">
                     <div class="deposit">
-                        <img src="@/assets/app_bar/svg/icon_public_60.svg" />
+                        <img src="@/assets/public/svg/icon_public_60.svg" />
                         <P>{{ t('appBar.deposit') }}</P>
                     </div>
                     <div class="withdraw">
-                        <img src="@/assets/app_bar/svg/icon_public_65.svg" />
+                        <img src="@/assets/public/svg/icon_public_65.svg" />
                         <P>{{ t('appBar.withdraw') }}</P>
                     </div>
                 </label>

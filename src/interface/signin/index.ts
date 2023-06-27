@@ -1,9 +1,11 @@
 export interface SigninRequestData {
-  account: string
-  password: number
+  uid: string
+  password: string
 }
 export interface authRequestData {
 }
-export type GetSigninResponseData = ApiResponseData<{
+export type GetSigninResponseData = {
+  code: number
   token: string
-}>
+  message: string
+}

@@ -13,80 +13,88 @@ const { name, width } = useDisplay();
 const { t } = useI18n();
 const { setDepositDialogToggle } = appBarStore();
 const { setWithdrawDialogToggle } = appBarStore();
-const {setCashDialogToggle} = appBarStore();
-const {setMailList} = mailStore();
+const { setCashDialogToggle } = appBarStore();
+const { setMailList } = mailStore();
 
 const selectedCurrencyItem = ref<GetCurrencyItem>({
-    icon: new URL("@/assets/deposit/svg/deposit_1.svg", import.meta.url).href,
+    icon: new URL("@/assets/public/svg/icon_public_84.svg", import.meta.url).href,
     name: "BRL"
 })
 const selectedPaymentItem = ref<GetPaymentItem>({
-    icon: new URL("@/assets/deposit/svg/icon_public_74.svg", import.meta.url).href,
+    icon: new URL("@/assets/public/svg/icon_public_74.svg", import.meta.url).href,
     name: "PIX",
     description: "20~150.000 BRL"
 })
 
 const currencyList = ref<Array<GetCurrencyItem>>([
     {
-        icon: new URL("@/assets/deposit/svg/deposit_1.svg", import.meta.url).href,
-        name: "BRL_1"
+        icon: new URL("@/assets/public/svg/icon_public_84.svg", import.meta.url).href,
+        name: "BRL"
     },
     {
-        icon: new URL("@/assets/deposit/svg/deposit_2.svg", import.meta.url).href,
-        name: "BRL_2"
+        icon: new URL("@/assets/public/svg/icon_public_85.svg", import.meta.url).href,
+        name: "PHP"
     },
     {
-        icon: new URL("@/assets/deposit/svg/deposit_3.svg", import.meta.url).href,
-        name: "BRL_3"
+        icon: new URL("@/assets/public/svg/icon_public_86.svg", import.meta.url).href,
+        name: "PEN"
     },
     {
-        icon: new URL("@/assets/deposit/svg/deposit_4.svg", import.meta.url).href,
-        name: "BRL_4"
+        icon: new URL("@/assets/public/svg/icon_public_87.svg", import.meta.url).href,
+        name: "MXN"
     },
     {
-        icon: new URL("@/assets/deposit/svg/deposit_5.svg", import.meta.url).href,
-        name: "BRL_5"
+        icon: new URL("@/assets/public/svg/icon_public_88.svg", import.meta.url).href,
+        name: "CLP"
+    },
+    {
+        icon: new URL("@/assets/public/svg/icon_public_88.svg", import.meta.url).href,
+        name: "USD"
+    },
+    {
+        icon: new URL("@/assets/public/svg/icon_public_88.svg", import.meta.url).href,
+        name: "COP"
     },
 ])
 
 const paymentList = ref<Array<GetPaymentItem>>([
     {
-        icon: new URL("@/assets/deposit/svg/icon_public_74.svg", import.meta.url).href,
+        icon: new URL("@/assets/public/svg/icon_public_74.svg", import.meta.url).href,
         name: "PIX_1",
         description: "20~150.000 BRL"
     },
     {
-        icon: new URL("@/assets/deposit/svg/icon_public_74.svg", import.meta.url).href,
+        icon: new URL("@/assets/public/svg/icon_public_74.svg", import.meta.url).href,
         name: "PIX_2",
         description: "20~150.000 BRL"
     },
     {
-        icon: new URL("@/assets/deposit/svg/icon_public_74.svg", import.meta.url).href,
+        icon: new URL("@/assets/public/svg/icon_public_74.svg", import.meta.url).href,
         name: "PIX_3",
         description: "20~150.000 BRL"
     },
     {
-        icon: new URL("@/assets/deposit/svg/icon_public_74.svg", import.meta.url).href,
+        icon: new URL("@/assets/public/svg/icon_public_74.svg", import.meta.url).href,
         name: "PIX_4",
         description: "20~150.000 BRL"
     },
     {
-        icon: new URL("@/assets/deposit/svg/icon_public_74.svg", import.meta.url).href,
+        icon: new URL("@/assets/public/svg/icon_public_74.svg", import.meta.url).href,
         name: "PIX_5",
         description: "20~150.000 BRL"
     },
     {
-        icon: new URL("@/assets/deposit/svg/icon_public_74.svg", import.meta.url).href,
+        icon: new URL("@/assets/public/svg/icon_public_74.svg", import.meta.url).href,
         name: "PIX_6",
         description: "20~150.000 BRL"
     },
     {
-        icon: new URL("@/assets/deposit/svg/icon_public_74.svg", import.meta.url).href,
+        icon: new URL("@/assets/public/svg/icon_public_74.svg", import.meta.url).href,
         name: "PIX_5",
         description: "20~150.000 BRL"
     },
     {
-        icon: new URL("@/assets/deposit/svg/icon_public_74.svg", import.meta.url).href,
+        icon: new URL("@/assets/public/svg/icon_public_74.svg", import.meta.url).href,
         name: "PIX_6",
         description: "20~150.000 BRL"
     },
@@ -143,7 +151,7 @@ const handleAmountInputBlur = (): void => {
 const handleWithdrawSubmit = (): void => {
     let mailItem = {
         id: 5,
-        icon: new URL("@/assets/mail/svg/icon_public_16.svg", import.meta.url).href,
+        icon: new URL("@/assets/public/svg/icon_public_16.svg", import.meta.url).href,
         mail_content_1: {
             color: "text-color-gray",
             content: "Withdrawal Amount"

@@ -19,6 +19,10 @@ export type langType = {
       submit: string,
       notification: string,
     },
+    submit_result: {
+      success_text: string
+      err_text: string
+    }
   }
   signup: {
     formPage: {
@@ -78,7 +82,32 @@ export type langType = {
       },
       submit: string,
     },
+    submit_result: {
+      success_text: string
+    }
   },
+  err_result: {
+    err_text_1: string
+    err_text_2: string
+    err_text_3: string
+    err_text_4: string
+    err_text_5: string
+    err_text_6: string
+    err_text_7: string
+    err_text_8: string
+    err_text_9: string
+    err_text_10: string
+    err_text_11: string
+    err_text_12: string
+    err_text_13: string
+    err_text_14: string
+    err_text_15: string
+    err_text_16: string
+    err_text_17: string
+    err_text_18: string
+    err_text_19: string
+    err_text_20: string
+  }
   signout: {
     text_1: string
     text_2: string
@@ -91,6 +120,10 @@ export type langType = {
     my_vip_perks: string,
     more: string,
     live_support: string,
+    earn_free_text: string
+    task_text: string
+    unlock_text: string
+    spin_text: string
     menu_item_1: {
       promotions: string,
       vip_club: string,
@@ -471,7 +504,7 @@ export type langType = {
     reward_card_1: {
       daily_free_bonus_text: string
       text_1: string
-      text_2: string      
+      text_2: string
     }
     reward_card_2: {
       vip_week_gift_text: string
@@ -491,7 +524,7 @@ export type langType = {
       vip_upgrage_gift_text: string
       text_1: string
       text_2: string
-      text_3: string   
+      text_3: string
     }
     receive_btn_text: string
     cashback_body: {
@@ -508,7 +541,7 @@ export type langType = {
       text_12: string
       text_13: string
       text_14: string
-    }    
+    }
     super_spin_body: {
       text_1: string
       text_2: string

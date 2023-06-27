@@ -14,7 +14,7 @@ const mobileWidth = computed(() => {
 <template>
     <div class=" pa-2 animate glow delay-1 fade-in" :class="[mobileWidth > 600 ? 'amount-validation-box-container' : 'mobile-amount-validation-box-container']">
         <v-row class="d-flex justify-center ma-2 ">
-            <img src="@/assets/login/svg/icon_public_03.svg" width="16" class="validation-caution-img" />
+            <img src="@/assets/public/svg/icon_public_03.svg" width="16" class="validation-caution-img" />
             <span class="label-text-sm ml-2 mt-1 slate-gray">
                 {{ t('deposit_dialog.validation.text_1') }}
             </span>

@@ -22,7 +22,7 @@ export default ValidationBox
 <template>
     <div class="validation-box-container pa-2 animate glow delay-1 fade-in">
         <v-row v-if="title.length" class="d-flex justify-center ma-2 ">
-            <img v-if="withCautionIcon" src="@/assets/login/svg/icon_public_03.svg" width="16" class="validation-caution-img" />
+            <img v-if="withCautionIcon" src="@/assets/public/svg/icon_public_03.svg" width="16" class="validation-caution-img" />
             <span class="label-text-sm ml-2 mt-1 slate-gray">
                 {{ title }}
             </span>

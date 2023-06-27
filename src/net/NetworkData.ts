@@ -8,7 +8,9 @@ export enum SENDTYPE {
   NONE,
   HTTP,
   SOCKET,
-  UNSOLICITED
+  UNSOLICITED,
+  GET,
+  POST
 }
 
 //Exit type 1-kick offline, 2-user disabled, 3-platform maintenance, 4-repeat login with the same account
@@ -75,11 +77,13 @@ export class NetworkData {
    * @param token
    */
   public setToken(token: string): void {
-    Cookies.set(CacheKey.TOKEN, token,{ expires: 2 })
+    Cookies.set(CacheKey.TOKEN, token, { expires: 2 })
+    // console.log(Cookies.get(CacheKey.TOKEN));
   }
 
   /** Get current token */
   public getToken(): string | undefined {
+    console.log(Cookies.get(CacheKey.TOKEN))
     return Cookies.get(CacheKey.TOKEN)
   }
 

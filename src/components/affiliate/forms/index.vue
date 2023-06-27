@@ -139,10 +139,10 @@ const mobileWidth = computed(() => {
                 value-format="YYYY/MM/DD" :format="dateFormat" :prefix-icon="customPrefix" :clear-icon="customClear"
                 start-placeholder="Start date" end-placeholder="End date">
                 <template #range-separator>
-                    <img src="@/assets/affiliate/forms/svg/icon_public_83.svg" />
+                    <img src="@/assets/public/svg/icon_public_83.svg" />
                 </template>
             </el-date-picker>
-            <img src="@/assets/affiliate/forms/svg/icon_public_23.svg" class="date-icon-position" />
+            <img src="@/assets/public/svg/icon_public_23.svg" class="date-icon-position" />
         </div>
         <v-menu offset="10" class="bonus-menu">
             <template v-slot:activator="{ props }">

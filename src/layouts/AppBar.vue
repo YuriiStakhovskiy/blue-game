@@ -38,7 +38,7 @@ const appBarWidth = ref<string>("app-bar-pc");
 // logged in user info
 const user = ref<GetUserData>({
   id: "User6696608024",
-  avatar: new URL("@/assets/app_bar/image/ua_public_10.png", import.meta.url).href,
+  avatar: new URL("@/assets/public/image/ua_public_10.png", import.meta.url).href,
   name: "Little Planes",
   grade_level: "Bronze",
   grade: "VIP 4",
@@ -140,30 +140,38 @@ const withdrawDialogShow = () => {
 const userNavBarToggle = ref(false);
 
 const selectedCurrencyItem = ref<GetCurrencyItem>({
-  icon: new URL("@/assets/deposit/svg/deposit_1.svg", import.meta.url).href,
+  icon: new URL("@/assets/public/svg/icon_public_84.svg", import.meta.url).href,
   name: "BRL"
 })
 
 const currencyList = ref<Array<GetCurrencyItem>>([
   {
-    icon: new URL("@/assets/deposit/svg/deposit_1.svg", import.meta.url).href,
-    name: "BRL_1"
+    icon: new URL("@/assets/public/svg/icon_public_84.svg", import.meta.url).href,
+    name: "BRL"
   },
   {
-    icon: new URL("@/assets/deposit/svg/deposit_2.svg", import.meta.url).href,
-    name: "BRL_2"
+    icon: new URL("@/assets/public/svg/icon_public_85.svg", import.meta.url).href,
+    name: "PHP"
   },
   {
-    icon: new URL("@/assets/deposit/svg/deposit_3.svg", import.meta.url).href,
-    name: "BRL_3"
+    icon: new URL("@/assets/public/svg/icon_public_86.svg", import.meta.url).href,
+    name: "PEN"
   },
   {
-    icon: new URL("@/assets/deposit/svg/deposit_4.svg", import.meta.url).href,
-    name: "BRL_4"
+    icon: new URL("@/assets/public/svg/icon_public_87.svg", import.meta.url).href,
+    name: "MXN"
   },
   {
-    icon: new URL("@/assets/deposit/svg/deposit_5.svg", import.meta.url).href,
-    name: "BRL_5"
+    icon: new URL("@/assets/public/svg/icon_public_88.svg", import.meta.url).href,
+    name: "CLP"
+  },
+  {
+    icon: new URL("@/assets/public/svg/icon_public_88.svg", import.meta.url).href,
+    name: "USD"
+  },
+  {
+    icon: new URL("@/assets/public/svg/icon_public_88.svg", import.meta.url).href,
+    name: "COP"
   },
 ])
 
@@ -281,7 +289,7 @@ onMounted(() => {
                       <div class="d-flex align-center" v-bind="props" style="height: 40px;">
                         <p class="mr-1">{{ user.currency }}</p>
                         <p class="mr-2">{{ user.wallet }}</p>
-                        <img src="@/assets/app_bar/svg/down.svg" class="mr-2" width="15" />
+                        <img src="@/assets/public/svg/icon_public_50.svg" class="mr-2" />
                       </div>
                     </template>
                     <v-list theme="dark" bg-color="#211F31" class="px-2" width="200px">
@@ -295,12 +303,14 @@ onMounted(() => {
                       </v-list-item>
                     </v-list>
                   </v-menu>
-                  <img src="@/assets/app_bar/svg/deposit.svg" class="deposit-icon-position cursor-pointer"
-                    @click="depositDialogShow" />
+                  <div class="deposit-icon-bg cursor-pointer relative" @click="depositDialogShow">
+                    <img src="@/assets/public/svg/icon_public_54.svg" class="deposit-icon-position cursor-pointer" />
+                    <div class="text-700-12 white deposit-text-position">{{ t('appBar.deposit') }}</div>
+                  </div>
                 </div>
               </v-list-item>
             </v-card>
-            <v-card color="#29263C" theme="dark" class="mr-2 mt-3 m-user-card-height" v-else>
+            <v-card color="#29263C" theme="dark" class="mt-3 m-user-card-height" v-else>
               <v-list-item class="deposit-item m-user-card-height" v-bind="props">
                 <div class="d-flex align-center">
                   <v-menu offset="20">
@@ -308,7 +318,7 @@ onMounted(() => {
                       <div class="d-flex align-center" v-bind="props" style="height: 40px;">
                         <p class="mr-1">{{ user.currency }}</p>
                         <p class="mr-2">{{ user.wallet }}</p>
-                        <img src="@/assets/app_bar/svg/down.svg" class="mr-2" width="15" />
+                        <img src="@/assets/public/svg/icon_public_50.svg" class="mr-2" />
                       </div>
                     </template>
                     <v-list theme="dark" bg-color="#211F31" class="px-2" width="200px">
@@ -322,19 +332,12 @@ onMounted(() => {
                       </v-list-item>
                     </v-list>
                   </v-menu>
-                  <img src="@/assets/app_bar/svg/deposit.svg" class="deposit-icon-position cursor-pointer"
-                    @click="depositDialogShow" width="50" />
+                  <div class="m-deposit-icon-bg cursor-pointer relative" @click="depositDialogShow">
+                    <img src="@/assets/public/svg/icon_public_54.svg" class="deposit-icon-position cursor-pointer" />
+                    <div class="text-700-12 white deposit-text-position">{{ t('appBar.deposit') }}</div>
+                  </div>
                 </div>
-              </v-list-item>
-              <!-- <v-list-item class="deposit-item user-card-height" v-bind="props" value="deposit dropdown"
-                          @click="depositDialogShow">
-                          <div class="d-flex align-center">
-                            <p class="mr-1">{{ user.currency }}</p>
-                            <p class="mr-2">{{ user.wallet }}</p>
-                            <img src="@/assets/app_bar/svg/down.svg" class="mr-2" />
-                            <img src="@/assets/app_bar/svg/deposit.svg" class="deposit-icon-position" width="50" />
-                          </div>
-                        </v-list-item> -->
+              </v-list-item>->
             </v-card>
           </template>
         </v-menu>
@@ -348,7 +351,7 @@ onMounted(() => {
                     <div>{{ user.name }}</div>
                     <div class="d-flex align-center">
                       <div class="user-grade-text">{{ user.grade }}</div>
-                      <img src="@/assets/app_bar/svg/down.svg" class="user-drop-arrow-position" />
+                      <img src="@/assets/public/svg/icon_public_50.svg" class="user-drop-arrow-position" />
                     </div>
                   </div>
                 </div>
@@ -363,18 +366,18 @@ onMounted(() => {
           <v-list theme="dark" bg-color="#211F31" class="px-2" width="320">
             <v-list-item class="user-item" value="id">
               <template v-slot:prepend>
-                <img src="@/assets/app_bar/svg/icon_public_58.svg" />
+                <img src="@/assets/public/svg/icon_public_58.svg" />
               </template>
               <v-list-item-title class="ml-2">{{ t('appBar.id') }}: {{ user.id }}</v-list-item-title>
               <template v-slot:append>
-                <img src="@/assets/app_bar/svg/icon_public_71.svg" v-ripple.center class="ml-6" />
+                <img src="@/assets/public/svg/icon_public_71.svg" v-ripple.center class="ml-6" />
               </template>
             </v-list-item>
             <v-list-item class="user-item" value="vip">
               <template v-slot:prepend>
                 <div>
                   <div style="height: 40px;">
-                    <img src="@/assets/app_bar/svg/img_vip_02.svg" />
+                    <img src="@/assets/vip/images/img_vip_02.png" />
                   </div>
                   <div class="text-800-14 color-F9BC01">{{ user.grade }}</div>
                 </div>
@@ -406,7 +409,7 @@ onMounted(() => {
                 </div>
               </v-list-item-title>
               <!-- <template v-slot:prepend>
-                        <img src="@/assets/app_bar/svg/img_vip_02.svg" style="margin-left: -6px;" />
+                        <img src="@/assets/vip/images/img_vip_02.png" style="margin-left: -6px;" />
                       </template>
                       <v-list-item-title class="ml-2">
                         <div class="grade-color d-flex">
@@ -426,19 +429,19 @@ onMounted(() => {
             </v-list-item>
             <v-list-item class="user-item" value="account" router :to="{ name: 'Account' }">
               <template v-slot:prepend>
-                <img src="@/assets/app_bar/svg/icon_public_59.svg" />
+                <img src="@/assets/public/svg/icon_public_59.svg" />
               </template>
               <v-list-item-title class="ml-2">{{ t('appBar.account') }}</v-list-item-title>
             </v-list-item>
             <v-list-item class="user-item" value="deposit" @click="depositDialogShow">
               <template v-slot:prepend>
-                <img src="@/assets/app_bar/svg/icon_public_60.svg" />
+                <img src="@/assets/public/svg/icon_public_60.svg" />
               </template>
               <v-list-item-title class="ml-2">{{ t('appBar.deposit') }}</v-list-item-title>
             </v-list-item>
             <v-list-item class="user-item" value="bonuses" @click="goBonusPage">
               <template v-slot:prepend>
-                <img src="@/assets/app_bar/svg/icon_public_61.svg" />
+                <img src="@/assets/public/svg/icon_public_61.svg" />
               </template>
               <v-list-item-title class="ml-2">
                 {{ t('appBar.bonuses') }}
@@ -446,71 +449,71 @@ onMounted(() => {
             </v-list-item>
             <v-list-item class="user-item" value="game_history" @click="goGameHistoryPage">
               <template v-slot:prepend>
-                <img src="@/assets/app_bar/svg/icon_public_62.svg" />
+                <img src="@/assets/public/svg/icon_public_62.svg" />
               </template>
               <v-list-item-title class="ml-2">{{ t('appBar.game_history') }}</v-list-item-title>
             </v-list-item>
             <v-list-item class="user-item" value="transactions" @click="goTransactionPage">
               <template v-slot:prepend>
-                <img src="@/assets/app_bar/svg/icon_public_63.svg" />
+                <img src="@/assets/public/svg/icon_public_63.svg" />
               </template>
               <v-list-item-title class="ml-2">{{ t('appBar.transactions') }}</v-list-item-title>
             </v-list-item>
             <v-list-item class="user-item refer-friend-background" value="refer_friend" @click="refferalDialogShow">
               <template v-slot:prepend>
-                <img src="@/assets/app_bar/svg/icon_public_64.svg" />
+                <img src="@/assets/public/svg/icon_public_64.svg" />
               </template>
               <v-list-item-title class="ml-2">{{ t('appBar.refer_friend') }}</v-list-item-title>
               <template v-slot:append>
-                <img src="@/assets/app_bar/image/img_public_09.png" v-ripple.center
+                <img src="@/assets/public/image/img_public_09.png" v-ripple.center
                   class="ml-6 refer-friend-img-position" />
                 <p class="refer-friend-text-position">{{ t('appBar.earn_money') }}</p>
               </template>
             </v-list-item>
             <v-list-item class="user-item" value="withdraw" @click="withdrawDialogShow">
               <template v-slot:prepend>
-                <img src="@/assets/app_bar/svg/icon_public_65.svg" />
+                <img src="@/assets/public/svg/icon_public_65.svg" />
               </template>
               <v-list-item-title class="ml-2">{{ t('appBar.withdraw') }}</v-list-item-title>
             </v-list-item>
             <v-list-item class="user-item app-background" value="app">
               <template v-slot:prepend>
-                <img src="@/assets/app_bar/svg/icon_public_66.svg" />
+                <img src="@/assets/public/svg/icon_public_66.svg" />
               </template>
               <v-list-item-title class="ml-2">{{ t('appBar.app') }}</v-list-item-title>
               <template v-slot:append>
-                <img src="@/assets/app_bar/image/img_public_04.png" v-ripple.center class="ml-6 app-img-position" />
+                <img src="@/assets/public/image/img_public_04.png" v-ripple.center class="ml-6 app-img-position" />
                 <p class="app-text-position">{{ t('appBar.install') }}</p>
               </template>
             </v-list-item>
             <v-list-item class="user-item" value="fairness">
               <template v-slot:prepend>
-                <img src="@/assets/app_bar/svg/icon_public_72.svg" />
+                <img src="@/assets/public/svg/icon_public_72.svg" />
               </template>
               <v-list-item-title class="ml-2">{{ t('appBar.fairness') }}</v-list-item-title>
             </v-list-item>
             <v-list-item class="user-item" value="rewards">
               <template v-slot:prepend>
-                <img src="@/assets/app_bar/svg/icon_public_67.svg" />
+                <img src="@/assets/public/svg/icon_public_67.svg" />
               </template>
               <v-list-item-title class="ml-2">{{ t('appBar.rewards') }}</v-list-item-title>
             </v-list-item>
             <v-list-item class="user-item" value="preferences">
               <template v-slot:prepend>
-                <img src="@/assets/app_bar/svg/icon_public_68.svg" />
+                <img src="@/assets/public/svg/icon_public_68.svg" />
               </template>
               <v-list-item-title class="ml-2">{{ t('appBar.preferences') }}</v-list-item-title>
             </v-list-item>
             <v-list-item class="user-item" value="statistics">
               <template v-slot:prepend>
-                <img src="@/assets/app_bar/svg/icon_public_69.svg" />
+                <img src="@/assets/public/svg/icon_public_69.svg" />
               </template>
               <v-list-item-title class="ml-2">{{ t('appBar.statistics') }}</v-list-item-title>
             </v-list-item>
             <v-list-item class="user-item">
               <v-list-item-title>
                 <div class="d-flex justify-center sign-out-btn" v-ripple.center @click="showSignoutDialog">
-                  <img src="@/assets/app_bar/svg/icon_public_70.svg" class="mr-4" />
+                  <img src="@/assets/public/svg/icon_public_70.svg" class="mr-4" />
                   {{ t('appBar.sign_out') }}
                 </div>
               </v-list-item-title>
@@ -520,7 +523,7 @@ onMounted(() => {
         <v-menu class="mail-menu" :scrim="true">
           <template v-slot:activator="{ props }">
             <div class="mr-4 mt-5 relative mail-height" v-bind="props" v-ripple.center v-if="mobileWidth > 600">
-              <img src="@/assets/app_bar/svg/icon_public_55.svg" />
+              <img src="@/assets/public/svg/icon_public_55.svg" />
               <p class="chat-box-text">{{ mailCount }}</p>
             </div>
           </template>
@@ -545,7 +548,7 @@ onMounted(() => {
         <!----------------------------       chatting menu toggle       ----------------------------->
 
         <!-- <div class="mr-8 mt-5 relative mail-height" v-ripple @click="setRightBarToggle(true)" v-if="mobileWidth > 600">
-          <img src="@/assets/app_bar/svg/icon_public_56.svg" />
+          <img src="@/assets/public/svg/icon_public_56.svg" />
           <p class="chat-box-text">{{ messageCount }}</p>
         </div> -->
 
@@ -708,7 +711,10 @@ onMounted(() => {
 }
 
 .deposit-icon-position {
-  margin-left: auto;
+  position: absolute;
+  top: 3px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .mail-height {
@@ -829,7 +835,7 @@ onMounted(() => {
 }
 
 .vip-background-img {
-  background-image: url('@/assets/app_bar/image/bg_public_27.png');
+  background-image: url('@/assets/public/image/bg_public_27.png');
 }
 
 .grade-color {
@@ -841,7 +847,7 @@ onMounted(() => {
 }
 
 .refer-friend-background {
-  background-image: url('@/assets/app_bar/image/bg_public_28.png');
+  background-image: url('@/assets/public/image/bg_public_28.png');
 }
 
 .refer-friend-img-position {
@@ -862,7 +868,7 @@ onMounted(() => {
 }
 
 .app-background {
-  background-image: url('@/assets/app_bar/image/bg_public_29.png');
+  background-image: url('@/assets/public/image/bg_public_29.png');
 }
 
 .app-img-position {
@@ -910,5 +916,32 @@ onMounted(() => {
     box-shadow: inset 2px 0px 4px 1px rgba(0, 0, 0, 0.12) !important;
     border-radius: 20px !important;
   }
+}
+
+.deposit-icon-bg {
+  margin-left: auto;
+  width: 60px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 9px;
+  border: 1px solid #8664F7;
+  background: linear-gradient(0deg, #5524FD 0%, #6D44F7 100%);
+}
+
+.m-deposit-icon-bg {
+  margin-left: auto;
+  width: 56px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 9px;
+  border: 1px solid #8664F7;
+  background: linear-gradient(0deg, #5524FD 0%, #6D44F7 100%);
+}
+
+.deposit-text-position {
+  position: absolute;
+  top: 22px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 </style>

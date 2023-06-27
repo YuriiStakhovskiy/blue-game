@@ -336,7 +336,7 @@ onMounted(() => {
       <div class="pa-1 d-flex align-center">
         <v-text-field :placeholder="t('rightBar.bottom.yourMessage')" class="form-textfield dark-textfield" variant="solo"
           density="comfortable" />
-        <img src="@/assets/right_navigation/svg/icon_public_51.svg" class="emoticon-icon" />
+        <img src="@/assets/public/svg/icon_public_51.svg" class="emoticon-icon" />
         <v-btn class="right-btn" icon="true" theme="dark" color="#32CFEC">
           <v-icon icon="mdi-arrow-up" color="#000000" />
         </v-btn>

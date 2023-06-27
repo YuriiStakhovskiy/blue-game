@@ -22,6 +22,10 @@ export const lang: langType = {
       submit: 'Submit',
       notification: "We've sent you an email with instructions to reset your password",
     },
+    submit_result: {
+      success_text: "Logined successfully!",
+      err_text: "No account linked or password incorrect please try again",
+    }
   },
   signup: {
     formPage: {
@@ -81,6 +85,31 @@ export const lang: langType = {
       },
       submit: "Submit",
     },
+    submit_result: {
+      success_text: "Registered successfully!",
+    }
+  },
+  err_result: {
+    err_text_1: "failed!",
+    err_text_2: "Passed data exception",
+    err_text_3: "The password does not meet the requirements",
+    err_text_4: "User account is locked",
+    err_text_5: "Login data exception",
+    err_text_6: "The login account or password is wrong",
+    err_text_7: "Login account does not exist",
+    err_text_8: "Failed to register data",
+    err_text_9: "Registration data exception",
+    err_text_10: "Registering an existing account is abnormal",
+    err_text_11: "Abnormal nickname format (abnormal length or illegal identifier)",
+    err_text_12: "Nickname is the same as email",
+    err_text_13: "Email format exception (abnormal length or illegal identifier)",
+    err_text_14: "Phone format exception (abnormal length or illegal identifier)",
+    err_text_15: "The same password needs to be changed",
+    err_text_16: "The current password is wrong",
+    err_text_17: "The emails that need to be modified are the same",
+    err_text_18: "The message that needs to be modified is already taken",
+    err_text_19: "The avatar index that needs to be modified is wrong",
+    err_text_20: "wrong birthday format",
   },
   signout: {
     text_1: "Don’t forgot to check out our huge selection of promotions!",
@@ -93,7 +122,11 @@ export const lang: langType = {
     sport: 'SPORT',
     my_vip_perks: 'My VIP Perks',
     more: 'More',
+    task_text: "TASK",
+    unlock_text: "unlocked",
+    spin_text: "SPIN",
     live_support: 'Live support',
+    earn_free_text: "Earn Free $",
     menu_item_1: {
       promotions: 'Promotions',
       vip_club: 'VIP Club',

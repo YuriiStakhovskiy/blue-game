@@ -345,25 +345,27 @@ const handleWindowScroll = () => {
         vipSlidePosition.value = true;
     }
 
-    // if (!tabSelect.value) {
+    if (!isMouseClick.value) {
 
-        if (rewardPosition <= 180) {
+        tabSelect.value = false;
+
+        if (rewardPosition < 170) {
             selectedVIPTab.value = t('vip.all_bonus_text');
         }
 
-        if (cashPosition <= 180) {
+        if (cashPosition < 170) {
             selectedVIPTab.value = t('vip.cash_back_text');
         }
 
-        if (spinPosition <= 180) {
+        if (spinPosition < 170) {
             selectedVIPTab.value = t('vip.super_carousel_text');
         }
 
-        if (vipPosition <= 180) {
+        if (vipPosition < 170) {
             selectedVIPTab.value = t('vip.welfare_task');
         }
 
-        if (benefitPosition <= 180) {
+        if (benefitPosition < 170) {
             selectedVIPTab.value = t('vip.all_bonus_text');
         }
 
@@ -371,15 +373,18 @@ const handleWindowScroll = () => {
             vipSlidePosition.value = false;
         }
 
-    // }
+    }
 }
 
 const tabSelect = ref(false);
 
+const isMouseClick = ref(false);
+
 const handleVIPTab = () => {
+    isMouseClick.value = true;
     vipSlidePosition.value = true;
     tabSelect.value = true;
-    const offset = 180;
+    const offset = 174;
     const bodyRect = document.body.getBoundingClientRect().top;
     setTimeout(() => {
         switch (selectedVIPTab.value) {
@@ -438,6 +443,10 @@ const handleVIPTab = () => {
         }
 
     }, 10);
+
+    setTimeout(() => {
+        isMouseClick.value = false;
+    }, 2000)
 }
 
 window.addEventListener('scroll', handleWindowScroll);
@@ -458,7 +467,7 @@ onMounted(() => {
                         <div class="text-800-16 white text-center mt-4">{{ t('vip.slider.title_text') }}</div>
                         <v-row class="full-height mx-2">
                             <v-col cols="3" class="text-center">
-                                <img src="@/assets/vip/svg/img_vip_02.svg" width="49" />
+                                <img src="@/assets/vip/images/img_vip_02.png" width="49" />
                                 <p class="text-800-14 yellow">{{ item.vipGrade }}</p>
                             </v-col>
                             <v-col cols="9">
@@ -509,7 +518,7 @@ onMounted(() => {
             </div>
 
             <!------------------------- vip reward ----------------------------->
-            <div class="reward-body mx-2" ref="rewardElement" :class="tabSelect ? 'mt-16' : 'mt-2'">
+            <div class="reward-body mx-2" ref="rewardElement" :class="tabSelect ? 'mt-15' : 'mt-2'">
                 <div class="text-800-14 white pt-4 mx-4">{{ t('vip.reward_text') }} {{ vipItems[selectedIndex].vipGrade }}
                 </div>
                 <v-row class="mt-2 justify-center pb-2 mx-2">
@@ -537,8 +546,8 @@ onMounted(() => {
                         <div class="m-reward-card text-center">
                             <div class="text-800-12 yellow pt-2">{{ t('vip.reward_card_2.vip_week_gift_text') }}</div>
                             <div class="mt-4 d-flex justify-center align-center">
-                                <img src="@/assets/vip/images/img_public_02.png" width="46" />
-                                <img src="@/assets/vip/images/img_public_09.png" class="ml-4" width="43" height="34" />
+                                <img src="@/assets/public/image/img_public_02.png" width="46" />
+                                <img src="@/assets/public/image/img_public_09.png" class="ml-4" width="43" height="34" />
                             </div>
                             <div class="mt-4 text-500-12 white">
                                 {{ t('vip.reward_card_2.text_1') }}
@@ -562,8 +571,8 @@ onMounted(() => {
                         <div class="m-reward-card text-center">
                             <div class="text-800-12 yellow pt-2">{{ t('vip.reward_card_3.vip_month_gift_text') }}</div>
                             <div class="mt-4 d-flex justify-center align-center">
-                                <img src="@/assets/vip/images/img_public_02.png" width="46" />
-                                <img src="@/assets/vip/images/img_public_09.png" class="ml-4" width="43" height="34" />
+                                <img src="@/assets/public/image/img_public_02.png" width="46" />
+                                <img src="@/assets/public/image/img_public_09.png" class="ml-4" width="43" height="34" />
                             </div>
                             <div class="mt-3 text-500-12 white">
                                 {{ t('vip.reward_card_3.text_1') }}
@@ -587,8 +596,8 @@ onMounted(() => {
                         <div class="m-reward-card text-center">
                             <div class="text-800-12 yellow pt-2">{{ t('vip.reward_card_4.vip_upgrage_gift_text') }}</div>
                             <div class="mt-4 d-flex justify-center align-center">
-                                <img src="@/assets/vip/images/img_public_02.png" width="46" />
-                                <img src="@/assets/vip/images/img_public_09.png" class="ml-4" width="43" height="34" />
+                                <img src="@/assets/public/image/img_public_02.png" width="46" />
+                                <img src="@/assets/public/image/img_public_09.png" class="ml-4" width="43" height="34" />
                             </div>
                             <div class="mt-3 text-500-12 white">
                                 {{ t('vip.reward_card_4.text_1') }}
@@ -611,7 +620,7 @@ onMounted(() => {
             </div>
 
             <!---------------------------- cashback bonus --------------------------------->
-            <div class="m-cashback-bonus-body mx-2 pb-4" ref="cashbackElement" :class="tabSelect ? 'mt-16' : 'mt-6'">
+            <div class="m-cashback-bonus-body mx-2 pb-4" ref="cashbackElement" :class="tabSelect ? 'mt-15' : 'mt-6'">
                 <div class="text-800-14 white pt-4 mx-2 d-flex">
                     {{ t('vip.cashback_body.text_1') }}
                     <v-btn class="text-none button-yellow ml-auto relative" height="49px" width="180px">
@@ -630,7 +639,7 @@ onMounted(() => {
                             </v-col>
                             <v-col cols="8" class="d-flex">
                                 <p class="text-600-12 text-gray ml-auto">{{ t('vip.cashback_body.text_4') }}</p>
-                                <img src="@/assets/vip/svg/icon_public_22.svg" class="ml-2" width="16" />
+                                <img src="@/assets/public/svg/icon_public_22.svg" class="ml-2" width="16" />
                             </v-col>
                         </v-row>
                         <v-row class="pa-0 ma-0">
@@ -685,7 +694,7 @@ onMounted(() => {
                                 <v-btn class="text-none button-yellow ml-auto relative" height="49px"
                                     width="-webkit-fill-available">
                                     <div class="cashback-bonus-help-img">
-                                        <img src="@/assets/vip/svg/icon_public_76.svg" />
+                                        <img src="@/assets/public/svg/icon_public_76.svg" />
                                     </div>
                                     <div style="width: 150px; white-space: normal;" class="text-800-14 ml-4">
                                         {{ t('vip.cashback_body.text_9') }}
@@ -698,7 +707,7 @@ onMounted(() => {
             </div>
             <!-------------------------- My Super Spin ---------------------------------->
 
-            <div class="m-super-spin-body relative mt-6 mx-2 pb-2" ref="spinElement" :class="tabSelect ? 'mt-16' : 'mt-6'">
+            <div class="m-super-spin-body relative mt-6 mx-2 pb-2" ref="spinElement" :class="tabSelect ? 'mt-15' : 'mt-6'">
                 <v-row class="mx-2 d-flex">
                     <v-col cols="12" class="text-800-14 white">
                         {{ t('vip.super_spin_body.text_1') }}
@@ -748,7 +757,7 @@ onMounted(() => {
 
             <!------------------------   My VIP Mission -------------------------------->
 
-            <div class="vip-mission-body relative mt-6 mx-2 pb-2" ref="vipElement" :class="tabSelect ? 'mt-16' : 'mt-6'">
+            <div class="vip-mission-body relative mt-6 mx-2 pb-2" ref="vipElement" :class="tabSelect ? 'mt-15' : 'mt-6'">
                 <div class="text-800-14 white pt-4 mx-4 d-flex">
                     {{ t('vip.vip_mission_body.text_1') }}
                     <p class="ml-auto">{{ t('vip.vip_mission_body.text_2') }} <Font class="text-800-20">0</Font> {{
@@ -837,7 +846,7 @@ onMounted(() => {
                                 <p class="text-600-10 white mt-1">{{ t('vip.vip_mission_body.text_10') }}</p>
                                 <v-btn class="text-none button-dark m-mission-btn-3 mt-8 mx-2" height="28px"
                                     width="-webkit-fill-available">
-                                    <img src="@/assets/vip/svg/icon_public_77.svg" class="m-mission-warning-img-position" />
+                                    <img src="@/assets/public/svg/icon_public_77.svg" class="m-mission-warning-img-position" />
                                     {{ t('vip.vip_mission_body.text_15') }}
                                 </v-btn>
                             </v-card>
@@ -1023,7 +1032,7 @@ onMounted(() => {
                         <v-btn class="text-none button-yellow m-vip-footer-btn" width="-webkit-fill-available"
                             height="49px">
                             <div class="m-vip-telegram-img mr-4">
-                                <img src="@/assets/vip/svg/icon_public_78.svg" class="mr-1" />
+                                <img src="@/assets/public/svg/icon_public_78.svg" class="mr-1" />
                             </div>
                             {{ t('vip.footer_body.text_3') }}
                         </v-btn>

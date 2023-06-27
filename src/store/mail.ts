@@ -9,7 +9,7 @@ export const mailStore = defineStore({
         mailList: [
             {
                 id: 1,
-                icon: new URL("@/assets/mail/svg/icon_public_14.svg", import.meta.url).href,
+                icon: new URL("@/assets/public/svg/icon_public_14.svg", import.meta.url).href,
                 mail_content_1: {
                     color: "text-color-white",
                     content: "Subscribe to notifications"
@@ -29,7 +29,7 @@ export const mailStore = defineStore({
             },
             {
                 id: 2,
-                icon: new URL("@/assets/mail/svg/icon_public_15.svg", import.meta.url).href,
+                icon: new URL("@/assets/public/svg/icon_public_15.svg", import.meta.url).href,
                 mail_content_1: {
                     color: "text-color-white",
                     content: "Refer a friend"
@@ -49,7 +49,7 @@ export const mailStore = defineStore({
             },
             {
                 id: 3,
-                icon: new URL("@/assets/mail/svg/icon_public_16.svg", import.meta.url).href,
+                icon: new URL("@/assets/public/svg/icon_public_16.svg", import.meta.url).href,
                 mail_content_1: {
                     color: "text-color-gray",
                     content: "Withdrawal Amount"
@@ -69,7 +69,7 @@ export const mailStore = defineStore({
             },
             {
                 id: 4,
-                icon: new URL("@/assets/mail/svg/icon_public_18.svg", import.meta.url).href,
+                icon: new URL("@/assets/public/svg/icon_public_18.svg", import.meta.url).href,
                 mail_content_1: {
                     color: "text-color-gray",
                     content: "Withdrawal Amount"

@@ -1,5 +1,5 @@
 export interface SignupRequestData {
-    account: string
+    uid: string
     password: string
     referral_code: string
     browser: string
@@ -9,6 +9,8 @@ export interface SignupRequestData {
     imei: string
 }
 
-export type GetSignupResponseData = ApiResponseData<{
+export type GetSignupResponseData = {
+    code: number
     token: string
-}>
+    message: string
+}

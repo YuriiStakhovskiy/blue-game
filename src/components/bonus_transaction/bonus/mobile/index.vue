@@ -72,19 +72,19 @@ const formsList = ref<Array<any>>([
         <v-col cols="12" class="pa-1">
             <v-list-item class="bg-color-1">
                 <template v-slot:prepend>
-                    <img src="@/assets/bonus/svg/icon_public_26.svg" />
+                    <img src="@/assets/public/svg/icon_public_26.svg" />
                 </template>
                 <v-list-item-title class="ml-4">
                     <div class="text-400-12 text-gray">{{ t('bonus.total_text') }}</div>
                     <div class="text-600-12 white">{{ totalAmount }}</div>
                 </v-list-item-title>
                 <template v-slot:append>
-                    <img src="@/assets/bonus/svg/btn_public_02.svg" />
+                    <img src="@/assets/public/svg/btn_public_02.svg" />
                 </template>
             </v-list-item>
             <v-list-item class="bg-color-1 mt-4">
                 <template v-slot:prepend>
-                    <img src="@/assets/bonus/svg/icon_public_27.svg" />
+                    <img src="@/assets/public/svg/icon_public_27.svg" />
                 </template>
                 <v-list-item-title class="ml-4">
                     <div class="text-400-12 text-gray">{{ t('bonus.withdraw_text') }}</div>

@@ -21,7 +21,7 @@ const mobileWidth = computed(() => {
             <v-col cols="12" class="text-center mt-4">
                 <v-row class="justify-center align-center">
                     <v-col cols="6">
-                        <img src="@/assets/affiliate/statistics/image/img_public_15.png" width="140" />
+                        <img src="@/assets/public/image/img_public_15.png" width="140" />
                     </v-col>
                     <v-col cols="6" class="text-justify">
                         <p class="m-statistics-profit-cash-text">R$ 19,34</p>

@@ -1,6 +1,7 @@
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs, computed } from 'vue';
+import { defineComponent, reactive, ref, toRefs, computed } from 'vue';
+import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
 import LoginHeader from './Header.vue'
 import { authStore } from "@/store/auth";
@@ -16,7 +17,8 @@ const Login = defineComponent({
         // translation
         const { t } = useI18n();
         const { dispatchSignIn } = authStore();
-        const {setAuthModalType} = authStore();
+        const { dispatchUserProfile } = authStore();
+        const { setAuthModalType } = authStore();
 
         // initiate component state
         const state = reactive({
@@ -37,7 +39,9 @@ const Login = defineComponent({
             ],
             isShowPassword: false,
             notificationShow: false,
-            checkIcon: new URL("@/assets/public/svg/icon_public_18.svg", import.meta.url).href
+            checkIcon: new URL("@/assets/public/svg/icon_public_18.svg", import.meta.url).href,
+            notificationText: t('login.forgotPasswordPage.notification'),
+            loading: false
         });
 
         // computed variables
@@ -45,14 +49,47 @@ const Login = defineComponent({
             state.formData.emailAddress.length > 0 && state.formData.password.length > 0
         )
 
+        // flag when login successed
+        const success = computed(() => {
+            const { getSuccess } = storeToRefs(authStore());
+            return getSuccess.value
+        })
+
+        // error message when login failed
+
+        const errMessage = computed(() => {
+            const { getErrMessage } = storeToRefs(authStore());
+            return getErrMessage.value;
+        })
+
+        // forgot password function when password fogot
+
+        const handleForgotPassword = () => {
+            state.notificationShow = !state.notificationShow;
+            state.checkIcon = new URL("@/assets/public/svg/icon_public_18.svg", import.meta.url).href
+            state.notificationText = t('login.forgotPasswordPage.notification')
+        }
+
         // methods
-        const handleLoginFormSubmit = (): void => {
-            dispatchSignIn({
-                account: "sniper",
-                password: 123456
+        const handleLoginFormSubmit = async () => {
+            state.loading = true;
+            await dispatchSignIn({
+                uid: state.formData.emailAddress,
+                password: state.formData.password,
             })
-            setAuthModalType("");
-            emit('close');
+            if (success.value) {
+                await dispatchUserProfile();
+                state.loading = false;
+                state.notificationShow = !state.notificationShow;
+                state.checkIcon = new URL("@/assets/public/svg/icon_public_17.svg", import.meta.url).href
+                state.notificationText = t('login.submit_result.success_text')
+                setAuthModalType("");
+                emit('close');
+            } else {
+                state.notificationShow = !state.notificationShow;
+                state.checkIcon = new URL("@/assets/public/svg/icon_public_18.svg", import.meta.url).href
+                state.notificationText = t('login.submit_result.err_text')
+            }
         }
 
         const showPassword = () => {
@@ -64,6 +101,7 @@ const Login = defineComponent({
             ...toRefs(state),
             isFormDataReady,
             handleLoginFormSubmit,
+            handleForgotPassword,
             showPassword
         }
     },
@@ -86,9 +124,10 @@ export default Login
                     <v-text-field :label="t('signup.formPage.password')" class="form-textfield dark-textfield"
                         variant="solo" density="comfortable" :type="isShowPassword ? 'text' : 'password'"
                         v-model="formData.password" />
-                    <img v-if="isShowPassword" src="@/assets/login/svg/icon_public_07.svg" class="disable-password"
+                    <img v-if="isShowPassword" src="@/assets/public/svg/icon_public_07.svg" class="disable-password"
                         @click="showPassword" />
-                    <img v-else src="@/assets/login/svg/icon_public_06.svg" class="disable-password" @click="showPassword" />
+                    <img v-else src="@/assets/public/svg/icon_public_06.svg" class="disable-password"
+                        @click="showPassword" />
                 </v-row>
                 <v-row>
                     <p class="ml-9 login-forget-passwrod-text" @click="currentPage = PAGE_TYPE.FORGOT_PASSWORD">
@@ -96,7 +135,7 @@ export default Login
                     </p>
                 </v-row>
                 <v-row class="mt-12">
-                    <v-btn class="ma-3 button-bright text-none" width="-webkit-fill-available" height="60px"
+                    <v-btn :loading="loading" class="ma-3 button-bright text-none" width="-webkit-fill-available" height="60px"
                         :disabled="!isFormDataReady" :onclick="handleLoginFormSubmit">
                         {{ t('login.formPage.button') }}
                     </v-btn>
@@ -128,7 +167,7 @@ export default Login
             <!-- Forgot password -->
             <div v-if="currentPage == PAGE_TYPE.FORGOT_PASSWORD" class="full-width">
                 <v-row class="mt-8 d-flex justify-center">
-                    <img src="@/assets/login/svg/logo2.svg" class="logo-image mr-2">
+                    <img src="@/assets/login/image/logo2.png" class="logo-image mr-2">
                     <span class="logo-text purple text-large">BLUE</span>
                     <span class="logo-text yellow text-large">GAME</span>
                 </v-row>
@@ -142,8 +181,8 @@ export default Login
                         variant="solo" density="comfortable" />
                 </v-row>
                 <v-row class="mt-8">
-                    <v-btn class="ma-3 button-bright text-none" width="-webkit-fill-available" height="60px"
-                        autocapitalize="off" @click="notificationShow = !notificationShow">
+                    <v-btn :disabled="loading" :loading="loading" class="ma-3 button-bright text-none"
+                        width="-webkit-fill-available" height="60px" autocapitalize="off" @click="handleForgotPassword">
                         {{ t('login.forgotPasswordPage.submit') }}
                     </v-btn>
                 </v-row>
@@ -154,7 +193,7 @@ export default Login
                 mdi-close
             </v-icon>
         </v-btn>
-        <Notification :notificationShow="notificationShow" :notificationText="t('login.forgotPasswordPage.notification')" :checkIcon="checkIcon"/>
+        <Notification :notificationShow="notificationShow" :notificationText="notificationText" :checkIcon="checkIcon" />
     </div>
 </template>
 

@@ -63,7 +63,7 @@ const mobileVersion = computed(() => {
             <v-card color="#000000" theme="dark" class="justify-center">
                 <v-row class="align-center">
                     <v-col cols="12" sm="6" md="3" lg="3" class="d-flex justify-center mt-3">
-                        <img src="@/assets/home/svg/Logo.svg" width="200" />
+                        <img src="@/assets/home/image/Logo.png" width="200" />
                     </v-col>
                     <v-col cols="12" sm="6" md="9" lg="9">
                         <div class="footer-5-text" :class="[mobileVersion == 'sm' ? 'px-4' : 'pa-4']">{{

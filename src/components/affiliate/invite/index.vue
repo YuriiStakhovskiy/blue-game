@@ -172,7 +172,7 @@ onMounted(() => {
                     </v-list-item-title>
                     <template v-slot:append>
                         <v-btn icon="" @click="inviteUrlCopy">
-                            <img src="@/assets/app_bar/svg/icon_public_71.svg" />
+                            <img src="@/assets/public/svg/icon_public_71.svg" />
                         </v-btn>
                     </template>
                 </v-list-item>
@@ -205,14 +205,14 @@ onMounted(() => {
                         <div class="invite-revenu-text">{{ t('affiliate.invite.monthly_revenu_goal') }}</div>
                     </v-col>
                     <v-col cols="3" class="text-center pa-0">
-                        <img src="@/assets/affiliate/invite/image/img_public_06.png" width="92" height="84" />
+                        <img src="@/assets/public/image/img_public_06.png" width="92" height="84" />
                     </v-col>
                     <v-col cols="6" class="pa-0">
                         <div class="d-flex">
                             <div class="invite-revenu-cash-text">{{ revenuCash }}</div>
                             <v-menu>
                                 <template v-slot:activator="{ props }">
-                                    <img src="@/assets/affiliate/invite/svg/icon_public_22.svg" class="ml-4"
+                                    <img src="@/assets/public/svg/icon_public_22.svg" class="ml-4"
                                         style="cursor: pointer;" v-bind="props" />
                                 </template>
                                 <v-list theme="dark" bg-color="#211F31" width="400">
@@ -233,7 +233,7 @@ onMounted(() => {
                             <div class="invite-revenu-cash-text">{{ revenuCash }}</div>
                             <v-menu>
                                 <template v-slot:activator="{ props }">
-                                    <img src="@/assets/affiliate/invite/svg/icon_public_22.svg" class="ml-4"
+                                    <img src="@/assets/public/svg/icon_public_22.svg" class="ml-4"
                                         v-bind="props" />
                                 </template>
                                 <v-list theme="dark" bg-color="#211F31" class="px-2" width="400">
@@ -247,7 +247,7 @@ onMounted(() => {
                         </div>
                     </v-col>
                     <v-col cols="4" class="text-center pa-0">
-                        <img src="@/assets/affiliate/invite/image/img_public_06.png" width="92" height="84" />
+                        <img src="@/assets/public/image/img_public_06.png" width="92" height="84" />
                     </v-col>
                 </v-row>
             </v-card>
@@ -261,7 +261,7 @@ onMounted(() => {
             <v-col cols="12" md="4" lg="4">
                 <v-row class="align-center">
                     <v-col cols="5" class="text-center">
-                        <img src="@/assets/affiliate/invite/image/img_public_07.png" width="100" height="70" />
+                        <img src="@/assets/public/image/img_public_07.png" width="100" height="70" />
                     </v-col>
                     <v-col cols="7">
                         <div class="invitation-bonus-text">{{ t('affiliate.invite.invitation_bonus') }}</div>
@@ -284,7 +284,7 @@ onMounted(() => {
             <v-col cols="12" md="4" lg="4">
                 <v-row class="align-center">
                     <v-col cols="5" class="text-center">
-                        <img src="@/assets/affiliate/invite/image/img_public_03.png" width="100" height="70" />
+                        <img src="@/assets/public/image/img_public_03.png" width="100" height="70" />
                     </v-col>
                     <v-col cols="7">
                         <div class="invitation-bonus-text">{{ t('affiliate.invite.betting_commision') }}</div>
@@ -319,7 +319,7 @@ onMounted(() => {
     <v-card color="#29253C" class="mt-5 mx-3 pa-3 py-5">
         <v-row class="justify-center">
             <div class="premiums-text">{{ t('affiliate.invite.achivement_bonus') }}</div>
-            <img src="@/assets/affiliate/invite/svg/icon_public_22.svg" class="ml-4" style="cursor: pointer;"
+            <img src="@/assets/public/svg/icon_public_22.svg" class="ml-4" style="cursor: pointer;"
                 @click="bonusDialog = true" />
         </v-row>
         <v-dialog v-model="bonusDialog" :width="mobileWidth < 600 ? 328 : 471">
@@ -441,7 +441,7 @@ onMounted(() => {
         <div class="premiums-text">{{ t('affiliate.invite.commission_title_text') }}</div>
         <v-menu>
             <template v-slot:activator="{ props }">
-                <img src="@/assets/affiliate/invite/svg/icon_public_22.svg" class="ml-4" v-bind="props"
+                <img src="@/assets/public/svg/icon_public_22.svg" class="ml-4" v-bind="props"
                     style="cursor: pointer;" />
             </template>
             <v-list theme="dark" bg-color="#211F31" class="px-2" width="400">

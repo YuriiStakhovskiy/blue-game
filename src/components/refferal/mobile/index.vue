@@ -55,7 +55,7 @@ onMounted(() => {
                 {{ t('refferal.dialog.header.body_text') }}
             </div>
             <div class="mt-3">
-                <img src="@/assets/refferal/svg/bg_public_02_01.svg" class="full-width" />
+                <img src="@/assets/public/svg/bg_public_02_01.svg" class="full-width" />
             </div>
             <div class="mt-4 mx-6 white text-400-14">
                 {{ t('refferal.description.text_1') }}

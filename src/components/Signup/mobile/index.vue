@@ -233,9 +233,9 @@ export default MSignup
                         variant="solo" density="comfortable" :type="isShowPassword ? 'text' : 'password'"
                         v-model="formData.password" :onfocus="handleOnPasswordInputFocus"
                         :onblur="handleOnPasswordInputBlur" />
-                    <img v-if="isShowPassword" src="@/assets/login/svg/icon_public_07.svg" class="disable-password"
+                    <img v-if="isShowPassword" src="@/assets/public/svg/icon_public_07.svg" class="disable-password"
                         @click="showPassword" />
-                    <img v-else src="@/assets/login/svg/icon_public_06.svg" class="disable-password" @click="showPassword" />
+                    <img v-else src="@/assets/public/svg/icon_public_06.svg" class="disable-password" @click="showPassword" />
                     <ValidationBox v-if="isShowPasswordValidation" :descriptionList="passwordValidationStrList"
                         :validationList="passwordValidationList" />
                 </v-row>

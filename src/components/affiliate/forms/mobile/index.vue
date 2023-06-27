@@ -144,10 +144,10 @@ const mobileWidth = computed(() => {
                 value-format="YYYY/MM/DD" :format="dateFormat" :prefix-icon="customPrefix" :clear-icon="customClear"
                 start-placeholder="Start date" end-placeholder="End date" :popper-options="popperOptions">
                 <template #range-separator>
-                    <img src="@/assets/affiliate/forms/svg/icon_public_83.svg" width="18" />
+                    <img src="@/assets/public/svg/icon_public_83.svg" width="18" />
                 </template>
             </el-date-picker>
-            <img src="@/assets/affiliate/forms/svg/icon_public_23.svg" class="date-icon-position" width="20" />
+            <img src="@/assets/public/svg/icon_public_23.svg" class="date-icon-position" width="20" />
         </div>
     </v-row>
     <v-row class="mt-6 mx-2">

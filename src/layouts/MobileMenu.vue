@@ -59,13 +59,13 @@ onMounted(() => {
 <template>
     <v-bottom-navigation bg-color="#000000" grow class="mobile-menu-index">
         <v-btn class="menu-text-color" @click="handleNavbarToggle">
-            <img src="@/assets/mobile_menu/svg/icon_public_81.svg" width="20" height="20">
+            <img src="@/assets/public/svg/icon_public_81.svg" width="20" height="20">
             <div class="pt-2">
                 {{ t('mobile_menu.menu') }}
             </div>
         </v-btn>
         <v-btn class="menu-text-color">
-            <img src="@/assets/mobile_menu/svg/icon_public_34.svg">
+            <img src="@/assets/public/svg/icon_public_34.svg">
             <div class="pt-1">
                 {{ t('mobile_menu.casino') }}
             </div>
@@ -79,7 +79,7 @@ onMounted(() => {
             </div>
         </v-btn>
         <v-btn class="menu-text-color">
-            <img src="@/assets/mobile_menu/svg/icon_public_40.svg">
+            <img src="@/assets/public/svg/icon_public_40.svg">
             <div class="pt-1">
                 {{ t('mobile_menu.sport') }}
             </div>
@@ -88,7 +88,7 @@ onMounted(() => {
             <template v-slot:activator="{ props }">
                 <v-btn class="menu-text-color" v-bind="props">
                     <div class="relative">
-                        <img src="@/assets/mobile_menu/svg/icon_public_55.svg">
+                        <img src="@/assets/public/svg/icon_public_55.svg">
                         <p class="chat-box-text">{{ mailCount }}</p>
                     </div>
                     {{ t('mobile_menu.mail') }}

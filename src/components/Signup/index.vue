@@ -1,10 +1,13 @@
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs, computed } from 'vue';
+import { defineComponent, reactive, toRefs, computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import ValidationBox from '@/components/Signup/ValidationBox.vue';
 import SignupHeader from '@/components/Signup/Header.vue';
+import Notification from "@/components/global/notification/index.vue";
+import { authStore } from '@/store/auth';
 import { useDisplay } from 'vuetify';
+import { storeToRefs } from 'pinia';
 
 const Signup = defineComponent({
     components: {
@@ -16,6 +19,7 @@ const Signup = defineComponent({
         // translation
         const { t } = useI18n();
         const { name } = useDisplay();
+        const { dispatchSignUp } = authStore();
 
         // initiate component state
         const state = reactive({
@@ -78,6 +82,27 @@ const Signup = defineComponent({
         const mobileVersion = computed(() => {
             return name.value;
         })
+
+        // flag when login successed
+        const success = computed(() => {
+            const { getSuccess } = storeToRefs(authStore());
+            return getSuccess.value
+        })
+
+        // error message when login failed
+
+        const errMessage = computed(() => {
+            const { getErrMessage } = storeToRefs(authStore());
+            return getErrMessage.value;
+        })
+
+        // notification
+
+        const notificationShow = ref<boolean>(false);
+
+        const checkIcon = ref<any>(new URL("@/assets/public/svg/icon_public_17.svg", import.meta.url).href);
+
+        const notificationText = ref<string>(t('signup.submit_result.success_text'));
 
         const passwordValidationList = computed((): boolean[] => {
             const password = state.formData.password;
@@ -169,9 +194,29 @@ const Signup = defineComponent({
         }
 
         // handle form submit
-        const handleSignupFormSubmit = (): void => {
-            state.currentPage = state.PAGE_TYPE.DISPLAY_NAME;
+        const handleSignupFormSubmit = async () => {
+            // state.currentPage = state.PAGE_TYPE.DISPLAY_NAME;
             console.log('sign up form submit!');
+            await dispatchSignUp({
+                uid: state.formData.emailAddress,
+                password: state.formData.password,
+                referral_code: state.formData.promoCode,
+                browser: "",
+                device: "",
+                model: "",
+                brand: "",
+                imei: "",
+            });
+            if (success.value) {
+                notificationShow.value = !notificationShow.value;
+                checkIcon.value = new URL("@/assets/public/svg/icon_public_17.svg", import.meta.url).href;
+                notificationText.value = t('signup.submit_result.success_text');
+                // emit("close");
+            } else {
+                notificationShow.value = !notificationShow.value;
+                checkIcon.value = new URL("@/assets/public/svg/icon_public_18.svg", import.meta.url).href;
+                notificationText.value = errMessage.value;
+            }
         }
 
         const handleUsernameSubmit = (): void => {
@@ -206,7 +251,10 @@ const Signup = defineComponent({
             handleUsernameSubmit,
             showPassword,
             closeDialog,
-            mobileVersion
+            mobileVersion,
+            notificationShow,
+            checkIcon,
+            notificationText
         }
     },
 })
@@ -233,9 +281,10 @@ export default Signup
                         variant="solo" density="comfortable" :type="isShowPassword ? 'text' : 'password'"
                         v-model="formData.password" :onfocus="handleOnPasswordInputFocus"
                         :onblur="handleOnPasswordInputBlur" />
-                    <img v-if="isShowPassword" src="@/assets/login/svg/icon_public_07.svg" class="disable-password"
+                    <img v-if="isShowPassword" src="@/assets/public/svg/icon_public_07.svg" class="disable-password"
                         @click="showPassword" />
-                    <img v-else src="@/assets/login/svg/icon_public_06.svg" class="disable-password" @click="showPassword" />
+                    <img v-else src="@/assets/public/svg/icon_public_06.svg" class="disable-password"
+                        @click="showPassword" />
                     <ValidationBox v-if="isShowPasswordValidation" :descriptionList="passwordValidationStrList"
                         :validationList="passwordValidationList" />
                 </v-row>
@@ -307,7 +356,8 @@ export default Signup
                     </v-btn>
                 </v-row>
                 <v-row class="mt-4">
-                    <v-btn class="ma-3 button-dark text-none" width="-webkit-fill-available" height="60px" @click="$emit('close')">
+                    <v-btn class="ma-3 button-dark text-none" width="-webkit-fill-available" height="60px"
+                        @click="$emit('close')">
                         {{ t('signup.confirmCancelPage.cancel') }}
                     </v-btn>
                 </v-row>
@@ -375,6 +425,7 @@ export default Signup
                 mdi-close
             </v-icon>
         </v-btn>
+        <Notification :notificationShow="notificationShow" :notificationText="notificationText" :checkIcon="checkIcon" />
     </div>
 </template>
 

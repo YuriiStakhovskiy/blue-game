@@ -48,8 +48,8 @@ const Login = defineComponent({
         // methods
         const handleLoginFormSubmit = (): void => {
             dispatchSignIn({
-                account: "sniper",
-                password: 123456
+                uid: "sniper",
+                password: "123456"
             })
             setAuthModalType("");
             emit('close');
@@ -86,9 +86,9 @@ export default Login
                     <v-text-field :label="t('signup.formPage.password')" class="form-textfield dark-textfield"
                         variant="solo" density="comfortable" :type="isShowPassword ? 'text' : 'password'"
                         v-model="formData.password" />
-                    <img v-if="isShowPassword" src="@/assets/login/svg/icon_public_07.svg" class="disable-password"
+                    <img v-if="isShowPassword" src="@/assets/public/svg/icon_public_07.svg" class="disable-password"
                         @click="showPassword" />
-                    <img v-else src="@/assets/login/svg/icon_public_06.svg" class="disable-password" @click="showPassword" />
+                    <img v-else src="@/assets/public/svg/icon_public_06.svg" class="disable-password" @click="showPassword" />
                 </v-row>
                 <v-row>
                     <p class="ml-9 login-forget-passwrod-text" @click="currentPage = PAGE_TYPE.FORGOT_PASSWORD">
@@ -122,7 +122,7 @@ export default Login
             <!-- Forgot password -->
             <div v-if="currentPage == PAGE_TYPE.FORGOT_PASSWORD" class="full-width">
                 <v-row class="mt-8 d-flex justify-center">
-                    <img src="@/assets/login/svg/logo2.svg" class="logo-image mr-2">
+                    <img src="@/assets/login/image/logo2.png" class="logo-image mr-2">
                     <span class="logo-text purple text-large">BLUE</span>
                     <span class="logo-text yellow text-large">GAME</span>
                 </v-row>

@@ -58,14 +58,22 @@ export class Network {
    * @param next      Callback
    * @param type      send type
    */
-  public sendMsg(route: string, msg: any, next: Function, type: SENDTYPE = SENDTYPE.SOCKET) {
+  public async sendMsg(route: string, msg: any, next: Function, type: SENDTYPE = SENDTYPE.SOCKET, requestType: SENDTYPE = SENDTYPE.POST) {
     // Build a contract structure
     let msgData = this.msgParsing(route, msg, type)
 
+    console.log(msgData);
+
     switch (type) {
       case SENDTYPE.HTTP:
-        this.POST(route, msgData, next)
-        break
+        switch (requestType) {
+          case SENDTYPE.GET:
+            await this.GET(route, msgData, next);
+            break;
+          case SENDTYPE.POST:
+            await this.POST(route, msgData, next)
+            break
+        }
       case SENDTYPE.SOCKET:
         this.socketReq(route, msgData, next)
         break
@@ -81,12 +89,12 @@ export class Network {
    * @param next
    * @param timeout
    */
-  private POST(route: string, msg: any, next: Function) {
+  private async POST(route: string, data: any, next: Function) {
     this.request = this.createRequestFunction(this.service)
-    this.request({
+    await this.request({
       url: route,
       method: 'POST',
-      msg
+      data
     }).then((response: any) => {
       next(response);
     })
@@ -97,12 +105,14 @@ export class Network {
    * @param route
    * @param msg
    */
-  private GET(route: string, msg: any) {
+  private GET(route: string, data: any, next: Function) {
     this.request = this.createRequestFunction(this.service)
     return this.request({
       url: route,
       method: 'GET',
-      msg
+      data
+    }).then((response: any) => {
+      next(response);
     })
   }
 
@@ -320,7 +330,7 @@ export class Network {
             break
           case 401:
             // When the token expires, directly log out and force refresh the page (redirect to the login page)
-            location.reload()
+            // location.reload()
             break
           case 403:
             error.message = 'access denied'
@@ -363,15 +373,14 @@ export class Network {
    */
   private createRequestFunction(
     service: AxiosInstance,
-    timeout: number = this.netCfg.getTimeout()
+    timeout: number = this.netCfg.getTimeout(),
+    token: string | undefined = this.netCfg.getToken()
   ) {
-    const token = this.netCfg.getToken();
-    console.log(import.meta.env.VITE_BASE_API);
     return function <T>(config: AxiosRequestConfig): Promise<T> {
       const configDefault = {
         headers: {
           "Authorization": 'Bearer ' + token,
-          "X-Language": "en"
+          "X-Language": "en",
         },
         timeout: timeout,
         baseURL: import.meta.env.VITE_BASE_API,
