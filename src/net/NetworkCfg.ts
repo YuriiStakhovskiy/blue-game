@@ -8,6 +8,7 @@ export namespace NETWORK {
 
   //Business logic after entering the home page
   export class HOME_PAGE {
+    static USER_AMOUNT = 'user/amount'; // user amount
     static USER_INFO = '/user/info'; // user profile
     static USER_CHANGE = '/user/change'; // user update
   }

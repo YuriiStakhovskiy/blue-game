@@ -2,6 +2,8 @@
 import { ref, watch, computed, onMounted } from "vue"
 import { useI18n } from "vue-i18n";
 import { useDisplay } from "vuetify";
+import { authStore } from "@/store/auth";
+import { storeToRefs } from "pinia";
 import { type GetUserInfo } from "@/interface/user";
 import EditNickname from "@/components/account/user_information/dialog/EditNickname.vue";
 import EditPassword from "@/components/account/user_information/dialog/EditPassword.vue";
@@ -11,15 +13,9 @@ import Notification from "@/components/global/notification/index.vue";
 const { t } = useI18n();
 const { width } = useDisplay()
 
-const userInfo = ref<GetUserInfo>({
-    id: "1",
-    avatar: new URL("@/assets/public/image/ua_public_10.png", import.meta.url).href,
-    nickName: "DanDan",
-    email: "anderson.bluegame@gmail.com",
-    password: "",
-    area: "en",
-    phoneNumber: "+5517991696669",
-    verified: false,
+const userInfo = computed((): GetUserInfo => {
+    const { getUserInfo } = storeToRefs(authStore());
+    return getUserInfo.value;
 })
 
 const mobileWidth: any = computed(() => {
@@ -69,8 +65,11 @@ const userDialogHide = () => {
     editEmailDialog.value = false;
 }
 
+const submitNickName = (name: string) => {
+    userInfo.value.name = name
+}
+
 const handleVerifyCode = () => {
-    userInfo.value.verified = true;
 }
 </script>
 
@@ -85,7 +84,7 @@ const handleVerifyCode = () => {
                     <v-list-item style="height: 100%;">
                         <v-list-item-title class="ml-2">
                             <div class="text-400-12 text-gray">{{ t('account.item.nick_name_text') }}</div>
-                            <div class="text-600-12">{{ userInfo.nickName }}</div>
+                            <div class="text-600-12">{{ userInfo.name }}</div>
                         </v-list-item-title>
                         <template v-slot:append>
                             <v-btn class="account-edit-btn" @click="editNicknameDialogShow">{{
@@ -105,7 +104,7 @@ const handleVerifyCode = () => {
                         </v-list-item-title>
                         <template v-slot:append>
                             <v-btn class="account-edit-btn" @click="editEmailDialogShow">
-                                <img src="@/assets/public/svg/icon_public_08.svg" v-if="userInfo.verified" />
+                                <img src="@/assets/public/svg/icon_public_08.svg" v-if="userInfo.email_confirmd" />
                                 <img src="@/assets/public/svg/icon_public_09.svg" v-else />
                                 {{ t('account.edit_text') }}
                             </v-btn>
@@ -147,7 +146,7 @@ const handleVerifyCode = () => {
                                         <div class="text-400-12 text-gray">
                                             {{ t('account.item.area_text') }}
                                         </div>
-                                        <div>
+                                        <div class="d-flex align-center justify-center">
                                             <img src="@/assets/public/image/img_public_100.png" />
                                             <v-icon class="ml-1">mdi-chevron-down</v-icon>
                                         </div>
@@ -157,9 +156,9 @@ const handleVerifyCode = () => {
                         </v-col>
                         <v-col cols="8" lg="9" class="pl-0">
                             <v-card color="#1C1929" theme="dark" class="m-user-info-item">
-                                <v-list-item  style="height: 100%;">
+                                <v-list-item style="height: 100%;">
                                     <v-list-item-title class="ml-2">
-                                        <div class="text-600-14 text-gray">{{ userInfo.phoneNumber }}</div>
+                                        <div class="text-600-14 text-gray">{{ userInfo.phone }}</div>
                                     </v-list-item-title>
                                     <template v-slot:append>
                                         <v-btn class="account-edit-btn" @click="handlePhonNumber">
@@ -174,7 +173,7 @@ const handleVerifyCode = () => {
             </v-col>
         </v-row>
         <v-dialog v-model="dialogVisible" :width="mobileWidth < 600 ? 330 : 471">
-            <EditNickname v-if="editNicknameDialog" @userDialogHide="userDialogHide" :email="userInfo.email" />
+            <EditNickname v-if="editNicknameDialog" @userDialogHide="userDialogHide" :email="userInfo.email"  @submitNickName="submitNickName"/>
             <EditPassword v-if="editPasswordDialog" @userDialogHide="userDialogHide" />
             <EditEmail v-if="editEmailDialog" @userDialogHide="userDialogHide" />
         </v-dialog>

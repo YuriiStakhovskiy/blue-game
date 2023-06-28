@@ -23,8 +23,24 @@ export interface GetUserInfo {
     locked_personal_info_fields: Array<string>,
     create_at: number
 }
+export interface GetUserAmount {
+    amount: number,
+    currency: {
+        fiat: true,
+        name: string,
+        symbol: string,
+        type: string,
+    },
+    withdraw: 111111,
+    rate: 1000
+}
 export type GetUserInfoResponseData = {
     code: number
     data: GetUserInfo
+    message: string
+}
+export type GetUserAmountResponseData = {
+    code: number
+    data: GetUserAmount
     message: string
 }

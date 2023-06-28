@@ -121,7 +121,12 @@ onMounted(() => {
             <v-menu :close-on-content-click=false content-class="personal-menu">
                 <template v-slot:activator="{ props }">
                     <v-btn class="deposit-header-btn" v-bind="props" @click="handlePersonalInfoToggle">
-                        <img src="@/assets/public/svg/icon_public_100.svg" width="48" height="48" class="ml-4" />
+                        <div class="deposit-header-account-bg ml-4 relative">
+                            <div class="deposit-header-account-bg-1">
+                                <img src="@/assets/public/svg/icon_public_59.svg" width="24"
+                                    class="deposit-header-account-position" />
+                            </div>
+                        </div>
                         <v-icon class="header-mdi-icon">mdi-chevron-right</v-icon>
                     </v-btn>
                 </template>
@@ -352,5 +357,32 @@ onMounted(() => {
     .v-input--horizontal .v-input__append {
         margin-inline-start: 0px !important;
     }
+}
+
+.deposit-header-account-bg {
+    position: relative;
+    width: 48px;
+    height: 48px;
+    border-radius: 48px;
+    background: #211F31;
+}
+
+.deposit-header-account-bg-1 {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    border-radius: 38px;
+    background: #29253C;
+}
+
+.deposit-header-account-position {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 </style>

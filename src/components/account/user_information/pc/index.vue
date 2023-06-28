@@ -106,7 +106,7 @@ const handleVerifyCode = () => {
                                         <div class="text-400-12 text-gray">
                                             {{ t('account.item.area_text') }}
                                         </div>
-                                        <div>
+                                        <div class="d-flex align-center justify-center">
                                             <img src="@/assets/public/image/img_public_100.png" />
                                             <v-icon class="ml-1">mdi-chevron-down</v-icon>
                                         </div>
