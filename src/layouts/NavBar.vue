@@ -103,11 +103,11 @@ onMounted(() => {
                 <input type="checkbox" id="casino-toggle" />
                 <label for="casino-toggle">
                     <div class="casino">
-                        <img src="@/assets/public/svg/Casino.svg" />
+                        <img src="@/assets/public/svg/icon_public_34.svg" />
                         <P>{{ t('navBar.casino') }}</P>
                     </div>
                     <div class="sport">
-                        <img src="@/assets/public/svg/Sport.svg" />
+                        <img src="@/assets/public/svg/icon_public_40.svg" />
                         <P>{{ t('navBar.sport') }}</P>
                     </div>
                 </label>
@@ -152,7 +152,7 @@ onMounted(() => {
         <v-list v-model:opened="open">
             <v-list-group value="Casino">
                 <template v-slot:activator="{ props }">
-                    <v-list-item class="avatar-img" v-bind="props" prepend-avatar="@/assets/public/svg/Casino.svg"
+                    <v-list-item class="avatar-img" v-bind="props" prepend-avatar="@/assets/public/svg/icon_public_34.svg"
                         :title="t('navBar.casino')" link value="casino"></v-list-item>
                 </template>
                 <v-card color="#211F31" theme="dark" class="ma-2">
@@ -183,7 +183,7 @@ onMounted(() => {
             </v-list-group>
         </v-list>
         <v-list>
-            <v-list-item class="avatar-img" prepend-avatar="@/assets/public/svg/Sport.svg" :title="t('navBar.sport')"
+            <v-list-item class="avatar-img" prepend-avatar="@/assets/public/svg/icon_public_40.svg" :title="t('navBar.sport')"
                 value="sport"></v-list-item>
         </v-list>
         <v-divider class="divider"></v-divider>
@@ -226,11 +226,11 @@ onMounted(() => {
                 <input type="checkbox" id="theme-toggle" />
                 <label for="theme-toggle">
                     <div class="dark">
-                        <img src="@/assets/public/svg/icon_public_58.svg" />
+                        <img src="@/assets/public/svg/icon_public_46.svg" />
                         <p>{{ t('navBar.sound_mode.on') }}</p>
                     </div>
                     <div class="light">
-                        <img src="@/assets/public/svg/icon_public_59.svg" />
+                        <img src="@/assets/public/svg/icon_public_47.svg" />
                         <p>{{ t('navBar.sound_mode.off') }}</p>
                     </div>
                 </label>

@@ -46,11 +46,11 @@ const currencyList = ref<Array<GetCurrencyItem>>([
         name: "CLP"
     },
     {
-        icon: new URL("@/assets/public/svg/icon_public_88.svg", import.meta.url).href,
+        icon: new URL("@/assets/public/svg/icon_public_89.svg", import.meta.url).href,
         name: "USD"
     },
     {
-        icon: new URL("@/assets/public/svg/icon_public_88.svg", import.meta.url).href,
+        icon: new URL("@/assets/public/svg/icon_public_90.svg", import.meta.url).href,
         name: "COP"
     },
 ])

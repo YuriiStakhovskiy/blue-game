@@ -2,6 +2,8 @@ export type langType = {
   main: {
     signupButton: string,
     loginButton: string,
+    logo_text_1: string,
+    logo_text_2: string,
   },
   login: {
     formPage: {

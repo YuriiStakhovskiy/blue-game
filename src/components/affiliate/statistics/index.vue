@@ -85,7 +85,7 @@ const mobileWidth = computed(() => {
                 <v-row class="justify-center">
                     <v-col cols="12" md="4" lg="4" class="text-center">
                         <div v-if="mobileWidth > 960">
-                            <img src="@/assets/affiliate/statistics/image/img_public_16.png"
+                            <img src="@/assets/public/image/img_public_16.png"
                                 :class="[mobileWidth < 960 ? 'pa-4' : 'pa-10']" />
                             <p class="statistics-profit-cash-text">R$ 19,34</p>
                             <p class="statistics-profit-text pa-0" :class="[mobileWidth < 960 ? 'my-2' : 'my-4']">
@@ -101,7 +101,7 @@ const mobileWidth = computed(() => {
                                     </p>
                                 </v-col>
                                 <v-col cols="6">
-                                    <img src="@/assets/affiliate/statistics/image/img_public_16.png"
+                                    <img src="@/assets/public/image/img_public_16.png"
                                         :class="[mobileWidth < 960 ? 'pa-4' : 'pa-10']" />
                                 </v-col>
                             </v-row>
@@ -138,7 +138,7 @@ const mobileWidth = computed(() => {
                 <v-row class="justify-center">
                     <v-col cols="12" md="4" lg="4" class="text-center">
                         <div v-if="mobileWidth > 960">
-                            <img src="@/assets/affiliate/statistics/image/img_public_16.png"
+                            <img src="@/assets/public/image/img_public_16.png"
                                 :class="[mobileWidth < 960 ? 'pa-4' : 'pa-10']" />
                             <p class="statistics-profit-cash-text">R$ 19,34</p>
                             <p class="statistics-profit-text pa-0" :class="[mobileWidth < 960 ? 'my-2' : 'my-4']">
@@ -154,7 +154,7 @@ const mobileWidth = computed(() => {
                                     </p>
                                 </v-col>
                                 <v-col cols="6">
-                                    <img src="@/assets/affiliate/statistics/image/img_public_16.png"
+                                    <img src="@/assets/public/image/img_public_16.png"
                                         :class="[mobileWidth < 960 ? 'pa-4' : 'pa-10']" />
                                 </v-col>
                             </v-row>
@@ -192,7 +192,7 @@ const mobileWidth = computed(() => {
                 <v-row class="justify-center">
                     <v-col cols="12" md="4" lg="4" class="text-center">
                         <div v-if="mobileWidth > 960">
-                            <img src="@/assets/affiliate/statistics/image/img_public_16.png"
+                            <img src="@/assets/public/image/img_public_16.png"
                                 :class="[mobileWidth < 960 ? 'pa-4' : 'pa-10']" />
                             <p class="statistics-profit-cash-text">R$ 19,34</p>
                             <p class="statistics-profit-text pa-0" :class="[mobileWidth < 960 ? 'my-2' : 'my-4']">
@@ -208,7 +208,7 @@ const mobileWidth = computed(() => {
                                     </p>
                                 </v-col>
                                 <v-col cols="6">
-                                    <img src="@/assets/affiliate/statistics/image/img_public_16.png"
+                                    <img src="@/assets/public/image/img_public_16.png"
                                         :class="[mobileWidth < 960 ? 'pa-4' : 'pa-10']" />
                                 </v-col>
                             </v-row>

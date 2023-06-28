@@ -81,13 +81,15 @@ const Login = defineComponent({
                 await dispatchUserProfile();
                 state.loading = false;
                 state.notificationShow = !state.notificationShow;
-                state.checkIcon = new URL("@/assets/public/svg/icon_public_17.svg", import.meta.url).href
+                state.checkIcon = new URL("@/assets/public/svg/icon_public_18.svg", import.meta.url).href
                 state.notificationText = t('login.submit_result.success_text')
-                setAuthModalType("");
-                emit('close');
+                setTimeout(() => {
+                    setAuthModalType("");
+                    emit('close');
+                }, 1000)
             } else {
                 state.notificationShow = !state.notificationShow;
-                state.checkIcon = new URL("@/assets/public/svg/icon_public_18.svg", import.meta.url).href
+                state.checkIcon = new URL("@/assets/public/svg/icon_public_17.svg", import.meta.url).href
                 state.notificationText = t('login.submit_result.err_text')
             }
         }
@@ -135,8 +137,8 @@ export default Login
                     </p>
                 </v-row>
                 <v-row class="mt-12">
-                    <v-btn :loading="loading" class="ma-3 button-bright text-none" width="-webkit-fill-available" height="60px"
-                        :disabled="!isFormDataReady" :onclick="handleLoginFormSubmit">
+                    <v-btn :loading="loading" class="ma-3 button-bright text-none" width="-webkit-fill-available"
+                        height="60px" :disabled="!isFormDataReady" :onclick="handleLoginFormSubmit">
                         {{ t('login.formPage.button') }}
                     </v-btn>
                 </v-row>
@@ -157,7 +159,7 @@ export default Login
                         <div class="d-flex justify-space-around bg-surface-variant social-icon-wrapper">
                             <v-sheet v-for="n in 4" :key="n" color="#131828" class="rounded">
                                 <v-btn color="grey-darken-4" class="social-icon-button" icon="">
-                                    <img :src="`src/assets/login/svg/${iconNameList[n - 1]}.svg`" />
+                                    <img :src="`src/assets/public/svg/${iconNameList[n - 1]}.svg`" />
                                 </v-btn>
                             </v-sheet>
                         </div>
@@ -168,8 +170,8 @@ export default Login
             <div v-if="currentPage == PAGE_TYPE.FORGOT_PASSWORD" class="full-width">
                 <v-row class="mt-8 d-flex justify-center">
                     <img src="@/assets/login/image/logo2.png" class="logo-image mr-2">
-                    <span class="logo-text purple text-large">BLUE</span>
-                    <span class="logo-text yellow text-large">GAME</span>
+                    <span class="logo-text purple text-large">{{ t('main.logo_text_1') }}</span>
+                    <span class="logo-text yellow text-large">{{ t('main.logo_text_2') }}</span>
                 </v-row>
                 <v-row class="mt-8">
                     <p class="label-text-md2 white center full-width pl-12 pr-12">

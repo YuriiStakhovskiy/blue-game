@@ -15,6 +15,7 @@ import { useDisplay } from 'vuetify'
 import { useRouter } from "vue-router";
 
 const { setAuthModalType } = authStore();
+const { dispatchUserProfile } = authStore();
 const { setRightBarToggle } = appBarStore();
 const { setNavBarToggle } = appBarStore();
 const { setDepositDialogToggle } = appBarStore();
@@ -60,6 +61,11 @@ const token = computed(() => {
   const { getToken } = storeToRefs(authStore());
   return getToken.value;
 });
+
+const userInfo = computed(() => {
+  const { getUserInfo } = storeToRefs(authStore());
+  return getUserInfo.value
+})
 
 const rightBarToggle = computed(() => {
   const { getRightBarToggle } = storeToRefs(appBarStore());
@@ -166,11 +172,11 @@ const currencyList = ref<Array<GetCurrencyItem>>([
     name: "CLP"
   },
   {
-    icon: new URL("@/assets/public/svg/icon_public_88.svg", import.meta.url).href,
+    icon: new URL("@/assets/public/svg/icon_public_89.svg", import.meta.url).href,
     name: "USD"
   },
   {
-    icon: new URL("@/assets/public/svg/icon_public_88.svg", import.meta.url).href,
+    icon: new URL("@/assets/public/svg/icon_public_90.svg", import.meta.url).href,
     name: "COP"
   },
 ])
@@ -238,7 +244,7 @@ const refferalDialogShow = () => {
   setUserNavBarToggle(false);
 }
 
-onMounted(() => {
+onMounted(async () => {
   setAuthModalType("");
   mailCount.value = mailList.value.length
   if (mobileWidth.value > 1280) {
@@ -250,6 +256,9 @@ onMounted(() => {
   } else {
     appBarWidth.value = "app-bar-mobile";
   }
+  if (token.value != undefined) {
+    await dispatchUserProfile();
+  }
 });
 </script>
 
@@ -258,8 +267,10 @@ onMounted(() => {
     <v-app-bar-nav-icon @click.stop="setNavBarToggle(true)"
       v-if="!navBarToggle && mobileWidth > 600"></v-app-bar-nav-icon>
     <v-toolbar-title v-if="mobileWidth > 800">
-      <v-btn style="height: 60px" @click="goHomePage">
-        <img src="@/assets/public/svg/logo.svg" class="mt-3" />
+      <v-btn style="height: 60px" @click="goHomePage" class="align-center mt-2">
+        <img src="@/assets/public/svg/logo2.svg" />
+        <p class="logo-title-1 ml-1">{{ t('main.logo_text_1') }}</p>
+        <p class="logo-title-2 ml-1">{{ t('main.logo_text_2') }}</p>
       </v-btn>
     </v-toolbar-title>
     <v-toolbar-title v-else>
@@ -268,12 +279,8 @@ onMounted(() => {
           <img src="@/assets/public/svg/logo2.svg" class="mt-3" />
         </div>
         <div class="relative">
-          <div class="logo-text-1">
-            <img src="@/assets/public/svg/BLUE.svg" class="mt-3" width="46" />
-          </div>
-          <div class="logo-text-2">
-            <img src="@/assets/public/svg/GAME.svg" class="mt-3" width="60" />
-          </div>
+          <p class="m-logo-title-1 mt-1">{{ t('main.logo_text_1') }}</p>
+          <p class="m-logo-title-2 mt-1">{{ t('main.logo_text_2') }}</p>
         </div>
       </div>
     </v-toolbar-title>
@@ -341,14 +348,14 @@ onMounted(() => {
             </v-card>
           </template>
         </v-menu>
-        <v-menu offset="10" class="user-menu" :scrim="true">
+        <v-menu offset="20" class="user-menu" :scrim="true">
           <template v-slot:activator="{ props }">
             <v-card color="#29263C" theme="dark" class="mr-4 mt-2 user-card-height" v-if="mobileWidth > 600">
               <v-list-item class="user-item" v-bind="props" value="user dropdown">
                 <div class="d-flex align-center">
                   <img :src="user.avatar" class="user-avatar-width" />
                   <div class="ml-1">
-                    <div>{{ user.name }}</div>
+                    <div>{{ userInfo.name }}</div>
                     <div class="d-flex align-center">
                       <div class="user-grade-text">{{ user.grade }}</div>
                       <img src="@/assets/public/svg/icon_public_50.svg" class="user-drop-arrow-position" />
@@ -377,7 +384,7 @@ onMounted(() => {
               <template v-slot:prepend>
                 <div>
                   <div style="height: 40px;">
-                    <img src="@/assets/vip/images/img_vip_02.png" />
+                    <img src="@/assets/app_bar/image/img_vip_02.png" />
                   </div>
                   <div class="text-800-14 color-F9BC01">{{ user.grade }}</div>
                 </div>
@@ -409,7 +416,7 @@ onMounted(() => {
                 </div>
               </v-list-item-title>
               <!-- <template v-slot:prepend>
-                        <img src="@/assets/vip/images/img_vip_02.png" style="margin-left: -6px;" />
+                        <img src="@/assets/app_bar/image/img_vip_02.png" style="margin-left: -6px;" />
                       </template>
                       <v-list-item-title class="ml-2">
                         <div class="grade-color d-flex">
@@ -422,9 +429,9 @@ onMounted(() => {
                         </div>
                       </v-list-item-title>
                       <template v-slot:append>
-                        <img src="@/assets/app_bar/svg/img_public_05.svg" v-ripple.center class="ml-6" />
-                        <img src="@/assets/app_bar/svg/img_public_05.svg" v-ripple.center class="ml-1" />
-                        <img src="@/assets/app_bar/svg/img_public_05.svg" v-ripple.center class="ml-1" />
+                        <img src="@/assets/public/svg/img_public_05.svg" v-ripple.center class="ml-6" />
+                        <img src="@/assets/public/svg/img_public_05.svg" v-ripple.center class="ml-1" />
+                        <img src="@/assets/public/svg/img_public_05.svg" v-ripple.center class="ml-1" />
                       </template> -->
             </v-list-item>
             <v-list-item class="user-item" value="account" router :to="{ name: 'Account' }">
@@ -465,8 +472,8 @@ onMounted(() => {
               </template>
               <v-list-item-title class="ml-2">{{ t('appBar.refer_friend') }}</v-list-item-title>
               <template v-slot:append>
-                <img src="@/assets/public/image/img_public_09.png" v-ripple.center
-                  class="ml-6 refer-friend-img-position" />
+                <img src="@/assets/public/image/img_public_09.png" v-ripple.center class="ml-6 refer-friend-img-position"
+                  width="62" />
                 <p class="refer-friend-text-position">{{ t('appBar.earn_money') }}</p>
               </template>
             </v-list-item>
@@ -570,20 +577,42 @@ onMounted(() => {
 </template>
 
 <style lang="scss">
+.logo-title-1 {
+  color: #637BF9;
+  font-size: 28px !important;
+  font-weight: 900 !important;
+  font-family: "Bauhaus 93";
+}
+
+.logo-title-2 {
+  color: #F9BC01;
+  font-size: 28px !important;
+  font-weight: 900 !important;
+  font-family: "Bauhaus 93";
+}
+
 .user-menu .v-menu__content {
   max-height: 100% !important;
 }
 
-.logo-text-1 {
+.m-logo-title-1 {
   position: absolute;
   top: -28px;
   left: 12px;
+  color: #637BF9;
+  font-size: 20px !important;
+  font-weight: 900 !important;
+  font-family: "Bauhaus 93";
 }
 
-.logo-text-2 {
+.m-logo-title-2 {
   position: absolute;
   top: -5px;
   left: 4px;
+  color: #F9BC01;
+  font-size: 20px !important;
+  font-weight: 900 !important;
+  font-family: "Bauhaus 93";
 }
 
 .app-bar-pc {
@@ -738,7 +767,7 @@ onMounted(() => {
   margin-left: auto !important;
 
   .v-overlay__content {
-    top: 74px !important;
+    // top: 74px !important;
   }
 
   .v-overlay__content::after {

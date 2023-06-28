@@ -1,12 +1,27 @@
 export interface GetUserInfo {
-    id: string
-    avatar: any
-    nickName: string
-    email: string,
-    password: string,
-    area: string,
-    phoneNumber: string,
-    verified: boolean
+    uid: string
+    name: string
+    avatar: string
+    first_name: string
+    last_name: string
+    id_number: string
+    email: string
+    email_confirmd: false,
+    phone: string
+    phone_confirmd: false,
+    date_of_birth: string
+    county: string
+    state: string
+    city: string
+    address: string
+    postal_code: string
+    language: string
+    locale: string
+    initial_profile_complete: false,
+    is_supended: 0,
+    sys_communications: false,
+    locked_personal_info_fields: Array<string>,
+    create_at: number
 }
 export type GetUserInfoResponseData = {
     code: number

@@ -5,6 +5,7 @@ import { useDisplay } from "vuetify";
 import { appBarStore } from "@/store/appBar";
 import { storeToRefs } from "pinia";
 import { type GetUserInfo } from "@/interface/user";
+import { authStore } from "@/store/auth";
 import UserInformation from "@/components/account/user_information/pc/index.vue";
 import MUserInformation from "@/components/account/user_information/mobile/index.vue";
 import GameProviders from "@/components/global/game_provider/index.vue";
@@ -19,17 +20,6 @@ const accountWidth = ref<string>('account-container');
 const activeMenuIndex = ref<number>(0);
 const mobileDialogVisible = ref<boolean>(false);
 const selectedMenuItem = ref<string>(t('account.menu.user_info_text'));
-
-const userInfo = ref<GetUserInfo>({
-    id: "1",
-    avatar: new URL("@/assets/public/image/ua_public_10.png", import.meta.url).href,
-    nickName: "DanDan",
-    email: "anderson.bluegame@gmail.com",
-    password: "",
-    area: "en",
-    phoneNumber: "+5517991696669",
-    verified: false,
-})
 
 const menuList = ref<Array<string>>([
     t('account.menu.user_info_text'),
@@ -56,6 +46,11 @@ const selectActiveIndex = (index: number) => {
 
 const mobileWidth: any = computed(() => {
     return width.value;
+})
+
+const userInfo = computed((): GetUserInfo => {
+    const { getUserInfo } = storeToRefs(authStore());
+    return getUserInfo.value;
 })
 
 const rightBarToggle = computed(() => {
@@ -132,7 +127,7 @@ onMounted(() => {
     </div>
     <div v-else>
         <v-dialog v-model="mobileDialogVisible" width="312">
-            <MDialog @mDialogHide="mDialogHide" :avatar="userInfo.avatar" :nickName="userInfo.nickName"
+            <MDialog @mDialogHide="mDialogHide" :avatar="userInfo.avatar" :nickName="userInfo.name"
                 @selectActiveIndex="selectActiveIndex" />
         </v-dialog>
         <div class="m-account-container pt-8">

@@ -19,10 +19,10 @@ export default SignupHeader
 <template>
     <v-row class="signup-header-container">
         <v-col cols="10" offset="1" class="pl-11 pt-9">
-            <!-- <v-row>
-                <span class="logo-text purple">BLUE</span>
-                <span class="logo-text yellow">GAME</span>
-            </v-row> -->
+            <v-row>
+                <span class="logo-text purple">{{t('main.logo_text_1')}}</span>
+                <span class="logo-text yellow">{{t('main.logo_text_2')}}</span>
+            </v-row>
             <v-row>
                 <p class="logo-text2 white">
                     {{ t('signup.formPage.header.titleLine1') }}
@@ -32,7 +32,7 @@ export default SignupHeader
             </v-row>
         </v-col>
         <img src="@/assets/login/image/bg_su_01.png" class="m-bg-image">
-        <img src="@/assets/public/svg/logo.svg" class="logo-image">
+        <img src="@/assets/public/svg/logo2.svg" class="logo-image">
         <img src="@/assets/login/image/img_su_01.png" class="m-coin-image">
     </v-row>
 </template>
@@ -57,8 +57,8 @@ export default SignupHeader
 
     img.logo-image {
         position: absolute;
-        top: 24px;
-        left: 24px;
+        top: 22px;
+        left: 18px;
     }
 
     img.m-coin-image {
@@ -67,6 +67,18 @@ export default SignupHeader
         right: 0px;
         width: 280px;
         height: 197px;
+    }
+
+    .signup-logo-title-1-position {
+        position: absolute;
+        top: 25px;
+        left: 70px;
+    }
+
+    .signup-logo-title-2-position {
+        position: absolute;
+        top: 25px;
+        left: 130px;
     }
 }
 

@@ -5,6 +5,8 @@ export const lang: langType = {
   main: {
     signupButton: "Register",
     loginButton: "Login",
+    logo_text_1: "BLUE",
+    logo_text_2: "GAME",
   },
   login: {
     formPage: {

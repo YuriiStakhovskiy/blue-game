@@ -55,7 +55,7 @@ onMounted(() => {
                 {{ t('refferal.dialog.header.body_text') }}
             </div>
             <div class="mt-6">
-                <img src="@/assets/public/svg/bg_public_02_01.svg" class="full-width" />
+                <img src="@/assets/public/image/bg_public_02_01.png" class="full-width" />
             </div>
             <div class="mt-6 mx-10 white text-400-16">
                 {{ t('refferal.description.text_1') }}
@@ -81,7 +81,7 @@ onMounted(() => {
         </template>
         <template v-else>
             <div class="refferal-dialog-header text-center">
-                <img src="@/assets/refferal/image/img_public_08.png" style="margin-top: -10px" />
+                <img src="@/assets/public/image/img_public_08.png" style="margin-top: -10px" />
                 <div class="mt-8 text-center text-700-18 yellow">
                     {{ t('refferal.dialog.header.title_text') }}
                 </div>

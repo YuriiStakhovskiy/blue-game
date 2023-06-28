@@ -90,91 +90,91 @@ const selectedVIPTab = ref<string>(t('vip.all_bonus_text'));
 const spinItems = ref<Array<GetSpinData>>([
     {
         id: 1,
-        image: new URL("@/assets/vip/images/game_1046_2.png", import.meta.url).href,
+        image: new URL("@/assets/vip/image/game_1046_2.png", import.meta.url).href,
         title: "Free Spins Hot Fiesta",
         content: "Free Spins on our Hot Fiesta game, Good luck!"
     },
     {
         id: 2,
-        image: new URL("@/assets/vip/images/game_1046_2.png", import.meta.url).href,
+        image: new URL("@/assets/vip/image/game_1046_2.png", import.meta.url).href,
         title: "Free Spins Hot Fiesta",
         content: "Free Spins on our Hot Fiesta game, Good luck!"
     },
     {
         id: 3,
-        image: new URL("@/assets/vip/images/game_1046_1.png", import.meta.url).href,
+        image: new URL("@/assets/vip/image/game_1046_1.png", import.meta.url).href,
         title: "Free Spins Hot Fiesta",
         content: "Free Spins on our Hot Fiesta game, Good luck!"
     },
     {
         id: 4,
-        image: new URL("@/assets/vip/images/game_1046_1.png", import.meta.url).href,
+        image: new URL("@/assets/vip/image/game_1046_1.png", import.meta.url).href,
         title: "Free Spins Hot Fiesta",
         content: "Free Spins on our Hot Fiesta game, Good luck!"
     },
     {
         id: 5,
-        image: new URL("@/assets/vip/images/game_1046_3.png", import.meta.url).href,
+        image: new URL("@/assets/vip/image/game_1046_3.png", import.meta.url).href,
         title: "Free Spins Hot Fiesta",
         content: "Free Spins on our Hot Fiesta game, Good luck!"
     },
     {
         id: 6,
-        image: new URL("@/assets/vip/images/game_1046_3.png", import.meta.url).href,
+        image: new URL("@/assets/vip/image/game_1046_3.png", import.meta.url).href,
         title: "Free Spins Hot Fiesta",
         content: "Free Spins on our Hot Fiesta game, Good luck!"
     },
     {
         id: 7,
-        image: new URL("@/assets/vip/images/game_1046_2.png", import.meta.url).href,
+        image: new URL("@/assets/vip/image/game_1046_2.png", import.meta.url).href,
         title: "Free Spins Hot Fiesta",
         content: "Free Spins on our Hot Fiesta game, Good luck!"
     },
     {
         id: 8,
-        image: new URL("@/assets/vip/images/game_1046_2.png", import.meta.url).href,
+        image: new URL("@/assets/vip/image/game_1046_2.png", import.meta.url).href,
         title: "Free Spins Hot Fiesta",
         content: "Free Spins on our Hot Fiesta game, Good luck!"
     },
     {
         id: 9,
-        image: new URL("@/assets/vip/images/game_1046_1.png", import.meta.url).href,
+        image: new URL("@/assets/vip/image/game_1046_1.png", import.meta.url).href,
         title: "Free Spins Hot Fiesta",
         content: "Free Spins on our Hot Fiesta game, Good luck!"
     },
     {
         id: 10,
-        image: new URL("@/assets/vip/images/game_1046_1.png", import.meta.url).href,
+        image: new URL("@/assets/vip/image/game_1046_1.png", import.meta.url).href,
         title: "Free Spins Hot Fiesta",
         content: "Free Spins on our Hot Fiesta game, Good luck!"
     },
     {
         id: 11,
-        image: new URL("@/assets/vip/images/game_1046_3.png", import.meta.url).href,
+        image: new URL("@/assets/vip/image/game_1046_3.png", import.meta.url).href,
         title: "Free Spins Hot Fiesta",
         content: "Free Spins on our Hot Fiesta game, Good luck!"
     },
     {
         id: 12,
-        image: new URL("@/assets/vip/images/game_1046_3.png", import.meta.url).href,
+        image: new URL("@/assets/vip/image/game_1046_3.png", import.meta.url).href,
         title: "Free Spins Hot Fiesta",
         content: "Free Spins on our Hot Fiesta game, Good luck!"
     },
     {
         id: 13,
-        image: new URL("@/assets/vip/images/game_1046_2.png", import.meta.url).href,
+        image: new URL("@/assets/vip/image/game_1046_2.png", import.meta.url).href,
         title: "Free Spins Hot Fiesta",
         content: "Free Spins on our Hot Fiesta game, Good luck!"
     },
     {
         id: 14,
-        image: new URL("@/assets/vip/images/game_1046_1.png", import.meta.url).href,
+        image: new URL("@/assets/vip/image/game_1046_1.png", import.meta.url).href,
         title: "Free Spins Hot Fiesta",
         content: "Free Spins on our Hot Fiesta game, Good luck!"
     },
     {
         id: 15,
-        image: new URL("@/assets/vip/images/game_1046_3.png", import.meta.url).href,
+        image: new URL("@/assets/vip/image/game_1046_3.png", import.meta.url).href,
         title: "Free Spins Hot Fiesta",
         content: "Free Spins on our Hot Fiesta game, Good luck!"
     }
@@ -333,17 +333,17 @@ const benefitElement = ref<any | null>(null);
 
 const handleWindowScroll = (even: Event) => {
 
-    const cashPosition = cashbackElement.value.getBoundingClientRect().top;
+    const cashPosition = cashbackElement.value?.getBoundingClientRect().top;
 
-    const slidePosition = slideElement.value.getBoundingClientRect().top;
+    const slidePosition = slideElement.value?.getBoundingClientRect().top;
 
-    const rewardPosition = rewardElement.value.getBoundingClientRect().top;
+    const rewardPosition = rewardElement.value?.getBoundingClientRect().top;
 
-    const spinPosition = spinElement.value.getBoundingClientRect().top;
+    const spinPosition = spinElement.value?.getBoundingClientRect().top;
 
-    const vipPosition = vipElement.value.getBoundingClientRect().top;
+    const vipPosition = vipElement.value?.getBoundingClientRect().top;
 
-    const benefitPosition = benefitElement.value.getBoundingClientRect().top;
+    const benefitPosition = benefitElement.value?.getBoundingClientRect().top;
 
     if (slidePosition < 116) {
         vipSlidePosition.value = true;
@@ -486,7 +486,7 @@ onMounted(() => {
                         <div class="text-800-20 white text-center mt-4">{{ t('vip.slider.title_text') }}</div>
                         <v-row class="full-height mx-2">
                             <v-col cols="3" class="text-center">
-                                <img src="@/assets/vip/images/img_vip_02.png" width="70" />
+                                <img src="@/assets/vip/image/img_vip_02.png" width="70" />
                                 <p class="text-800-20 yellow">{{ item.vipGrade }}</p>
                             </v-col>
                             <v-col cols="9">
@@ -549,7 +549,7 @@ onMounted(() => {
                         <div class="reward-card text-center">
                             <div class="text-800-16 yellow pt-4">{{ t('vip.reward_card_1.daily_free_bonus_text') }}</div>
                             <div class="mt-6">
-                                <img src="@/assets/vip/images/img_public_02.png" />
+                                <img src="@/assets/public/image/img_public_02.png" />
                             </div>
                             <div class="mt-10 text-600-16 white">
                                 {{ t('vip.reward_card_1.text_1') }}
@@ -616,7 +616,7 @@ onMounted(() => {
                         <div class="reward-card text-center">
                             <div class="text-800-16 yellow pt-4">{{ t('vip.reward_card_4.vip_upgrage_gift_text') }}</div>
                             <div class="mt-6 d-flex justify-center align-center">
-                                <img src="@/assets/vip/images/img_public_02.png" />
+                                <img src="@/assets/public/image/img_public_02.png" />
                                 <img src="@/assets/public/image/img_public_09.png" class="ml-4" width="83" height="58" />
                             </div>
                             <div class="mt-6 text-600-16 white">
@@ -644,7 +644,7 @@ onMounted(() => {
                 <div class="text-800-16 white pt-8 mx-10 d-flex">
                     {{ t('vip.cashback_body.text_1') }}
                     <v-btn class="text-none button-yellow ml-auto relative" height="60px" width="262px">
-                        <img src="@/assets/vip/images/img_public_10.png" class="cashback-btn-img" />
+                        <img src="@/assets/public/image/img_public_10.png" class="cashback-btn-img" />
                         {{ t('vip.cashback_body.text_2') }}
                     </v-btn>
                 </div>
@@ -659,7 +659,7 @@ onMounted(() => {
                         <v-row class="pa-3">
                             <v-col cols="6" md="3">
                                 <v-card theme="dark" color="#29253C" class="text-center pa-2 relative">
-                                    <img src="@/assets/vip/images/img_public_22.png" class="cashback-card-img" />
+                                    <img src="@/assets/public/image/img_public_22.png" class="cashback-card-img" />
                                     <p class="text-600-16 white ">{{ t('vip.cashback_body.text_11') }}</p>
                                     <p class="text-800-32 color-04D981 mt-4">0.4%</p>
                                     <p class="text-700-16 text-gray mt-4">{{ t('vip.cashback_body.text_5') }} 0.5%</p>
@@ -667,7 +667,7 @@ onMounted(() => {
                             </v-col>
                             <v-col cols="6" md="3">
                                 <v-card theme="dark" color="#29253C" class="text-center pa-2 relative">
-                                    <img src="@/assets/vip/images/img_public_22.png" class="cashback-card-img" />
+                                    <img src="@/assets/public/image/img_public_22.png" class="cashback-card-img" />
                                     <p class="text-600-16 white ">{{ t('vip.cashback_body.text_11') }}</p>
                                     <p class="text-800-32 color-04D981 mt-4">0.5%</p>
                                     <p class="text-700-16 text-gray mt-4">{{ t('vip.cashback_body.text_5') }} 0.6%</p>
@@ -675,7 +675,7 @@ onMounted(() => {
                             </v-col>
                             <v-col cols="6" md="3">
                                 <v-card theme="dark" color="#29253C" class="text-center pa-2 relative">
-                                    <img src="@/assets/vip/images/img_public_22.png" class="cashback-card-img" />
+                                    <img src="@/assets/public/image/img_public_22.png" class="cashback-card-img" />
                                     <p class="text-600-16 white ">{{ t('vip.cashback_body.text_11') }}</p>
                                     <p class="text-800-32 color-04D981 mt-4">0.5%</p>
                                     <p class="text-700-16 text-gray mt-4">{{ t('vip.cashback_body.text_5') }} 0.6%</p>
@@ -683,7 +683,7 @@ onMounted(() => {
                             </v-col>
                             <v-col cols="6" md="3">
                                 <v-card theme="dark" color="#29253C" class="text-center pa-2 relative">
-                                    <img src="@/assets/vip/images/img_public_22.png" class="cashback-card-img" />
+                                    <img src="@/assets/public/image/img_public_22.png" class="cashback-card-img" />
                                     <p class="text-600-16 white ">{{ t('vip.cashback_body.text_11') }}</p>
                                     <p class="text-800-32 color-04D981 mt-4">0.4%</p>
                                     <p class="text-700-16 text-gray mt-4">{{ t('vip.cashback_body.text_5') }} 0.5%</p>
@@ -755,7 +755,7 @@ onMounted(() => {
 
             <!------------------------   My VIP Mission -------------------------------->
 
-            <div class="vip-mission-body mx-2 pb-2" ref="vipElement" :class="tabSelect ? 'mt-16' : 'mt-6'">
+            <div class="vip-mission-body relative mx-2 pb-2" ref="vipElement" :class="tabSelect ? 'mt-16' : 'mt-6'">
                 <div class="text-800-16 white pt-8 mx-10 d-flex">
                     {{ t('vip.vip_mission_body.text_1') }}
                     <p class="ml-auto">{{ t('vip.vip_mission_body.text_2') }} <Font class="text-800-20">0</Font> {{
@@ -768,7 +768,7 @@ onMounted(() => {
                             class="text-center d-flex justify-center">
                             <v-card theme="dark" color="#29253C" class="py-5" width="210" height="256"
                                 v-if="item.type == 1">
-                                <img src="@/assets/vip/images/img_public_11.png" />
+                                <img src="@/assets/public/image/img_public_11.png" />
                                 <p class="text-500-12 text-gray mt-2">{{ t('vip.vip_mission_body.text_4') }}</p>
                                 <p class="text-600-12 white mt-1">{{ t('vip.vip_mission_body.text_5') }}</p>
                                 <v-btn class="text-none button-bright mission-btn-1 mt-12" height="34px" width="180px">
@@ -783,7 +783,7 @@ onMounted(() => {
                                 <div class="mission-time-position text-500-12 white">
                                     {{ item.time }}
                                 </div>
-                                <img src="@/assets/vip/images/img_public_11.png" />
+                                <img src="@/assets/public/image/img_public_11.png" />
                                 <p class="text-500-12 text-gray mt-2">{{ t('vip.vip_mission_body.text_4') }}</p>
                                 <p class="text-600-12 white mt-1">{{ t('vip.vip_mission_body.text_8') }}</p>
                                 <div class="mission-progress-bg mx-4 mt-6">
@@ -803,7 +803,7 @@ onMounted(() => {
                                 <div class="mission-time-position text-500-12 white">
                                     {{ item.time }}
                                 </div>
-                                <img src="@/assets/vip/images/img_public_11.png" />
+                                <img src="@/assets/public/image/img_public_11.png" />
                                 <p class="text-500-12 text-gray mt-2">{{ t('vip.vip_mission_body.text_4') }}</p>
                                 <p class="text-600-12 white mt-1">{{ t('vip.vip_mission_body.text_8') }}</p>
                                 <p class="text-600-12 white mt-1">{{ t('vip.vip_mission_body.text_10') }}</p>
@@ -813,7 +813,7 @@ onMounted(() => {
                                     </v-progress-linear>
                                 </div>
                                 <v-btn class="text-none button-bright mission-btn-1 mt-2" height="34px" width="180px">
-                                    <img src="@/assets/vip/images/img_public_14.png" class="mission-gift-img-position" />
+                                    <img src="@/assets/public/image/img_public_14.png" class="mission-gift-img-position" />
                                     {{ t('vip.vip_mission_body.text_12') }}
                                 </v-btn>
                             </v-card>
@@ -822,7 +822,7 @@ onMounted(() => {
                                 <div class="mission-completed-position text-500-12 white">
                                     {{ t('vip.vip_mission_body.text_2') }}
                                 </div>
-                                <img src="@/assets/vip/images/img_public_11.png" />
+                                <img src="@/assets/public/image/img_public_11.png" />
                                 <p class="text-500-12 text-gray mt-2">{{ t('vip.vip_mission_body.text_4') }}</p>
                                 <p class="text-600-12 white mt-1">{{ t('vip.vip_mission_body.text_5') }}</p>
                                 <p class="text-500-12 text-gray mt-6">{{ t('vip.vip_mission_body.text_13') }}</p>
@@ -832,12 +832,12 @@ onMounted(() => {
                             </v-card>
                             <v-card theme="dark" color="#29253C" class="py-5" width="210" height="256"
                                 v-if="item.type == 5">
-                                <img src="@/assets/vip/images/img_public_13.png" />
+                                <img src="@/assets/public/image/img_public_13.png" />
                                 <p class="text-500-12 text-gray mt-2">{{ t('vip.vip_mission_body.text_4') }}</p>
                                 <p class="text-600-12 white mt-1">{{ t('vip.vip_mission_body.text_5') }}</p>
                                 <p class="text-600-12 white mt-1">{{ t('vip.vip_mission_body.text_10') }}</p>
                                 <v-btn class="text-none button-dark mission-btn-3 mt-6" height="34px" width="180px">
-                                    <img src="@/assets/vip/public/icon_public_77.svg" class="mission-warning-img-position" />
+                                    <img src="@/assets/public/svg/icon_public_77.svg" class="mission-warning-img-position" />
                                     {{ t('vip.vip_mission_body.text_15') }}
                                 </v-btn>
                             </v-card>

@@ -13,6 +13,7 @@ const Signup = defineComponent({
     components: {
         ValidationBox,
         SignupHeader,
+        Notification
     },
     emits: ["close", "switch"],
     setup(props, { emit }) {
@@ -20,6 +21,7 @@ const Signup = defineComponent({
         const { t } = useI18n();
         const { name } = useDisplay();
         const { dispatchSignUp } = authStore();
+        const { dispatchUserProfile } = authStore();
 
         // initiate component state
         const state = reactive({
@@ -68,6 +70,10 @@ const Signup = defineComponent({
                 'Fourth',
                 'Fifth',
             ],
+            loading: false,
+            notificationShow: false,
+            checkIcon: new URL("@/assets/public/svg/icon_public_18.svg", import.meta.url).href,
+            notificationText: t('signup.submit_result.success_text')
         });
 
         const showPassword = () => {
@@ -95,14 +101,6 @@ const Signup = defineComponent({
             const { getErrMessage } = storeToRefs(authStore());
             return getErrMessage.value;
         })
-
-        // notification
-
-        const notificationShow = ref<boolean>(false);
-
-        const checkIcon = ref<any>(new URL("@/assets/public/svg/icon_public_17.svg", import.meta.url).href);
-
-        const notificationText = ref<string>(t('signup.submit_result.success_text'));
 
         const passwordValidationList = computed((): boolean[] => {
             const password = state.formData.password;
@@ -197,6 +195,7 @@ const Signup = defineComponent({
         const handleSignupFormSubmit = async () => {
             // state.currentPage = state.PAGE_TYPE.DISPLAY_NAME;
             console.log('sign up form submit!');
+            state.loading = true;
             await dispatchSignUp({
                 uid: state.formData.emailAddress,
                 password: state.formData.password,
@@ -207,15 +206,19 @@ const Signup = defineComponent({
                 brand: "",
                 imei: "",
             });
+            state.loading = false;
             if (success.value) {
-                notificationShow.value = !notificationShow.value;
-                checkIcon.value = new URL("@/assets/public/svg/icon_public_17.svg", import.meta.url).href;
-                notificationText.value = t('signup.submit_result.success_text');
-                // emit("close");
+                await dispatchUserProfile();
+                state.notificationShow = !state.notificationShow;
+                state.checkIcon = new URL("@/assets/public/svg/icon_public_18.svg", import.meta.url).href;
+                state.notificationText = t('signup.submit_result.success_text');
+                setTimeout(() => {
+                    emit("close");
+                }, 1000)
             } else {
-                notificationShow.value = !notificationShow.value;
-                checkIcon.value = new URL("@/assets/public/svg/icon_public_18.svg", import.meta.url).href;
-                notificationText.value = errMessage.value;
+                state.notificationShow = !state.notificationShow;
+                state.checkIcon = new URL("@/assets/public/svg/icon_public_17.svg", import.meta.url).href;
+                state.notificationText = errMessage.value;
             }
         }
 
@@ -252,9 +255,6 @@ const Signup = defineComponent({
             showPassword,
             closeDialog,
             mobileVersion,
-            notificationShow,
-            checkIcon,
-            notificationText
         }
     },
 })
@@ -308,8 +308,8 @@ export default Signup
                     </v-col>
                 </v-row>
                 <v-row>
-                    <v-btn class="ma-3 signup-btn" width="-webkit-fill-available" height="60px" :disabled="!isFormDataReady"
-                        :onclick="handleSignupFormSubmit">
+                    <v-btn :loading="loading" class="ma-3 signup-btn" width="-webkit-fill-available" height="60px"
+                        :disabled="!isFormDataReady" :onclick="handleSignupFormSubmit">
                         {{ t('signup.formPage.button') }}
                     </v-btn>
                 </v-row>
@@ -330,7 +330,7 @@ export default Signup
                         <div class="d-flex justify-space-around bg-surface-variant social-icon-wrapper">
                             <v-sheet v-for="n in 4" :key="n" color="#131828" class="rounded">
                                 <v-btn color="grey-darken-4" class="social-icon-button" icon="">
-                                    <img :src="`src/assets/login/svg/${iconNameList[n - 1]}.svg`" />
+                                    <img :src="`src/assets/public/svg/${iconNameList[n - 1]}.svg`" />
                                 </v-btn>
                             </v-sheet>
                         </div>
@@ -395,7 +395,7 @@ export default Signup
                                 @click="props.onClick"></v-btn>
                         </template>
                         <v-carousel-item v-for="(slide, i) in slides" :key="i">
-                            <img src="@/assets/login/image/ua_public_01.png">
+                            <img src="@/assets/public/image/ua_public_01.png">
                         </v-carousel-item>
                     </v-carousel>
                 </v-row>
@@ -425,8 +425,8 @@ export default Signup
                 mdi-close
             </v-icon>
         </v-btn>
-        <Notification :notificationShow="notificationShow" :notificationText="notificationText" :checkIcon="checkIcon" />
     </div>
+    <Notification :notificationShow="notificationShow" :notificationText="notificationText" :checkIcon="checkIcon" />
 </template>
 
 <style lang="scss">

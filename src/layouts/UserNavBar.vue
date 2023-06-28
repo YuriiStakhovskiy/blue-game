@@ -126,7 +126,7 @@ watch(mobileWidth, (newValue: number) => {
 </script>
 
 <template>
-    <v-navigation-drawer temporary class="nav-background pb-14" location="right" width="320" v-model="drawer">
+    <v-navigation-drawer temporary class="nav-background py-14" location="right" width="320" v-model="drawer">
         <template v-slot:prepend>
             <div class="user-navbar-position"></div>
         </template>
@@ -144,7 +144,7 @@ watch(mobileWidth, (newValue: number) => {
                 <template v-slot:prepend>
                     <div>
                         <div style="height: 40px;">
-                            <img src="@/assets/vip/images/img_vip_02.png" />
+                            <img src="@/assets/app_bar/image/img_vip_02.png" />
                         </div>
                         <div class="text-800-14 color-F9BC01">{{ user.grade }}</div>
                     </div>
@@ -176,7 +176,7 @@ watch(mobileWidth, (newValue: number) => {
                     </div>
                 </v-list-item-title>
                 <!-- <template v-slot:prepend>
-                    <img src="@/assets/vip/images/img_vip_02.png" style="margin-left: -6px;" />
+                    <img src="@/assets/app_bar/images/img_vip_02.png" style="margin-left: -6px;" />
                 </template>
                 <v-list-item-title class="ml-2">
                     <div class="grade-color d-flex">
@@ -224,14 +224,14 @@ watch(mobileWidth, (newValue: number) => {
                 </template>
                 <v-list-item-title class="ml-2">{{ t('appBar.transactions') }}</v-list-item-title>
             </v-list-item>
-            <v-list-item class="user-item refer-friend-background" value="refer_friend" @click="refferalDialogShow">
+            <v-list-item class="user-item refer-friend-background" height="48" value="refer_friend" @click="refferalDialogShow">
                 <template v-slot:prepend>
                     <img src="@/assets/public/svg/icon_public_64.svg" />
                 </template>
                 <v-list-item-title class="ml-2">{{ t('appBar.refer_friend') }}</v-list-item-title>
                 <template v-slot:append>
                     <img src="@/assets/public/image/img_public_09.png" v-ripple.center
-                        class="ml-6 refer-friend-img-position" />
+                        class="ml-6 refer-friend-img-position" width="64" />
                     <p class="refer-friend-text-position">{{ t('appBar.earn_money') }}</p>
                 </template>
             </v-list-item>
@@ -241,7 +241,7 @@ watch(mobileWidth, (newValue: number) => {
                 </template>
                 <v-list-item-title class="ml-2">{{ t('appBar.withdraw') }}</v-list-item-title>
             </v-list-item>
-            <v-list-item class="user-item app-background" value="app">
+            <v-list-item class="user-item app-background" value="app"  height="48">
                 <template v-slot:prepend>
                     <img src="@/assets/public/svg/icon_public_66.svg" />
                 </template>

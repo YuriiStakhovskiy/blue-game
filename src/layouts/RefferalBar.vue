@@ -25,7 +25,7 @@ const mobileWidth = computed((): number => {
             <p class="white" :class="mobileWidth < 600 ? 'text-500-10' : 'text-700-16'">
                 {{ t('refferal.app_bar_title') }}
             </p>
-            <img src="@/assets/public/image/img_public_09.png" class="ml-2" />
+            <img src="@/assets/public/image/img_public_09.png" class="ml-2" :width="mobileWidth > 600 ? 50 : 44" />
             <v-btn rounded height="28px" class="text-none ml-4 earn-btn-bg" @click="setRefferalDialogShow(true)">
                 {{ t('refferal.earn_btn_text') }}
             </v-btn>

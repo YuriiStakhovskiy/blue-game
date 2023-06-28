@@ -3,6 +3,8 @@ import { ref, watch, computed, onMounted } from "vue"
 import { useI18n } from "vue-i18n";
 import { useDisplay } from "vuetify";
 import { type GetUserInfo } from "@/interface/user";
+import { authStore } from "@/store/auth";
+import { storeToRefs } from "pinia";
 import EditNickname from "@/components/account/user_information/dialog/EditNickname.vue";
 import EditPassword from "@/components/account/user_information/dialog/EditPassword.vue";
 import EditEmail from "@/components/account/user_information/dialog/EditEmail.vue";
@@ -10,17 +12,6 @@ import Notification from "@/components/global/notification/index.vue";
 
 const { t } = useI18n();
 const { width } = useDisplay()
-
-const userInfo = ref<GetUserInfo>({
-    id: "1",
-    avatar: new URL("@/assets/public/image/ua_public_10.png", import.meta.url).href,
-    nickName: "DanDan",
-    email: "anderson.bluegame@gmail.com",
-    password: "",
-    area: "en",
-    phoneNumber: "+5517991696669",
-    verified: false,
-})
 
 const mobileWidth: any = computed(() => {
     return width.value;
@@ -36,6 +27,11 @@ const notificationShow = ref<boolean>(false);
 const checkIcon = ref<any>(new URL("@/assets/public/svg/icon_public_17.svg", import.meta.url).href);
 
 const notificationText = ref<string>(t('account.phone_warning_text'));
+
+const userInfo = computed((): GetUserInfo => {
+    const { getUserInfo } = storeToRefs(authStore());
+    return getUserInfo.value;
+})
 
 const handlePhonNumber = () => {
     notificationShow.value = !notificationShow.value;
@@ -69,8 +65,11 @@ const userDialogHide = () => {
     editEmailDialog.value = false;
 }
 
+const submitNickName = (name: string) => {
+    userInfo.value.name = name
+}
+
 const handleVerifyCode = () => {
-    userInfo.value.verified = true;
 }
 </script>
 
@@ -86,7 +85,7 @@ const handleVerifyCode = () => {
                         <v-list-item>
                             <v-list-item-title class="ml-2">
                                 <div class="text-400-12 text-gray">{{ t('account.item.nick_name_text') }}</div>
-                                <div class="text-600-14">{{ userInfo.nickName }}</div>
+                                <div class="text-600-14">{{ userInfo.name }}</div>
                             </v-list-item-title>
                             <template v-slot:append>
                                 <v-btn class="account-edit-btn" @click="editNicknameDialogShow">{{
@@ -108,7 +107,7 @@ const handleVerifyCode = () => {
                                             {{ t('account.item.area_text') }}
                                         </div>
                                         <div>
-                                            <img src="@/assets/public/image/img_public_01.png" />
+                                            <img src="@/assets/public/image/img_public_100.png" />
                                             <v-icon class="ml-1">mdi-chevron-down</v-icon>
                                         </div>
                                     </v-list-item-title>
@@ -119,7 +118,7 @@ const handleVerifyCode = () => {
                             <v-card color="#1C1929" theme="dark" class="user-info-item">
                                 <v-list-item class="user-info-item">
                                     <v-list-item-title class="ml-2">
-                                        <div class="text-600-14 text-gray">{{ userInfo.phoneNumber }}</div>
+                                        <div class="text-600-14 text-gray">{{ userInfo.phone }}</div>
                                     </v-list-item-title>
                                     <template v-slot:append>
                                         <v-btn class="account-edit-btn" @click="handlePhonNumber">
@@ -141,7 +140,7 @@ const handleVerifyCode = () => {
                         </v-list-item-title>
                         <template v-slot:append>
                             <v-btn class="account-edit-btn" @click="editEmailDialogShow">
-                                <img src="@/assets/public/svg/icon_public_08.svg" v-if="userInfo.verified" />
+                                <img src="@/assets/public/svg/icon_public_08.svg" v-if="userInfo.email_confirmd" />
                                 <img src="@/assets/public/svg/icon_public_09.svg" v-else />
                                 {{ t('account.edit_text') }}
                             </v-btn>
@@ -167,7 +166,7 @@ const handleVerifyCode = () => {
             </v-col>
         </v-row>
         <v-dialog v-model="dialogVisible" width="471">
-            <EditNickname v-if="editNicknameDialog" @userDialogHide="userDialogHide" :email="userInfo.email" />
+            <EditNickname v-if="editNicknameDialog" @userDialogHide="userDialogHide" :email="userInfo.email" @submitNickName="submitNickName" />
             <EditPassword v-if="editPasswordDialog" @userDialogHide="userDialogHide" />
             <EditEmail v-if="editEmailDialog" @userDialogHide="userDialogHide" />
         </v-dialog>

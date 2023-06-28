@@ -54,31 +54,31 @@ const messages = ref<Array<ChatRequestData>>([
   {
     type: "receiver",
     avatar: new URL(
-      "@/assets/right_navigation/image/user_3.png",
+      "@/assets/chat/image/user_3.png",
       import.meta.url
     ).href,
     grade: "V18",
     gradeColor: "grade-color-white",
     gradeBackground: new URL(
-      "@/assets/right_navigation/svg/ellipse_v18.svg",
+      "@/assets/chat/svg/ellipse_v18.svg",
       import.meta.url
     ).href,
     sender: "Game",
     receiver: "Jimmy",
     message: "Provider",
     starLevel: [
-      new URL("@/assets/right_navigation/svg/heart_v18_up.svg", import.meta.url)
+      new URL("@/assets/chat/svg/heart_v18_up.svg", import.meta.url)
         .href,
-      new URL("@/assets/right_navigation/svg/heart_v18_up.svg", import.meta.url)
+      new URL("@/assets/chat/svg/heart_v18_up.svg", import.meta.url)
         .href,
-      new URL("@/assets/right_navigation/svg/heart_v18_up.svg", import.meta.url)
+      new URL("@/assets/chat/svg/heart_v18_up.svg", import.meta.url)
         .href,
       new URL(
-        "@/assets/right_navigation/svg/heart_v18_down.svg",
+        "@/assets/chat/svg/heart_v18_down.svg",
         import.meta.url
       ).href,
       new URL(
-        "@/assets/right_navigation/svg/heart_v18_down.svg",
+        "@/assets/chat/svg/heart_v18_down.svg",
         import.meta.url
       ).href,
     ],
@@ -86,31 +86,31 @@ const messages = ref<Array<ChatRequestData>>([
   {
     type: "receiver",
     avatar: new URL(
-      "@/assets/right_navigation/image/user_1.png",
+      "@/assets/chat/image/user_1.png",
       import.meta.url
     ).href,
     grade: "V28",
     gradeColor: "grade-color-black",
     gradeBackground: new URL(
-      "@/assets/right_navigation/svg/ellipse_v28.svg",
+      "@/assets/chat/svg/ellipse_v28.svg",
       import.meta.url
     ).href,
     sender: "Jimmy",
     receiver: "Game",
     message: "Suibian dajige ziz ajapospoaap",
     starLevel: [
-      new URL("@/assets/right_navigation/svg/heart_v28_up.svg", import.meta.url)
+      new URL("@/assets/chat/svg/heart_v28_up.svg", import.meta.url)
         .href,
-      new URL("@/assets/right_navigation/svg/heart_v28_up.svg", import.meta.url)
+      new URL("@/assets/chat/svg/heart_v28_up.svg", import.meta.url)
         .href,
-      new URL("@/assets/right_navigation/svg/heart_v28_up.svg", import.meta.url)
+      new URL("@/assets/chat/svg/heart_v28_up.svg", import.meta.url)
         .href,
       new URL(
-        "@/assets/right_navigation/svg/heart_v28_down.svg",
+        "@/assets/chat/svg/heart_v28_down.svg",
         import.meta.url
       ).href,
       new URL(
-        "@/assets/right_navigation/svg/heart_v28_down.svg",
+        "@/assets/chat/svg/heart_v28_down.svg",
         import.meta.url
       ).href,
     ],
@@ -118,31 +118,31 @@ const messages = ref<Array<ChatRequestData>>([
   {
     type: "sender",
     avatar: new URL(
-      "@/assets/right_navigation/image/user_2.png",
+      "@/assets/chat/image/user_2.png",
       import.meta.url
     ).href,
     grade: "V1",
     gradeColor: "grade-color-black",
     gradeBackground: new URL(
-      "@/assets/right_navigation/svg/ellipse_v1.svg",
+      "@/assets/chat/svg/ellipse_v1.svg",
       import.meta.url
     ).href,
     sender: "Leo",
     receiver: "Game",
     message: "Suibian dajige ziz ajapospoaap",
     starLevel: [
-      new URL("@/assets/right_navigation/svg/heart_v1_up.svg", import.meta.url)
+      new URL("@/assets/chat/svg/heart_v1_up.svg", import.meta.url)
         .href,
-      new URL("@/assets/right_navigation/svg/heart_v1_up.svg", import.meta.url)
+      new URL("@/assets/chat/svg/heart_v1_up.svg", import.meta.url)
         .href,
-      new URL("@/assets/right_navigation/svg/heart_v1_up.svg", import.meta.url)
+      new URL("@/assets/chat/svg/heart_v1_up.svg", import.meta.url)
         .href,
       new URL(
-        "@/assets/right_navigation/svg/heart_v1_down.svg",
+        "@/assets/chat/svg/heart_v1_down.svg",
         import.meta.url
       ).href,
       new URL(
-        "@/assets/right_navigation/svg/heart_v1_down.svg",
+        "@/assets/chat/svg/heart_v1_down.svg",
         import.meta.url
       ).href,
     ],
@@ -150,31 +150,31 @@ const messages = ref<Array<ChatRequestData>>([
   {
     type: "receiver",
     avatar: new URL(
-      "@/assets/right_navigation/image/user_1.png",
+      "@/assets/chat/image/user_1.png",
       import.meta.url
     ).href,
     grade: "V28",
     gradeColor: "grade-color-black",
     gradeBackground: new URL(
-      "@/assets/right_navigation/svg/ellipse_v28.svg",
+      "@/assets/chat/svg/ellipse_v28.svg",
       import.meta.url
     ).href,
     sender: "Jimmy",
     receiver: "Game",
     message: "Suibian dajige ziz ajapospoaap",
     starLevel: [
-      new URL("@/assets/right_navigation/svg/heart_v28_up.svg", import.meta.url)
+      new URL("@/assets/chat/svg/heart_v28_up.svg", import.meta.url)
         .href,
-      new URL("@/assets/right_navigation/svg/heart_v28_up.svg", import.meta.url)
+      new URL("@/assets/chat/svg/heart_v28_up.svg", import.meta.url)
         .href,
-      new URL("@/assets/right_navigation/svg/heart_v28_up.svg", import.meta.url)
+      new URL("@/assets/chat/svg/heart_v28_up.svg", import.meta.url)
         .href,
       new URL(
-        "@/assets/right_navigation/svg/heart_v28_down.svg",
+        "@/assets/chat/svg/heart_v28_down.svg",
         import.meta.url
       ).href,
       new URL(
-        "@/assets/right_navigation/svg/heart_v28_down.svg",
+        "@/assets/chat/svg/heart_v28_down.svg",
         import.meta.url
       ).href,
     ],
@@ -182,31 +182,31 @@ const messages = ref<Array<ChatRequestData>>([
   {
     type: "sender",
     avatar: new URL(
-      "@/assets/right_navigation/image/user_2.png",
+      "@/assets/chat/image/user_2.png",
       import.meta.url
     ).href,
     grade: "V1",
     gradeColor: "grade-color-black",
     gradeBackground: new URL(
-      "@/assets/right_navigation/svg/ellipse_v1.svg",
+      "@/assets/chat/svg/ellipse_v1.svg",
       import.meta.url
     ).href,
     sender: "Leo",
     receiver: "Game",
     message: "Suibian dajige ziz ajapospoaap",
     starLevel: [
-      new URL("@/assets/right_navigation/svg/heart_v1_up.svg", import.meta.url)
+      new URL("@/assets/chat/svg/heart_v1_up.svg", import.meta.url)
         .href,
-      new URL("@/assets/right_navigation/svg/heart_v1_up.svg", import.meta.url)
+      new URL("@/assets/chat/svg/heart_v1_up.svg", import.meta.url)
         .href,
-      new URL("@/assets/right_navigation/svg/heart_v1_up.svg", import.meta.url)
+      new URL("@/assets/chat/svg/heart_v1_up.svg", import.meta.url)
         .href,
       new URL(
-        "@/assets/right_navigation/svg/heart_v1_down.svg",
+        "@/assets/chat/svg/heart_v1_down.svg",
         import.meta.url
       ).href,
       new URL(
-        "@/assets/right_navigation/svg/heart_v1_down.svg",
+        "@/assets/chat/svg/heart_v1_down.svg",
         import.meta.url
       ).href,
     ],
@@ -214,31 +214,31 @@ const messages = ref<Array<ChatRequestData>>([
   {
     type: "receiver",
     avatar: new URL(
-      "@/assets/right_navigation/image/user_1.png",
+      "@/assets/chat/image/user_1.png",
       import.meta.url
     ).href,
     grade: "V28",
     gradeColor: "grade-color-black",
     gradeBackground: new URL(
-      "@/assets/right_navigation/svg/ellipse_v28.svg",
+      "@/assets/chat/svg/ellipse_v28.svg",
       import.meta.url
     ).href,
     sender: "Jimmy",
     receiver: "Game",
     message: "Suibian dajige ziz ajapospoaap",
     starLevel: [
-      new URL("@/assets/right_navigation/svg/heart_v28_up.svg", import.meta.url)
+      new URL("@/assets/chat/svg/heart_v28_up.svg", import.meta.url)
         .href,
-      new URL("@/assets/right_navigation/svg/heart_v28_up.svg", import.meta.url)
+      new URL("@/assets/chat/svg/heart_v28_up.svg", import.meta.url)
         .href,
-      new URL("@/assets/right_navigation/svg/heart_v28_up.svg", import.meta.url)
+      new URL("@/assets/chat/svg/heart_v28_up.svg", import.meta.url)
         .href,
       new URL(
-        "@/assets/right_navigation/svg/heart_v28_down.svg",
+        "@/assets/chat/svg/heart_v28_down.svg",
         import.meta.url
       ).href,
       new URL(
-        "@/assets/right_navigation/svg/heart_v28_down.svg",
+        "@/assets/chat/svg/heart_v28_down.svg",
         import.meta.url
       ).href,
     ],
@@ -259,8 +259,8 @@ onMounted(() => {
           <v-btn class="right-btn" icon="true" @click.stop="setRightBarToggle(false)">
             <v-icon icon="mdi-close" class="card-close-icon" />
           </v-btn>
-          <img src="@/assets/right_navigation/svg/info.svg" class="ml-auto" width="20" />
-          <img src="@/assets/right_navigation/svg/img_nav_87.svg" class="ml-2" width="20" />
+          <img src="@/assets/chat/svg/info.svg" class="ml-auto" width="20" />
+          <img src="@/assets/chat/svg/img_nav_87.svg" class="ml-2" width="20" />
           <v-menu offset="20" class="sport-menu">
             <template v-slot:activator="{ props }">
               <v-card color="#29263C" theme="dark" class="ml-auto">
@@ -284,7 +284,7 @@ onMounted(() => {
         <v-list-item v-if="messageItem.type == 'receiver'">
           <div class="chat-item">
             <div class="chat-avatar">
-              <img src="@/assets/right_navigation/image/ellipse.png" />
+              <img src="@/assets/chat/image/ellipse.png" />
               <img :src="messageItem.avatar" class="user-avatar" />
               <p class="grade-position" :class="messageItem.gradeColor">
                 {{ messageItem.grade }}
@@ -308,7 +308,7 @@ onMounted(() => {
         <v-list-item v-else>
           <div class="chat-item">
             <div class="chat-avatar">
-              <img src="@/assets/right_navigation/image/ellipse.png" class="sender-ellipse" />
+              <img src="@/assets/chat/image/ellipse.png" class="sender-ellipse" />
               <img :src="messageItem.avatar" class="sender-avatar" />
               <p class="sender-grade-position" :class="messageItem.gradeColor">
                 {{ messageItem.grade }}

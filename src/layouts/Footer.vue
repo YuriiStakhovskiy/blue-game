@@ -46,8 +46,10 @@ const mobileVersion = computed(() => {
                 <div class="footer-text-1">{{ t('home.footer.about_us.menu_5') }}</div>
             </v-col>
             <v-col cols="12" sm="12" md="5" lg="5" class="text-center">
-                <div>
-                    <img src="@/assets/public/svg/logo.svg" width="152" />
+                <div class="d-flex align-center justify-center">
+                    <img src="@/assets/public/svg/logo2.svg" />
+                    <p class="logo-title-1 ml-1">{{t('main.logo_text_1')}}</p>
+                    <p class="logo-title-2 ml-1">{{t('main.logo_text_2')}}</p>
                 </div>
                 <div>
                     <v-btn color="grey-darken-4"
@@ -63,7 +65,7 @@ const mobileVersion = computed(() => {
             <v-card color="#000000" theme="dark" class="justify-center">
                 <v-row class="align-center">
                     <v-col cols="12" sm="6" md="3" lg="3" class="d-flex justify-center mt-3">
-                        <img src="@/assets/home/image/Logo.png" width="200" />
+                        <img src="@/assets/public/image/logo_public_02.png" width="200" />
                     </v-col>
                     <v-col cols="12" sm="6" md="9" lg="9">
                         <div class="footer-5-text" :class="[mobileVersion == 'sm' ? 'px-4' : 'pa-4']">{{

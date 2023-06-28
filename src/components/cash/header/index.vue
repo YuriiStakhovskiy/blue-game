@@ -121,7 +121,7 @@ onMounted(() => {
             <v-menu :close-on-content-click=false content-class="personal-menu">
                 <template v-slot:activator="{ props }">
                     <v-btn class="deposit-header-btn" v-bind="props" @click="handlePersonalInfoToggle">
-                        <img src="@/assets/public/svg/icon_public_58.svg" width="48" height="48" class="ml-4" />
+                        <img src="@/assets/public/svg/icon_public_100.svg" width="48" height="48" class="ml-4" />
                         <v-icon class="header-mdi-icon">mdi-chevron-right</v-icon>
                     </v-btn>
                 </template>

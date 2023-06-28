@@ -16,6 +16,6 @@
   @font-face {
     font-family: "Bauhaus 93";
     src: local("Bauhaus 93"),
-    url(./fonts/Bauhaus/BauhausBold.ttf) format("truetype");
+    url(./fonts/Bauhaus/BauhausRegular.ttf) format("truetype");
   }
 </style>

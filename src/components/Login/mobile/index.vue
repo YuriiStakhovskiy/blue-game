@@ -5,6 +5,7 @@ import { useI18n } from 'vue-i18n';
 import LoginHeader from './Header.vue'
 import { authStore } from "@/store/auth";
 import Notification from "@/components/global/notification/index.vue";
+import { storeToRefs } from 'pinia';
 
 const Login = defineComponent({
     components: {
@@ -16,6 +17,7 @@ const Login = defineComponent({
         // translation
         const { t } = useI18n();
         const { dispatchSignIn } = authStore();
+        const { dispatchUserProfile } = authStore();
         const { setAuthModalType } = authStore();
 
         // initiate component state
@@ -37,7 +39,9 @@ const Login = defineComponent({
             ],
             isShowPassword: false,
             notificationShow: false,
-            checkIcon: new URL("@/assets/public/svg/icon_public_18.svg", import.meta.url).href
+            checkIcon: new URL("@/assets/public/svg/icon_public_18.svg", import.meta.url).href,
+            notificationText: t('login.forgotPasswordPage.notification'),
+            loading: false
         });
 
         // computed variables
@@ -45,14 +49,49 @@ const Login = defineComponent({
             state.formData.emailAddress.length > 0 && state.formData.password.length > 0
         )
 
+        // flag when login successed
+        const success = computed(() => {
+            const { getSuccess } = storeToRefs(authStore());
+            return getSuccess.value
+        })
+
+        // error message when login failed
+
+        const errMessage = computed(() => {
+            const { getErrMessage } = storeToRefs(authStore());
+            return getErrMessage.value;
+        })
+
+        // forgot password function when password fogot
+
+        const handleForgotPassword = () => {
+            state.notificationShow = !state.notificationShow;
+            state.checkIcon = new URL("@/assets/public/svg/icon_public_18.svg", import.meta.url).href
+            state.notificationText = t('login.forgotPasswordPage.notification')
+        }
+
         // methods
-        const handleLoginFormSubmit = (): void => {
-            dispatchSignIn({
-                uid: "sniper",
-                password: "123456"
+        const handleLoginFormSubmit = async () => {
+            state.loading = true;
+            await dispatchSignIn({
+                uid: state.formData.emailAddress,
+                password: state.formData.password,
             })
-            setAuthModalType("");
-            emit('close');
+            if (success.value) {
+                await dispatchUserProfile();
+                state.loading = false;
+                state.notificationShow = !state.notificationShow;
+                state.checkIcon = new URL("@/assets/public/svg/icon_public_18.svg", import.meta.url).href
+                state.notificationText = t('login.submit_result.success_text')
+                setTimeout(() => {
+                    setAuthModalType("");
+                    emit('close');
+                }, 1000)
+            } else {
+                state.notificationShow = !state.notificationShow;
+                state.checkIcon = new URL("@/assets/public/svg/icon_public_17.svg", import.meta.url).href
+                state.notificationText = t('login.submit_result.err_text')
+            }
         }
 
         const showPassword = () => {
@@ -88,7 +127,8 @@ export default Login
                         v-model="formData.password" />
                     <img v-if="isShowPassword" src="@/assets/public/svg/icon_public_07.svg" class="disable-password"
                         @click="showPassword" />
-                    <img v-else src="@/assets/public/svg/icon_public_06.svg" class="disable-password" @click="showPassword" />
+                    <img v-else src="@/assets/public/svg/icon_public_06.svg" class="disable-password"
+                        @click="showPassword" />
                 </v-row>
                 <v-row>
                     <p class="ml-9 login-forget-passwrod-text" @click="currentPage = PAGE_TYPE.FORGOT_PASSWORD">
@@ -96,7 +136,7 @@ export default Login
                     </p>
                 </v-row>
                 <v-row class="mt-4">
-                    <v-btn class="ma-3 button-bright text-none" width="-webkit-fill-available" height="54px"
+                    <v-btn class="ma-3 button-bright text-none" width="-webkit-fill-available" height="54px" :loading="loading"
                         :disabled="!isFormDataReady" :onclick="handleLoginFormSubmit">
                         {{ t('login.formPage.button') }}
                     </v-btn>
@@ -112,7 +152,7 @@ export default Login
                         <div class="d-flex justify-space-around bg-surface-variant social-icon-wrapper">
                             <v-sheet v-for="n in 4" :key="n" color="#131828" class="rounded">
                                 <v-btn color="grey-darken-4" class="social-icon-button" icon="">
-                                    <img :src="`src/assets/login/svg/${iconNameList[n - 1]}.svg`" />
+                                    <img :src="`src/assets/public/svg/${iconNameList[n - 1]}.svg`" />
                                 </v-btn>
                             </v-sheet>
                         </div>
@@ -123,8 +163,8 @@ export default Login
             <div v-if="currentPage == PAGE_TYPE.FORGOT_PASSWORD" class="full-width">
                 <v-row class="mt-8 d-flex justify-center">
                     <img src="@/assets/login/image/logo2.png" class="logo-image mr-2">
-                    <span class="logo-text purple text-large">BLUE</span>
-                    <span class="logo-text yellow text-large">GAME</span>
+                    <span class="logo-text purple text-large">{{ t('logo_text_1') }}</span>
+                    <span class="logo-text yellow text-large">{{ t('main.logo_text_2') }}</span>
                 </v-row>
                 <v-row class="mt-8">
                     <p class="label-text-md2 white center full-width pl-12 pr-12">
@@ -148,7 +188,7 @@ export default Login
                 mdi-close
             </v-icon>
         </v-btn>
-        <Notification :notificationShow="notificationShow" :notificationText="t('login.forgotPasswordPage.notification')" :checkIcon="checkIcon"/>
+        <Notification :notificationShow="notificationShow" :notificationText="notificationText" :checkIcon="checkIcon" />
     </div>
 </template>
 

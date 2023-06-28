@@ -5,17 +5,23 @@ import { useI18n } from 'vue-i18n';
 import ValidationBox from '@/components/Signup/ValidationBox.vue';
 import SignupHeader from '@/components/Signup/mobile/Header.vue';
 import { useDisplay } from 'vuetify/lib/framework.mjs';
+import Notification from "@/components/global/notification/index.vue";
+import { authStore } from '@/store/auth';
+import { storeToRefs } from 'pinia';
 
 const MSignup = defineComponent({
     components: {
         ValidationBox,
         SignupHeader,
+        Notification
     },
     emits: ["close", "switch"],
     setup(props, { emit }) {
         // translation
         const { t } = useI18n();
         const { name } = useDisplay();
+        const { dispatchSignUp } = authStore();
+        const { dispatchUserProfile } = authStore();
 
         // initiate component state
         const state = reactive({
@@ -64,6 +70,10 @@ const MSignup = defineComponent({
                 'Fourth',
                 'Fifth',
             ],
+            loading: false,
+            notificationShow: false,
+            checkIcon: new URL("@/assets/public/svg/icon_public_18.svg", import.meta.url).href,
+            notificationText: t('signup.submit_result.success_text')
         });
 
         const showPassword = () => {
@@ -77,6 +87,19 @@ const MSignup = defineComponent({
 
         const mobileVersion = computed(() => {
             return name.value;
+        })
+
+        // flag when login successed
+        const success = computed(() => {
+            const { getSuccess } = storeToRefs(authStore());
+            return getSuccess.value
+        })
+
+        // error message when login failed
+
+        const errMessage = computed(() => {
+            const { getErrMessage } = storeToRefs(authStore());
+            return getErrMessage.value;
         })
 
         const passwordValidationList = computed((): boolean[] => {
@@ -169,9 +192,34 @@ const MSignup = defineComponent({
         }
 
         // handle form submit
-        const handleSignupFormSubmit = (): void => {
-            state.currentPage = state.PAGE_TYPE.DISPLAY_NAME;
+        const handleSignupFormSubmit = async () => {
+            // state.currentPage = state.PAGE_TYPE.DISPLAY_NAME;
             console.log('sign up form submit!');
+            state.loading = true;
+            await dispatchSignUp({
+                uid: state.formData.emailAddress,
+                password: state.formData.password,
+                referral_code: state.formData.promoCode,
+                browser: "",
+                device: "",
+                model: "",
+                brand: "",
+                imei: "",
+            });
+            state.loading = false;
+            if (success.value) {
+                await dispatchUserProfile();
+                state.notificationShow = !state.notificationShow;
+                state.checkIcon = new URL("@/assets/public/svg/icon_public_18.svg", import.meta.url).href;
+                state.notificationText = t('signup.submit_result.success_text');
+                setTimeout(() => {
+                    emit("close");
+                }, 1000)
+            } else {
+                state.notificationShow = !state.notificationShow;
+                state.checkIcon = new URL("@/assets/public/svg/icon_public_17.svg", import.meta.url).href;
+                state.notificationText = errMessage.value;
+            }
         }
 
         const handleUsernameSubmit = (): void => {
@@ -235,7 +283,8 @@ export default MSignup
                         :onblur="handleOnPasswordInputBlur" />
                     <img v-if="isShowPassword" src="@/assets/public/svg/icon_public_07.svg" class="disable-password"
                         @click="showPassword" />
-                    <img v-else src="@/assets/public/svg/icon_public_06.svg" class="disable-password" @click="showPassword" />
+                    <img v-else src="@/assets/public/svg/icon_public_06.svg" class="disable-password"
+                        @click="showPassword" />
                     <ValidationBox v-if="isShowPasswordValidation" :descriptionList="passwordValidationStrList"
                         :validationList="passwordValidationList" />
                 </v-row>
@@ -259,7 +308,7 @@ export default MSignup
                     </v-col>
                 </v-row>
                 <v-row>
-                    <v-btn class="ma-3 signup-btn" width="-webkit-fill-available" height="54px" :disabled="!isFormDataReady"
+                    <v-btn class="ma-3 signup-btn" width="-webkit-fill-available" height="54px" :loading="loading" :disabled="!isFormDataReady"
                         :onclick="handleSignupFormSubmit">
                         {{ t('signup.formPage.button') }}
                     </v-btn>
@@ -275,7 +324,7 @@ export default MSignup
                         <div class="d-flex justify-space-around bg-surface-variant social-icon-wrapper">
                             <v-sheet v-for="n in 4" :key="n" color="#131828" class="rounded">
                                 <v-btn color="grey-darken-4" class="social-icon-button" icon="">
-                                    <img :src="`src/assets/login/svg/${iconNameList[n - 1]}.svg`" />
+                                    <img :src="`src/assets/public/svg/${iconNameList[n - 1]}.svg`" />
                                 </v-btn>
                             </v-sheet>
                         </div>
@@ -340,7 +389,7 @@ export default MSignup
                                 @click="props.onClick"></v-btn>
                         </template>
                         <v-carousel-item v-for="(slide, i) in slides" :key="i">
-                            <img src="@/assets/login/image/ua_public_01.png">
+                            <img src="@/assets/public/image/ua_public_01.png">
                         </v-carousel-item>
                     </v-carousel>
                 </v-row>
@@ -371,6 +420,7 @@ export default MSignup
             </v-icon>
         </v-btn>
     </div>
+    <Notification :notificationShow="notificationShow" :notificationText="notificationText" :checkIcon="checkIcon" />
 </template>
 
 <style lang="scss">

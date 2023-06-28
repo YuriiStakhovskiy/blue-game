@@ -72,8 +72,8 @@ onMounted(() => {
         </v-btn>
         <v-btn class="menu-text-color share-ripple-btn">
             <div class="circle-background"></div>
-            <img src="@/assets/mobile_menu/svg/bg_public_22.svg" class="share-background-img-position">
-            <img src="@/assets/mobile_menu/svg/img_public_19.svg" class="share-img-position">
+            <img src="@/assets/public/svg/bg_public_22.svg" class="share-background-img-position">
+            <img src="@/assets/public/image/img_public_19.png" class="share-img-position">
             <div class="pt-8">
                 {{ t('mobile_menu.share') }}
             </div>
