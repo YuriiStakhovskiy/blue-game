@@ -34,6 +34,17 @@ export interface GetUserAmount {
     withdraw: 111111,
     rate: 1000
 }
+export interface UpdateEmail {
+    email: string
+    password: string
+}
+export interface UpdatePassword {
+    now_password: string
+    new_password: string
+}
+export interface UpdateSuspendUser {
+    time: number
+}
 export type GetUserInfoResponseData = {
     code: number
     data: GetUserInfo

@@ -439,6 +439,7 @@ export const lang: langType = {
       nick_name_text: "Nickname",
       email_text: "Email Address",
       area_text: "Area",
+      phone_text: "Phone",
       current_pwd_text: "Current Password",
     },
     edit_text: "Edit",
@@ -449,6 +450,7 @@ export const lang: langType = {
     edit_password_text: "Edit Password",
     edit_nick_name_text: "Edit Nickname",
     edit_email_text: "Edit Email",
+    edit_phone_text: "Edit Phone",
     password: {
       current_text: "Current Password",
       new_text: "New Password",

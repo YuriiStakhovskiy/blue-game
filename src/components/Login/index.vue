@@ -79,7 +79,6 @@ const Login = defineComponent({
             })
             if (success.value) {
                 await dispatchUserProfile();
-                state.loading = false;
                 state.notificationShow = !state.notificationShow;
                 state.checkIcon = new URL("@/assets/public/svg/icon_public_18.svg", import.meta.url).href
                 state.notificationText = t('login.submit_result.success_text')
@@ -92,6 +91,7 @@ const Login = defineComponent({
                 state.checkIcon = new URL("@/assets/public/svg/icon_public_17.svg", import.meta.url).href
                 state.notificationText = t('login.submit_result.err_text')
             }
+            state.loading = false;
         }
 
         const showPassword = () => {

@@ -436,6 +436,7 @@ export type langType = {
       nick_name_text: string
       email_text: string
       area_text: string
+      phone_text: string
       current_pwd_text: string
     }
     edit_text: string
@@ -446,6 +447,7 @@ export type langType = {
     edit_password_text: string
     edit_nick_name_text: string
     edit_email_text: string
+    edit_phone_text: string
     password: {
       current_text: string
       new_text: string

@@ -89,20 +89,21 @@ const submitNickName = async () => {
     await dispatchUpdateUserInfo({
         name: nickName.value
     })
-    loading.value = false;
     if (success.value) {
         notificationShow.value = !notificationShow.value;
         checkIcon.value = new URL("@/assets/public/svg/icon_public_18.svg", import.meta.url).href
         notificationText.value = "Nickname updated successfully!"
+        setTimeout(() => {
+            loading.value = false;
+            emit("submitNickName", nickName.value);
+            emit('userDialogHide')
+        }, 2000)
     } else {
         notificationShow.value = !notificationShow.value;
         checkIcon.value = new URL("@/assets/public/svg/icon_public_17.svg", import.meta.url).href
         notificationText.value = errMessage.value;
+        loading.value = false;
     }
-    setTimeout(() => {
-        emit("submitNickName", nickName.value);
-        emit('userDialogHide')
-    }, 1000)
 }
 </script>
 

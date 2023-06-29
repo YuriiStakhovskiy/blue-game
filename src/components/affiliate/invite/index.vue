@@ -472,7 +472,7 @@ onMounted(() => {
                     <Font color="#F9BC01">30 %</Font>
                     <span>{{ t('affiliate.invite.invite_text_5_2') }}</span>
                 </div>
-                <img src="@/assets/affiliate/invite/image/user_group.png" class="mt-10"
+                <img src="@/assets/affiliate/invite/image/img_agent_19.png" class="mt-10"
                     style="width: 100%; max-width: 630px;" />
             </v-col>
             <v-col cols="12" md="6" lg="6" class="text-center">

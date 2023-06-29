@@ -3,12 +3,16 @@ import { ref, computed, toRefs } from 'vue';
 import { useI18n } from 'vue-i18n';
 import ValidationBox from '@/components/Signup/ValidationBox.vue';
 import ExistValidationBox from './ExistValidationBox.vue';
+import Notification from "@/components/global/notification/index.vue";
+import { authStore } from "@/store/auth";
 import Header from './Header.vue';
 import { useDisplay } from 'vuetify';
+import { storeToRefs } from 'pinia';
 
 const { t } = useI18n();
 const { width } = useDisplay();
-const emit = defineEmits<{ (e: 'userDialogHide'): void }>()
+const emit = defineEmits<{ (e: 'userDialogHide'): void, (e: 'submitPassword', newPassword: string): void }>()
+const { dispatchUpdatePassword } = authStore();
 
 const currentPassword = ref<string>("");
 const newPassword = ref<string>("");
@@ -22,6 +26,10 @@ const title = ref<string>(t('account.edit_password_text'));
 const isShowCurrentPassword = ref<boolean>(false);
 const isShowNewPassword = ref<boolean>(false);
 const isShowRepeatPassword = ref<boolean>(false);
+const loading = ref<boolean>(false);
+const notificationShow = ref<boolean>(false);
+const checkIcon = ref<string>(new URL("@/assets/public/svg/icon_public_18.svg", import.meta.url).href);
+const notificationText = ref<string>('');
 
 const mobileWidth = computed(() => {
     return width.value
@@ -32,6 +40,16 @@ const passwordValidationList = computed((): boolean[] => {
     const condition1 = newPassword.value.length <= 30 && newPassword.value.length >= 8;
 
     return [condition1];
+})
+
+const success = computed((): boolean => {
+    const { getSuccess } = storeToRefs(authStore());
+    return getSuccess.value
+})
+
+const errMessage = computed((): string => {
+    const { getErrMessage } = storeToRefs(authStore());
+    return getErrMessage.value
 })
 
 const validatePassword = (): boolean => {
@@ -73,6 +91,29 @@ const showNewPassword = () => {
 const showRepeatPassword = () => {
     isShowRepeatPassword.value = !isShowRepeatPassword.value;
 }
+
+const submitPassword = async () => {
+    loading.value = true;
+    await dispatchUpdatePassword({
+        now_password: currentPassword.value,
+        new_password: newPassword.value
+    })
+    if (success.value) {
+        notificationShow.value = !notificationShow.value;
+        checkIcon.value = new URL("@/assets/public/svg/icon_public_18.svg", import.meta.url).href
+        notificationText.value = "Password updated successfully!"
+        setTimeout(() => {
+            loading.value = false;
+            emit("submitPassword", newPassword.value);
+            emit('userDialogHide')
+        }, 2000)
+    } else {
+        notificationShow.value = !notificationShow.value;
+        checkIcon.value = new URL("@/assets/public/svg/icon_public_17.svg", import.meta.url).href
+        notificationText.value = errMessage.value;
+        loading.value = false;
+    }
+}
 </script>
 
 <template>
@@ -84,7 +125,8 @@ const showRepeatPassword = () => {
                 :onblur="handleCurrentPasswordInputBlur" />
             <img v-if="isShowCurrentPassword" src="@/assets/public/svg/icon_public_07.svg" class="disable-password"
                 @click="showCurrentPassword" />
-            <img v-else src="@/assets/public/svg/icon_public_06.svg" class="disable-password" @click="showCurrentPassword" />
+            <img v-else src="@/assets/public/svg/icon_public_06.svg" class="disable-password"
+                @click="showCurrentPassword" />
         </v-row>
         <v-row class="mt-4 relative" :class="mobileWidth < 600 ? 'mx-2' : 'mx-10'">
             <v-text-field :label="t('account.password.new_text')" class="form-textfield dark-textfield" variant="solo"
@@ -107,11 +149,12 @@ const showRepeatPassword = () => {
                 :withCautionIcon="true" />
         </v-row>
         <v-row class="mt-4" :class="mobileWidth < 600 ? 'mx-2' : 'mx-10'">
-            <v-btn class="ma-3 mt-8 button-bright text-none" width="-webkit-fill-available" :height="mobileWidth < 600 ? '46px' : '60px'"
-                :disabled="!validatePassword()" @click="emit('userDialogHide')">
+            <v-btn class="ma-3 mt-8 button-bright text-none" width="-webkit-fill-available" :loading="loading"
+                :height="mobileWidth < 600 ? '46px' : '60px'" :disabled="!validatePassword()" @click="submitPassword">
                 {{ t('account.save_text') }}
             </v-btn>
         </v-row>
+        <Notification :notificationShow="notificationShow" :notificationText="notificationText" :checkIcon="checkIcon" />
     </div>
 </template>
 
