@@ -19,10 +19,10 @@ export default SignupHeader
 <template>
     <v-row class="signup-header-container">
         <v-col cols="10" offset="1" class="pl-11 pt-9">
-            <v-row>
+            <!-- <v-row>
                 <span class="logo-text purple">{{t('main.logo_text_1')}}</span>
                 <span class="logo-text yellow">{{t('main.logo_text_2')}}</span>
-            </v-row>
+            </v-row> -->
             <v-row>
                 <p class="logo-text2 white">
                     {{ t('signup.formPage.header.titleLine1') }}
@@ -32,7 +32,7 @@ export default SignupHeader
             </v-row>
         </v-col>
         <img src="@/assets/login/image/bg_su_01.png" class="m-bg-image">
-        <img src="@/assets/public/svg/logo2.svg" class="logo-image">
+        <img src="@/assets/public/image/logo_public_01.png" class="logo-image" width="180">
         <img src="@/assets/login/image/img_su_01.png" class="m-coin-image">
     </v-row>
 </template>

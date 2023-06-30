@@ -1,5 +1,6 @@
 
 <script lang="ts" setup>
+import router from '@/router';
 import { authStore } from '@/store/auth';
 import { useI18n } from 'vue-i18n';
 const emit = defineEmits<{
@@ -10,6 +11,7 @@ const { dispatchSignout } = authStore();
 const signOut = (): void => {
     emit("close");
     dispatchSignout();
+    router.push({name: "Dashboard"})
 }
 </script>
   

@@ -47,11 +47,11 @@ const mobileVersion = computed(() => {
             </v-col>
             <v-col cols="12" sm="12" md="5" lg="5" class="text-center">
                 <div class="d-flex align-center justify-center">
-                    <img src="@/assets/public/svg/logo2.svg" />
-                    <p class="logo-title-1 ml-1">{{t('main.logo_text_1')}}</p>
-                    <p class="logo-title-2 ml-1">{{t('main.logo_text_2')}}</p>
+                    <img src="@/assets/public/image/logo_public_01.png" />
+                    <!-- <p class="logo-title-1 ml-1">{{t('main.logo_text_1')}}</p>
+                    <p class="logo-title-2 ml-1">{{t('main.logo_text_2')}}</p> -->
                 </div>
-                <div>
+                <div class="mt-1">
                     <v-btn color="grey-darken-4"
                         :class="[footerIndex == 0 ? 'footer-icon-button-red' : 'footer-icon-button']" icon=""
                         v-for="(footerIcon, footerIndex) in footerIcons" :key="footerIndex">
