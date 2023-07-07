@@ -273,22 +273,18 @@ onMounted(async () => {
     <v-app-bar-nav-icon @click.stop="setNavBarToggle(true)"
       v-if="!navBarToggle && mobileWidth > 600"></v-app-bar-nav-icon>
     <v-toolbar-title v-if="mobileWidth > 800">
-      <v-btn style="height: 60px" @click="goHomePage" class="align-center mt-2">
+      <v-btn height="60" @click="goHomePage" class="align-center mt-2">
         <img src="@/assets/public/image/logo_public_01.png" />
         <!-- <p class="logo-title-1 ml-1">{{ t('main.logo_text_1') }}</p>
         <p class="logo-title-2 ml-1">{{ t('main.logo_text_2') }}</p> -->
       </v-btn>
     </v-toolbar-title>
     <v-toolbar-title v-else>
-      <div class="d-flex align-center" v-ripple.center style="width: 110px;" @click="goHomePage">
-        <div>
-          <img src="@/assets/public/image/logo_public_03.png" class="mt-3" />
-        </div>
-        <div class="relative">
+      <v-btn height="46" width="100" @click="goHomePage" class="align-center mt-1">
+        <img src="@/assets/public/image/logo_public_03.png" />
           <!-- <p class="m-logo-title-1 mt-1">{{ t('main.logo_text_1') }}</p>
           <p class="m-logo-title-2 mt-1">{{ t('main.logo_text_2') }}</p> -->
-        </div>
-      </div>
+      </v-btn>
     </v-toolbar-title>
     <div v-if="token != undefined">
       <div class="d-flex">

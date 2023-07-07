@@ -34,10 +34,10 @@ const handleLoginBonus = (day: number) => {
             <v-row class="mt-4 mx-2">
                 <v-col cols="4" class="pa-0 d-flex justify-center">
                     <div class="login-bonus-card-checkout-bg relative" v-if="loginBonusItem.signin_day >= 1">
-                        <p class="text-900-18 white login-bonus-text-position">{{ t('vip.login_bonus.day_1_text') }}</p>
+                        <p class="text-900-18 gray login-bonus-text-position">{{ t('vip.login_bonus.day_1_text') }}</p>
                         <img src="@/assets/public/svg/icon_public_18.svg" class="login-bonus-card-cash-position"
                             width="40" />
-                        <p class="text-900-18 white login-bonus-card-money-position">$ {{ loginBonusItem.award[0] }}</p>
+                        <p class="text-900-18 gray login-bonus-card-money-position">$ {{ loginBonusItem.award[0] }}</p>
                     </div>
                     <div class="login-bonus-card-bg-1 relative" v-ripple.center v-else @click="handleLoginBonus(1)">
                         <img src="@/assets/vip/image/img_vip_32.png" class="login-bonus-sunshine-img"
@@ -49,10 +49,10 @@ const handleLoginBonus = (day: number) => {
                 </v-col>
                 <v-col cols="4" class="pa-0 d-flex justify-center">
                     <div class="login-bonus-card-checkout-bg relative" v-if="loginBonusItem.signin_day >= 2">
-                        <p class="text-900-18 white login-bonus-text-position">{{ t('vip.login_bonus.day_2_text') }}</p>
+                        <p class="text-900-18 gray login-bonus-text-position">{{ t('vip.login_bonus.day_2_text') }}</p>
                         <img src="@/assets/public/svg/icon_public_18.svg" class="login-bonus-card-cash-position"
                             width="40" />
-                        <p class="text-900-18 white login-bonus-card-money-position">$ {{ loginBonusItem.award[1] }}</p>
+                        <p class="text-900-18 gray login-bonus-card-money-position">$ {{ loginBonusItem.award[1] }}</p>
                     </div>
                     <div class="login-bonus-card-bg-2 relative" v-ripple.center v-else @click="handleLoginBonus(2)">
                         <img src="@/assets/vip/image/img_vip_32.png" class="login-bonus-sunshine-img"
@@ -64,10 +64,10 @@ const handleLoginBonus = (day: number) => {
                 </v-col>
                 <v-col cols="4" class="pa-0 d-flex justify-center">
                     <div class="login-bonus-card-checkout-bg relative" v-if="loginBonusItem.signin_day >= 3">
-                        <p class="text-900-18 white login-bonus-text-position">{{ t('vip.login_bonus.day_3_text') }}</p>
+                        <p class="text-900-18 gray login-bonus-text-position">{{ t('vip.login_bonus.day_3_text') }}</p>
                         <img src="@/assets/public/svg/icon_public_18.svg" class="login-bonus-card-cash-position"
                             width="40" />
-                        <p class="text-900-18 white login-bonus-card-money-position">$ {{ loginBonusItem.award[2] }}</p>
+                        <p class="text-900-18 gray login-bonus-card-money-position">$ {{ loginBonusItem.award[2] }}</p>
                     </div>
                     <div class="login-bonus-card-bg-3 relative" v-ripple.center v-else @click="handleLoginBonus(3)">
                         <img src="@/assets/vip/image/img_vip_32.png" class="login-bonus-sunshine-img"
@@ -81,10 +81,10 @@ const handleLoginBonus = (day: number) => {
             <v-row class="mt-6 mx-2">
                 <v-col cols="4" class="pa-0 d-flex justify-center">
                     <div class="login-bonus-card-checkout-bg relative" v-if="loginBonusItem.signin_day >= 4">
-                        <p class="text-900-18 white login-bonus-text-position">{{ t('vip.login_bonus.day_4_text') }}</p>
+                        <p class="text-900-18 gray login-bonus-text-position">{{ t('vip.login_bonus.day_4_text') }}</p>
                         <img src="@/assets/public/svg/icon_public_18.svg" class="login-bonus-card-cash-position"
                             width="40" />
-                        <p class="text-900-18 white login-bonus-card-money-position">$ {{ loginBonusItem.award[3] }}</p>
+                        <p class="text-900-18 gray login-bonus-card-money-position">$ {{ loginBonusItem.award[3] }}</p>
                     </div>
                     <div class="login-bonus-card-bg-4 relative" v-ripple.center v-else @click="handleLoginBonus(4)">
                         <img src="@/assets/vip/image/img_vip_32.png" class="login-bonus-sunshine-img"
@@ -96,10 +96,10 @@ const handleLoginBonus = (day: number) => {
                 </v-col>
                 <v-col cols="4" class="pa-0 d-flex justify-center">
                     <div class="login-bonus-card-checkout-bg relative" v-if="loginBonusItem.signin_day >= 5">
-                        <p class="text-900-18 white login-bonus-text-position">{{ t('vip.login_bonus.day_5_text') }}</p>
+                        <p class="text-900-18 gray login-bonus-text-position">{{ t('vip.login_bonus.day_5_text') }}</p>
                         <img src="@/assets/public/svg/icon_public_18.svg" class="login-bonus-card-cash-position"
                             width="40" />
-                        <p class="text-900-18 white login-bonus-card-money-position">$ {{ loginBonusItem.award[4] }}</p>
+                        <p class="text-900-18 gray login-bonus-card-money-position">$ {{ loginBonusItem.award[4] }}</p>
                     </div>
                     <div class="login-bonus-card-bg-4 relative" v-ripple.center v-else @click="handleLoginBonus(5)">
                         <img src="@/assets/vip/image/img_vip_32.png" class="login-bonus-sunshine-img"
@@ -111,10 +111,10 @@ const handleLoginBonus = (day: number) => {
                 </v-col>
                 <v-col cols="4" class="pa-0 d-flex justify-center">
                     <div class="login-bonus-card-checkout-bg relative" v-if="loginBonusItem.signin_day >= 6">
-                        <p class="text-900-18 white login-bonus-text-position">{{ t('vip.login_bonus.day_6_text') }}</p>
+                        <p class="text-900-18 gray login-bonus-text-position">{{ t('vip.login_bonus.day_6_text') }}</p>
                         <img src="@/assets/public/svg/icon_public_18.svg" class="login-bonus-card-cash-position"
                             width="40" />
-                        <p class="text-900-18 white login-bonus-card-money-position">$ {{ loginBonusItem.award[5] }}</p>
+                        <p class="text-900-18 gray login-bonus-card-money-position">$ {{ loginBonusItem.award[5] }}</p>
                     </div>
                     <div class="login-bonus-card-bg-4 relative" v-ripple.center v-else @click="handleLoginBonus(6)">
                         <img src="@/assets/vip/image/img_vip_32.png" class="login-bonus-sunshine-img"
@@ -128,10 +128,10 @@ const handleLoginBonus = (day: number) => {
             <v-row class="mt-6 mx-2">
                 <v-col cols="12" class="pa-0 d-flex justify-center">
                     <div class="login-bonus-card-checkout-bg-1 relative" v-if="loginBonusItem.signin_day >= 7">
-                        <p class="text-900-18 white login-bonus-text-position-1">
+                        <p class="text-900-18 gray login-bonus-text-position-1">
                             {{ t('vip.login_bonus.day_7_text') }}
                         </p>
-                        <p class="text-900-18 white mt-2 login-bonus-card-money-position-1">
+                        <p class="text-900-18 gray mt-2 login-bonus-card-money-position-1">
                             $ {{ loginBonusItem.award[6] }}
                         </p>
                         <img src="@/assets/public/svg/icon_public_18.svg" class="login-bonus-card-cash-position"
@@ -248,6 +248,7 @@ const handleLoginBonus = (day: number) => {
     /* Button Shadow */
     box-shadow: 0px 3px 4px 1px rgba(0, 0, 0, 0.21);
     cursor: pointer;
+    overflow: hidden;
 }
 
 .login-bonus-card-bg-2 {
@@ -259,6 +260,7 @@ const handleLoginBonus = (day: number) => {
     /* Button Shadow */
     box-shadow: 0px 3px 4px 1px rgba(0, 0, 0, 0.21);
     cursor: pointer;
+    overflow: hidden;
 }
 
 .login-bonus-card-bg-3 {
@@ -270,6 +272,7 @@ const handleLoginBonus = (day: number) => {
     /* Button Shadow */
     box-shadow: 0px 3px 4px 1px rgba(0, 0, 0, 0.21);
     cursor: pointer;
+    overflow: hidden;
 }
 
 .login-bonus-card-bg-4 {
@@ -281,18 +284,29 @@ const handleLoginBonus = (day: number) => {
     /* Button Shadow */
     box-shadow: 0px 3px 4px 1px rgba(0, 0, 0, 0.21);
     cursor: pointer;
+    overflow: hidden;
 }
 
 .login-bonus-sunshine-img {
-    width: 100%;
-    height: 100%;
+    width: 450px;
+    height: 450px;
     border-radius: 6px;
-    // animation: rotate 5s linear infinite;
+    animation: rotate 5s linear infinite;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform-origin: center center;
+    transform: translate(-50%, -50%) rotate(45deg);
+    object-fit: cover;
 }
 
 @keyframes rotate {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
 }
 
 .login-bonus-card-bg-5 {
@@ -301,6 +315,7 @@ const handleLoginBonus = (day: number) => {
     border-radius: 6px;
     background: linear-gradient(180deg, #9419F0 0%, #275798 100%);
     cursor: pointer;
+    overflow: hidden;
 }
 
 .login-bonus-text-position {

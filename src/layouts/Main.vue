@@ -23,6 +23,7 @@ import MobileDialog from "@/components/Signout/mobile/Header.vue";
 import RefferalDialog from "@/components/refferal/index.vue";
 import MRefferalDialog from "@/components/refferal/mobile/index.vue";
 import LoginBonusDialog from "@/components/login_bonus/index.vue";
+import MLoginBonusDialog from "@/components/login_bonus/mobile/index.vue";
 
 const { name, width } = useDisplay();
 const { setDepositDialogToggle } = appBarStore();
@@ -224,9 +225,10 @@ const closeLoginBonusDialog = () => {
 
     <!----------------------------------- login bonus dialog --------------------------------->
 
-    <v-dialog v-model="loginBonusDialog" :width="mobileWidth < 600 ? '360' : '471'"
+    <v-dialog v-model="loginBonusDialog" :width="mobileWidth < 600 ? '340' : '471'"
       @click:outside="setLoginBonusDialogVisible(false)">
       <LoginBonusDialog v-if="mobileWidth > 600" @closeLoginBonusDialog="closeLoginBonusDialog"/>
+      <MLoginBonusDialog v-else  @closeLoginBonusDialog="closeLoginBonusDialog"/>
     </v-dialog>
 
     <!------------------------------ Main Page ------------------------------------------->
