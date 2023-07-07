@@ -4,6 +4,7 @@ import { useDisplay } from 'vuetify';
 import { appBarStore } from '@/store/appBar';
 import { refferalStore } from '@/store/refferal';
 import { authStore } from "@/store/auth";
+import { loginBonusStore } from "@/store/loginBonus";
 import { storeToRefs } from 'pinia';
 import Footer from "./Footer.vue";
 import Deposit from "@/components/cash/deposit/index.vue";
@@ -21,13 +22,15 @@ import MSignout from "@/components/Signout/mobile/index.vue";
 import MobileDialog from "@/components/Signout/mobile/Header.vue";
 import RefferalDialog from "@/components/refferal/index.vue";
 import MRefferalDialog from "@/components/refferal/mobile/index.vue";
-import store from '@/store';
+import LoginBonusDialog from "@/components/login_bonus/index.vue";
+
 const { name, width } = useDisplay();
 const { setDepositDialogToggle } = appBarStore();
 const { setWithdrawDialogToggle } = appBarStore();
 const { setCashDialogToggle } = appBarStore();
 const { setAuthModalType } = authStore();
 const { setRefferalDialogShow } = refferalStore();
+const { setLoginBonusDialogVisible } = loginBonusStore();
 
 type dialogType = "login" | "signup" | "signout";
 
@@ -146,6 +149,20 @@ const refferalDialogVisible = computed(() => {
 watch(refferalDialogVisible, (newValue) => {
   refferalDialog.value = newValue;
 }, { deep: true });
+
+// login bonus dialog
+const loginBonusDialog = ref<boolean>(false);
+const loginBonusDialogVisible = computed(() => {
+  const { getLoginBonusDialogVisible } = storeToRefs(loginBonusStore());
+  return getLoginBonusDialogVisible.value;
+})
+watch(loginBonusDialogVisible, (newValue) => {
+  loginBonusDialog.value = newValue;
+})
+const closeLoginBonusDialog = () => {
+  setLoginBonusDialogVisible(false);
+}
+
 </script>
 
 <template>
@@ -201,8 +218,15 @@ watch(refferalDialogVisible, (newValue) => {
 
     <v-dialog v-model="refferalDialog" :width="mobileWidth < 600 ? '360' : '471'"
       @click:outside="setRefferalDialogShow(false)">
-      <RefferalDialog v-if="mobileWidth > 600"/>
-      <MRefferalDialog v-else/>
+      <RefferalDialog v-if="mobileWidth > 600" />
+      <MRefferalDialog v-else />
+    </v-dialog>
+
+    <!----------------------------------- login bonus dialog --------------------------------->
+
+    <v-dialog v-model="loginBonusDialog" :width="mobileWidth < 600 ? '360' : '471'"
+      @click:outside="setLoginBonusDialogVisible(false)">
+      <LoginBonusDialog v-if="mobileWidth > 600" @closeLoginBonusDialog="closeLoginBonusDialog"/>
     </v-dialog>
 
     <!------------------------------ Main Page ------------------------------------------->

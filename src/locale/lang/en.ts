@@ -595,6 +595,20 @@ export const lang: langType = {
       text_1: "VIP GROUP",
       text_2: "Join our VIP group Get instant access to more  events and bonuses",
       text_3: "Join in now",
+    },
+    login_bonus: {
+      title_text: "Login Bonus",
+      day_1_text: "DAY 1",
+      day_2_text: "DAY 2",
+      day_3_text: "DAY 3",
+      day_4_text: "DAY 4",
+      day_5_text: "DAY 5",
+      day_6_text: "DAY 6",
+      day_7_text: "DAY 7",      
+      footer_text_1: "If you recharge ",
+      footer_text_2: "within ",
+      footer_text_3: "7 days",
+      footer_text_4: "you will get a login bonus",
     }
   }
 };

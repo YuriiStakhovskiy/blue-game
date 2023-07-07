@@ -5,6 +5,7 @@ import { setLang } from "@/locale/index";
 import { authStore } from "@/store/auth";
 import { appBarStore } from "@/store/appBar";
 import { refferalStore } from '@/store/refferal';
+import { loginBonusStore } from "@/store/loginBonus";
 import { bonusTransactionStore } from "@/store/bonusTransaction";
 import { mailStore } from "@/store/mail";
 import { storeToRefs } from "pinia";
@@ -25,6 +26,7 @@ const { setUserNavBarToggle } = appBarStore();
 const { setBonusTabIndex } = bonusTransactionStore();
 const { setTransactionTab } = bonusTransactionStore();
 const { setRefferalDialogShow } = refferalStore();
+const { setLoginBonusDialogVisible } = loginBonusStore();
 
 const { name, width } = useDisplay()
 const router = useRouter();
@@ -227,6 +229,10 @@ const goGameHistoryPage = () => {
   router.push({ name: 'Bonuses And Transactions' });
   setBonusTabIndex(1);
   setTransactionTab(t('transaction.tab.game_history'));
+}
+
+const openLoginBonusDialog = () => {
+  setLoginBonusDialogVisible(true);
 }
 
 // watches
@@ -562,6 +568,9 @@ onMounted(async () => {
       </div>
     </div>
     <div v-else>
+      <v-btn @click="openLoginBonusDialog" class="text-none">
+        Login Bonus
+      </v-btn>
       <v-switch :label="currentLanguage === 'en' ? 'English' : '中文'" color="success" value="success"
         @change="toggleLanguage" hide-details class="toggle-language-switch" />
       <v-btn @click="openDialog('login')" class="text-none"

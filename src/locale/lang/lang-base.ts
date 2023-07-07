@@ -593,5 +593,19 @@ export type langType = {
       text_2: string
       text_3: string
     }
+    login_bonus: {
+      title_text: string
+      day_1_text: string
+      day_2_text: string
+      day_3_text: string
+      day_4_text: string
+      day_5_text: string
+      day_6_text: string
+      day_7_text: string
+      footer_text_1: string
+      footer_text_2: string
+      footer_text_3: string
+      footer_text_4: string
+    }
   }
 };

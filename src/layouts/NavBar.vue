@@ -2,6 +2,7 @@
 import { ref, computed, watch, onMounted } from "vue";
 import { useI18n } from 'vue-i18n';
 import { type GetGameOriginalData } from "@/interface/navBar";
+import { setLang } from "@/locale/index";
 import { useDisplay } from 'vuetify'
 import { appBarStore } from "@/store/appBar";
 import { refferalStore } from "@/store/refferal";
@@ -27,8 +28,8 @@ const mobileWidth = computed(() => {
 })
 
 const refferalAppBarShow = computed(() => {
-  const {getRefferalAppBarShow} = storeToRefs(refferalStore());
-  return getRefferalAppBarShow.value
+    const { getRefferalAppBarShow } = storeToRefs(refferalStore());
+    return getRefferalAppBarShow.value
 })
 
 const navBarToggle = computed(() => {
@@ -88,6 +89,17 @@ watch(navBarToggle, (newValue) => {
 
 const handleLanguageDropdown = (item: string) => {
     language.value = item;
+    switch (item) {
+        case t('navBar.language.english'):
+            setLang("en");
+            break;
+        case t('navBar.language.portuguese'):
+            setLang("pt");
+            break;
+        case t('navBar.language.espanola'):
+            setLang("es");
+            break;
+    }
 }
 
 onMounted(() => {
@@ -126,7 +138,8 @@ onMounted(() => {
                     <v-col cols="6" class="pa-1 relative">
                         <v-list-item value="casino" class="ma-0 pa-0" height="48px">
                             <img src="@/assets/public/svg/bg_public_16.svg" class="img-width" />
-                            <img src="@/assets/public/image/img_public_01.png" class="navbar-task-img-position" width="46"/>
+                            <img src="@/assets/public/image/img_public_01.png" class="navbar-task-img-position"
+                                width="46" />
                             <p class="text-700-14 white navbar-task-text-position">{{ t('navBar.task_text') }}</p>
                             <p class="white navbar-unlock-text-left-position">{{ t('navBar.unlock_text') }}</p>
                         </v-list-item>
@@ -134,7 +147,8 @@ onMounted(() => {
                     <v-col cols="6" class="pa-1">
                         <v-list-item value="sport" class="ma-0 pa-0" height="48px">
                             <img src="@/assets/public/svg/bg_public_17.svg" class="spin-img-width" />
-                            <img src="@/assets/public/image/img_public_02.png" class="navbar-spin-img-position" width="38"/>
+                            <img src="@/assets/public/image/img_public_02.png" class="navbar-spin-img-position"
+                                width="38" />
                             <p class="text-700-14 white navbar-spin-text-position">{{ t('navBar.task_text') }}</p>
                             <p class="white navbar-unlock-text-right-position">{{ t('navBar.unlock_text') }}</p>
                         </v-list-item>
@@ -164,8 +178,8 @@ onMounted(() => {
                         <v-menu location="end" offset="10" class="original-dropdown">
                             <template v-slot:activator="{ props }">
                                 <v-list-item v-bind="props" class="casino-sub-img"
-                                    prepend-avatar="@/assets/public/svg/icon_public_37.svg"
-                                    append-icon="mdi-chevron-right" :title="t('navBar.casino_sub_menu.game_originals')"
+                                    prepend-avatar="@/assets/public/svg/icon_public_37.svg" append-icon="mdi-chevron-right"
+                                    :title="t('navBar.casino_sub_menu.game_originals')"
                                     value="game originals"></v-list-item>
                             </template>
                             <v-list theme="dark" bg-color="#211F31">
@@ -183,17 +197,18 @@ onMounted(() => {
             </v-list-group>
         </v-list>
         <v-list>
-            <v-list-item class="avatar-img" prepend-avatar="@/assets/public/svg/icon_public_40.svg" :title="t('navBar.sport')"
-                value="sport"></v-list-item>
+            <v-list-item class="avatar-img" prepend-avatar="@/assets/public/svg/icon_public_40.svg"
+                :title="t('navBar.sport')" value="sport"></v-list-item>
         </v-list>
         <v-divider class="divider"></v-divider>
         <v-list>
             <v-list-item class="avatar-img" prepend-avatar="@/assets/public/svg/icon_public_41.svg"
                 :title="t('navBar.menu_item_1.promotions')" value="promotions"></v-list-item>
             <v-list-item class="vip-club" prepend-avatar="@/assets/public/svg/icon_public_42.svg"
-                :title="t('navBar.menu_item_1.vip_club')" value="vip club" router :to="{name: 'VIP'}"></v-list-item>
+                :title="t('navBar.menu_item_1.vip_club')" value="vip club" router :to="{ name: 'VIP' }"></v-list-item>
             <v-list-item class="avatar-img" prepend-avatar="@/assets/public/svg/icon_public_43.svg"
-                :title="t('navBar.menu_item_1.affiliate')" value="affiliate" router :to="{ name: 'Affiliate' }"></v-list-item>
+                :title="t('navBar.menu_item_1.affiliate')" value="affiliate" router
+                :to="{ name: 'Affiliate' }"></v-list-item>
             <v-list-item class="avatar-img" prepend-avatar="@/assets/public/svg/icon_public_44.svg"
                 :title="t('navBar.menu_item_1.blog')" value="blog"></v-list-item>
         </v-list>
@@ -207,8 +222,8 @@ onMounted(() => {
                 <template v-slot:activator="{ props }">
                     <v-card color="#211F31" theme="dark" class="mx-2 language-item">
                         <v-list-item v-bind="props" class="casino-sub-img"
-                            prepend-avatar="@/assets/public/svg/icon_public_57.svg" :title="language"
-                            value="english" append-icon="mdi-chevron-right"></v-list-item>
+                            prepend-avatar="@/assets/public/svg/icon_public_57.svg" :title="language" value="english"
+                            append-icon="mdi-chevron-right"></v-list-item>
                     </v-card>
                 </template>
                 <v-list theme="dark" bg-color="#211F31">
@@ -559,41 +574,47 @@ onMounted(() => {
     left: 32px;
     top: -10px;
 }
+
 .navbar-free-money-text-position {
     position: absolute;
     left: 81px;
     top: 6px;
 }
+
 .navbar-task-img-position {
     position: absolute;
     left: 6px;
     top: -8px;
 }
+
 .navbar-task-text-position {
     position: absolute;
     left: 47px;
     top: 3px;
 }
-.navbar-unlock-text-left-position {    
+
+.navbar-unlock-text-left-position {
     position: absolute;
     left: 43px;
     top: 18px;
     font-size: 12px;
 }
+
 .navbar-spin-img-position {
     position: absolute;
     left: 4px;
     top: 2px;
 }
+
 .navbar-spin-text-position {
     position: absolute;
     left: 47px;
     top: 5px;
 }
-.navbar-unlock-text-right-position {    
+
+.navbar-unlock-text-right-position {
     position: absolute;
     left: 43px;
     top: 20px;
     font-size: 12px;
-}
-</style>
+}</style>
