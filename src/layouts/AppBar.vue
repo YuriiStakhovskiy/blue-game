@@ -27,6 +27,7 @@ const { setBonusTabIndex } = bonusTransactionStore();
 const { setTransactionTab } = bonusTransactionStore();
 const { setRefferalDialogShow } = refferalStore();
 const { setLoginBonusDialogVisible } = loginBonusStore();
+const { setRouletteBonusDialogVisible } = loginBonusStore();
 
 const { name, width } = useDisplay()
 const router = useRouter();
@@ -235,6 +236,10 @@ const openLoginBonusDialog = () => {
   setLoginBonusDialogVisible(true);
 }
 
+const openRouletteBonusDialog = () => {
+  setRouletteBonusDialogVisible(true);
+}
+
 // watches
 watch(currentLanguage, (newLang, oldLang) => {
   setLang(newLang);
@@ -282,7 +287,7 @@ onMounted(async () => {
     <v-toolbar-title v-else>
       <v-btn height="46" width="100" @click="goHomePage" class="align-center mt-1">
         <img src="@/assets/public/image/logo_public_03.png" />
-          <!-- <p class="m-logo-title-1 mt-1">{{ t('main.logo_text_1') }}</p>
+        <!-- <p class="m-logo-title-1 mt-1">{{ t('main.logo_text_1') }}</p>
           <p class="m-logo-title-2 mt-1">{{ t('main.logo_text_2') }}</p> -->
       </v-btn>
     </v-toolbar-title>
@@ -564,6 +569,9 @@ onMounted(async () => {
       </div>
     </div>
     <div v-else>
+      <v-btn @click="openRouletteBonusDialog" class="text-none">
+        Roulette
+      </v-btn>
       <v-btn @click="openLoginBonusDialog" class="text-none">
         Login Bonus
       </v-btn>

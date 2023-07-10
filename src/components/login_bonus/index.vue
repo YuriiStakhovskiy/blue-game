@@ -22,7 +22,7 @@ const handleLoginBonus = (day: number) => {
 <template>
     <div class="login-bonus-dialog-container">
         <img src="@/assets/public/image/bg_public_03_01.png" class="header-bar-img-position" />
-        <v-btn class="close-login-bonus-button" icon="true" @click="$emit('closeLoginBonusDialog')" height="32" width="32">
+        <v-btn class="close-login-bonus-button" icon="true" @click="emit('closeLoginBonusDialog')" height="32" width="32">
             <img src="@/assets/public/svg/icon_public_52.svg" width="20" />
         </v-btn>
         <img src="@/assets/affiliate/invite/image/img_agent_02.png" class="login-bonus-agent-img" />
@@ -362,4 +362,6 @@ const handleLoginBonus = (day: number) => {
     background: #211F31;
     /* Text Box */
     box-shadow: 2px 0px 4px 1px rgba(0, 0, 0, 0.12) inset;
-}</style>
+}
+
+</style>

@@ -14,3 +14,10 @@ export interface GetSpinData {
     title: string
     content: string
 }
+
+export interface GetRouletteHistory {
+    id: number
+    rouletteTime: string
+    user: string
+    rouletteResult: string
+}

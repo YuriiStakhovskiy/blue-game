@@ -24,6 +24,7 @@ import RefferalDialog from "@/components/refferal/index.vue";
 import MRefferalDialog from "@/components/refferal/mobile/index.vue";
 import LoginBonusDialog from "@/components/login_bonus/index.vue";
 import MLoginBonusDialog from "@/components/login_bonus/mobile/index.vue";
+import RouletteBonusDialog from "@/components/roulette_bonus/index.vue";
 
 const { name, width } = useDisplay();
 const { setDepositDialogToggle } = appBarStore();
@@ -32,6 +33,7 @@ const { setCashDialogToggle } = appBarStore();
 const { setAuthModalType } = authStore();
 const { setRefferalDialogShow } = refferalStore();
 const { setLoginBonusDialogVisible } = loginBonusStore();
+const { setRouletteBonusDialogVisible } = loginBonusStore();
 
 type dialogType = "login" | "signup" | "signout";
 
@@ -164,6 +166,19 @@ const closeLoginBonusDialog = () => {
   setLoginBonusDialogVisible(false);
 }
 
+// roulette bonus dialog
+const rouletteBonusDialog = ref<boolean>(false);
+const rouletteBonusDialogVisible = computed(() => {
+  const { getRouletteBonusDialogVisible } = storeToRefs(loginBonusStore());
+  return getRouletteBonusDialogVisible.value;
+})
+watch(rouletteBonusDialogVisible, (newValue) => {
+  rouletteBonusDialog.value = newValue;
+})
+const closeRouletteBonusDialog = () => {
+  setRouletteBonusDialogVisible(false);
+}
+
 </script>
 
 <template>
@@ -227,8 +242,15 @@ const closeLoginBonusDialog = () => {
 
     <v-dialog v-model="loginBonusDialog" :width="mobileWidth < 600 ? '340' : '471'"
       @click:outside="setLoginBonusDialogVisible(false)">
-      <LoginBonusDialog v-if="mobileWidth > 600" @closeLoginBonusDialog="closeLoginBonusDialog"/>
-      <MLoginBonusDialog v-else  @closeLoginBonusDialog="closeLoginBonusDialog"/>
+      <LoginBonusDialog v-if="mobileWidth > 600" @closeLoginBonusDialog="closeLoginBonusDialog" />
+      <MLoginBonusDialog v-else @closeLoginBonusDialog="closeLoginBonusDialog" />
+    </v-dialog>
+
+    <!----------------------------------- roulette bonus dialog --------------------------------->
+
+    <v-dialog v-model="rouletteBonusDialog" :width="mobileWidth < 600 ? '340' : '471'"
+      @click:outside="setRouletteBonusDialogVisible(false)">
+      <RouletteBonusDialog v-if="mobileWidth > 600" @closeRouletteBonusDialog="closeRouletteBonusDialog" />
     </v-dialog>
 
     <!------------------------------ Main Page ------------------------------------------->

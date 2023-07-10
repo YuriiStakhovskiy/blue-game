@@ -503,7 +503,7 @@ onMounted(() => {
                 </Slide>
             </Carousel>
 
-            <div class="mt-4" :class="vipSlidePosition ? 'vip-slide-position' : ''" ref="slideElement"
+            <div class="mt-4" :class="vipSlidePosition ? 'm-vip-slide-position' : ''" ref="slideElement"
                 @click="handleVIPTab">
                 <v-slide-group v-model="selectedVIPTab" show-arrows>
                     <v-slide-group-item v-for="(item, index) in vipTabs" :key="index" v-slot="{ isSelected, toggle }"
@@ -1354,5 +1354,13 @@ onMounted(() => {
     position: absolute;
     top: 5px;
     left: 5px
+}
+
+
+.m-vip-slide-position {
+    position: fixed;
+    top: 84px;
+    width: -webkit-fill-available;
+    z-index: 100000000;
 }
 </style>

@@ -607,5 +607,12 @@ export type langType = {
       footer_text_3: string
       footer_text_4: string
     }
+    roulette_bonus: {
+      paid_text: string
+      roulette_btn_text: string
+      victory_btn_text: string
+      winner_text: string
+      prize_winner_text: string
+    }
   }
 };

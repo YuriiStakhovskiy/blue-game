@@ -1394,7 +1394,8 @@ onMounted(() => {
 .vip-slide-position {
     position: fixed;
     top: 84px;
-    width: 100%;
+    width: -webkit-fill-available;
     z-index: 100000000;
+    margin-right: 11px;
 }
 </style>

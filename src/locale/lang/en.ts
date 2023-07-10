@@ -609,6 +609,13 @@ export const lang: langType = {
       footer_text_2: "within ",
       footer_text_3: "7 days",
       footer_text_4: "you will get a login bonus",
+    },
+    roulette_bonus: {
+      paid_text: "ROULETTE PAID BOUNS",
+      roulette_btn_text: "WHEELS OF LUCK",
+      victory_btn_text: "The latest spin victory",
+      winner_text: "Winners",
+      prize_winner_text: "Grand Prize Winner"
     }
   }
 };
