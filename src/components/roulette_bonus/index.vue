@@ -3,6 +3,7 @@ import { ref, computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useDisplay } from "vuetify";
 import { type GetRouletteHistory } from '@/interface/vip';
+import { Roulette } from 'vue3-roulette';
 
 const emit = defineEmits<{ (e: 'closeRouletteBonusDialog'): void }>()
 const { t } = useI18n();
@@ -10,8 +11,16 @@ const { width } = useDisplay()
 
 const roulettePaidBonus = ref<string>("R$ 1.400.000");
 const spinNumber = ref<number>(1);
-const winnerBodyHeight = ref<number>(347);
+const winnerBodyHeight = ref<number>(0);
 const winnerBodyShow = ref<boolean>(false);
+const winnerToggleSwitch = ref<boolean>(false);
+const wheel = ref(null);
+const items = ref<Array<any>>([
+    { id: 1, name: "Banana", htmlContent: "Banana", textColor: "", background: "" },
+    { id: 2, name: "Apple", htmlContent: "Apple", textColor: "", background: "" },
+    { id: 3, name: "Orange and Purple", htmlContent: "Orange<br>and Purple", textColor: "", background: "" },
+    { id: 4, name: "Cherry", htmlContent: "Cherry", textColor: "", background: "" },
+]);
 
 const rouletteHistory = ref<Array<GetRouletteHistory>>([
     {
@@ -27,16 +36,142 @@ const rouletteHistory = ref<Array<GetRouletteHistory>>([
         rouletteResult: "R$ 0.5",
     },
     {
-        id: 1,
+        id: 3,
         rouletteTime: "2023/06/20 23:19:00",
         user: "User9110245128",
         rouletteResult: "IPHONE 14",
     },
     {
-        id: 1,
+        id: 4,
         rouletteTime: "2023/06/20 23:19:00",
         user: "User9110245128",
         rouletteResult: "R$ 5000",
+    },
+])
+
+const rouletteWinnerHistory = ref<Array<GetRouletteHistory>>([
+    {
+        id: 1,
+        rouletteTime: "2023/06/20 23:19:00",
+        user: "User9110245128",
+        rouletteResult: "R$ 0.5",
+    },
+    {
+        id: 2,
+        rouletteTime: "2023/06/20 23:19:00",
+        user: "User9110245128",
+        rouletteResult: "R$ 1",
+    },
+    {
+        id: 3,
+        rouletteTime: "2023/06/20 23:19:00",
+        user: "User9110245128",
+        rouletteResult: "R$ 0.5",
+    },
+    {
+        id: 4,
+        rouletteTime: "2023/06/20 23:19:00",
+        user: "User9110245128",
+        rouletteResult: "R$ 0.5",
+    },
+    {
+        id: 5,
+        rouletteTime: "2023/06/20 23:19:00",
+        user: "User9110245128",
+        rouletteResult: "R$ 0.5",
+    },
+    {
+        id: 6,
+        rouletteTime: "2023/06/20 23:19:00",
+        user: "User9110245128",
+        rouletteResult: "R$ 0.5",
+    },
+    {
+        id: 7,
+        rouletteTime: "2023/06/20 23:19:00",
+        user: "User9110245128",
+        rouletteResult: "R$ 0.5",
+    },
+    {
+        id: 8,
+        rouletteTime: "2023/06/20 23:19:00",
+        user: "User9110245128",
+        rouletteResult: "R$ 0.5",
+    },
+    {
+        id: 9,
+        rouletteTime: "2023/06/20 23:19:00",
+        user: "User9110245128",
+        rouletteResult: "R$ 0.5",
+    },
+    {
+        id: 10,
+        rouletteTime: "2023/06/20 23:19:00",
+        user: "User9110245128",
+        rouletteResult: "R$ 5000",
+    },
+])
+
+const roulettePrizeHistory = ref<Array<GetRouletteHistory>>([
+    {
+        id: 1,
+        rouletteTime: "2023/06/20 23:19:00",
+        user: "User9110245128",
+        rouletteResult: "R$ 500",
+    },
+    {
+        id: 2,
+        rouletteTime: "2023/06/20 23:19:00",
+        user: "User9110245128",
+        rouletteResult: "R$ 500",
+    },
+    {
+        id: 3,
+        rouletteTime: "2023/06/20 23:19:00",
+        user: "User9110245128",
+        rouletteResult: "R$ 500",
+    },
+    {
+        id: 4,
+        rouletteTime: "2023/06/20 23:19:00",
+        user: "User9110245128",
+        rouletteResult: "R$ 500",
+    },
+    {
+        id: 5,
+        rouletteTime: "2023/06/20 23:19:00",
+        user: "User9110245128",
+        rouletteResult: "R$ 500",
+    },
+    {
+        id: 6,
+        rouletteTime: "2023/06/20 23:19:00",
+        user: "User9110245128",
+        rouletteResult: "R$ 500",
+    },
+    {
+        id: 7,
+        rouletteTime: "2023/06/20 23:19:00",
+        user: "User9110245128",
+        rouletteResult: "R$ 50",
+    },
+    {
+        id: 8,
+        rouletteTime: "2023/06/20 23:19:00",
+        user: "User9110245128",
+        rouletteResult: "IPHONE 14",
+    },
+    {
+        id: 9,
+        rouletteTime: "2023/06/20 23:19:00",
+        user: "User9110245128",
+        rouletteResult: "R$ 50",
+    },
+    {
+        id: 10,
+        rouletteTime: "2023/06/20 23:19:00",
+        user: "User9110245128",
+        rouletteResult: "R$ 50",
     },
 ])
 
@@ -46,7 +181,22 @@ const mobileWidth: any = computed(() => {
 
 const showWinnerBody = () => {
     winnerBodyShow.value = !winnerBodyShow.value;
-    // winnerBodyHeight.value = winnerBodyHeight.value ? 347 : 0;
+    winnerBodyHeight.value = winnerBodyShow.value ? 347 : 0;
+}
+
+
+const launchWheel = () => {
+    if (wheel.value != null) {
+        wheel.value.launchWheel();
+    }
+}
+
+const wheelStartedCallback = () => {
+
+}
+
+const wheelEndedCallback = () => {
+    
 }
 </script>
 
@@ -77,7 +227,9 @@ const showWinnerBody = () => {
         </div>
         <div class="roulette-bonus-dialog-body">
             <img src="@/assets/vip/image/img_vip_31.png" width="428" class="roulette-bonus-dialog-spin-position" />
-            <img src="@/assets/vip/image/img_vip_30.png" width="248" class="roulette-bonus-dialog-spin-position-1" />
+            <Roulette ref="wheel" :items="items" @click="launchWheel" class="roulette-bonus-dialog-spin-position-1"
+                @wheel-start="wheelStartedCallback" @wheel-end="wheelEndedCallback" />
+            <!-- <img src="@/assets/vip/image/img_vip_30.png" width="248" class="roulette-bonus-dialog-spin-position-1" /> -->
             <img src="@/assets/vip/image/img_vip_28.png" width="52" class="roulette-bonus-dialog-spin-position-2" />
             <img src="@/assets/vip/image/img_vip_29.png" width="70" class="roulette-bonus-dialog-spin-position-3" />
             <div class="roulette-bonus-dialog-body-1">
@@ -109,9 +261,9 @@ const showWinnerBody = () => {
                 <v-icon style="font-size: 20px;" class="mt-1" v-else>mdi-chevron-up</v-icon>
             </v-btn>
         </div>
-        <!-- <div class="roulette-bonus-dialog-winner-body" :style="{ height: winnerBodyHeight + 'px' }">
+        <div class="roulette-bonus-dialog-winner-body" :style="{ height: winnerBodyHeight + 'px' }">
             <div class="victory-toggle">
-                <input type="checkbox" id="victory-toggle" />
+                <input type="checkbox" id="victory-toggle" v-model="winnerToggleSwitch" />
                 <label for="victory-toggle">
                     <div class="winner">
                         <P>{{ t('vip.roulette_bonus.winner_text') }}</P>
@@ -121,44 +273,36 @@ const showWinnerBody = () => {
                     </div>
                 </label>
             </div>
-            <div class="roulette-bonus-dialog-winner-content"></div>
-        </div> -->
-        <transition name="fade">
-            <div class="roulette-bonus-dialog-winner-body" :style="{ height: winnerBodyHeight + 'px' }"
-                v-if="winnerBodyShow">
-                <div class="victory-toggle">
-                    <input type="checkbox" id="victory-toggle" />
-                    <label for="victory-toggle">
-                        <div class="winner">
-                            <P>{{ t('vip.roulette_bonus.winner_text') }}</P>
-                        </div>
-                        <div class="prize">
-                            <P>{{ t('vip.roulette_bonus.prize_winner_text') }}</P>
-                        </div>
-                    </label>
+            <div class="roulette-bonus-dialog-winner-content">
+                <div class="my-2" v-if="!winnerToggleSwitch">
+                    <v-row v-for="(item, index) in rouletteWinnerHistory" :key="index" class="ma-0 mx-4 pa-0">
+                        <v-col cols="5" class="pa-1 ma-0 text-500-10 gray">{{ item.rouletteTime }}</v-col>
+                        <v-col cols="4" class="pa-1 ma-0 text-500-10 gray">{{ item.user }}</v-col>
+                        <v-col cols="3" class="pa-1 ma-0 text-500-10 yellow" v-if="item.rouletteResult == 'IPHONE 14'">{{
+                            item.rouletteResult }}</v-col>
+                        <v-col cols="3" class="pa-1 ma-0 text-500-10 white" v-else-if="item.rouletteResult == 'R$ 5000'">{{
+                            item.rouletteResult }}</v-col>
+                        <v-col cols="3" class="pa-1 ma-0 text-500-10 gray" v-else>{{ item.rouletteResult }}</v-col>
+                    </v-row>
                 </div>
-                <div class="roulette-bonus-dialog-winner-content"></div>
+                <div class="my-2" v-else>
+                    <v-row v-for="(item, index) in roulettePrizeHistory" :key="index" class="ma-0 mx-4 pa-0">
+                        <v-col cols="5" class="pa-1 ma-0 text-500-10 gray">{{ item.rouletteTime }}</v-col>
+                        <v-col cols="4" class="pa-1 ma-0 text-500-10 gray">{{ item.user }}</v-col>
+                        <v-col cols="3" class="pa-1 ma-0 text-500-10 yellow" v-if="item.rouletteResult == 'IPHONE 14'">{{
+                            item.rouletteResult }}</v-col>
+                        <v-col cols="3" class="pa-1 ma-0 text-500-10 white"
+                            v-else-if="item.rouletteResult == 'R$ 5000' || item.rouletteResult == 'R$ 500' || item.rouletteResult == 'R$ 50'">{{
+                                item.rouletteResult }}</v-col>
+                        <v-col cols="3" class="pa-1 ma-0 text-500-10 gray" v-else>{{ item.rouletteResult }}</v-col>
+                    </v-row>
+                </div>
             </div>
-        </transition>
-        <!-- <transition name="height-transition">
-            <div v-if="winnerBodyShow" :style="{ height: `${winnerBodyHeight}px`, background:'black' }">
-                sdfsdfsdf
-            </div>
-        </transition> -->
+        </div>
     </div>
 </template>
 
 <style lang="scss">
-.fade-enter-active,
-.fade-leave-active {
-    transition: height 0.3s;
-}
-
-.fade-enter,
-.fade-leave-to {
-    height: 0;
-}
-
 .roulette-bonus-dialog-container {
     height: 619px;
     border-radius: 0px 0px 24px 24px;
@@ -379,13 +523,13 @@ const showWinnerBody = () => {
 
     .roulette-bonus-dialog-winner-body {
         width: 100%;
-        height: 347px;
         border-radius: 24px;
         background: #29253C;
         position: absolute;
         bottom: 0;
         z-index: 1;
         transition: height 0.3s ease-out;
+        overflow: hidden;
 
         // winner and prize toggle switch
         .victory-toggle {
@@ -393,8 +537,6 @@ const showWinnerBody = () => {
             top: -12px;
             left: 50%;
             transform: translateX(-50%);
-
-            // margin-top: -10px;
 
             label {
                 width: 439px;
@@ -481,6 +623,7 @@ const showWinnerBody = () => {
             background: #211F31;
             /* Text Box */
             box-shadow: 2px 0px 4px 1px rgba(0, 0, 0, 0.12) inset;
+            overflow-y: auto;
         }
     }
 }
