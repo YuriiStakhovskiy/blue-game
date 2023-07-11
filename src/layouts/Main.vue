@@ -208,7 +208,7 @@ const closeRouletteBonusDialog = () => {
       <MobileDialog :mobileDialogCheck="mobileDialogCheck" @switch="switchDialog" />
     </v-dialog>
     <v-dialog v-model="signupDialog" :width="mobileVersion == 'sm' ? '' : 471" :fullscreen="mobileVersion == 'sm'"
-      :scrim="mobileVersion == 'sm' ? false : true" :transition="mobileVersion == 'sm' ? 'dialog-bottom-transition' : ''"
+      :scrim="mobileVersion == 'sm' ? false : true" :transition="mobileVersion == 'sm' ? 'dialog-bottom-transition' : 'fade'"
       :class="[mobileVersion == 'sm' ? 'mobile-login-dialog-position' : '']" @click:outside="closeDialog('signup')">
       <!------------  PC Version ------------>
       <Signup v-if="mobileVersion != 'sm'" @close="closeDialog('signup')" @switch="switchDialog('signup')" />
@@ -216,7 +216,7 @@ const closeRouletteBonusDialog = () => {
       <MSignup v-else @close="closeDialog('signup')" @switch="switchDialog('signup')" />
     </v-dialog>
     <v-dialog v-model="loginDialog" :width="mobileVersion == 'sm' ? '' : 471" :fullscreen="mobileVersion == 'sm'"
-      :scrim="mobileVersion == 'sm' ? false : true" :transition="mobileVersion == 'sm' ? 'dialog-bottom-transition' : ''"
+      :scrim="mobileVersion == 'sm' ? false : true" :transition="mobileVersion == 'sm' ? 'dialog-bottom-transition' : 'fade'"
       :class="[mobileVersion == 'sm' ? 'mobile-login-dialog-position' : '']" @click:outside="closeDialog('login')">
       <!------------  PC Version ------------>
       <Login v-if="mobileVersion != 'sm'" @close="closeDialog('login')" @switch="switchDialog('login')" />
@@ -224,7 +224,7 @@ const closeRouletteBonusDialog = () => {
       <MLogin v-else @close="closeDialog('login')" @switch="switchDialog('login')" />
     </v-dialog>
     <v-dialog v-model="signoutDialog" :width="mobileVersion == 'sm' ? '' : 471" :fullscreen="mobileVersion == 'sm'"
-      :transition="mobileVersion == 'sm' ? 'dialog-bottom-transition' : ''"
+      :transition="mobileVersion == 'sm' ? 'dialog-bottom-transition' : 'fade'"
       :class="[mobileVersion == 'sm' ? 'mobile-login-dialog-position' : '']" @click:outside="closeDialog('signout')">
       <Signout v-if="mobileVersion != 'sm'" @close="closeDialog('signout')" />
       <MSignout v-else @close="closeDialog('signout')" />
@@ -232,7 +232,7 @@ const closeRouletteBonusDialog = () => {
 
     <!----------------------------------- refferal dialog --------------------------------->
 
-    <v-dialog v-model="refferalDialog" :width="mobileWidth < 600 ? '360' : '471'"
+    <v-dialog v-model="refferalDialog" :width="mobileWidth < 600 ? '360' : '471'" transition="fade"
       @click:outside="setRefferalDialogShow(false)">
       <RefferalDialog v-if="mobileWidth > 600" />
       <MRefferalDialog v-else />
@@ -240,7 +240,7 @@ const closeRouletteBonusDialog = () => {
 
     <!----------------------------------- login bonus dialog --------------------------------->
 
-    <v-dialog v-model="loginBonusDialog" :width="mobileWidth < 600 ? '340' : '471'"
+    <v-dialog v-model="loginBonusDialog" :width="mobileWidth < 600 ? '340' : '471'" transition="fade"
       @click:outside="setLoginBonusDialogVisible(false)">
       <LoginBonusDialog v-if="mobileWidth > 600" @closeLoginBonusDialog="closeLoginBonusDialog" />
       <MLoginBonusDialog v-else @closeLoginBonusDialog="closeLoginBonusDialog" />
@@ -248,7 +248,7 @@ const closeRouletteBonusDialog = () => {
 
     <!----------------------------------- roulette bonus dialog --------------------------------->
 
-    <v-dialog v-model="rouletteBonusDialog" :width="mobileWidth < 600 ? '340' : '471'"
+    <v-dialog v-model="rouletteBonusDialog" :width="mobileWidth < 600 ? '340' : '471'" transition="fade"
       @click:outside="setRouletteBonusDialogVisible(false)">
       <RouletteBonusDialog v-if="mobileWidth > 600" @closeRouletteBonusDialog="closeRouletteBonusDialog" />
     </v-dialog>

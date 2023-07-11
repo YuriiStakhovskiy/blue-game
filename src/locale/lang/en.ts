@@ -615,7 +615,20 @@ export const lang: langType = {
       roulette_btn_text: "WHEELS OF LUCK",
       victory_btn_text: "The latest spin victory",
       winner_text: "Winners",
-      prize_winner_text: "Grand Prize Winner"
+      prize_winner_text: "Grand Prize Winner",
+      help_menu: {
+        title_text: "Rule",
+        text_1: "BETFIERY Lucky Roulette is here!",
+        text_2: "Place your bets in the game every day and spin our Lucky Roulette for real cash prizes and the iPhone 14, 1BTC Super Prize!",
+        text_3: "Lucky Roulette Rules.",
+        text_4: "1. Business hours are 00:00-24:00 every day.",
+        text_5: "2. Members may spin Lucky Roulette once for every 1000 BRL wagered in the game, the more bets placed, the more times you win, there is no maximum limit!",
+        text_6: "3. Members who win a physical prize (iPhone 14) will receive an internal letter from BETFIERY and a VIP customer service manager will contact the customer to send the prize.",
+        text_7: "Terms and Conditions.",
+        text_8: "1. Each player may only have one account.",
+        text_9: "2. Players who open multiple accounts or impersonate an account will be disqualified from the promotion. Balances may be forfeited and accounts will be blocked.",
+        text_10: "3. BETFIERY reserves the right to modify, alter, suspend, cancel, reject or cancel this promotion at its sole discretion.",
+      }
     }
   }
 };
