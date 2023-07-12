@@ -411,7 +411,8 @@ const showWinnerBody = () => {
 
 <style lang="scss">
 .roulette-bonus-help-menu {
-    left: 242px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
 }
 
 .roulette-bonus-help-menu::after {
@@ -420,7 +421,7 @@ const showWinnerBody = () => {
     align-self: center;
     float: right;
     top: -36px;
-    right: 57px;
+    right: 60px;
     border: 21px solid #211f31;
     border-right-color: transparent;
     border-left-color: transparent;

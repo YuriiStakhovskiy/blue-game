@@ -169,9 +169,9 @@ export default Login
             <!-- Forgot password -->
             <div v-if="currentPage == PAGE_TYPE.FORGOT_PASSWORD" class="full-width">
                 <v-row class="mt-8 d-flex justify-center">
-                    <img src="@/assets/login/image/logo2.png" class="logo-image mr-2">
-                    <span class="logo-text purple text-large">{{ t('main.logo_text_1') }}</span>
-                    <span class="logo-text yellow text-large">{{ t('main.logo_text_2') }}</span>
+                    <img src="@/assets/public/image/logo_public_01.png" class="logo-image mr-2">
+                    <!-- <span class="logo-text purple text-large">{{ t('main.logo_text_1') }}</span>
+                    <span class="logo-text yellow text-large">{{ t('main.logo_text_2') }}</span> -->
                 </v-row>
                 <v-row class="mt-8">
                     <p class="label-text-md2 white center full-width pl-12 pr-12">
@@ -187,6 +187,17 @@ export default Login
                         width="-webkit-fill-available" height="60px" autocapitalize="off" @click="handleForgotPassword">
                         {{ t('login.forgotPasswordPage.submit') }}
                     </v-btn>
+                </v-row>
+                <v-row class="mt-10">
+                    <v-col cols="8" offset="2">
+                        <div class="d-flex justify-space-around bg-surface-variant social-icon-wrapper">
+                            <v-sheet v-for="n in 4" :key="n" color="#131828" class="rounded">
+                                <v-btn color="grey-darken-4" class="social-icon-button" icon="">
+                                    <img :src="`src/assets/public/svg/${iconNameList[n - 1]}.svg`" />
+                                </v-btn>
+                            </v-sheet>
+                        </div>
+                    </v-col>
                 </v-row>
             </div>
         </v-row>

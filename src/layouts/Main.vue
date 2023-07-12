@@ -25,6 +25,7 @@ import MRefferalDialog from "@/components/refferal/mobile/index.vue";
 import LoginBonusDialog from "@/components/login_bonus/index.vue";
 import MLoginBonusDialog from "@/components/login_bonus/mobile/index.vue";
 import RouletteBonusDialog from "@/components/roulette_bonus/index.vue";
+import MRouletteBonusDialog from "@/components/roulette_bonus/mobile/index.vue";
 
 const { name, width } = useDisplay();
 const { setDepositDialogToggle } = appBarStore();
@@ -251,6 +252,7 @@ const closeRouletteBonusDialog = () => {
     <v-dialog v-model="rouletteBonusDialog" :width="mobileWidth < 600 ? '340' : '471'" transition="fade"
       @click:outside="setRouletteBonusDialogVisible(false)">
       <RouletteBonusDialog v-if="mobileWidth > 600" @closeRouletteBonusDialog="closeRouletteBonusDialog" />
+      <MRouletteBonusDialog v-else @closeRouletteBonusDialog="closeRouletteBonusDialog" />
     </v-dialog>
 
     <!------------------------------ Main Page ------------------------------------------->

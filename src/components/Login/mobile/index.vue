@@ -162,9 +162,9 @@ export default Login
             <!-- Forgot password -->
             <div v-if="currentPage == PAGE_TYPE.FORGOT_PASSWORD" class="full-width">
                 <v-row class="mt-8 d-flex justify-center">
-                    <img src="@/assets/login/image/logo2.png" class="logo-image mr-2">
-                    <span class="logo-text purple text-large">{{ t('logo_text_1') }}</span>
-                    <span class="logo-text yellow text-large">{{ t('main.logo_text_2') }}</span>
+                    <img src="@/assets/public/image/logo_public_01.png" class="logo-image mr-2">
+                    <!-- <span class="logo-text purple text-large">{{ t('logo_text_1') }}</span>
+                    <span class="logo-text yellow text-large">{{ t('main.logo_text_2') }}</span> -->
                 </v-row>
                 <v-row class="mt-8">
                     <p class="label-text-md2 white center full-width pl-12 pr-12">
