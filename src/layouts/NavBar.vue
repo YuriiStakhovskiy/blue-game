@@ -5,11 +5,13 @@ import { type GetGameOriginalData } from "@/interface/navBar";
 import { setLang } from "@/locale/index";
 import { useDisplay } from 'vuetify'
 import { appBarStore } from "@/store/appBar";
+import { loginBonusStore } from "@/store/loginBonus";
 import { refferalStore } from "@/store/refferal";
 import { storeToRefs } from "pinia";
 
 const { setNavBarToggle } = appBarStore();
 const { setRightBarToggle } = appBarStore();
+const { setRouletteBonusDialogVisible } = loginBonusStore();
 
 const { t } = useI18n();
 const open = ref<Array<string>>(['']);
@@ -102,6 +104,10 @@ const handleLanguageDropdown = (item: string) => {
     }
 }
 
+const openRouletteBonusDialog = () => {
+  setRouletteBonusDialogVisible(true);
+}
+
 onMounted(() => {
     drawer.value = mobileWidth.value < 1280 ? false : true;
 })
@@ -145,7 +151,7 @@ onMounted(() => {
                         </v-list-item>
                     </v-col>
                     <v-col cols="6" class="pa-1">
-                        <v-list-item value="sport" class="ma-0 pa-0" height="48px">
+                        <v-list-item value="sport" class="ma-0 pa-0" height="48px" @click="openRouletteBonusDialog">
                             <img src="@/assets/public/svg/bg_public_17.svg" class="spin-img-width" />
                             <img src="@/assets/public/image/img_public_02.png" class="navbar-spin-img-position"
                                 width="38" />

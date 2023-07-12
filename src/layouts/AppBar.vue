@@ -27,7 +27,6 @@ const { setBonusTabIndex } = bonusTransactionStore();
 const { setTransactionTab } = bonusTransactionStore();
 const { setRefferalDialogShow } = refferalStore();
 const { setLoginBonusDialogVisible } = loginBonusStore();
-const { setRouletteBonusDialogVisible } = loginBonusStore();
 
 const { name, width } = useDisplay()
 const router = useRouter();
@@ -234,10 +233,6 @@ const goGameHistoryPage = () => {
 
 const openLoginBonusDialog = () => {
   setLoginBonusDialogVisible(true);
-}
-
-const openRouletteBonusDialog = () => {
-  setRouletteBonusDialogVisible(true);
 }
 
 // watches
@@ -569,9 +564,6 @@ onMounted(async () => {
       </div>
     </div>
     <div v-else>
-      <v-btn @click="openRouletteBonusDialog" class="text-none">
-        Roulette
-      </v-btn>
       <v-btn @click="openLoginBonusDialog" class="text-none">
         Login Bonus
       </v-btn>
