@@ -18,7 +18,7 @@ const Dashboard = defineComponent({
   },
   setup() {
     const { t } = useI18n();
-    const { name } = useDisplay()
+    const { name, width } = useDisplay()
 
     // initiate component state
     const state = reactive({
@@ -27,6 +27,7 @@ const Dashboard = defineComponent({
       signoutDialog: false,
       mobileDialog: false,
       mobileDialogCheck: false,
+      historyToggleSwitch: false,
       slides: [
         [
           new URL("@/assets/home/image/img_hp_01.png", import.meta.url).href,
@@ -104,10 +105,232 @@ const Dashboard = defineComponent({
         new URL("@/assets/home/image/img_lc_06.png", import.meta.url).href,
         new URL("@/assets/home/image/img_lc_07.png", import.meta.url).href,
       ],
+      luckyJackpotList: [
+        {
+          rank: new URL("@/assets/public/image/img_public_29.png", import.meta.url).href,
+          player: {
+            image: new URL("@/assets/public/image/ua_public_04.png", import.meta.url).href,
+            name: "Ar***ra"
+          },
+          profit: 13322.17
+        },
+        {
+          rank: new URL("@/assets/public/image/img_public_30.png", import.meta.url).href,
+          player: {
+            image: new URL("@/assets/public/image/ua_public_04.png", import.meta.url).href,
+            name: "Ar***ra"
+          },
+          profit: 12323.29
+        },
+        {
+          rank: new URL("@/assets/public/image/img_public_31.png", import.meta.url).href,
+          player: {
+            image: new URL("@/assets/public/image/ua_public_04.png", import.meta.url).href,
+            name: "Ar***ra"
+          },
+          profit: 10578.15
+        },
+        {
+          rank: "4",
+          player: {
+            image: new URL("@/assets/public/image/ua_public_04.png", import.meta.url).href,
+            name: "Ar***ra"
+          },
+          profit: 9394.15
+        },
+        {
+          rank: "5",
+          player: {
+            image: new URL("@/assets/public/image/ua_public_04.png", import.meta.url).href,
+            name: "Ar***ra"
+          },
+          profit: 9035.9
+        },
+        {
+          rank: "6",
+          player: {
+            image: new URL("@/assets/public/image/ua_public_04.png", import.meta.url).href,
+            name: "Ar***ra"
+          },
+          profit: 8313.59
+        },
+        {
+          rank: "7",
+          player: {
+            image: new URL("@/assets/public/image/ua_public_04.png", import.meta.url).href,
+            name: "Ar***ra"
+          },
+          profit: 6570
+        },
+        {
+          rank: "8",
+          player: {
+            image: new URL("@/assets/public/image/ua_public_04.png", import.meta.url).href,
+            name: "Ar***ra"
+          },
+          profit: 6210.23
+        },
+        {
+          rank: "9",
+          player: {
+            image: new URL("@/assets/public/image/ua_public_04.png", import.meta.url).href,
+            name: "Ar***ra"
+          },
+          profit: 5921.45
+        },
+        {
+          rank: "10",
+          player: {
+            image: new URL("@/assets/public/image/ua_public_04.png", import.meta.url).href,
+            name: "Ar***ra"
+          },
+          profit: 5020
+        },
+        {
+          rank: "11",
+          player: {
+            image: new URL("@/assets/public/image/ua_public_04.png", import.meta.url).href,
+            name: "Ar***ra"
+          },
+          profit: 4962.35
+        },
+      ],
+      recordList: [
+        {
+          game: {
+            image: new URL("@/assets/public/image/img_public_35.png", import.meta.url).href,
+            name: "Mines"
+          },
+          player: {
+            image: new URL("@/assets/public/image/ua_public_04.png", import.meta.url).href,
+            name: "Ar***ra"
+          },
+          amount: 20
+        },
+        {
+          game: {
+            image: new URL("@/assets/public/image/img_public_35.png", import.meta.url).href,
+            name: "Mines"
+          },
+          player: {
+            image: new URL("@/assets/public/image/ua_public_04.png", import.meta.url).href,
+            name: "Ar***ra"
+          },
+          amount: 12
+        },
+        {
+          game: {
+            image: new URL("@/assets/public/image/img_public_35.png", import.meta.url).href,
+            name: "Mines"
+          },
+          player: {
+            image: new URL("@/assets/public/image/ua_public_04.png", import.meta.url).href,
+            name: "Ar***ra"
+          },
+          amount: 7
+        },
+        {
+          game: {
+            image: new URL("@/assets/public/image/img_public_35.png", import.meta.url).href,
+            name: "Mines"
+          },
+          player: {
+            image: new URL("@/assets/public/image/ua_public_04.png", import.meta.url).href,
+            name: "Ar***ra"
+          },
+          amount: 12.17
+        },
+        {
+          game: {
+            image: new URL("@/assets/public/image/img_public_26.png", import.meta.url).href,
+            name: "Double"
+          },
+          player: {
+            image: new URL("@/assets/public/image/ua_public_04.png", import.meta.url).href,
+            name: "Ar***ra"
+          },
+          amount: 32
+        },
+        {
+          game: {
+            image: new URL("@/assets/public/image/img_public_27.png", import.meta.url).href,
+            name: "Crash"
+          },
+          player: {
+            image: new URL("@/assets/public/image/ua_public_04.png", import.meta.url).href,
+            name: "Ar***ra"
+          },
+          amount: 5
+        },
+        {
+          game: {
+            image: new URL("@/assets/public/image/img_public_27.png", import.meta.url).href,
+            name: "Crash"
+          },
+          player: {
+            image: new URL("@/assets/public/image/ua_public_04.png", import.meta.url).href,
+            name: "Ar***ra"
+          },
+          amount: 13
+        },
+        {
+          game: {
+            image: new URL("@/assets/public/image/img_public_26.png", import.meta.url).href,
+            name: "Double"
+          },
+          player: {
+            image: new URL("@/assets/public/image/ua_public_04.png", import.meta.url).href,
+            name: "Ar***ra"
+          },
+          amount: 19
+        },
+        {
+          game: {
+            image: new URL("@/assets/public/image/img_public_26.png", import.meta.url).href,
+            name: "Double"
+          },
+          player: {
+            image: new URL("@/assets/public/image/ua_public_04.png", import.meta.url).href,
+            name: "Ar***ra"
+          },
+          amount: 22.10
+        },
+        {
+          game: {
+            image: new URL("@/assets/public/image/img_public_28.png", import.meta.url).href,
+            name: "Dice"
+          },
+          player: {
+            image: new URL("@/assets/public/image/ua_public_04.png", import.meta.url).href,
+            name: "Ar***ra"
+          },
+          amount: 133
+        },
+        {
+          game: {
+            image: new URL("@/assets/public/image/img_public_28.png", import.meta.url).href,
+            name: "Dice"
+          },
+          player: {
+            image: new URL("@/assets/public/image/ua_public_04.png", import.meta.url).href,
+            name: "Ar***ra"
+          },
+          amount: 25
+        },
+      ]
     });
+
     const mobileVersion = computed(() => {
       return name.value
     });
+
+    const mobileWidth = computed(() => {
+      return width.value;
+    })
+
+    const isNumeric = (value: any) => {
+      return /^-?\d+$/.test(value);
+    }
 
     watch(mobileVersion, (newValue) => {
       if (newValue == "sm") {
@@ -120,7 +343,9 @@ const Dashboard = defineComponent({
     return {
       t,
       ...toRefs(state),
-      mobileVersion
+      mobileVersion,
+      mobileWidth,
+      isNumeric
     };
   },
 });
@@ -265,10 +490,152 @@ export default Dashboard;
         {{ t("home.more") }}
       </v-btn>
     </v-row>
+
+    <!--------------------- Game History ---------------------->
+    <v-row class="mx-2 mt-6" v-if="mobileWidth > 600">
+      <v-col cols="12" md="6">
+        <div class="d-flex align-center">
+          <img src="@/assets/public/svg/icon_public_92.svg" />
+          <p class="text-700-20 white ml-3">{{ t('home.lucky_jackpot_text') }}</p>
+        </div>
+        <v-card color="#211F32" theme="dark" class="home-lucky-jackpot-height mt-4">
+          <v-card color="#29253C" theme="dark" height="64" class="mx-2 mt-2">
+            <v-row class="mx-3 my-2 align-center">
+              <v-col cols="4" class="text-700-16 gray">{{ t('home.rank_text') }}</v-col>
+              <v-col cols="4" class="text-700-16 gray">
+                <p class="ml-2">{{ t('home.player_text') }}</p>
+              </v-col>
+              <v-col cols="4" class="text-700-16 gray text-center">{{ t('home.profit_text') }}</v-col>
+            </v-row>
+          </v-card>
+          <div class="home-overflow-auto">
+            <v-row v-for="(item, index) in luckyJackpotList" :key="index" class="mx-4 mt-2 align-center">
+              <v-col cols="4" class="py-1">
+                <img :src="item.rank" v-if="!isNumeric(item.rank)" />
+                <p class="text-500-16 gray text-center" style="width: 27px;" v-else>{{ item.rank }}</p>
+              </v-col>
+              <v-col cols="4" class="d-flex align-center py-1">
+                <img :src="item.player.image" width="46" />
+                <p class="text-500-16 gray">{{ item.player.name }}</p>
+              </v-col>
+              <v-col cols="4" class="py-1 text-500-16 color-01983A text-center">{{ item.profit }}</v-col>
+            </v-row>
+          </div>
+        </v-card>
+      </v-col>
+      <v-col cols="12" md="6">
+        <div class="d-flex align-center">
+          <img src="@/assets/public/svg/icon_public_91.svg" />
+          <p class="text-700-20 white ml-3">{{ t('home.latest_record_text') }}</p>
+        </div>
+        <v-card color="#211F32" theme="dark" class="home-lucky-jackpot-height mt-4">
+          <v-card color="#29253C" theme="dark" height="64" class="mx-2 mt-2">
+            <v-row class="mx-3 my-2 align-center">
+              <v-col cols="4" class="text-700-16 gray">{{ t('home.game_text') }}</v-col>
+              <v-col cols="4" class="text-700-16 gray">
+                <p class="ml-2">{{ t('home.player_text') }}</p>
+              </v-col>
+              <v-col cols="4" class="text-700-16 gray text-center">{{ t('home.amount_text') }}</v-col>
+            </v-row>
+          </v-card>
+          <div class="home-overflow-auto">
+            <v-row v-for="(item, index) in recordList" :key="index" class="mx-4 mt-2 align-center">
+              <v-col cols="4" class="py-1 d-flex align-center">
+                <img :src="item.game.image" />
+                <p class="text-500-16 gray text-center ml-2">{{ item.game.name }}</p>
+              </v-col>
+              <v-col cols="4" class="d-flex align-center py-1">
+                <img :src="item.player.image" width="46" />
+                <p class="text-500-16 gray">{{ item.player.name }}</p>
+              </v-col>
+              <v-col cols="4" class="py-1 text-500-16 color-01983A text-center">{{ item.amount }}</v-col>
+            </v-row>
+          </div>
+        </v-card>
+      </v-col>
+    </v-row>
+    <v-row v-else>
+      <v-col cols="12">
+        <div class="history-toggle">
+          <input type="checkbox" id="history-toggle" v-model="historyToggleSwitch" />
+          <label for="history-toggle">
+            <div class="winner">
+              <img src="@/assets/public/svg/icon_public_92.svg" />
+              <P class="text-500-12">{{ t('home.lucky_jackpot_text') }}</P>
+            </div>
+            <div class="prize">
+              <img src="@/assets/public/svg/icon_public_91.svg" />
+              <P class="text-500-12">{{ t('home.latest_record_text') }}</P>
+            </div>
+          </label>
+        </div>
+        <v-card color="#211F32" theme="dark" height="500" class="mt-4 mx-2" v-if="!historyToggleSwitch">
+          <v-card color="#29253C" theme="dark" height="40" class="mx-2 mt-2">
+            <v-row class="mx-3 my-2 align-center">
+              <v-col cols="3" class="text-700-14 gray py-0">{{ t('home.rank_text') }}</v-col>
+              <v-col cols="5" class="text-700-14 gray py-0">
+                <p class="ml-2">{{ t('home.player_text') }}</p>
+              </v-col>
+              <v-col cols="4" class="text-700-14 gray text-center py-0">{{ t('home.profit_text') }}</v-col>
+            </v-row>
+          </v-card>
+          <div class="m-home-overflow-auto">
+            <v-row v-for="(item, index) in luckyJackpotList" :key="index" class="mx-4 mt-2 align-center">
+              <v-col cols="3" class="py-1">
+                <img :src="item.rank" v-if="!isNumeric(item.rank)" width="22"/>
+                <p class="text-500-14 gray text-center" style="width: 27px;" v-else>{{ item.rank }}</p>
+              </v-col>
+              <v-col cols="5" class="d-flex align-center py-1">
+                <img :src="item.player.image" width="40" />
+                <p class="text-500-14 gray">{{ item.player.name }}</p>
+              </v-col>
+              <v-col cols="4" class="py-1 text-500-14 color-01983A text-center">{{ item.profit }}</v-col>
+            </v-row>
+          </div>
+        </v-card>
+        <v-card color="#211F32" theme="dark" height="500" class="mt-4 mx-2" v-else>
+          <v-card color="#29253C" theme="dark" height="40" class="mx-2 mt-2">
+            <v-row class="mx-3 my-2 align-center">
+              <v-col cols="4" class="text-700-14 gray py-0">{{ t('home.game_text') }}</v-col>
+              <v-col cols="4" class="text-700-14 gray py-0">
+                <p class="ml-2">{{ t('home.player_text') }}</p>
+              </v-col>
+              <v-col cols="4" class="text-700-14 gray text-center py-0">{{ t('home.amount_text') }}</v-col>
+            </v-row>
+          </v-card>
+          <div class="m-home-overflow-auto">
+            <v-row v-for="(item, index) in recordList" :key="index" class="mx-4 mt-2 align-center">
+              <v-col cols="4" class="py-1 d-flex align-center">
+                <img :src="item.game.image" width="22"/>
+                <p class="text-500-14 gray text-center ml-2">{{ item.game.name }}</p>
+              </v-col>
+              <v-col cols="4" class="d-flex align-center py-1">
+                <img :src="item.player.image" width="40" />
+                <p class="text-500-14 gray">{{ item.player.name }}</p>
+              </v-col>
+              <v-col cols="4" class="py-1 text-500-14 color-01983A text-center">{{ item.amount }}</v-col>
+            </v-row>
+          </div>
+        </v-card>
+      </v-col>
+    </v-row>
   </div>
 </template>
 
 <style lang="scss">
+.home-overflow-auto {
+  overflow-y: auto;
+  height: 568px;
+}
+.m-home-overflow-auto {
+  overflow-y: auto;
+  height: 450px;
+}
+
+.home-lucky-jackpot-height {
+  height: 640px;
+}
+
 .slider-img-width {
   width: 100%;
   height: 200px;
@@ -377,5 +744,86 @@ export default Dashboard;
     font-weight: 700 !important;
     font-size: 16px !important;
   }
+}
+
+
+// winner and prize toggle switch
+.history-toggle {
+  margin-top: -20px;
+
+  label {
+    width: 300px;
+    height: 38px;
+    position: relative;
+    display: block;
+    border-radius: 8px;
+    background: #211F31;
+    box-shadow: 2px 0px 4px 1px rgba(0, 0, 0, 0.12) inset;
+    cursor: pointer;
+    transition: 0.3s;
+    margin: auto;
+
+    div {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+    }
+
+    .winner {
+      display: flex;
+      align-items: center;
+      left: 8px;
+      transition: 0.3s;
+      color: black;
+    }
+
+    .prize {
+      display: flex;
+      align-items: center;
+      left: 175px;
+      transition: 0.3s;
+      color: #FFFFFF;
+    }
+  }
+
+  label:after {
+    content: "";
+    width: 136px;
+    height: 34px;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    background: #32CFEC;
+    border-radius: 8px;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+  }
+
+  input {
+    width: 0;
+    height: 0;
+    visibility: hidden;
+  }
+
+  input:checked+label:after {
+    left: 297px;
+    transform: translateX(-100%);
+  }
+
+  label:active:after {
+    width: 136px;
+  }
+
+  input:checked+label .winner {
+    color: #FFFFFF;
+  }
+
+  input:checked+label .prize {
+    color: black
+  }
+
 }
 </style>

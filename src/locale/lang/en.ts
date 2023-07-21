@@ -201,6 +201,13 @@ export const lang: langType = {
     game_providers: "GAME Providers",
     slots: "Slots",
     live_casino: "Live Casino",
+    rank_text: "Rank",
+    player_text: "Player",
+    profit_text: "Profit",
+    game_text: "Game",
+    amount_text: "Amount",
+    lucky_jackpot_text: "Lucky Jackpot",
+    latest_record_text: "Latest Record",
     footer: {
       game: {
         title: "Game",

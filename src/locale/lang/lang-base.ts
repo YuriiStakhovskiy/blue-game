@@ -198,6 +198,13 @@ export type langType = {
     game_providers: string
     slots: string
     live_casino: string
+    rank_text: string
+    player_text: string
+    profit_text: string
+    game_text: string
+    amount_text: string
+    lucky_jackpot_text: string
+    latest_record_text: string
     footer: {
       game: {
         title: string

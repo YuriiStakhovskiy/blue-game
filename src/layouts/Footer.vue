@@ -3,7 +3,7 @@ import { ref, computed } from "vue";
 import { useI18n } from "vue-i18n";
 import { useDisplay } from 'vuetify'
 const { t } = useI18n();
-const { name } = useDisplay()
+const { name, width } = useDisplay()
 
 const footerIcons = ref([
     new URL("@/assets/public/svg/icon_public_80.svg", import.meta.url).href,
@@ -18,13 +18,17 @@ const footerIcons = ref([
 const mobileVersion = computed(() => {
     return name.value
 });
+
+const mobileWidth = computed(() => {
+    return width.value
+});
 </script>
 
 <template>
     <div class="my-4 mx-2">
 
         <!-------------------- footer bar -------------->
-        <v-row class="mx-2 mt-16">
+        <v-row class="mx-2" :class="mobileWidth > 600 ? 'mt-16' : ''">
             <v-col cols="3" sm="3" md="2" lg="2" class="text-center">
                 <div class="footer-title">{{ t('home.footer.game.title') }}</div>
                 <div class="footer-text-1">{{ t('home.footer.game.menu_1') }}</div>

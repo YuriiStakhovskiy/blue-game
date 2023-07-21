@@ -41,7 +41,9 @@ const Login = defineComponent({
             notificationShow: false,
             checkIcon: new URL("@/assets/public/svg/icon_public_18.svg", import.meta.url).href,
             notificationText: t('login.forgotPasswordPage.notification'),
-            loading: false
+            loading: false,
+            mailCardHeight: 0,
+            emailPartName: ""
         });
 
         // computed variables
@@ -98,13 +100,51 @@ const Login = defineComponent({
             state.isShowPassword = !state.isShowPassword
         }
 
+        const handleEmailBlur = () => {
+            // console.log("onblur")
+            setTimeout(() => {
+                state.mailCardHeight = 0;
+            }, 100)
+        }
+
+        const handleEmailChange = () => {
+            // console.log("onchange")
+            if (state.formData.emailAddress.includes("@")) {
+                state.emailPartName = state.formData.emailAddress.split("@")[0];
+                state.mailCardHeight = 260
+            } else {
+                setTimeout(() => {
+                    state.mailCardHeight = 0;
+                }, 100)
+            }
+        }
+
+        const handleEmailFocus = () => {
+            // console.log("onFocus")
+            if (state.formData.emailAddress.includes("@")) {
+                state.emailPartName = state.formData.emailAddress.split("@")[0];
+                state.mailCardHeight = 260
+            }
+        }
+
+        const mergeEmail = (mail: string) => {
+            state.formData.emailAddress = state.formData.emailAddress.split("@")[0] + mail;
+            setTimeout(() => {
+                state.mailCardHeight = 0;
+            }, 100)
+        }
+
         return {
             t,
             ...toRefs(state),
             isFormDataReady,
             handleLoginFormSubmit,
             handleForgotPassword,
-            showPassword
+            showPassword,
+            handleEmailBlur,
+            handleEmailChange,
+            handleEmailFocus,
+            mergeEmail
         }
     },
 })
@@ -120,8 +160,23 @@ export default Login
             <v-form v-if="currentPage === PAGE_TYPE.LOGIN_FORM" ref="form" class="full-width">
                 <v-row class="relative mt-0">
                     <v-text-field :label="t('signup.formPage.emailAddress')" class="form-textfield dark-textfield"
-                        variant="solo" density="comfortable" v-model="formData.emailAddress" />
+                        variant="solo" density="comfortable" v-model="formData.emailAddress" :onblur="handleEmailBlur"
+                        @input="handleEmailChange" :onfocus="handleEmailFocus" />
                 </v-row>
+                <div class="login-mail-card" :style="{ height: mailCardHeight + 'px' }">
+                    <v-list theme="dark" bg-color="#211F31">
+                        <v-list-item class="text-500-16 white" value="gmail" @click="mergeEmail('@gmail.com')">{{
+                            emailPartName }}@gmail.com</v-list-item>
+                        <v-list-item class="text-500-16 white" value="hotmail" @click="mergeEmail('@hotmail.com')">{{
+                            emailPartName }}@hotmail.com</v-list-item>
+                        <v-list-item class="text-500-16 white" value="yahoo" @click="mergeEmail('@yahoo.com')">{{
+                            emailPartName }}@yahoo.com</v-list-item>
+                        <v-list-item class="text-500-16 white" value="icloud" @click="mergeEmail('@icloud.com')">{{
+                            emailPartName }}@icloud.com</v-list-item>
+                        <v-list-item class="text-500-16 white" value="outlook" @click="mergeEmail('@outlook.com')">{{
+                            emailPartName }}@outlook.com</v-list-item>
+                    </v-list>
+                </div>
                 <v-row class="mt-2 relative">
                     <v-text-field :label="t('signup.formPage.password')" class="form-textfield dark-textfield"
                         variant="solo" density="comfortable" :type="isShowPassword ? 'text' : 'password'"
@@ -211,6 +266,19 @@ export default Login
 </template>
 
 <style lang="scss">
+.login-mail-card {
+    position: absolute;
+    top: 272px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #211F31;
+    width: 375px;
+    border-radius: 16px;
+    z-index: 200;
+    overflow: hidden;
+    transition: height 0.3s ease-out;
+}
+
 .disable-password {
     position: absolute;
     top: 31px;

@@ -71,6 +71,8 @@ const Signup = defineComponent({
                 'Fifth',
             ],
             loading: false,
+            mailCardHeight: 0,
+            emailPartName: "",
             notificationShow: false,
             checkIcon: new URL("@/assets/public/svg/icon_public_18.svg", import.meta.url).href,
             notificationText: t('signup.submit_result.success_text')
@@ -181,6 +183,9 @@ const Signup = defineComponent({
 
         const handleOnEmailInputBlur = (): void => {
             handleValidateEmail();
+            setTimeout(() => {
+                state.mailCardHeight = 0;
+            }, 100)
         }
 
         const handleClickContinueButton = (): void => {
@@ -234,6 +239,33 @@ const Signup = defineComponent({
             }
         }
 
+        const handleEmailChange = () => {
+            // console.log("onchange")
+            if (state.formData.emailAddress.includes("@")) {
+                state.emailPartName = state.formData.emailAddress.split("@")[0];
+                state.mailCardHeight = 260
+            } else {
+                setTimeout(() => {
+                    state.mailCardHeight = 0;
+                }, 100)
+            }
+        }
+
+        const handleEmailFocus = () => {
+            // console.log("onFocus")
+            if (state.formData.emailAddress.includes("@")) {
+                state.emailPartName = state.formData.emailAddress.split("@")[0];
+                state.mailCardHeight = 260
+            }
+        }
+
+        const mergeEmail = (mail: string) => {
+            state.formData.emailAddress = state.formData.emailAddress.split("@")[0] + mail;
+            setTimeout(() => {
+                state.mailCardHeight = 0;
+            }, 100)
+        }
+
         return {
             t,
             ...toRefs(state),
@@ -241,6 +273,7 @@ const Signup = defineComponent({
             currentLanguage,
             passwordValidationList,
             userNameValidationList,
+            mobileVersion,
             validateUserName,
             handleOnPasswordInputFocus,
             handleOnPasswordInputBlur,
@@ -254,7 +287,9 @@ const Signup = defineComponent({
             handleUsernameSubmit,
             showPassword,
             closeDialog,
-            mobileVersion,
+            handleEmailChange,
+            handleEmailFocus,
+            mergeEmail
         }
     },
 })
@@ -271,11 +306,25 @@ export default Signup
                 <v-row class="relative mt-0">
                     <v-text-field :label="t('signup.formPage.emailAddress')" class="form-textfield dark-textfield"
                         variant="solo" density="comfortable" v-model="formData.emailAddress"
-                        :onblur="handleOnEmailInputBlur" />
+                        :onblur="handleOnEmailInputBlur" @input="handleEmailChange" :onfocus="handleEmailFocus" />
                     <ValidationBox v-if="isShowEmailValidaton"
                         :title="t(`signup.formPage.validation.email.${formData.emailAddress.length ? 'title2' : 'title'}`)"
                         :withCautionIcon="true" />
                 </v-row>
+                <div class="register-mail-card" :style="{ height: mailCardHeight + 'px' }">
+                    <v-list theme="dark" bg-color="#211F31">
+                        <v-list-item class="text-500-16 white" value="gmail" @click="mergeEmail('@gmail.com')">{{
+                            emailPartName }}@gmail.com</v-list-item>
+                        <v-list-item class="text-500-16 white" value="hotmail" @click="mergeEmail('@hotmail.com')">{{
+                            emailPartName }}@hotmail.com</v-list-item>
+                        <v-list-item class="text-500-16 white" value="yahoo" @click="mergeEmail('@yahoo.com')">{{
+                            emailPartName }}@yahoo.com</v-list-item>
+                        <v-list-item class="text-500-16 white" value="icloud" @click="mergeEmail('@icloud.com')">{{
+                            emailPartName }}@icloud.com</v-list-item>
+                        <v-list-item class="text-500-16 white" value="outlook" @click="mergeEmail('@outlook.com')">{{
+                            emailPartName }}@outlook.com</v-list-item>
+                    </v-list>
+                </div>
                 <v-row class="mt-2 relative">
                     <v-text-field :label="t('signup.formPage.password')" class="form-textfield dark-textfield"
                         variant="solo" density="comfortable" :type="isShowPassword ? 'text' : 'password'"
@@ -430,6 +479,19 @@ export default Signup
 </template>
 
 <style lang="scss">
+.register-mail-card {
+    position: absolute;
+    top: 274px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #211F31;
+    width: 375px;
+    border-radius: 16px;
+    z-index: 200;
+    overflow: hidden;
+    transition: height 0.3s ease-out;
+}
+
 .signup-btn:disabled {
     background: #353652;
     cursor: default;
