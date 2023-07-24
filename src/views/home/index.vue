@@ -196,7 +196,7 @@ const Dashboard = defineComponent({
           profit: 4962.35
         },
         {
-          rank: "10",
+          rank: "12",
           player: {
             image: new URL("@/assets/public/image/ua_public_04.png", import.meta.url).href,
             name: "Ar***ra"
@@ -204,7 +204,7 @@ const Dashboard = defineComponent({
           profit: 5020
         },
         {
-          rank: "11",
+          rank: "13",
           player: {
             image: new URL("@/assets/public/image/ua_public_04.png", import.meta.url).href,
             name: "Ar***ra"
@@ -212,7 +212,7 @@ const Dashboard = defineComponent({
           profit: 4962.35
         },
         {
-          rank: "10",
+          rank: "14",
           player: {
             image: new URL("@/assets/public/image/ua_public_04.png", import.meta.url).href,
             name: "Ar***ra"
@@ -220,7 +220,7 @@ const Dashboard = defineComponent({
           profit: 5020
         },
         {
-          rank: "11",
+          rank: "15",
           player: {
             image: new URL("@/assets/public/image/ua_public_04.png", import.meta.url).href,
             name: "Ar***ra"
@@ -228,7 +228,7 @@ const Dashboard = defineComponent({
           profit: 4962.35
         },
         {
-          rank: "10",
+          rank: "16",
           player: {
             image: new URL("@/assets/public/image/ua_public_04.png", import.meta.url).href,
             name: "Ar***ra"
@@ -236,7 +236,7 @@ const Dashboard = defineComponent({
           profit: 5020
         },
         {
-          rank: "11",
+          rank: "17",
           player: {
             image: new URL("@/assets/public/image/ua_public_04.png", import.meta.url).href,
             name: "Ar***ra"
@@ -244,7 +244,7 @@ const Dashboard = defineComponent({
           profit: 4962.35
         },
         {
-          rank: "10",
+          rank: "18",
           player: {
             image: new URL("@/assets/public/image/ua_public_04.png", import.meta.url).href,
             name: "Ar***ra"
@@ -252,7 +252,7 @@ const Dashboard = defineComponent({
           profit: 5020
         },
         {
-          rank: "11",
+          rank: "19",
           player: {
             image: new URL("@/assets/public/image/ua_public_04.png", import.meta.url).href,
             name: "Ar***ra"
@@ -260,7 +260,7 @@ const Dashboard = defineComponent({
           profit: 4962.35
         },
         {
-          rank: "10",
+          rank: "20",
           player: {
             image: new URL("@/assets/public/image/ua_public_04.png", import.meta.url).href,
             name: "Ar***ra"
@@ -268,7 +268,7 @@ const Dashboard = defineComponent({
           profit: 5020
         },
         {
-          rank: "11",
+          rank: "21",
           player: {
             image: new URL("@/assets/public/image/ua_public_04.png", import.meta.url).href,
             name: "Ar***ra"
@@ -276,7 +276,7 @@ const Dashboard = defineComponent({
           profit: 4962.35
         },
         {
-          rank: "10",
+          rank: "22",
           player: {
             image: new URL("@/assets/public/image/ua_public_04.png", import.meta.url).href,
             name: "Ar***ra"
@@ -284,7 +284,7 @@ const Dashboard = defineComponent({
           profit: 5020
         },
         {
-          rank: "11",
+          rank: "23",
           player: {
             image: new URL("@/assets/public/image/ua_public_04.png", import.meta.url).href,
             name: "Ar***ra"
@@ -438,7 +438,11 @@ const Dashboard = defineComponent({
     const startLuckyScrollingInterval = () => {
       luckyScrollInterval.value = setInterval(() => {
         if (luckyContainer.value) {
-          luckyContainer.value.scrollTop += 20;
+          if (mobileWidth.value > 600) {
+            luckyContainer.value.scrollTop += 56;
+          } else {
+            luckyContainer.value.scrollTop += 51;
+          }
           // console.log(luckyContainer.value.scrollTop + luckyContainer.value.clientHeight, luckyContainer.value.scrollHeight);
           if (luckyContainer.value.scrollTop + luckyContainer.value.clientHeight >= luckyContainer.value.scrollHeight) {
             state.luckyJackpotList = [...state.luckyJackpotList, ...state.luckyJackpotList];
@@ -450,7 +454,11 @@ const Dashboard = defineComponent({
     const startRecordScrollingInterval = () => {
       recordScrollInterval.value = setInterval(() => {
         if (recordContainer.value) {
-          recordContainer.value.scrollTop += 20;
+          if (mobileWidth.value > 600) {
+            recordContainer.value.scrollTop += 56;
+          } else {
+            recordContainer.value.scrollTop += 51;
+          }
           // console.log(recordContainer.value.scrollTop + recordContainer.value.clientHeight, recordContainer.value.scrollHeight);
           if (recordContainer.value.scrollTop + recordContainer.value.clientHeight >= recordContainer.value.scrollHeight) {
             state.recordList = [...state.recordList, ...state.recordList];
@@ -763,12 +771,14 @@ export default Dashboard;
 
 <style lang="scss">
 .home-overflow-auto {
-  overflow-y: auto;
+  overflow-y: scroll;
+  overflow-y: hidden;
   height: 568px;
 }
 
 .m-home-overflow-auto {
-  overflow-y: auto;
+  overflow-y: scroll;
+  overflow-y: hidden;
   height: 450px;
 }
 
