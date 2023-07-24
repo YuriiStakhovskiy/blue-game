@@ -11,6 +11,7 @@ import {
 import { useI18n } from "vue-i18n";
 import { useDisplay } from 'vuetify';
 import GameProviders from "@/components/global/game_provider/index.vue";
+import { onUnmounted } from "vue";
 
 const Dashboard = defineComponent({
   components: {
@@ -194,6 +195,102 @@ const Dashboard = defineComponent({
           },
           profit: 4962.35
         },
+        {
+          rank: "10",
+          player: {
+            image: new URL("@/assets/public/image/ua_public_04.png", import.meta.url).href,
+            name: "Ar***ra"
+          },
+          profit: 5020
+        },
+        {
+          rank: "11",
+          player: {
+            image: new URL("@/assets/public/image/ua_public_04.png", import.meta.url).href,
+            name: "Ar***ra"
+          },
+          profit: 4962.35
+        },
+        {
+          rank: "10",
+          player: {
+            image: new URL("@/assets/public/image/ua_public_04.png", import.meta.url).href,
+            name: "Ar***ra"
+          },
+          profit: 5020
+        },
+        {
+          rank: "11",
+          player: {
+            image: new URL("@/assets/public/image/ua_public_04.png", import.meta.url).href,
+            name: "Ar***ra"
+          },
+          profit: 4962.35
+        },
+        {
+          rank: "10",
+          player: {
+            image: new URL("@/assets/public/image/ua_public_04.png", import.meta.url).href,
+            name: "Ar***ra"
+          },
+          profit: 5020
+        },
+        {
+          rank: "11",
+          player: {
+            image: new URL("@/assets/public/image/ua_public_04.png", import.meta.url).href,
+            name: "Ar***ra"
+          },
+          profit: 4962.35
+        },
+        {
+          rank: "10",
+          player: {
+            image: new URL("@/assets/public/image/ua_public_04.png", import.meta.url).href,
+            name: "Ar***ra"
+          },
+          profit: 5020
+        },
+        {
+          rank: "11",
+          player: {
+            image: new URL("@/assets/public/image/ua_public_04.png", import.meta.url).href,
+            name: "Ar***ra"
+          },
+          profit: 4962.35
+        },
+        {
+          rank: "10",
+          player: {
+            image: new URL("@/assets/public/image/ua_public_04.png", import.meta.url).href,
+            name: "Ar***ra"
+          },
+          profit: 5020
+        },
+        {
+          rank: "11",
+          player: {
+            image: new URL("@/assets/public/image/ua_public_04.png", import.meta.url).href,
+            name: "Ar***ra"
+          },
+          profit: 4962.35
+        },
+        {
+          rank: "10",
+          player: {
+            image: new URL("@/assets/public/image/ua_public_04.png", import.meta.url).href,
+            name: "Ar***ra"
+          },
+          profit: 5020
+        },
+        {
+          rank: "11",
+          player: {
+            image: new URL("@/assets/public/image/ua_public_04.png", import.meta.url).href,
+            name: "Ar***ra"
+          },
+          profit: 4962.35
+        },
       ],
       recordList: [
         {
@@ -320,6 +417,12 @@ const Dashboard = defineComponent({
       ]
     });
 
+    const luckyContainer = ref<HTMLElement | null>(null);
+    const luckyScrollInterval = ref<any>(null)
+
+    const recordContainer = ref<HTMLElement | null>(null);
+    const recordScrollInterval = ref<any>(null)
+
     const mobileVersion = computed(() => {
       return name.value
     });
@@ -332,6 +435,30 @@ const Dashboard = defineComponent({
       return /^-?\d+$/.test(value);
     }
 
+    const startLuckyScrollingInterval = () => {
+      luckyScrollInterval.value = setInterval(() => {
+        if (luckyContainer.value) {
+          luckyContainer.value.scrollTop += 20;
+          // console.log(luckyContainer.value.scrollTop + luckyContainer.value.clientHeight, luckyContainer.value.scrollHeight);
+          if (luckyContainer.value.scrollTop + luckyContainer.value.clientHeight >= luckyContainer.value.scrollHeight) {
+            state.luckyJackpotList = [...state.luckyJackpotList, ...state.luckyJackpotList];
+          }
+        }
+      }, 600);
+    }
+
+    const startRecordScrollingInterval = () => {
+      recordScrollInterval.value = setInterval(() => {
+        if (recordContainer.value) {
+          recordContainer.value.scrollTop += 20;
+          // console.log(recordContainer.value.scrollTop + recordContainer.value.clientHeight, recordContainer.value.scrollHeight);
+          if (recordContainer.value.scrollTop + recordContainer.value.clientHeight >= recordContainer.value.scrollHeight) {
+            state.recordList = [...state.recordList, ...state.recordList];
+          }
+        }
+      }, 600);
+    }
+
     watch(mobileVersion, (newValue) => {
       if (newValue == "sm") {
         state.loginDialog = false;
@@ -340,11 +467,23 @@ const Dashboard = defineComponent({
       }
     })
 
+    onMounted(() => {
+      startLuckyScrollingInterval();
+      startRecordScrollingInterval();
+    })
+
+    onUnmounted(() => {
+      clearInterval(luckyScrollInterval.value);
+      clearInterval(recordScrollInterval.value);
+    })
+
     return {
       t,
       ...toRefs(state),
       mobileVersion,
       mobileWidth,
+      luckyContainer,
+      recordContainer,
       isNumeric
     };
   },
@@ -508,7 +647,7 @@ export default Dashboard;
               <v-col cols="4" class="text-700-16 gray text-center">{{ t('home.profit_text') }}</v-col>
             </v-row>
           </v-card>
-          <div class="home-overflow-auto">
+          <div class="home-overflow-auto" ref="luckyContainer">
             <v-row v-for="(item, index) in luckyJackpotList" :key="index" class="mx-4 mt-2 align-center">
               <v-col cols="4" class="py-1">
                 <img :src="item.rank" v-if="!isNumeric(item.rank)" />
@@ -538,7 +677,7 @@ export default Dashboard;
               <v-col cols="4" class="text-700-16 gray text-center">{{ t('home.amount_text') }}</v-col>
             </v-row>
           </v-card>
-          <div class="home-overflow-auto">
+          <div class="home-overflow-auto" ref="recordContainer">
             <v-row v-for="(item, index) in recordList" :key="index" class="mx-4 mt-2 align-center">
               <v-col cols="4" class="py-1 d-flex align-center">
                 <img :src="item.game.image" />
@@ -579,10 +718,10 @@ export default Dashboard;
               <v-col cols="4" class="text-700-14 gray text-center py-0">{{ t('home.profit_text') }}</v-col>
             </v-row>
           </v-card>
-          <div class="m-home-overflow-auto">
+          <div class="m-home-overflow-auto" ref="luckyContainer">
             <v-row v-for="(item, index) in luckyJackpotList" :key="index" class="mx-4 mt-2 align-center">
               <v-col cols="3" class="py-1">
-                <img :src="item.rank" v-if="!isNumeric(item.rank)" width="22"/>
+                <img :src="item.rank" v-if="!isNumeric(item.rank)" width="22" />
                 <p class="text-500-14 gray text-center" style="width: 27px;" v-else>{{ item.rank }}</p>
               </v-col>
               <v-col cols="5" class="d-flex align-center py-1">
@@ -603,10 +742,10 @@ export default Dashboard;
               <v-col cols="4" class="text-700-14 gray text-center py-0">{{ t('home.amount_text') }}</v-col>
             </v-row>
           </v-card>
-          <div class="m-home-overflow-auto">
+          <div class="m-home-overflow-auto" ref="recordContainer">
             <v-row v-for="(item, index) in recordList" :key="index" class="mx-4 mt-2 align-center">
               <v-col cols="4" class="py-1 d-flex align-center">
-                <img :src="item.game.image" width="22"/>
+                <img :src="item.game.image" width="22" />
                 <p class="text-500-14 gray text-center ml-2">{{ item.game.name }}</p>
               </v-col>
               <v-col cols="4" class="d-flex align-center py-1">
@@ -627,6 +766,7 @@ export default Dashboard;
   overflow-y: auto;
   height: 568px;
 }
+
 .m-home-overflow-auto {
   overflow-y: auto;
   height: 450px;
