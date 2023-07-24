@@ -476,7 +476,7 @@ const Dashboard = defineComponent({
     })
 
     onMounted(() => {
-      startLuckyScrollingInterval();
+      // startLuckyScrollingInterval();
       startRecordScrollingInterval();
     })
 
@@ -655,7 +655,7 @@ export default Dashboard;
               <v-col cols="4" class="text-700-16 gray text-center">{{ t('home.profit_text') }}</v-col>
             </v-row>
           </v-card>
-          <div class="home-overflow-auto" ref="luckyContainer">
+          <div class="home-overflow-auto" ref="luckyContainer" style="overflow-y: auto;">
             <v-row v-for="(item, index) in luckyJackpotList" :key="index" class="mx-4 mt-2 align-center">
               <v-col cols="4" class="py-1">
                 <img :src="item.rank" v-if="!isNumeric(item.rank)" />
@@ -771,14 +771,14 @@ export default Dashboard;
 
 <style lang="scss">
 .home-overflow-auto {
-  overflow-y: scroll;
   overflow-y: hidden;
+  scroll-behavior: smooth;
   height: 568px;
 }
 
 .m-home-overflow-auto {
-  overflow-y: scroll;
   overflow-y: hidden;
+  scroll-behavior: smooth;
   height: 450px;
 }
 

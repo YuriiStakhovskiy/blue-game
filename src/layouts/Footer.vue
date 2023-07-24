@@ -28,26 +28,43 @@ const mobileWidth = computed(() => {
     <div class="my-4 mx-2">
 
         <!-------------------- footer bar -------------->
-        <v-row class="mx-2" :class="mobileWidth > 600 ? 'mt-16' : ''">
-            <v-col cols="3" sm="3" md="2" lg="2" class="text-center">
-                <div class="footer-title">{{ t('home.footer.game.title') }}</div>
-                <div class="footer-text-1">{{ t('home.footer.game.menu_1') }}</div>
-                <div class="footer-text-1">{{ t('home.footer.game.menu_2') }}</div>
-                <div class="footer-text-1">{{ t('home.footer.game.menu_3') }}</div>
-                <div class="footer-text-1">{{ t('home.footer.game.menu_4') }}</div>
+        <v-row class="mx-2" :class="mobileWidth > 600 ? 'mt-10' : ''">
+            <v-col cols="3" sm="4" md="2" lg="2">
+                <div class="footer-title ml-4">{{ t('home.footer.game.title') }}</div>
+                <div class="footer-text-1 ml-4">{{ t('home.footer.game.menu_1') }}</div>
+                <div class="footer-text-1 ml-4">{{ t('home.footer.game.menu_2') }}</div>
+                <div class="footer-text-1 ml-4">{{ t('home.footer.game.menu_3') }}</div>
+                <div class="footer-text-1 ml-4">{{ t('home.footer.game.menu_4') }}</div>
             </v-col>
-            <v-col cols="3" sm="3" md="2" lg="2" class="text-center">
-                <div class="footer-title">{{ t('home.footer.helpful_links.title') }}</div>
-                <div class="footer-text-1">{{ t('home.footer.helpful_links.menu_1') }}</div>
-                <div class="footer-text-1">{{ t('home.footer.helpful_links.menu_2') }}</div>
+            <v-col cols="3" sm="4" md="2" lg="2">
+                <div class="footer-title" :class="mobileWidth < 600 ? 'ml-4' : ''">
+                    {{ t('home.footer.helpful_links.title') }}
+                </div>
+                <div class="footer-text-1" :class="mobileWidth < 600 ? 'ml-4' : ''">
+                    {{ t('home.footer.helpful_links.menu_1') }}
+                </div>
+                <div class="footer-text-1" :class="mobileWidth < 600 ? 'ml-4' : ''">
+                    {{ t('home.footer.helpful_links.menu_2') }}
+                </div>
             </v-col>
-            <v-col cols="6" sm="6" md="3" lg="3" class="text-center">
-                <div class="footer-title">{{ t('home.footer.about_us.title') }}</div>
-                <div class="footer-text-1">{{ t('home.footer.about_us.menu_1') }}</div>
-                <div class="footer-text-1">{{ t('home.footer.about_us.menu_2') }}</div>
-                <div class="footer-text-1">{{ t('home.footer.about_us.menu_3') }}</div>
-                <div class="footer-text-1">{{ t('home.footer.about_us.menu_4') }}</div>
-                <div class="footer-text-1">{{ t('home.footer.about_us.menu_5') }}</div>
+            <v-col cols="6" sm="4" md="3" lg="3">
+                <div class="footer-title" :class="mobileWidth < 600 ? 'ml-8' : ''">
+                    {{ t('home.footer.about_us.title') }}
+                </div>
+                <div class="footer-text-1" :class="mobileWidth < 600 ? 'ml-8' : ''">
+                    {{ t('home.footer.about_us.menu_1') }}</div>
+                <div class="footer-text-1" :class="mobileWidth < 600 ? 'ml-8' : ''">
+                    {{ t('home.footer.about_us.menu_2') }}
+                </div>
+                <div class="footer-text-1" :class="mobileWidth < 600 ? 'ml-8' : ''">
+                    {{ t('home.footer.about_us.menu_3') }}
+                </div>
+                <div class="footer-text-1" :class="mobileWidth < 600 ? 'ml-8' : ''">
+                    {{ t('home.footer.about_us.menu_4') }}
+                </div>
+                <div class="footer-text-1" :class="mobileWidth < 600 ? 'ml-8' : ''">
+                    {{ t('home.footer.about_us.menu_5') }}
+                </div>
             </v-col>
             <v-col cols="12" sm="12" md="5" lg="5" class="text-center">
                 <div class="d-flex align-center justify-center">
