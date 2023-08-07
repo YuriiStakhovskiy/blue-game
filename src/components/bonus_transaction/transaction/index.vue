@@ -5,9 +5,13 @@ import { bonusTransactionStore } from "@/store/bonusTransaction";
 import { useI18n } from 'vue-i18n';
 import { useDisplay } from 'vuetify';
 import GameHistory from "./game_history/index.vue";
+import MGameHistory from "./mobile/game_history/index.vue";
 import Transactions from "./transactions/index.vue";
+import MTransactions from "./mobile/transactions/index.vue";
 import Deposit from "./deposit/index.vue";
+import MDeposit from "./mobile/deposit/index.vue";
 import Withdrawal from "./withdrawal/index.vue";
+import MWithdrawal from "./mobile/withdrawal/index.vue";
 
 const { t } = useI18n()
 const { width } = useDisplay();
@@ -35,7 +39,7 @@ const transactionTab = computed(() => {
 watch(transactionTab, (newValue) => {
     console.log(newValue);
     selectedTab.value = newValue;
-}, {deep: true})
+}, { deep: true })
 
 const touchless = () => {
     return false;
@@ -43,7 +47,7 @@ const touchless = () => {
 
 onMounted(() => {
     console.log(transactionTab.value);
-    selectedTab.value = transactionTab.value
+    selectedTab.value = transactionTab.value == "" ? selectedTab.value : transactionTab.value;
 })
 </script>
 <template>
@@ -51,23 +55,27 @@ onMounted(() => {
         <v-slide-group-item v-for="(item, index) in transactionTabs" :key="index" v-slot="{ isSelected, toggle }"
             :value="item">
             <v-btn class="ma-2 text-none transaction-tab-btn" :class="isSelected ? 'white' : 'text-gray'" rounded
-                :color="isSelected ? '#29253C' : 'transparent'" @click="toggle" :width="mobileWidth < 600 ? 120 : 150">
+                :color="isSelected ? '#29253C' : 'transparent'" @click="toggle" :width="mobileWidth < 600 ? 106 : 150">
                 {{ item }}
             </v-btn>
         </v-slide-group-item>
     </v-slide-group>
     <v-window v-model="selectedTab" :disable-swipe="true" :touch="touchless()">
         <v-window-item :value="t('transaction.tab.game_history')">
-            <GameHistory />
+            <GameHistory v-if="mobileWidth > 600" />
+            <MGameHistory v-else />
         </v-window-item>
         <v-window-item :value="t('transaction.tab.transactions')">
-            <Transactions />
+            <Transactions v-if="mobileWidth > 600" />
+            <MTransactions v-else />
         </v-window-item>
         <v-window-item :value="t('transaction.tab.deposit')">
-            <Deposit />
+            <Deposit v-if="mobileWidth > 600" />
+            <MDeposit v-else />
         </v-window-item>
         <v-window-item :value="t('transaction.tab.withdrawal')">
-            <Withdrawal />
+            <Withdrawal v-if="mobileWidth > 600" />
+            <MWithdrawal v-else />
         </v-window-item>
     </v-window>
 </template>
@@ -92,17 +100,19 @@ onMounted(() => {
 
 @media (max-width: 600px) {
 
+    .v-slide-group {
+        margin: 10px 0px !important;
+    }
+
     .transaction-tab-btn {
         .v-btn__content {
-            font-weight: 700;
             font-size: 12px !important;
         }
     }
 
     .v-slide-group__next,
     .v-slide-group__prev {
-        flex: none !important;
-        min-width: 20px !important;
+        display: none !important;
     }
 
 }

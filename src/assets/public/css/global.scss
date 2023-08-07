@@ -23,6 +23,10 @@
     color: #FF6200;
 }
 
+.color-1ACB51 {
+    color: #1ACB51;
+}
+
 .transparent {
     background-color: transparent !important;
 }
@@ -32,6 +36,13 @@
     box-shadow: inset 2px 0px 4px 1px rgba(0, 0, 0, 0.12);
     border-radius: 12px;
     height: 48px;
+}
+
+.m-bg-color-1 {
+    background-color: #1C1929;
+    box-shadow: inset 2px 0px 4px 1px rgba(0, 0, 0, 0.12);
+    border-radius: 12px;
+    height: 40px;
 }
 
 .bg-color-211F31 {
@@ -312,6 +323,12 @@
     font-family: 'Inter';
 }
 
+.text-800-26 {
+    font-weight: 800;
+    font-size: 26px;
+    font-family: 'Inter';
+}
+
 .text-800-32 {
     font-weight: 800;
     font-size: 32px;
@@ -510,6 +527,10 @@ button {
 .v-btn--disabled {
     background-color: #353652 !important;
     color: white !important;
+}
+
+.v-btn__content {
+    letter-spacing: normal !important;
 }
 
 // carousel

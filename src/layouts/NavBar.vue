@@ -232,7 +232,7 @@ onMounted(() => {
                     <v-card color="#211F31" theme="dark" class="mx-2 language-item">
                         <v-list-item v-bind="props" class="casino-sub-img"
                             prepend-avatar="@/assets/public/svg/icon_public_57.svg" :title="language" value="english"
-                            :append-icon="languageMenu ? 'mdi-chevron-right' : 'mdi-chevron-left'">
+                            :append-icon="languageMenu ? 'mdi-chevron-left' : 'mdi-chevron-right'">
                         </v-list-item>
                     </v-card>
                 </template>
@@ -293,7 +293,6 @@ onMounted(() => {
         display: block;
         background: #211F31;
         border-radius: 20px !important;
-        box-shadow: inset 0px 5px 15px rgba(0, 0, 0, 0.4), inset 0px -5px 15px rgba(255, 255, 255, 0.4);
         cursor: pointer;
         transition: 0.3s;
 
@@ -492,7 +491,6 @@ onMounted(() => {
         display: block;
         background: #211F31;
         border-radius: 20px !important;
-        box-shadow: inset 0px 5px 15px rgba(0, 0, 0, 0.4), inset 0px -5px 15px rgba(255, 255, 255, 0.4);
         cursor: pointer;
         transition: 0.3s;
 

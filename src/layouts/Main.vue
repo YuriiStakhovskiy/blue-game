@@ -171,9 +171,13 @@ const loginBonusDialogVisible = computed(() => {
   return getLoginBonusDialogVisible.value;
 })
 watch(loginBonusDialogVisible, (newValue) => {
+  console.log(newValue);
   loginBonusDialog.value = newValue;
-})
+  // setOverlayScrimShow(newValue)
+  // setMainBlurEffectShow(newValue);
+}, { deep: true })
 const closeLoginBonusDialog = () => {
+  console.log("ok");
   setLoginBonusDialogVisible(false);
 }
 
@@ -246,7 +250,7 @@ const selectActiveIndex = (index: number) => {
   setMainBlurEffectShow(false);
   setOverlayScrimShow(false);
   setAccountDialogShow(false);
-  router.push({name: "Account"})
+  router.push({ name: "Account", params: { index: activeMenuIndex.value }, query: { index: activeMenuIndex.value } });
 }
 
 watch(accountDialogVisible, (value: boolean) => {
@@ -394,6 +398,13 @@ onMounted(() => {
   .v-navigation-drawer__scrim {
     opacity: 0 !important;
     background: transparent !important;
+  }
+
+}
+
+@media(max-width: 388px) {
+  .v-dialog>.v-overlay__content {
+    max-width: unset !important;
   }
 }
 </style>

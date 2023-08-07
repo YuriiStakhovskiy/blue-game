@@ -508,7 +508,7 @@ export default Dashboard;
   <div class="mx-2 home-body" :class="mobileWidth > 600 ? 'my-4' : 'my-2'">
     <!-- image carousel -->
 
-    <v-carousel cycle interval="6000" height="225" hide-delimiter-background :hide-delimiters="slides.length <= 1"
+    <v-carousel cycle interval="6000" height="247" hide-delimiter-background :hide-delimiters="slides.length <= 1"
       show-arrows="hover">
 
       <!-- prev, next button hide when slides array length is less than 2 -->
@@ -717,11 +717,11 @@ export default Dashboard;
           <input type="checkbox" id="history-toggle" v-model="historyToggleSwitch" />
           <label for="history-toggle">
             <div class="winner">
-              <img src="@/assets/public/svg/icon_public_92.svg" width="20"/>
+              <img src="@/assets/public/svg/icon_public_92.svg" width="20" />
               <P class="text-500-12">{{ t('home.lucky_jackpot_text') }}</P>
             </div>
             <div class="prize">
-              <img src="@/assets/public/svg/icon_public_91.svg" width="20"/>
+              <img src="@/assets/public/svg/icon_public_91.svg" width="20" />
               <P class="text-500-12">{{ t('home.latest_record_text') }}</P>
             </div>
           </label>
@@ -729,20 +729,20 @@ export default Dashboard;
         <v-card color="#211F32" theme="dark" height="500" class="mt-4 mx-2" v-if="!historyToggleSwitch">
           <v-card color="#29253C" theme="dark" height="40" class="mx-2 mt-2">
             <v-row class="mx-3 my-2 align-center">
-              <v-col cols="4" class="text-700-14 gray py-0">{{ t('home.rank_text') }}</v-col>
-              <v-col cols="4" class="text-700-14 gray py-0">
+              <v-col cols="3" class="text-700-14 gray py-0">{{ t('home.rank_text') }}</v-col>
+              <v-col cols="5" class="text-700-14 gray py-0">
                 <p class="ml-2">{{ t('home.player_text') }}</p>
               </v-col>
-              <v-col cols="4" class="text-700-14 gray text-center py-0">{{ t('home.profit_text') }}</v-col>
+              <v-col cols="4" class="text-700-14 gray py-0">{{ t('home.profit_text') }}</v-col>
             </v-row>
           </v-card>
           <div class="m-home-overflow-auto" ref="luckyContainer" style="overflow-y: auto;">
             <v-row v-for="(item, index) in luckyJackpotList" :key="index" class="mx-4 mt-2 align-center">
-              <v-col cols="4" class="py-1">
+              <v-col cols="3" class="py-1">
                 <img :src="item.rank" v-if="!isNumeric(item.rank)" width="22" />
                 <p class="text-500-14 gray text-center" style="width: 27px;" v-else>{{ item.rank }}</p>
               </v-col>
-              <v-col cols="4" class="d-flex align-center py-1">
+              <v-col cols="5" class="d-flex align-center py-1">
                 <img :src="item.player.image" width="40" />
                 <p class="text-500-14 gray">{{ item.player.name }}</p>
               </v-col>
@@ -786,23 +786,36 @@ export default Dashboard;
   height: 568px;
 }
 
-.home-search-text-height {
-  height: 30px !important;
-}
-
 @media (max-width: 600px) {
-  .v-field__field {
-    color: var(--sec-text-7782-aa, #7782AA);
-    font-family: Inter;
-    font-size: 10px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-  }
 
-  .v-input__control {
-    .mdi:before {
-      font-size: 19px !important;
+  .home-search-text-height {
+    height: 30px !important;
+
+    .v-field__field {
+      padding-left: 0px !important;
+    }
+
+    .v-field__input::placeholder {
+      opacity: unset !important;
+      color: #7782AA !important;
+      font-family: "Inter";
+      font-size: 10px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+    }
+
+    .v-field__prepend-inner {
+      .v-icon {
+        opacity: unset !important;
+        color: #7782AA;
+      }
+    }
+
+    .v-input__control {
+      .mdi:before {
+        font-size: 19px !important;
+      }
     }
   }
 
@@ -836,7 +849,7 @@ export default Dashboard;
 
 .slider-img-width {
   width: 100%;
-  height: 200px;
+  height: 225px;
 }
 
 .v-field {
@@ -901,6 +914,7 @@ export default Dashboard;
   }
 }
 
+
 .popular-btn-color {
   background: #211f31 !important;
   color: #7782aa !important;
@@ -923,14 +937,14 @@ export default Dashboard;
   .original_game_text {
     font-size: 14px;
   }
-  
 
-.more-btn-color {
 
-  .v-btn__content {
-    font-size: 12px !important;
+  .more-btn-color {
+
+    .v-btn__content {
+      font-size: 12px !important;
+    }
   }
-}
 }
 
 .original-game-img-border {
@@ -1035,5 +1049,24 @@ export default Dashboard;
     color: black
   }
 
+}
+
+.v-carousel__controls .v-btn {
+  background-color: #7782AA !important;
+  width: 6px !important;
+  height: 6px !important;
+  margin-right: 6px !important;
+
+  .v-btn__content .v-icon {
+    display: none;
+    /* Removes the default icon */
+  }
+}
+
+.v-carousel__controls .v-btn--active {
+  width: 18px !important;
+  height: 6px !important;
+  border-radius: 24px !important;
+  background: var(--white-bg, #FFF) !important;
 }
 </style>
