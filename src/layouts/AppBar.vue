@@ -280,6 +280,13 @@ const goGameHistoryPage = () => {
   setTransactionTab(t('transaction.tab.game_history'));
 }
 
+const goGameAccountPage = () => {
+  router.push({ name: 'Account' });
+}
+const goVIPPage = () => {
+  router.push({name: "VIP"})
+}
+
 const openLoginBonusDialog = () => {
   setLoginBonusDialogVisible(true);
 }
@@ -528,7 +535,7 @@ onMounted(async () => {
                   :src="user.avatar"
                   width="44"
                   height="44"
-                  class="mr-0"
+                  class="mr-0 original-game-img-avatar"
                   style="margin-top: 2px"
                 />
               </div>
@@ -550,7 +557,7 @@ onMounted(async () => {
                 />
               </template>
             </v-list-item>
-            <v-list-item class="user-item" value="vip">
+            <v-list-item class="user-item" value="vip" @click="goVIPPage">
               <template v-slot:prepend>
                 <div>
                   <div style="height: 40px">
@@ -615,8 +622,7 @@ onMounted(async () => {
             <v-list-item
               class="user-item"
               value="account"
-              router
-              :to="{ name: 'Account' }"
+              @click="goGameAccountPage"
             >
               <template v-slot:prepend>
                 <img src="@/assets/public/svg/icon_public_59.svg" />
@@ -1298,5 +1304,10 @@ onMounted(async () => {
   top: 18px;
   left: 50%;
   transform: translateX(-50%);
+}
+.original-game-img-avatar:active {
+  transform: scale(0.9);
+  filter: brightness(80%);
+  transition-duration: 0.28s;
 }
 </style>

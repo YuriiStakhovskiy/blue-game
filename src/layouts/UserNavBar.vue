@@ -135,6 +135,10 @@ const goAccountPage = () => {
     setUserNavBarToggle(false);
 }
 
+const goVIPPage = () => {
+  router.push({name: "VIP"})
+}
+
 watch(userNavBarToggle, (newValue) => {
     drawer.value = newValue;
 })
@@ -170,7 +174,7 @@ watch(mobileWidth, (newValue: number) => {
     <template v-slot:prepend>
       <div :class="refferalAppBarShow ? 'user-navbar-position' : ''"></div>
     </template>
-    <v-list density="compact" nav>
+    <v-list class="mobile-nav" density="compact" nav>
       <v-list-item class="m-user-item">
         <template v-slot:prepend>
           <img src="@/assets/public/svg/icon_public_58.svg" width="18" />
@@ -197,7 +201,7 @@ watch(mobileWidth, (newValue: number) => {
           </div>
         </template>
       </v-list-item>
-      <v-list-item class="m-user-item">
+      <v-list-item class="m-user-item" @click="goVIPPage">
         <template v-slot:prepend>
           <div>
             <div style="height: 30px">
@@ -498,4 +502,12 @@ watch(mobileWidth, (newValue: number) => {
     border-radius: 20px !important;
   }
 }
+.mobile-nav {
+  .v-list-item__overlay {
+  opacity: 0!important;
+  }
+}
+
 </style>
+
+
