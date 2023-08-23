@@ -192,6 +192,7 @@ onMounted(() => {
 })
 </script>
 
+
 <template>
   <div class="mobile-cash-header">
     <div class="m-header d-flex align-center relative">
