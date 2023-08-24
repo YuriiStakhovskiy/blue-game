@@ -37,6 +37,7 @@ const MSignup = defineComponent({
     const { dispatchUserProfile } = authStore();
     const { setSignUpForm } = authStore();
     const { setDialogCheckbox } = authStore();
+    const { setNickNameDialogVisible } = authStore();
     const { width } = useDisplay();
 
     // initiate component state
@@ -79,7 +80,18 @@ const MSignup = defineComponent({
         t("signup.displayNamePage.validation.username.items[0]"),
         t("signup.displayNamePage.validation.username.items[1]"),
       ],
-      slides: ["First", "Second", "Third", "Fourth", "Fifth"],
+      slides: [
+        new URL("@/assets/public/image/ua_public_01.png", import.meta.url).href,
+        new URL("@/assets/public/image/ua_public_02.png", import.meta.url).href,
+        new URL("@/assets/public/image/ua_public_03.png", import.meta.url).href,
+        new URL("@/assets/public/image/ua_public_04.png", import.meta.url).href,
+        new URL("@/assets/public/image/ua_public_05.png", import.meta.url).href,
+        new URL("@/assets/public/image/ua_public_06.png", import.meta.url).href,
+        new URL("@/assets/public/image/ua_public_07.png", import.meta.url).href,
+        new URL("@/assets/public/image/ua_public_08.png", import.meta.url).href,
+        new URL("@/assets/public/image/ua_public_09.png", import.meta.url).href,
+        new URL("@/assets/public/image/ua_public_10.png", import.meta.url).href,
+      ],
       loading: false,
       mailCardHeight: 0,
       emailPartName: "",
@@ -229,8 +241,10 @@ const MSignup = defineComponent({
 
     // handle form submit
     const handleSignupFormSubmit = async () => {
-      // state.currentPage = state.PAGE_TYPE.DISPLAY_NAME;
-      console.log("sign up form submit!");
+      // setSignUpForm(false);
+      // emit("close");
+      // setNickNameDialogVisible(true);
+
       state.loading = true;
       await dispatchSignUp({
         uid: state.formData.emailAddress,
@@ -250,13 +264,17 @@ const MSignup = defineComponent({
           title: t("signup.submit_result.success_text"),
           duration: 3000,
         });
+        setTimeout(() => {
+          setSignUpForm(false);
+          emit("close");
+          setNickNameDialogVisible(true);
+        }, 3000);
         // state.notificationShow = !state.notificationShow;
         // state.checkIcon = new URL(
         //   "@/assets/public/svg/icon_public_18.svg",
         //   import.meta.url
         // ).href;
         // state.notificationText = t("signup.submit_result.success_text");
-        state.currentPage = state.PAGE_TYPE.DISPLAY_NAME;
       } else {
         if (errMessage.value == "Registering an existing account is abnormal") {
           state.currentPage = state.PAGE_TYPE.ALREADY_REGISTERED;
@@ -288,7 +306,6 @@ const MSignup = defineComponent({
     watch(
       dialogVisible,
       (newValue) => {
-        console.log(state.currentPage);
         if (state.currentPage == state.PAGE_TYPE.SIGNUP_FORM) {
           state.currentPage = state.PAGE_TYPE.CONFIRM_CANCEL;
         } else {
@@ -654,11 +671,7 @@ export default MSignup;
               ></v-btn>
             </template>
             <v-carousel-item v-for="(slide, i) in slides" :key="i">
-              <img
-                src="@/assets/public/image/ua_public_01.png"
-                width="123"
-                style="margin-top: 20px"
-              />
+              <img :src="slide" width="123" style="margin-top: 20px" />
             </v-carousel-item>
           </v-carousel>
         </v-row>
@@ -843,11 +856,6 @@ export default MSignup;
 
 .m-signup-btn:hover:enabled {
   background: #0cb6fa;
-}
-
-button:active:enabled {
-  // transform: scale(0.95);
-  // filter: brightness(80%);
 }
 
 .m-disable-password {
