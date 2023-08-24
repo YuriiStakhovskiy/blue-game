@@ -159,7 +159,6 @@ watch(authModalType, (newValue: string) => {
   }
 });
 
-
 // deposit dialog
 const depositDialog = ref<boolean>(true);
 const depositDialogToggle = computed(() => {
