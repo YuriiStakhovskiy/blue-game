@@ -191,6 +191,7 @@ const withdrawTransform = (el: any) => {
 
 
 onMounted(() => {
+    setMainBlurEffectShow(false);
     if (depositDialogToggle.value) {
         cashToggleSwitch.value = false;
     }
