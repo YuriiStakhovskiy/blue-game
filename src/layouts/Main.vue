@@ -336,6 +336,27 @@ onMounted(() => {
       </template>
     </v-dialog>
 
+    <!-- <v-dialog
+      v-model="cashDialog"
+      :width="mobileVersion == 'sm' ? '' : 471"
+      :fullscreen="mobileVersion == 'sm'"
+      :scrim="mobileVersion == 'sm' ? false : true"
+      :transition="mobileVersion == 'sm' ? 'dialog-bottom-transition' : ''"
+      @click:outside="setCashDialogToggle(false)"
+    >
+      <CashHeader v-if="mobileWidth > 600" />
+      <MCashHeader v-else />
+      <template v-if="withdrawDialog">
+        <Withdraw v-if="mobileWidth > 600" />
+        <MWithdraw v-else />
+      </template>
+      <template v-else>
+        <Deposit v-if="mobileWidth > 600" />
+        <MDeposit v-else />
+      </template>
+    </v-dialog> -->
+
+
     <!-----------------------Authentication Dialog --------------------------------------->
 
     <!-------------------------------      LOGIN     ------------------------------------>
