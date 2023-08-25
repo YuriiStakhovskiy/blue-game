@@ -114,7 +114,7 @@ watch(cashToggleSwitch, (newValue) => {
 })
 
 watch(pixInfoMenuShow, (value) => {
-  setOverlayScrimShow(pixInfoMenuShow.value == true ? true: false)
+  setOverlayScrimShow(pixInfoMenuShow._rawValue == true ? true: false)
 
     if (pixInfoItem.value.id != "" && pixInfoItem.value.first_name != "" && pixInfoItem.value.last_name != "") {
         isPersonalBtnReady.value = true;

@@ -172,7 +172,7 @@ watch(pixInfoMenuShow, (value) => {
         isPersonalBtnReady.value = false;
         confirmValidation.value = false;
     }
-    setMainBlurEffectShow(pixInfoMenuShow.value == true ? true: false)
+    setMainBlurEffectShow(pixInfoMenuShow._rawValue == true ? true: false)
 })
 
 const depositTransform = (el: any) => {
@@ -191,6 +191,7 @@ const withdrawTransform = (el: any) => {
 
 
 onMounted(() => {
+    setMainBlurEffectShow(false);
     if (depositDialogToggle.value) {
         cashToggleSwitch.value = false;
     }
