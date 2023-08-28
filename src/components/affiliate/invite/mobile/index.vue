@@ -48,7 +48,7 @@ const bettingCommissionItem = ref({
 const bonusDialog = ref<boolean>(false);
 const slider = ref<number>(0);
 const min = 0;
-const max = 97;
+const max = 101;
 const slides = ref([
     [
         {
@@ -166,12 +166,19 @@ watch(inviteItem, (newValue) => {
 
 })
 
+watch(slider, (newValue) => {
+    if (slider.value > 97) {
+      slider.value = 97;
+    }
+})
+
 const inviteUrlCopy = () => {
     notificationText.value = "Successful replication"
     notificationShow.value = !notificationShow.value;
 }
 
 const closeBonusDialog = () => {
+    setMainBlurEffectShow(false);
     bonusDialog.value = false;
 }
 
@@ -182,7 +189,7 @@ window.addEventListener('scroll', function () {
 
 const bonusDialogShow = () => {
     bonusDialog.value = true
-    // setMainBlurEffectShow(true);
+    setMainBlurEffectShow(true);
     // setOverlayScrimShow(true);
 }
 
@@ -369,6 +376,7 @@ onMounted(async () => {
         <img
           src="@/assets/affiliate/invite/image/img_agent_01.png"
           class="mt-4"
+          style="margin-bottom: -27px!important;"
           width="228"
         />
       </v-col>
@@ -385,7 +393,7 @@ onMounted(async () => {
         width="16"
       />
     </v-row>
-    <v-dialog v-model="bonusDialog" :width="mobileWidth < 600 ? 328 : 471">
+    <v-dialog v-model="bonusDialog" :width="mobileWidth < 600 ? 328 : 471" @click:outside="closeBonusDialog">
       <BonusDialog @close="closeBonusDialog" v-if="mobileWidth > 600" />
       <MBonusDialog @close="closeBonusDialog" v-else />
     </v-dialog>
@@ -640,6 +648,7 @@ onMounted(async () => {
               v-model="slider"
               color="#32CFEC"
               class="align-center"
+              rounded = rounded-xl
               :max="max"
               :min="min"
               hide-details
@@ -669,7 +678,7 @@ onMounted(async () => {
       <v-col cols="12" md="6" lg="6" class="d-flex align-center justify-center">
         <img
           src="@/assets/affiliate/invite/image/img_agent_03.png"
-          class="mt-4"
+          class="mt-4 m-invite-img-3"
           width="281"
         />
       </v-col>
@@ -717,9 +726,10 @@ onMounted(async () => {
     height: 2px;
   }
 
-  .v-slider-thumb__surface::before {
-    visibility: hidden;
-  }
+  // .v-slider-thumb__surface::before {
+  //   visibility: hidden;
+  // }
+  
 }
 
 .m-next-btn-position {
@@ -988,7 +998,7 @@ onMounted(async () => {
     font-size: 14px;
     font-style: normal;
     font-weight: 700;
-    line-height: normal;
+    // line-height: 16.94px;
   }
 }
 
@@ -1028,5 +1038,8 @@ onMounted(async () => {
   background: #211f31 !important;
   box-shadow: inset 2px 0px 4px 1px rgba(0, 0, 0, 0.12) !important;
   border-radius: 20px !important;
+}
+.m-invite-img-3{
+  margin-bottom: -20px;
 }
 </style>
