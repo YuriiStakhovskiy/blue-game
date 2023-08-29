@@ -120,7 +120,6 @@ const mobileWidth = computed(() => {
 }
 
 .m-forms-bonus-table {
-
     .v-table.v-table--fixed-header>.v-table__wrapper>table>thead>tr>th {
         background: #414968;
         height: 46px !important;

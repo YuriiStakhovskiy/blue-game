@@ -142,7 +142,7 @@ const mobileWidth = computed(() => {
         </v-table>
     </v-row>
     <v-row class="ma-2">
-        <v-col cols="6" md="4" lg="4" class="d-flex justify-start px-0">
+        <v-col cols="6" md="4" lg="4" class="d-flex" style = "margin-left: -12px; margin-top:4px;">
             <v-menu offset="12" class="m-game-menu" v-model:model-value="gameMenuShow">
                 <template v-slot:activator="{ props }">
                     <v-card color="#1C1929" theme="dark" style="height: 32px;" class="m-bonus-game-card">
@@ -165,8 +165,10 @@ const mobileWidth = computed(() => {
                 </v-list>
             </v-menu>
         </v-col>
-        <v-col cols="6" md="8" lg="8" class="d-flex justify-end">
-            <Pagination />
+        <v-col cols="6" md="8" lg="8" class="d-flex">
+            <div>
+                <Pagination />
+            </div>
         </v-col>
     </v-row>
 </template>
