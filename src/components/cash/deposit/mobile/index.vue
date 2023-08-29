@@ -20,6 +20,8 @@ const { name, width } = useDisplay();
 const { t } = useI18n();
 const { setDepositDialogToggle } = appBarStore();
 const { setWithdrawDialogToggle } = appBarStore();
+const { setMainBlurEffectShow } = appBarStore();
+const { setDepositBlurEffectShow } = appBarStore();
 const { setCashDialogToggle } = appBarStore();
 const { dispatchUserDepositCfg } = depositStore();
 const { dispatchUserDepositSubmit } = depositStore();
@@ -153,9 +155,9 @@ const depositAmountList = ref<Array<string>>([
   '19999',
 ])
 
-const mainBlurEffectShow = computed(() => {
-  const { getMainBlurEffectShow } = storeToRefs(appBarStore());
-  return getMainBlurEffectShow.value
+const depositBlurEffectShow = computed(() => {
+  const { getDepositBlurEffectShow } = storeToRefs(appBarStore());
+  return getDepositBlurEffectShow.value
 })
 
 const depositToggleSwitch = ref<boolean>(false);
@@ -279,7 +281,8 @@ const handleDepositSubmit = async () => {
     channels_id: selectedPaymentItem.value.id,
     amount: Number(depositAmount.value)
   })
-  
+  console.log('---------success')
+  console.log(success)
   if (success.value) {
     ElNotification({
       icon: SuccessIcon,
@@ -319,9 +322,13 @@ watch(depositToggleSwitch, (newValue) => {
   if (newValue) {
     setWithdrawDialogToggle(true);
     setDepositDialogToggle(false);
+    setMainBlurEffectShow(true);
+    setDepositBlurEffectShow(false);
   } else {
     setWithdrawDialogToggle(false);
     setDepositDialogToggle(true);
+    setMainBlurEffectShow(true);
+    setDepositBlurEffectShow(false);
   }
 })
 
@@ -331,7 +338,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="mobile-deposit-container" :class="mainBlurEffectShow ? 'main-bg-blur' : ''">
+  <div class="mobile-deposit-container" :class="depositBlurEffectShow ? 'deposit-bg-blur' : ''">
     <v-row class="mt-6 mx-6 text-400-12 gray">
       {{ t("deposit_dialog.deposit_currency") }}
     </v-row>
@@ -486,10 +493,10 @@ onMounted(async () => {
     </v-row>
     <div class="m-deposit-btn-position">
       <v-btn
-        class="ma-3 button-bright m-deposit-btn"
+        class="ma-3 m-deposit-btn"
+        :class=" isDepositBtnReady ? 'm-deposit-btn-ready' : ''"
         width="-webkit-fill-available"
         height="48px"
-        :disabled="!isDepositBtnReady"
         :onclick="handleDepositSubmit"
       >
         {{ t("deposit_dialog.deposit_btn_text") }}
@@ -581,7 +588,13 @@ onMounted(async () => {
   }
 
   .m-deposit-btn {
+      text-align: center;
+      background: #353652;
+
+      /* Button Shadow */
+      box-shadow: 0px 3px 4px 1px rgba(0, 0, 0, 0.21);
     .v-btn__content {
+      color: #fff;
       text-align: center;
       font-family: Inter;
       font-size: 14px;
@@ -591,6 +604,14 @@ onMounted(async () => {
     }
   }
 
+  .m-deposit-btn-ready {
+    background: #32cfec;
+    /* Button Shadow */
+    box-shadow: 0px 3px 4px 1px rgba(0, 0, 0, 0.21);
+    .v-btn__content {
+      color: #000000;
+    }
+  }
   .dark-textfield .v-field__field {
     background-color: #1c1929 !important;
   }
@@ -645,10 +666,10 @@ onMounted(async () => {
   height: 290px !important;
 }
 
-.main-bg-blur {
-  // filter: blur(4px);
-  // -webkit-filter: blur(4px);
-  filter: saturate(180%) blur(4px);
-  -webkit-filter: saturate(180%) blur(4px);
+.deposit-bg-blur {
+  filter: blur(4px)!important;
+  -webkit-filter: blur(4px)!important;
+  // filter: saturate(180%) blur(4px);
+  // -webkit-filter: saturate(180%) blur(4px);
 }
 </style>

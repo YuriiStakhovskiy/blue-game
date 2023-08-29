@@ -326,6 +326,7 @@ onMounted(() => {
     
     <v-dialog
       v-model="cashDialog"
+      class = "cash-header-dialog"
       :width="''"
       :fullscreen="true"
       :scrim="false"

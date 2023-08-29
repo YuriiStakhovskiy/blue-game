@@ -103,10 +103,22 @@ const handlePixInfoSubmit = (): void => {
 
 watch(cashToggleSwitch, (newValue) => {
     if (newValue) {
+        pixInfoItem.value.id = "";
+        pixInfoItem.value.first_name = "";
+        pixInfoItem.value.last_name = "";
+        console.log('11111')
+        isPersonalBtnReady.value = false;
+        confirmValidation.value = false;
         setWithdrawDialogToggle(true);
         setDepositDialogToggle(false);
         setOverlayScrimShow(false);
     } else {
+        pixInfoItem.value.id = "";
+        pixInfoItem.value.first_name = "";
+        pixInfoItem.value.last_name = "";
+        isPersonalBtnReady.value = false;
+        confirmValidation.value = false;
+        console.log("2222222")
         setWithdrawDialogToggle(false);
         setDepositDialogToggle(true);
         setOverlayScrimShow(false);
