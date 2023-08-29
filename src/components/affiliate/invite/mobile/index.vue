@@ -282,10 +282,12 @@ onMounted(async () => {
                     width="16"
                   />
                 </template>
-                <v-list theme="dark" bg-color="#211F31" class="px-2">
-                  <p class="pa-4 m-invite-url-title">
-                    {{ t("affiliate.invite.help_text_1") }}
-                  </p>
+                <v-list theme="dark" bg-color="#211F31" class="px-2" :width="mobileWidth > 600 ? 471 : mobileWidth-30" style="margin: 0px 2px 0px -15px;">
+                  <v-list-item class="pt-4">
+                    <div class="text-center text-400-12 gray">
+                      {{ t("affiliate.invite.help_text_1") }}
+                    </div>
+                  </v-list-item>
                 </v-list>
               </v-menu>
             </div>
@@ -586,8 +588,12 @@ onMounted(async () => {
             width="16"
           />
         </template>
-        <v-list theme="dark" bg-color="#211F31" class="px-2">
-          <p class="pa-4 m-invite-url-title">{{ t("affiliate.invite.help_text_2") }}</p>
+        <v-list theme="dark" bg-color="#211F31" class="px-2" :width="mobileWidth > 600 ? 471 : mobileWidth-30" style="margin: 0px 8px 0px 3px;">
+          <v-list-item class="pt-4">
+            <div class="text-center text-400-12 gray">
+              {{ t("affiliate.invite.help_text_2") }}
+            </div>
+          </v-list-item>
         </v-list>
       </v-menu>
     </div>
@@ -715,20 +721,24 @@ onMounted(async () => {
   }
 
   .v-slider-thumb__ripple {
-    width: 42px !important;
-    left: -5px !important;
-    height: 28px;
-    top: -4px;
+    width: 38px !important;
+    left: -2.7px !important;
+    height: 25px;
+    top: -2px;
     border-radius: 32px;
+    filter: blur(0.3px);
   }
 
   .v-slider.v-input--horizontal .v-slider-track__background {
     height: 2px;
   }
 
-  // .v-slider-thumb__surface::before {
-  //   visibility: hidden;
-  // }
+  .v-slider-thumb__surface::before {
+    visibility: hidden;
+  }
+  .v-slider-thumb--pressed > div{
+    background-color: #32cfec;
+  }
   
 }
 
