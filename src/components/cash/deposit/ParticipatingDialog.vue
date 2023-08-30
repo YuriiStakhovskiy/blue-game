@@ -24,6 +24,7 @@ const emit = defineEmits<{ (e: 'clickParticipate'): void }>()
   </div>
 </template>
 
+
 <style lang="scss">
 // container
 .mobile-deposit-container {
