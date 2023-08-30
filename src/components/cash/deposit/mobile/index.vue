@@ -16,6 +16,8 @@ import { useDisplay } from 'vuetify';
 import { ElNotification } from 'element-plus'
 import { storeToRefs } from 'pinia';
 import store from '@/store';
+import ParticipatingDialog from "@/components/cash/deposit/ParticipatingDialog.vue";
+
 const { name, width } = useDisplay();
 const { t } = useI18n();
 const { setDepositDialogToggle } = appBarStore();
@@ -170,6 +172,8 @@ const depositAmount = ref<string>("")
 
 const bonusCheck = ref<boolean>(false);
 
+const bonusParticipate = ref<boolean>(false);
+
 const notificationShow = ref<boolean>(false);
 const currencyMenuShow = ref<boolean>(false);
 const paymentMenuShow = ref<boolean>(false);
@@ -209,6 +213,7 @@ watch(depositConfig, (newValue) => {
       max: item.max
     })
   })
+  console.log(newValue["list"])
   depositAmountList.value = newValue["list"];
 }, { deep: true });
 
@@ -301,16 +306,20 @@ const handleDepositSubmit = async () => {
   }
 }
 
+const handleParticipate = () => {
+  bonusParticipate.value = false
+}
+
 watch(bonusCheck, (newValue) => {
-  if (newValue && validateAmount()) {
-    isDepositBtnReady.value = true;
-  } else {
-    isDepositBtnReady.value = false;
+  console.log(newValue)
+  if (newValue) {
+    bonusParticipate.value = newValue
+
   }
 })
 
 watch(depositAmount, (newValue) => {
-  if (bonusCheck.value && validateAmount()) {
+  if (validateAmount()) {
     isDepositBtnReady.value = true;
   } else {
     isDepositBtnReady.value = false;
@@ -459,8 +468,8 @@ onMounted(async () => {
           @click="handleDepositAmount(depositAmountItem)"
         >
           {{ depositAmountUnit }} {{ depositAmountItem }}
-          <div class="m-deposit-amount-area"></div>
-          <div class="m-deposit-amount-rate-text">{{ depositRate }}</div>
+          <div class="m-deposit-amount-area" v-if="!bonusCheck" ></div>
+          <div class="m-deposit-amount-rate-text" v-if="!bonusCheck" >{{ depositRate }}</div>
         </v-btn>
       </v-col>
     </v-row>
@@ -507,12 +516,29 @@ onMounted(async () => {
       :notificationText="notificationText"
       :checkIcon="checkIcon"
     />
+    <!-- <v-dialog
+      v-model="bonusParticipate"
+      width="auto"
+      persistent
+      @click:outside=""
+      v-if="bonusParticipate"
+    >
+      <ParticipatingDialog @clickParticipate = "handleParticipate"/>
+    </v-dialog> -->
   </div>
 </template>
 
 <style lang="scss">
 // container
 .mobile-deposit-container {
+  .form-textfield div.v-field__field {
+    box-shadow: 2px 0px 4px 1px rgba(0, 0, 0, 0.12) inset!important;
+
+  }
+
+  .form-textfield div.v-field--variant-solo, .v-field--variant-solo-filled {
+      background: transparent;
+  }
   background-color: #211f31;
   height: 100%;
 

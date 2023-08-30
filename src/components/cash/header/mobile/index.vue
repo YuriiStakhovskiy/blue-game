@@ -585,11 +585,19 @@ onMounted(() => {
   .v-input__append {
     width: 0px !important;
   }
+  .form-textfield div.v-field__field {
+    box-shadow: 2px 0px 4px 1px rgba(0, 0, 0, 0.12) inset!important;
+
+  }
+
+  .form-textfield div.v-field--variant-solo, .v-field--variant-solo-filled {
+      background: transparent;
+  }
 }
 
 .m-personal-info-menu {
   left: unset !important;
-  top: 60px !important;
+  top: 56px !important;
   border-radius: 0px 0px 25px 25px !important;
 
   .personal-info-key-position {
@@ -612,6 +620,9 @@ onMounted(() => {
 
   .v-input--horizontal .v-input__append {
     margin-inline-start: 0px !important;
+  }
+  .v-list{
+    box-shadow: none!important;;
   }
 }
 
@@ -690,8 +701,9 @@ onMounted(() => {
       color: #000000;
     }
   }
-  .cash-header-dialog {
+  .cash-header-dialog1 {
     z-index: 2440!important;
   }
 }
+
 </style>

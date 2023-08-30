@@ -1184,7 +1184,7 @@ export default Dashboard;
     </div>
 
     <!-- input for search -->
-    <v-row class="mt-2" :class="mobileWidth < 600 ? 'px-1' : 'px-4'">
+    <v-row class="mt-2 home-search-bar" :class="mobileWidth < 600 ? 'px-1' : 'px-4'">
       <v-text-field
         :placeholder="t('home.search')"
         class="form-textfield dark-textfield"
@@ -2156,6 +2156,12 @@ export default Dashboard;
     height: 6px !important;
     border-radius: 24px !important;
     background: var(--white-bg, #fff) !important;
+  }
+}
+.home-search-bar {
+  .form-textfield .v-field__overlay {
+    box-shadow: 2px 0px 4px 1px rgba(0, 0, 0, 0.12) inset!important;
+
   }
 }
 </style>

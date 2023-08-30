@@ -489,6 +489,14 @@ onMounted(async () => {
 }
 // container
 .mobile-withdraw-container {
+  .form-textfield div.v-field__field {
+    box-shadow: 2px 0px 4px 1px rgba(0, 0, 0, 0.12) inset!important;
+
+  }
+
+  .form-textfield div.v-field--variant-solo, .v-field--variant-solo-filled {
+      background: transparent;
+  }
   background-color: #211f31;
   height: 100%;
   overflow-y: auto;
