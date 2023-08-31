@@ -89,6 +89,8 @@ const confirmDailogShow = () => {
     }
 }
 .suspend-dialog-position {
-    top: 20px !important;
+
+    // top: 20px !important;
+    
 }
 </style>
