@@ -178,7 +178,13 @@ const mobileWidth = computed(() => {
     </v-row>
     <v-row class="m-bonus-transaction-table3">
         <v-col cols="4" class="d-flex " style = "margin-left: -12px; margin-top:4px;">
-            <img src="@/assets/public/svg/icon_public_53.svg" width="24" />
+            <v-btn icon width="24" height="24" class="m-withdraw-info-icon">
+                <v-icon>
+                    <img src="@/assets/public/svg/icon_public_53.svg" />
+
+                </v-icon>
+
+            </v-btn>
         </v-col>
         <v-col cols="8" class="d-flex" style="padding-right: 6px;">
             <div style="width: 100%;">
@@ -252,5 +258,9 @@ const mobileWidth = computed(() => {
     margin-left: 12px;
     margin-top: 16px!important;
     margin-bottom: 8px;
+}
+.m-withdraw-info-icon{
+    background: transparent!important;
+    box-shadow: none!important;;
 }
 </style>

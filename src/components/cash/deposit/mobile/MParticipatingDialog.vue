@@ -1,6 +1,6 @@
 
 <script lang="ts" setup>
-import { ref, computed, toRefs } from 'vue';
+import { ref } from 'vue';
 
 const emit = defineEmits<{ (e: 'promotionDialogHide'): void }>()
 
@@ -11,26 +11,23 @@ const submitPromotion = async () => {
     emit('promotionDialogHide')
 }
 
-
 </script>
 
 <template>
-    <div class="promotion-dialog-container">
-        <v-row class="mx-10 mt-10 text-700-14 text-gray">
+    <div class="m-promotion-dialog-container">
+        <v-row class="mx-4 mt-10 text-700-12 text-gray">
             <p class="text-center" style="width: 100%">
                 Not participating in promotional activities
             </p>
         </v-row>
-        <v-row class="mx-10 mt-16 text-700-14">
-            <div class="promotion-confirm-btn">
-                <v-btn class="button-bright text-none" width="-webkit-fill-available" height="40px" @click="submitPromotion"
-                    :loading="loading">
+        <v-row class="mx-10 mt-12 text-700-14">
+            <div class="m-promotion-confirm-btn">
+                <v-btn class="button-bright text-none" height="28" width="76" @click="submitPromotion" :loading="loading">
                     Ok
                 </v-btn>
             </div>
-            <div class="promotion-cancel-btn ml-2">
-                <v-btn class="button-bright text-none" width="-webkit-fill-available" height="40px"
-                    @click="emit('promotionDialogHide')">
+            <div class="m-promotion-cancel-btn ml-auto">
+                <v-btn class="button-bright text-none" height="28" width="76" @click="emit('promotionDialogHide')">
                     Cancel
                 </v-btn>
             </div>
@@ -39,30 +36,27 @@ const submitPromotion = async () => {
 </template>
 
 <style lang="scss">
-// account dialog container
-.promotion-dialog-container {
-    background-color: #1C1929;
+.m-promotion-dialog-container {
+    background-color: #29253C;
     border-radius: 16px !important;
-    height: 220px;
+    height: 173px;
 }
 
-.promotion-confirm-btn {
-    margin-left: auto;
-    margin-right: auto;
+.m-promotion-confirm-btn {
+
     // button
     button {
         border-radius: 26px !important;
 
         .v-btn__content {
             font-weight: 700;
-            font-size: 14px;
+            font-size: 10px;
         }
     }
 }
 
-.promotion-cancel-btn {
-    margin-left: auto;
-    margin-right: auto;
+.m-promotion-cancel-btn {
+
     // button
     button {
         background: #414968 !important;
@@ -71,7 +65,7 @@ const submitPromotion = async () => {
 
         .v-btn__content {
             font-weight: 700;
-            font-size: 14px;
+            font-size: 10px;
             color: #FFFFFF;
         }
     }

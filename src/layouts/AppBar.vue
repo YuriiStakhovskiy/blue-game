@@ -29,6 +29,7 @@ const { setBonusTabIndex } = bonusTransactionStore();
 const { setTransactionTab } = bonusTransactionStore();
 const { setRefferalDialogShow } = refferalStore();
 const { setLoginBonusDialogVisible } = loginBonusStore();
+const { setFixPositionEnable } = appBarStore();
 
 const { name, width } = useDisplay()
 const router = useRouter();
@@ -154,6 +155,12 @@ watch(mobileWidth, (newValue: number) => {
 
 watch(currencyMenuShow, (value: boolean) => {
   if (mobileWidth.value < 600) {
+    if (value) {
+      setFixPositionEnable(true);
+      console.log("fix position")
+    } else {
+      setFixPositionEnable(false);
+    }
     setOverlayScrimShow(value);
     setMainBlurEffectShow(value);
   }
@@ -427,6 +434,8 @@ onMounted(async () => {
                     v-model:model-value="currencyMenuShow"
                     class="m-currency-menu"
                     transition="slide-y-transition"
+                    :max-height="200"
+                    scroll-lock
                   >
                     <template v-slot:activator="{ props }">
                       <div
@@ -466,7 +475,7 @@ onMounted(async () => {
                         </template>
                         <v-list-item-title class="ml-2 text-700-10">{{
                           currencyItem.name
-                        }}</v-list-item-title>
+                        }}aaaaaa</v-list-item-title>
                         <template v-slot:append>
                           <p class="text-700-10 white">
                             $ {{ currencyItem.value.toFixed(2) }}
