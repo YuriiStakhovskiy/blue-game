@@ -443,8 +443,6 @@ onMounted(async () => {
                     v-model:model-value="currencyMenuShow"
                     class="m-currency-menu"
                     transition="slide-y-transition"
-                    :max-height="200"
-                    scroll-lock
                   >
                     <template v-slot:activator="{ props }">
                       <div
