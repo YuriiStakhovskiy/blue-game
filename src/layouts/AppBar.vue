@@ -29,11 +29,8 @@ const { setBonusTabIndex } = bonusTransactionStore();
 const { setTransactionTab } = bonusTransactionStore();
 const { setRefferalDialogShow } = refferalStore();
 const { setLoginBonusDialogVisible } = loginBonusStore();
-<<<<<<< HEAD
 const { setFixPositionEnable } = appBarStore();
-=======
 const {setMailMenuShow} = mailStore();
->>>>>>> 2534a0dc46b38495aa0810f0ae1a84ac7b25cb4f
 
 const { name, width } = useDisplay()
 const router = useRouter();
@@ -55,6 +52,8 @@ const user = ref<GetUserData>({
   wallet: 515.25,
   currency: "R$",
 });
+
+
 
 // mail count
 const mailCount = ref<number>(10);
