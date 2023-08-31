@@ -29,7 +29,11 @@ const { setBonusTabIndex } = bonusTransactionStore();
 const { setTransactionTab } = bonusTransactionStore();
 const { setRefferalDialogShow } = refferalStore();
 const { setLoginBonusDialogVisible } = loginBonusStore();
+<<<<<<< HEAD
 const { setFixPositionEnable } = appBarStore();
+=======
+const {setMailMenuShow} = mailStore();
+>>>>>>> 2534a0dc46b38495aa0810f0ae1a84ac7b25cb4f
 
 const { name, width } = useDisplay()
 const router = useRouter();
@@ -163,6 +167,7 @@ watch(currencyMenuShow, (value: boolean) => {
     }
     setOverlayScrimShow(value);
     setMainBlurEffectShow(value);
+    setMailMenuShow(value);
   }
 })
 
@@ -237,6 +242,7 @@ const currencyList = ref<Array<GetCurrencyItem>>([
 const handleSelectCurrency = (item: GetCurrencyItem) => {
   selectedCurrencyItem.value = item;
   user.value.currency = item.name
+  user.value.wallet = item.value
 }
 
 const showUserNavBar = (): void => {
@@ -334,7 +340,11 @@ onMounted(async () => {
       v-if="!navBarToggle && mobileWidth > 600"
     ></v-app-bar-nav-icon>
     <v-toolbar-title v-if="mobileWidth > 800">
-      <img src="@/assets/public/image/logo_public_01.png" @click="goHomePage" />
+      <img
+        src="@/assets/public/image/logo_public_01.png"
+        @click="goHomePage"
+        style="margin-top: 12px"
+      />
       <!-- <v-btn height="60" @click="goHomePage" class="align-center mt-1">
         <img src="@/assets/public/image/logo_public_01.png" />
       </v-btn> -->
@@ -962,6 +972,7 @@ onMounted(async () => {
 
   .app-bar-height {
     height: 60px !important;
+
     .v-toolbar__content {
       height: 60px !important;
     }
