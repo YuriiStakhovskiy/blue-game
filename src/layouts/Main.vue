@@ -247,7 +247,6 @@ const overlayScrimShow = computed(() => {
   return getOverlayScrimShow.value;
 })
 watch(overlayScrimShow, (newValue) => {
-  console.log(newValue);
   if (newValue) {
     overlayScrimBackground.value = "transparent";
   } else {
@@ -298,7 +297,6 @@ watch(accountDialogVisible, (value: boolean) => {
 }, { deep: true })
 
 watch(mailMenuShow, (value) => {
-  console.log(value);
 })
 
 // mounted
