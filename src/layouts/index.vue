@@ -12,7 +12,6 @@ import RefferalLayout from './RefferalBar.vue';
 import { useDisplay } from 'vuetify';
 import { refferalStore } from '@/store/refferal';
 import { storeToRefs } from "pinia";
-import { appBarStore } from '@/store/appBar';
 
 const { width } = useDisplay();
 
@@ -25,17 +24,12 @@ const mobileWidth = computed(() => {
   return width.value
 })
 
-const fixPositionShow = computed(() => {
-  const { getFixPositionEnable } = storeToRefs(appBarStore());
-  return getFixPositionEnable.value
-})
-
 const handleScroll = () => {
 }
 </script>
 
 <template>
-  <v-app :class="fixPositionShow ? 'appbar-position-fix' : ''">
+  <v-app>
     <RefferalLayout v-if="refferalAppBarShow" />
     <AppBarLayout />
       <NavBarLayout v-if="mobileWidth > 600" />
@@ -47,9 +41,4 @@ const handleScroll = () => {
   </v-app>
 </template>
 
-<style lang="scss">
-.appbar-position-fix{
-  overflow: hidden!important;
-  position: fixed!important;
-}
-</style>
+<style lang="scss"></style>

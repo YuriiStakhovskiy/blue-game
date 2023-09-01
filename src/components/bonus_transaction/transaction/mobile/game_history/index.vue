@@ -36,10 +36,6 @@ const formsList = ref<Array<any>>([
         status: "loss",
         profit: "- R$ 300000000.00"
     },
-    {},
-    {},
-    {},
-    {},
 ])
 
 const gameList = ref<Array<string>>([
@@ -163,7 +159,7 @@ const handleGameLink = (game) => {
                     <td class="m-bonus-transaction-table-body-cells" style = "padding-top:21px!important; padding-bottom: 21px!important;" >{{ item.date }}</td>
                     <td style = "padding-top:21px!important; padding-bottom: 21px!important; min-width: 130px;" >
                         <div class=" d-flex align-center justify-center" >
-                            <div  style="width: 16px; height: 16px; background: #414968; border-radius: 20px; " v-if="item.amount">
+                            <div  style="width: 16px; height: 16px; background: #414968; border-radius: 20px; ">
                                 <el-tooltip placement="top" effect="customized"  style="margin:10px!important;">
                                     <template #content>
                                         <v-list-item v-for="(item, index) in tootipList" :key="index" class="m-bonus-transaction-tooltip-body gray"

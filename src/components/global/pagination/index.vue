@@ -27,7 +27,6 @@ onMounted(() => {
 .v-pagination__prev,
 .v-pagination__next {
 
-    margin: 6px!important;
     .v-btn {
         width: 32px !important;
         height: 32px !important;
@@ -70,8 +69,8 @@ onMounted(() => {
     .v-pagination__next {
 
         .v-btn {
-            width: 28px !important;
-            height: 28px !important;
+            width: 24px !important;
+            height: 24px !important;
 
             .v-btn__content {
                 font-weight: 800 !important;
@@ -82,8 +81,8 @@ onMounted(() => {
 
     .v-pagination__item {
         .v-btn {
-            width: 28px !important;
-            height: 28px !important;
+            width: 24px !important;
+            height: 24px !important;
 
             .v-btn__content {
                 font-weight: 800 !important;
@@ -97,8 +96,8 @@ onMounted(() => {
         display: none;
 
         .v-btn {
-            width: 28px !important;
-            height: 28px !important;
+            width: 24px !important;
+            height: 24px !important;
 
             .v-btn__content {
                 font-weight: 800 !important;
