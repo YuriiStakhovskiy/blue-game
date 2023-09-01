@@ -29,6 +29,7 @@ const { setBonusTabIndex } = bonusTransactionStore();
 const { setTransactionTab } = bonusTransactionStore();
 const { setRefferalDialogShow } = refferalStore();
 const { setLoginBonusDialogVisible } = loginBonusStore();
+const { setFixPositionEnable } = appBarStore();
 const {setMailMenuShow} = mailStore();
 
 const { name, width } = useDisplay()
@@ -162,6 +163,9 @@ watch(mobileWidth, (newValue: number) => {
 //   }
 // })
 
+
+
+
 const toggleLanguage = () => {
   currentLanguage.value = currentLanguage.value === "en" ? "zh" : "en";
 };
@@ -267,10 +271,9 @@ watch(currencyMenuShow, (value: boolean) => {
     } else {
       setFixPositionEnable(false);
     }
-    console.log('/////////////////')
-    console.log(userNavBarToggle.value)
-    console.log(navBarToggle.value)
-    console.log('//////////////')
+    
+
+    
     setOverlayScrimShow(value);
     setMainBlurEffectShow(value);
     setMailMenuShow(value);
