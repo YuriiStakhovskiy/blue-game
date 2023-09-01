@@ -156,19 +156,7 @@ watch(mobileWidth, (newValue: number) => {
   }
 })
 
-watch(currencyMenuShow, (value: boolean) => {
-  if (mobileWidth.value < 600) {
-    if (value) {
-      setFixPositionEnable(true);
-      console.log("fix position")
-    } else {
-      setFixPositionEnable(false);
-    }
-    setOverlayScrimShow(value);
-    setMainBlurEffectShow(value);
-    setMailMenuShow(value);
-  }
-})
+
 
 const toggleLanguage = () => {
   currentLanguage.value = currentLanguage.value === "en" ? "zh" : "en";
@@ -255,10 +243,35 @@ const showUserNavBar = (): void => {
 }
 
 watch(userNavToggle, (newValue) => {
-  console.log(navBarToggle.value);
   userNavBarToggle.value = newValue;
 }, { deep: true });
 
+watch(currencyMenuShow, (value: boolean) => {
+  if (mobileWidth.value < 600) {
+    if (value) {
+      setUserNavBarToggle(false);
+      setMainBlurEffectShow(false);
+      setNavBarToggle(false);
+      setMailMenuShow(false)
+
+      setTimeout(() => {
+        setFixPositionEnable(true);
+        setMainBlurEffectShow(true);
+      }, 10)
+
+      
+    } else {
+      setFixPositionEnable(false);
+    }
+    console.log('/////////////////')
+    console.log(userNavBarToggle.value)
+    console.log(navBarToggle.value)
+    console.log('//////////////')
+    setOverlayScrimShow(value);
+    setMainBlurEffectShow(value);
+    setMailMenuShow(value);
+  }
+})
 const goHomePage = () => {
   router.push({ name: "Dashboard" });
 }
@@ -302,7 +315,6 @@ watch(currentLanguage, (newLang, oldLang) => {
 });
 
 watch(mailList, (newValue) => {
-  console.log(newValue);
   mailCount.value = newValue.length;
 }, { deep: true })
 

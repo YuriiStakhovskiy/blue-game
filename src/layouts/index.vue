@@ -31,7 +31,6 @@ const fixPositionShow = computed(() => {
 })
 
 const handleScroll = () => {
-  console.log("scroll");
 }
 </script>
 

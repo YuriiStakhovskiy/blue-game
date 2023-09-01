@@ -712,7 +712,7 @@ const showWinnerBody = () => {
         position: absolute;
         bottom: 0;
         z-index: 1;
-        transition: height 0.3s ease-out;
+        transition: height 0.1s ease-out;
         overflow: hidden;
 
         // winner and prize toggle switch

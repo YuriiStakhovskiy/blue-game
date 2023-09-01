@@ -214,7 +214,6 @@ watch(depositConfig, (newValue) => {
       max: item.max
     })
   })
-  console.log(newValue["list"])
   depositAmountList.value = newValue["list"];
 }, { deep: true });
 
@@ -312,7 +311,6 @@ const handleParticipate = () => {
 }
 
 watch(bonusCheck, (newValue) => {
-  console.log(newValue)
   if (newValue) {
     promotionDialogVisible.value = newValue
 

@@ -37,7 +37,6 @@ const transactionTab = computed(() => {
 })
 
 watch(transactionTab, (newValue) => {
-    console.log(newValue);
     selectedTab.value = newValue;
 }, { deep: true })
 
@@ -46,7 +45,6 @@ const touchless = () => {
 }
 
 onMounted(() => {
-    console.log(transactionTab.value);
     selectedTab.value = transactionTab.value == "" ? selectedTab.value : transactionTab.value;
 })
 </script>
