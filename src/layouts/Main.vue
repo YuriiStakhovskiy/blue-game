@@ -190,6 +190,7 @@ watch(cashDialogToggle, (newValue) => {
 })
 
 watch(cashDialog, (newValue) => {
+  console.log(cashDialog)
 })
 
 // refferal dialog

@@ -64,11 +64,6 @@ const formsList = ref<Array<any>>([
         status: "Cancelled",
         note: "Stale",
     },
-    {},
-    {},
-    {},
-    {},
-    {},
 ])
 
 const mobileWidth = computed(() => {
@@ -77,7 +72,7 @@ const mobileWidth = computed(() => {
 </script>
 <template>
     <v-row class="mx-2 mt-4">
-        <v-table class="forms-bonus-table-bg" theme="dark" fixed-header height="700px">
+        <v-table class="forms-bonus-table-bg" theme="dark" fixed-header height="600px">
             <thead class="forms-table-header">
                 <tr>
                     <th class="forms-table-header-text" style="border-radius: 8px 0px 0px 8px;">
@@ -120,7 +115,6 @@ const mobileWidth = computed(() => {
 </template>
 <style lang="scss">
 .forms-bonus-table-bg {
-    height: 700px;
     background: #1C1929 !important;
     box-shadow: inset 2px 0px 4px 1px rgba(0, 0, 0, 0.12) !important;
     border-radius: 12px !important;

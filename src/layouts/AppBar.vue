@@ -29,7 +29,6 @@ const { setBonusTabIndex } = bonusTransactionStore();
 const { setTransactionTab } = bonusTransactionStore();
 const { setRefferalDialogShow } = refferalStore();
 const { setLoginBonusDialogVisible } = loginBonusStore();
-const { setFixPositionEnable } = appBarStore();
 const {setMailMenuShow} = mailStore();
 
 const { name, width } = useDisplay()
@@ -52,8 +51,6 @@ const user = ref<GetUserData>({
   wallet: 515.25,
   currency: "R$",
 });
-
-
 
 // mail count
 const mailCount = ref<number>(10);
@@ -158,12 +155,6 @@ watch(mobileWidth, (newValue: number) => {
 
 watch(currencyMenuShow, (value: boolean) => {
   if (mobileWidth.value < 600) {
-    if (value) {
-      setFixPositionEnable(true);
-      console.log("fix position")
-    } else {
-      setFixPositionEnable(false);
-    }
     setOverlayScrimShow(value);
     setMainBlurEffectShow(value);
     setMailMenuShow(value);
@@ -482,7 +473,7 @@ onMounted(async () => {
                         </template>
                         <v-list-item-title class="ml-2 text-700-10">{{
                           currencyItem.name
-                        }}aaaaaa</v-list-item-title>
+                        }}</v-list-item-title>
                         <template v-slot:append>
                           <p class="text-700-10 white">
                             $ {{ currencyItem.value.toFixed(2) }}
