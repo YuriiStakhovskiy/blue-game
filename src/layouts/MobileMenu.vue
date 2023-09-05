@@ -459,6 +459,7 @@ onMounted(() => {
   left: unset !important;
   bottom: 82px;
   top: unset !important;
+  max-height: 450px!important;
 
   // background: transparent !important;
   // box-shadow: none !important;

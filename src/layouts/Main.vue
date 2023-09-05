@@ -39,6 +39,7 @@ const { setDepositDialogToggle } = appBarStore();
 const { setWithdrawDialogToggle } = appBarStore();
 const { setCashDialogToggle } = appBarStore();
 const { setMainBlurEffectShow } = appBarStore();
+const { setHeaderBlurEffectShow } = appBarStore();
 const { setOverlayScrimShow } = appBarStore();
 const { setAccountDialogShow } = appBarStore();
 const { setAuthModalType } = authStore();
@@ -219,6 +220,7 @@ watch(loginBonusDialogVisible, (newValue) => {
 const closeLoginBonusDialog = () => {
   setLoginBonusDialogVisible(false);
   setMainBlurEffectShow(false);
+  setHeaderBlurEffectShow(false);
 }
 
 // roulette bonus dialog
@@ -233,6 +235,7 @@ watch(rouletteBonusDialogVisible, (newValue) => {
 const closeRouletteBonusDialog = () => {
   setRouletteBonusDialogVisible(false);
   setMainBlurEffectShow(false);
+  setHeaderBlurEffectShow(false);
 }
 
 // main blur effect
@@ -279,6 +282,7 @@ const accountDialogVisible = computed(() => {
 const accountDialogClose = () => {
   accountDialog.value = false;
   setMainBlurEffectShow(false);
+  setHeaderBlurEffectShow(false);
   setOverlayScrimShow(false);
   setAccountDialogShow(false);
 }
@@ -288,6 +292,7 @@ const selectActiveIndex = (index: number) => {
   selectedMenuItem.value = menuList.value[index];
   accountDialog.value = false;
   setMainBlurEffectShow(false);
+  setHeaderBlurEffectShow(false);
   setOverlayScrimShow(false);
   setAccountDialogShow(false);
   router.push({ name: "Account", params: { index: activeMenuIndex.value }, query: { index: activeMenuIndex.value } });
@@ -486,7 +491,7 @@ onMounted(() => {
     <v-dialog
       v-model="loginBonusDialog"
       :width="mobileWidth < 600 ? '340' : '471'"
-      @click:outside="setLoginBonusDialogVisible(false)"
+      @click:outside="closeLoginBonusDialog"
       :class="mobileWidth < 600 ? 'm-login-bonus-dialog' : ''"
     >
       <LoginBonusDialog

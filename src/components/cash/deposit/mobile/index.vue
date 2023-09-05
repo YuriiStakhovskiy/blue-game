@@ -23,6 +23,8 @@ const { t } = useI18n();
 const { setDepositDialogToggle } = appBarStore();
 const { setWithdrawDialogToggle } = appBarStore();
 const { setMainBlurEffectShow } = appBarStore();
+const { setHeaderBlurEffectShow } = appBarStore();
+
 const { setDepositBlurEffectShow } = appBarStore();
 const { setCashDialogToggle } = appBarStore();
 const { dispatchUserDepositCfg } = depositStore();
@@ -344,11 +346,13 @@ watch(depositToggleSwitch, (newValue) => {
     setWithdrawDialogToggle(true);
     setDepositDialogToggle(false);
     setMainBlurEffectShow(true);
+    setHeaderBlurEffectShow(true);
     setDepositBlurEffectShow(false);
   } else {
     setWithdrawDialogToggle(false);
     setDepositDialogToggle(true);
     setMainBlurEffectShow(true);
+    setHeaderBlurEffectShow(true);
     setDepositBlurEffectShow(false);
   }
 })
