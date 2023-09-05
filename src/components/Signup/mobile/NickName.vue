@@ -97,6 +97,7 @@ const submitNickName = async () => {
 };
 
 watch(selectedAvatarItem, (value) => {
+  console.log(value);
 });
 </script>
 

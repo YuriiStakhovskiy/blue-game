@@ -1,31 +1,21 @@
 import { defineStore } from 'pinia'
 import { NETWORK } from '@/net/NetworkCfg';
 import { Network } from "@/net/Network";
-import type * as Game from "@/interface/game";
+import type * as Vip from "@/interface/vip";
 
-export const gameStore = defineStore({
-    id: 'game',
+export const vipStore = defineStore({
+    id: 'vip',
     state: () => ({
         success: false as boolean,
         errMessage: '' as string,
-        gameCategories: [] as Array<Game.Category>,
-        gameSearchList: [] as Array<Game.Search>,
-        enterGameItem: {
-            method: "",
-            parames: "",
-            provider: "",
-            reserve: "",
-            weburl: ""
-        } as Game.GameEnterResponse,
-        searchGameDialogShow: false as boolean,
+        vipInfo: {} as Vip.VipInfo,
+        vipLevels: [] as Array<Vip.VipLevel>
     }),
     getters: {
         getSuccess: (state) => state.success,
         getErrMessage: (state) => state.errMessage,
-        getGameCategories: (state) => state.gameCategories,
-        getGameSearchList: (state) => state.gameSearchList,
-        getEnterGameItem: (state) => state.enterGameItem,
-        getSearchGameDialogShow: (state) => state.searchGameDialogShow
+        getVipInfo: (state) => state.vipInfo,
+        getVipLevels: (state) => state.vipLevels
     },
     actions: {
         // set functions
@@ -35,65 +25,43 @@ export const gameStore = defineStore({
         setErrorMessage(message: string) {
             this.errMessage = message
         },
-        setGameCategories(gameCategories: Array<Game.Category>) {
-            this.gameCategories = gameCategories;
+        setVipInfo(vipInfo: Vip.VipInfo) {
+            this.vipInfo = vipInfo;
         },
-        setGameSearchList(gameSearchList: Array<Game.Search>) {
-            this.gameSearchList = gameSearchList;
+        setVipLevels(vipLevels: Array<Vip.VipLevel>) {
+            this.vipLevels = vipLevels;
         },
-        setGameEnterItem(enterGameItem: Game.GameEnterResponse) {
-            this.enterGameItem = enterGameItem;
-        },
-        setSearchGameDialogShow(searchGameDialogShow: boolean) {
-            this.searchGameDialogShow = searchGameDialogShow;
-        },
-        // game categories api
-        async dispatchGameCategories(sub_api: string) {
+        // user vip information api
+        async dispatchVipInfo() {
             this.setSuccess(false);
-            const route: string = NETWORK.GAME_INFO.GAME_CATEGORY + sub_api;
+            const route: string = NETWORK.VIP_INFO.USER_VIP_INFO;
             const network: Network = Network.getInstance();
             // response call back function
-            const next = (response: Game.GetGameCategoriesResponse) => {
+            const next = (response: Vip.GetVipInfoResponse) => {
                 if (response.code == 200) {
                     this.setSuccess(true);
-                    this.setGameCategories(response.data);
+                    this.setVipInfo(response.data);
                 } else {
                     this.handleErr(response.code);
                 }
             }
             await network.sendMsg(route, {}, next, 1, 4);
         },
-        // game search api
-        async dispatchGameSearch(sub_api: string) {
+        // user vip level api
+        async dispatchVipLevels() {
             this.setSuccess(false);
-            const route: string = NETWORK.GAME_INFO.GAME_SEARCH + sub_api;
+            const route: string = NETWORK.VIP_INFO.USER_VIP_LEVEL;
             const network: Network = Network.getInstance();
             // response call back function
-            const next = (response: Game.GetGameSearchResponse) => {
+            const next = (response: Vip.GetVipLevelResponse) => {
                 if (response.code == 200) {
                     this.setSuccess(true);
-                    this.setGameSearchList(response.data);
+                    this.setVipLevels(response.data);
                 } else {
                     this.handleErr(response.code);
                 }
             }
             await network.sendMsg(route, {}, next, 1, 4);
-        },
-        // game enter api
-        async dispatchGameEnter(data: Game.GameEnterBody) {
-            this.setSuccess(false);
-            const route: string = NETWORK.GAME_INFO.GAME_ENTER;
-            const network: Network = Network.getInstance();
-            // response call back function
-            const next = (response: Game.GetGameEnterResponse) => {
-                if (response.code == 200) {
-                    this.setSuccess(true);
-                    this.setGameEnterItem(response.data);
-                } else {
-                    this.handleErr(response.code);
-                }
-            }
-            await network.sendMsg(route, data, next, 1);
         },
         // error handle function
         handleErr(code: number) {
@@ -182,17 +150,6 @@ export const gameStore = defineStore({
                     // code === 106003 means passed data exception
                     // this.setErrorMessage('传递的数据异常');
                     this.setErrorMessage('passed data exception');
-                    break;
-                case 401:
-                    // code === 401 means token contains an invalid number of segments
-                    this.setErrorMessage('token contains an invalid number of segments');
-                    this.setGameEnterItem({
-                        method: "",
-                        parames: "",
-                        provider: "",
-                        reserve: "",
-                        weburl: ""
-                    })
                     break;
             }
         },
