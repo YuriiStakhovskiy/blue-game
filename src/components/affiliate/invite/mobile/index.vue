@@ -17,6 +17,8 @@ import SuccessIcon from '@/components/global/notification/SuccessIcon.vue';
 const { setMainBlurEffectShow } = appBarStore();
 const { setOverlayScrimShow } = appBarStore();
 const { dispatchUserInvite } = inviteStore();
+const { setHeaderBlurEffectShow } = appBarStore();
+
 
 const { t } = useI18n();
 const { width } = useDisplay();
@@ -188,6 +190,7 @@ const inviteUrlCopy = () => {
 
 const closeBonusDialog = () => {
     setMainBlurEffectShow(false);
+    setHeaderBlurEffectShow(false);
     bonusDialog.value = false;
 }
 
@@ -199,6 +202,7 @@ window.addEventListener('scroll', function () {
 const bonusDialogShow = () => {
     bonusDialog.value = true
     setMainBlurEffectShow(true);
+    setHeaderBlurEffectShow(true);
     // setOverlayScrimShow(true);
 }
 
