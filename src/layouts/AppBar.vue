@@ -1343,4 +1343,12 @@ onMounted(async () => {
   filter: brightness(80%);
   transition-duration: 0.28s;
 }
+
+.appbar-bg-blur {
+  // filter: blur(4px);
+  // -webkit-filter: blur(4px);
+  filter: saturate(180%) blur(4px);
+  -webkit-filter: saturate(180%) blur(4px);
+}
+
 </style>
