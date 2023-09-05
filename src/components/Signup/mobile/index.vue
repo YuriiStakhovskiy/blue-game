@@ -257,9 +257,10 @@ const MSignup = defineComponent({
         brand: "",
         imei: "",
       });
-      state.loading = false;
+      
       if (success.value) {
         await dispatchUserProfile();
+        state.loading = false;
         ElNotification({
           icon: SuccessIcon,
           title: t("signup.submit_result.success_text"),
@@ -269,7 +270,7 @@ const MSignup = defineComponent({
           setSignUpForm(false);
           emit("close");
           setNickNameDialogVisible(true);
-        }, 3000);
+        }, 100);
         // state.notificationShow = !state.notificationShow;
         // state.checkIcon = new URL(
         //   "@/assets/public/svg/icon_public_18.svg",
@@ -278,8 +279,10 @@ const MSignup = defineComponent({
         // state.notificationText = t("signup.submit_result.success_text");
       } else {
         if (errMessage.value == "Registering an existing account is abnormal") {
+          state.loading = false;
           state.currentPage = state.PAGE_TYPE.ALREADY_REGISTERED;
         } else {
+          state.loading = false;
           ElNotification({
             icon: WarningIcon,
             title: errMessage.value,
@@ -720,7 +723,6 @@ export default MSignup;
             class="ma-3 mt-8 mb-8 button-bright m-signup-confirm-btn"
             width="-webkit-fill-available"
             height="48px"
-            :disabled="!validateUserName()"
             @click="$emit('close')"
           >
             {{ t("signup.displayNamePage.submit") }}

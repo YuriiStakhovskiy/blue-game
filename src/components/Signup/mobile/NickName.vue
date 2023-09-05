@@ -76,24 +76,29 @@ const handleOnUserNameInputBlur = (): void => {
 };
 
 const submitNickName = async () => {
-  await dispatchUpdateUserInfo({
-    name: userName.value,
-    avatar: selectedAvatarItem.value,
-  });
-  if (success.value) {
-    ElNotification({
-      icon: SuccessIcon,
-      message: "added name successfully!",
-      duration: 3000,
-    });
-    emit("close");
+  if(!validateUserName()) {
+    return
   } else {
-    ElNotification({
-      icon: WarningIcon,
-      message: errMessage.value,
-      duration: 3000,
+    await dispatchUpdateUserInfo({
+      name: userName.value,
+      avatar: selectedAvatarItem.value,
     });
+    if (success.value) {
+      ElNotification({
+        icon: SuccessIcon,
+        message: "added name successfully!",
+        duration: 3000,
+      });
+      emit("close");
+    } else {
+      ElNotification({
+        icon: WarningIcon,
+        message: errMessage.value,
+        duration: 3000,
+      });
+    }
   }
+  
 };
 
 watch(selectedAvatarItem, (value) => {
@@ -159,10 +164,10 @@ watch(selectedAvatarItem, (value) => {
     </div>
     <v-row class="mx-5 mt-5">
       <v-btn
-        class="button-bright m-signup-confirm-btn"
+        class="button-bright nickname-confirm-btn"
+        :class="validateUserName() ? 'nickname-btn-ready' : ''"
         width="-webkit-fill-available"
         height="48px"
-        :disabled="!validateUserName()"
         @click="submitNickName"
       >
         {{ t("signup.displayNamePage.submit") }}
@@ -184,6 +189,37 @@ watch(selectedAvatarItem, (value) => {
 .m-nickname-container {
   width: 320px;
   height: 471px;
+
+  .nickname-confirm-btn {
+    text-align: center;
+    width: 150px;
+    border-radius: 12px;
+    background: #353652!important;
+
+    /* Button Shadow */
+    box-shadow: 0px 3px 4px 1px rgba(0, 0, 0, 0.21);
+
+    .v-btn__content {
+      color: #fff;
+      text-align: center;
+      font-family: Inter;
+      font-size: 14px !important;
+      text-transform: none;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+    }
+  }
+
+  .nickname-btn-ready {
+    background: #32cfec!important;
+    /* Button Shadow */
+    box-shadow: 0px 3px 4px 1px rgba(0, 0, 0, 0.21);
+
+    .v-btn__content {
+      color: #000000;
+    }
+  }
 
   .m-header-img {
     position: absolute;

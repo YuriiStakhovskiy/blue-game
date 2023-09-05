@@ -207,7 +207,7 @@ const Signup = defineComponent({
         brand: "",
         imei: "",
       });
-      state.loading = false;
+      
       if (success.value) {
         await dispatchUserProfile();
         // state.notificationShow = !state.notificationShow;
@@ -216,7 +216,7 @@ const Signup = defineComponent({
         //   import.meta.url
         // ).href;
         // state.notificationText = t("signup.submit_result.success_text");
-
+        state.loading = false;
         ElNotification({
             icon: SuccessIcon,
             title: t("signup.submit_result.success_text"),
@@ -225,7 +225,7 @@ const Signup = defineComponent({
         
         setTimeout(() => {
           emit("close");
-        }, 1000);
+        }, 100);
       } else {
         // state.notificationShow = !state.notificationShow;
         // state.checkIcon = new URL(
@@ -233,7 +233,7 @@ const Signup = defineComponent({
         //   import.meta.url
         // ).href;
         // state.notificationText = errMessage.value;
-
+        state.loading = false;
         ElNotification({
             icon: WarningIcon,
             title: errMessage.value,
