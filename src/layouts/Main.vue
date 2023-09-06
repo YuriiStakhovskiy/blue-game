@@ -222,7 +222,7 @@ const closeLoginBonusDialog = () => {
   setLoginBonusDialogVisible(false);
   setMainBlurEffectShow(false);
   setHeaderBlurEffectShow(false);
-setMenuBlurEffectShow(false);
+  setMenuBlurEffectShow(false);
 }
 
 // roulette bonus dialog
@@ -238,7 +238,7 @@ const closeRouletteBonusDialog = () => {
   setRouletteBonusDialogVisible(false);
   setMainBlurEffectShow(false);
   setHeaderBlurEffectShow(false);
-setMenuBlurEffectShow(false);
+  setMenuBlurEffectShow(false);
 }
 
 // main blur effect
@@ -285,7 +285,7 @@ const accountDialogClose = () => {
   accountDialog.value = false;
   setMainBlurEffectShow(false);
   setHeaderBlurEffectShow(false);
-setMenuBlurEffectShow(false);
+  setMenuBlurEffectShow(false);
   setOverlayScrimShow(false);
   setAccountDialogShow(false);
 }
@@ -296,7 +296,7 @@ const selectActiveIndex = (index: number) => {
   accountDialog.value = false;
   setMainBlurEffectShow(false);
   setHeaderBlurEffectShow(false);
-setMenuBlurEffectShow(false);
+  setMenuBlurEffectShow(false);
   setOverlayScrimShow(false);
   setAccountDialogShow(false);
   router.push({ name: "Account", params: { index: activeMenuIndex.value }, query: { index: activeMenuIndex.value } });
@@ -512,7 +512,7 @@ onMounted(() => {
     <v-dialog
       v-model="loginBonusDialog"
       :width="mobileWidth < 600 ? '340' : '471'"
-      @click:outside="closeLoginBonusDialog"
+      @click:outside="setLoginBonusDialogVisible(false)"
       :class="mobileWidth < 600 ? 'm-login-bonus-dialog' : ''"
     >
       <LoginBonusDialog

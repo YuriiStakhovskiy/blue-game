@@ -106,7 +106,7 @@ const cashDialogShow = () => {
   setWithdrawDialogToggle(false);
   setMainBlurEffectShow(false);
   setHeaderBlurEffectShow(false);
-setMenuBlurEffectShow(false);
+  setMenuBlurEffectShow(false);
 }
 
 const validateCPF = (cpf: string) => {
@@ -235,7 +235,7 @@ const withdrawTransform = (el: any) => {
 onMounted(() => {
   setMainBlurEffectShow(false);
   setHeaderBlurEffectShow(false);
-setMenuBlurEffectShow(false);
+  setMenuBlurEffectShow(false);
   if (depositDialogToggle.value) {
     cashToggleSwitch.value = false;
   }

@@ -726,7 +726,7 @@ onMounted(() => {
         position: absolute;
         bottom: 0;
         z-index: 1;
-        transition: height 0.1s ease-out;
+        transition: height 0.3s ease-out;
         overflow: hidden;
 
         // winner and prize toggle switch
@@ -745,7 +745,7 @@ onMounted(() => {
                 background: #211F31;
                 box-shadow: 2px 0px 4px 1px rgba(0, 0, 0, 0.12) inset;
                 cursor: pointer;
-                transition: 0.1s;
+                transition: 0.3s;
                 margin: auto;
 
                 div {

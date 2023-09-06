@@ -192,7 +192,7 @@ const inviteUrlCopy = () => {
 const closeBonusDialog = () => {
     setMainBlurEffectShow(false);
     setHeaderBlurEffectShow(false);
-setMenuBlurEffectShow(false);
+    setMenuBlurEffectShow(false);
     bonusDialog.value = false;
 }
 

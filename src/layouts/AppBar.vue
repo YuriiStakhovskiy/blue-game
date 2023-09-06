@@ -3,7 +3,9 @@ import { ref, watch, computed, onMounted } from "vue";
 import { useI18n } from "vue-i18n";
 import { setLang } from "@/locale/index";
 import { authStore } from "@/store/auth";
+import { userStore } from "@/store/user";
 import { appBarStore } from "@/store/appBar";
+import { socketStore } from "@/store/socket";
 import { refferalStore } from '@/store/refferal';
 import { loginBonusStore } from "@/store/loginBonus";
 import { bonusTransactionStore } from "@/store/bonusTransaction";
@@ -23,14 +25,15 @@ const { setOverlayScrimShow } = appBarStore();
 const { setMainBlurEffectShow } = appBarStore();
 const { setDepositDialogToggle } = appBarStore();
 const { setWithdrawDialogToggle } = appBarStore();
-const { setFixPositionEnable } = appBarStore();
 const { setCashDialogToggle } = appBarStore();
 const { setUserNavBarToggle } = appBarStore();
 const { setBonusTabIndex } = bonusTransactionStore();
 const { setTransactionTab } = bonusTransactionStore();
 const { setRefferalDialogShow } = refferalStore();
 const { setLoginBonusDialogVisible } = loginBonusStore();
-const {setMailMenuShow} = mailStore();
+const { setMailMenuShow } = mailStore();
+const { dispatchUserBalance } = userStore();
+const { dispatchSocketConnect } = socketStore();
 
 const { name, width } = useDisplay()
 const router = useRouter();
@@ -75,6 +78,11 @@ const token = computed(() => {
 const userInfo = computed(() => {
   const { getUserInfo } = storeToRefs(authStore());
   return getUserInfo.value
+})
+
+const userBalance = computed(() => {
+  const { getUserBalance } = storeToRefs(userStore());
+  return getUserBalance.value
 })
 
 const rightBarToggle = computed(() => {
@@ -156,23 +164,6 @@ watch(mobileWidth, (newValue: number) => {
 
 watch(currencyMenuShow, (value: boolean) => {
   if (mobileWidth.value < 600) {
-    if (value) {
-      setUserNavBarToggle(false);
-      setMainBlurEffectShow(false);
-      setNavBarToggle(false);
-      setMailMenuShow(false)
-      setTimeout(() => {
-        setFixPositionEnable(true);
-        setMainBlurEffectShow(true);
-      }, 10)
-      
-    } else {
-      setFixPositionEnable(false);
-    }
-    console.log('/////////////////')
-    console.log(userNavBarToggle.value)
-    console.log(navBarToggle.value)
-    console.log('//////////////')
     setOverlayScrimShow(value);
     setMainBlurEffectShow(value);
     setMailMenuShow(value);
@@ -263,6 +254,10 @@ const showUserNavBar = (): void => {
   }, 10)
 }
 
+watch(userBalance, (value) => {
+  selectedCurrencyItem.value.value = value.amount
+})
+
 watch(userNavToggle, (newValue) => {
   console.log(navBarToggle.value);
   userNavBarToggle.value = newValue;
@@ -320,14 +315,6 @@ const refferalDialogShow = () => {
   setUserNavBarToggle(false);
 }
 
-// header blur effect
-const headerBlurEffectShow = computed(() => {
-  const { getHeaderBlurEffectShow } = storeToRefs(appBarStore());
-  return getHeaderBlurEffectShow.value
-})
-
-// const headerBlurEffectShow = ref(true);
-
 onMounted(async () => {
   if (mobileWidth.value < 600) {
     currencyMenuWidth.value = (window.innerWidth - 20) + "px";
@@ -345,12 +332,14 @@ onMounted(async () => {
   }
   if (token.value != undefined) {
     await dispatchUserProfile();
+    await dispatchUserBalance();
+    await dispatchSocketConnect();
   }
 });
 </script>
 
 <template>
-  <v-app-bar app dark :color="color" :class="[appBarWidth, (headerBlurEffectShow ? 'header-bg-blur' :'')]" class="app-bar-height">
+  <v-app-bar app dark :color="color" :class="appBarWidth" class="app-bar-height">
     <v-app-bar-nav-icon
       @click.stop="setNavBarToggle(true)"
       v-if="!navBarToggle && mobileWidth > 600"
@@ -1342,11 +1331,10 @@ onMounted(async () => {
   transition-duration: 0.28s;
 }
 
-.header-bg-blur {
+.appbar-bg-blur {
   // filter: blur(4px);
   // -webkit-filter: blur(4px);
   filter: saturate(180%) blur(4px);
   -webkit-filter: saturate(180%) blur(4px);
 }
-
 </style>
