@@ -22,6 +22,7 @@ const { width } = useDisplay()
 const { setMainBlurEffectShow } = appBarStore();
 const { setOverlayScrimShow } = appBarStore();
 const { setHeaderBlurEffectShow } = appBarStore();
+const { setMenuBlurEffectShow } = appBarStore();
 
 const userInfo = computed((): GetUserInfo => {
     const { getUserInfo } = storeToRefs(authStore());
@@ -61,6 +62,7 @@ const editNicknameDialogShow = () => {
     editEmailDialog.value = false;
     setMainBlurEffectShow(true);
     setHeaderBlurEffectShow(true);
+    setMenuBlurEffectShow(true);
     setOverlayScrimShow(true);
 }
 
@@ -71,6 +73,7 @@ const editPasswordDialogShow = () => {
     editEmailDialog.value = false;
     setMainBlurEffectShow(true);
     setHeaderBlurEffectShow(true);
+    setMenuBlurEffectShow(true);
     setOverlayScrimShow(true);
 }
 
@@ -81,6 +84,7 @@ const editEmailDialogShow = () => {
     editNicknameDialog.value = false;
     setMainBlurEffectShow(true);
     setHeaderBlurEffectShow(true);
+    setMenuBlurEffectShow(true);
     setOverlayScrimShow(true);
 }
 
@@ -91,6 +95,7 @@ const userDialogHide = () => {
     editEmailDialog.value = false;
     setMainBlurEffectShow(false);
     setHeaderBlurEffectShow(false);
+    setMenuBlurEffectShow(false);
     setOverlayScrimShow(false);
 }
 

@@ -16,7 +16,7 @@ import { useDisplay } from 'vuetify';
 import { ElNotification } from 'element-plus'
 import { storeToRefs } from 'pinia';
 import store from '@/store';
-import ParticipatingDialog from "@/components/cash/deposit/ParticipatingDialog.vue";
+import MParticipatingDialog  from "@/components/cash/deposit/mobile/MParticipatingDialog.vue";
 
 const { name, width } = useDisplay();
 const { t } = useI18n();
@@ -24,6 +24,7 @@ const { setDepositDialogToggle } = appBarStore();
 const { setWithdrawDialogToggle } = appBarStore();
 const { setMainBlurEffectShow } = appBarStore();
 const { setHeaderBlurEffectShow } = appBarStore();
+const { setMenuBlurEffectShow } = appBarStore();
 
 const { setDepositBlurEffectShow } = appBarStore();
 const { setCashDialogToggle } = appBarStore();
@@ -176,7 +177,7 @@ const depositAmount = ref<string>("")
 
 const bonusCheck = ref<boolean>(false);
 
-const bonusParticipate = ref<boolean>(false);
+const promotionDialogVisible = ref<boolean>(false);
 
 const notificationShow = ref<boolean>(false);
 const currencyMenuShow = ref<boolean>(false);
@@ -300,8 +301,6 @@ const handleDepositSubmit = async () => {
     channels_id: selectedPaymentItem.value.id,
     amount: Number(depositAmount.value)
   })
-  console.log('---------success')
-  console.log(success)
   if (success.value) {
     ElNotification({
       icon: SuccessIcon,
@@ -321,13 +320,13 @@ const handleDepositSubmit = async () => {
 }
 
 const handleParticipate = () => {
-  bonusParticipate.value = false
+  promotionDialogVisible.value = false
 }
 
 watch(bonusCheck, (newValue) => {
   console.log(newValue)
   if (newValue) {
-    bonusParticipate.value = newValue
+    promotionDialogVisible.value = newValue
 
   }
 })
@@ -347,12 +346,14 @@ watch(depositToggleSwitch, (newValue) => {
     setDepositDialogToggle(false);
     setMainBlurEffectShow(true);
     setHeaderBlurEffectShow(true);
+    setMenuBlurEffectShow(true);
     setDepositBlurEffectShow(false);
   } else {
     setWithdrawDialogToggle(false);
     setDepositDialogToggle(true);
     setMainBlurEffectShow(true);
     setHeaderBlurEffectShow(true);
+    setMenuBlurEffectShow(true);
     setDepositBlurEffectShow(false);
   }
 })
@@ -527,13 +528,12 @@ onMounted(async () => {
     </v-row>
     <div class="mt-0 mx-4 d-flex align-center">
       <div>
-        <v-checkbox hide-details icon class="amount-checkbox" v-model="bonusCheck" />
+        <v-checkbox hide-details icon class="amount-checkbox" v-model="bonusCheck" label="Not participating in promotional activities"/>
       </div>
-      <p class="text-400-10 gray" style="margin-top: 3px; margin-left: 2px">
-        {{ t("deposit_dialog.check_text") }}
-      </p>
+      
       <img src="@/assets/public/svg/icon_public_22.svg" class="ml-auto" width="16" />
     </div>
+    <div style="margin: 10px; width: 100%; height: 10px; z-index: 2550;"></div>
     <v-row class="m-deposit-footer-text-position text-600-10 white justify-center mx-2">
       {{ t("deposit_dialog.other_text") }}
     </v-row>
@@ -548,20 +548,9 @@ onMounted(async () => {
         {{ t("deposit_dialog.deposit_btn_text") }}
       </v-btn>
     </div>
-    <Notification
-      :notificationShow="notificationShow"
-      :notificationText="notificationText"
-      :checkIcon="checkIcon"
-    />
-    <!-- <v-dialog
-      v-model="bonusParticipate"
-      width="auto"
-      persistent
-      @click:outside=""
-      v-if="bonusParticipate"
-    >
-      <ParticipatingDialog @clickParticipate = "handleParticipate"/>
-    </v-dialog> -->
+    <v-dialog v-model="promotionDialogVisible" width="326" content-class="m-promotion-dialog-position" @click:outside="handleParticipate">
+        <MParticipatingDialog @promotionDialogHide="handleParticipate" />
+    </v-dialog>
   </div>
 </template>
 
@@ -683,6 +672,11 @@ onMounted(async () => {
     background: transparent !important;
   }
 
+  .amount-checkbox .v-input--selection-controls__ripple {
+    padding: 16px!important;
+    border:1px solid yellow!important;;
+  }
+
   .amount-checkbox {
     i.v-icon {
       color: #1c1929;
@@ -729,10 +723,31 @@ onMounted(async () => {
   height: 290px !important;
 }
 
-.deposit-bg-blur {
-  filter: blur(4px) !important;
-  -webkit-filter: blur(4px) !important;
-  // filter: saturate(180%) blur(4px);
-  // -webkit-filter: saturate(180%) blur(4px);
+@media (max-width: 600px) {
+  .deposit-bg-blur {
+    filter: blur(4px) !important;
+    -webkit-filter: blur(4px) !important;
+    // filter: saturate(180%) blur(4px);
+    // -webkit-filter: saturate(180%) blur(4px);
+  }
 }
+.amount-checkbox {
+  .v-label {
+    color: #7782AA !important;
+    // background: rgba(119, 130, 170, 1);
+    font-weight: 400;
+    font-size: 10px!important;
+    font-family: "Inter";
+    opacity: 1;
+  }
+}
+.m-promotion-dialog-position {
+    z-index: 2550;
+    // top: -20px !important;
+}
+
+.v-dialog--persistent .v-dialog__content {
+  transform: none !important;
+}
+
 </style>

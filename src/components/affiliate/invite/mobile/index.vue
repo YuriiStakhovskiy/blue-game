@@ -18,6 +18,7 @@ const { setMainBlurEffectShow } = appBarStore();
 const { setOverlayScrimShow } = appBarStore();
 const { dispatchUserInvite } = inviteStore();
 const { setHeaderBlurEffectShow } = appBarStore();
+const { setMenuBlurEffectShow } = appBarStore();
 
 
 const { t } = useI18n();
@@ -191,6 +192,7 @@ const inviteUrlCopy = () => {
 const closeBonusDialog = () => {
     setMainBlurEffectShow(false);
     setHeaderBlurEffectShow(false);
+setMenuBlurEffectShow(false);
     bonusDialog.value = false;
 }
 
@@ -203,6 +205,7 @@ const bonusDialogShow = () => {
     bonusDialog.value = true
     setMainBlurEffectShow(true);
     setHeaderBlurEffectShow(true);
+    setMenuBlurEffectShow(true);
     // setOverlayScrimShow(true);
 }
 

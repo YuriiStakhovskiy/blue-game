@@ -18,6 +18,7 @@ export const appBarStore = defineStore({
     depositBlurEffectShow: false as boolean,
     fixPositionEnable: false as boolean,
     headerBlurEffectShow: false as boolean,
+    menuBlurEffectShow: false as boolean,
   }),
   getters: {
     getSuccess: (state) => state.success,
@@ -34,6 +35,7 @@ export const appBarStore = defineStore({
     getDepositBlurEffectShow: (state) => state.depositBlurEffectShow,
     getFixPositionEnable: (state) => state.fixPositionEnable,
     getHeaderBlurEffectShow: (state) => state.headerBlurEffectShow,
+    getMenuBlurEffectShow: (state) => state.menuBlurEffectShow,
   },
   actions: {
     setSuccess(success: boolean) {
@@ -77,6 +79,9 @@ export const appBarStore = defineStore({
     },
     setHeaderBlurEffectShow(headerBlurEffectShow: boolean) {
       this.headerBlurEffectShow = headerBlurEffectShow;
+    },
+    setMenuBlurEffectShow(menuBlurEffectShow: boolean) {
+      this.menuBlurEffectShow = menuBlurEffectShow;
     },
   }
 })

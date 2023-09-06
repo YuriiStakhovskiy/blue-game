@@ -25,6 +25,7 @@ const { setMainBlurEffectShow } = appBarStore();
 const { setDepositBlurEffectShow } = appBarStore();
 const { setPixInfo } = depositStore();
 const { setHeaderBlurEffectShow } = appBarStore();
+const { setMenuBlurEffectShow } = appBarStore();
 
 
 const cashToggleSwitch = ref<boolean>(false);
@@ -105,6 +106,7 @@ const cashDialogShow = () => {
   setWithdrawDialogToggle(false);
   setMainBlurEffectShow(false);
   setHeaderBlurEffectShow(false);
+setMenuBlurEffectShow(false);
 }
 
 const validateCPF = (cpf: string) => {
@@ -175,13 +177,13 @@ watch(cashToggleSwitch, (newValue) => {
     pixInfoItem.value.id = "";
     pixInfoItem.value.first_name = "";
     pixInfoItem.value.last_name = "";
-    console.log('11111')
     isPersonalBtnReady.value = false;
     confirmValidation.value = false;
     setWithdrawDialogToggle(true);
     setDepositDialogToggle(false);
     setMainBlurEffectShow(true);
     setHeaderBlurEffectShow(true);
+    setMenuBlurEffectShow(true);
     setDepositBlurEffectShow(false);
 
     depositCheckboxColor.value = "#7782AA";
@@ -190,13 +192,13 @@ watch(cashToggleSwitch, (newValue) => {
     pixInfoItem.value.id = "";
     pixInfoItem.value.first_name = "";
     pixInfoItem.value.last_name = "";
-    console.log('11111')
     isPersonalBtnReady.value = false;
     confirmValidation.value = false;
     setWithdrawDialogToggle(false);
     setDepositDialogToggle(true);
     setMainBlurEffectShow(true);
     setHeaderBlurEffectShow(true);
+    setMenuBlurEffectShow(true);
     setDepositBlurEffectShow(false);
 
     depositCheckboxColor.value = "#ffffff";
@@ -233,6 +235,7 @@ const withdrawTransform = (el: any) => {
 onMounted(() => {
   setMainBlurEffectShow(false);
   setHeaderBlurEffectShow(false);
+setMenuBlurEffectShow(false);
   if (depositDialogToggle.value) {
     cashToggleSwitch.value = false;
   }
@@ -764,8 +767,5 @@ onMounted(() => {
     }
   }
 
-  .cash-header-dialog1 {
-    z-index: 2440 !important;
-  }
 }
 </style>
