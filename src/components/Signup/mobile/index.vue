@@ -14,6 +14,8 @@ import SignupHeader from "@/components/Signup/mobile/Header.vue";
 import { useDisplay } from "vuetify";
 import Notification from "@/components/global/notification/index.vue";
 import { authStore } from "@/store/auth";
+import { userStore } from "@/store/user";
+import { socketStore } from "@/store/socket";
 import { storeToRefs } from "pinia";
 import { ElNotification } from "element-plus";
 import SuccessIcon from "@/components/global/notification/SuccessIcon.vue";
@@ -38,6 +40,8 @@ const MSignup = defineComponent({
     const { setSignUpForm } = authStore();
     const { setDialogCheckbox } = authStore();
     const { setNickNameDialogVisible } = authStore();
+    const { dispatchUserBalance } = userStore();
+    const { dispatchSocketConnect } = socketStore();
     const { width } = useDisplay();
 
     // initiate component state
@@ -257,10 +261,11 @@ const MSignup = defineComponent({
         brand: "",
         imei: "",
       });
-      
+      state.loading = false;
       if (success.value) {
         await dispatchUserProfile();
-        state.loading = false;
+        await dispatchUserBalance();
+        await dispatchSocketConnect();
         ElNotification({
           icon: SuccessIcon,
           title: t("signup.submit_result.success_text"),
@@ -270,7 +275,7 @@ const MSignup = defineComponent({
           setSignUpForm(false);
           emit("close");
           setNickNameDialogVisible(true);
-        }, 100);
+        }, 3000);
         // state.notificationShow = !state.notificationShow;
         // state.checkIcon = new URL(
         //   "@/assets/public/svg/icon_public_18.svg",
@@ -279,10 +284,8 @@ const MSignup = defineComponent({
         // state.notificationText = t("signup.submit_result.success_text");
       } else {
         if (errMessage.value == "Registering an existing account is abnormal") {
-          state.loading = false;
           state.currentPage = state.PAGE_TYPE.ALREADY_REGISTERED;
         } else {
-          state.loading = false;
           ElNotification({
             icon: WarningIcon,
             title: errMessage.value,
@@ -723,6 +726,7 @@ export default MSignup;
             class="ma-3 mt-8 mb-8 button-bright m-signup-confirm-btn"
             width="-webkit-fill-available"
             height="48px"
+            :disabled="!validateUserName()"
             @click="$emit('close')"
           >
             {{ t("signup.displayNamePage.submit") }}
@@ -911,17 +915,16 @@ export default MSignup;
   bottom: 0px;
   width: 100%;
   height: 464px;
+
   // overflow-y: auto;
   .form-textfield div.v-field__field {
-    box-shadow: 2px 0px 4px 1px rgba(0, 0, 0, 0.12) inset!important;;
-
+    box-shadow: 2px 0px 4px 1px rgba(0, 0, 0, 0.12) inset !important;
   }
 }
 
 .m-display-name-input {
   .form-textfield div.v-field__field {
-    box-shadow: 2px 0px 4px 1px rgba(0, 0, 0, 0.12) inset!important;;
-
+    box-shadow: 2px 0px 4px 1px rgba(0, 0, 0, 0.12) inset !important;
   }
 }
 

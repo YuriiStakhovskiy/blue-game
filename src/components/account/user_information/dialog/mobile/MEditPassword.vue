@@ -217,11 +217,6 @@ const submitPassword = async () => {
         top: 39%!important;
         right: 20px!important;
     }
-    
-    .v-field {
-        background: #29253c!important;
-        box-shadow: none!important;
-    }
 }
 
 .m-user-dialog-header {

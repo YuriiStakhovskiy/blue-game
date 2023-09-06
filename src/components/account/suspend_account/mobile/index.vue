@@ -8,7 +8,6 @@ import MSuspendDialog from "@/components/account/suspend_account/dialog/mobile/i
 const { t } = useI18n();
 const { width } = useDisplay()
 const { setMainBlurEffectShow } = appBarStore();
-const { setHeaderBlurEffectShow } = appBarStore();
 const { setOverlayScrimShow } = appBarStore();
 
 const mobileWidth: any = computed(() => {
@@ -23,7 +22,6 @@ const positionX = ref("left");
 
 const suspendDialogHide = () => {
     dialogVisible.value = false;
-    setHeaderBlurEffectShow(false);
     setMainBlurEffectShow(false);
     setOverlayScrimShow(false);
 }
@@ -31,7 +29,6 @@ const suspendDialogHide = () => {
 const confirmDailogShow = () => {
     dialogVisible.value = true;
     setMainBlurEffectShow(true);
-    setHeaderBlurEffectShow(true);
     setOverlayScrimShow(true);
 }
 </script>

@@ -24,8 +24,6 @@ const { setCashDialogToggle } = appBarStore();
 const { setMainBlurEffectShow } = appBarStore();
 const { setDepositBlurEffectShow } = appBarStore();
 const { setPixInfo } = depositStore();
-const { setHeaderBlurEffectShow } = appBarStore();
-
 
 const cashToggleSwitch = ref<boolean>(false);
 
@@ -104,7 +102,6 @@ const cashDialogShow = () => {
   setDepositDialogToggle(false);
   setWithdrawDialogToggle(false);
   setMainBlurEffectShow(false);
-  setHeaderBlurEffectShow(false);
 }
 
 const validateCPF = (cpf: string) => {
@@ -181,7 +178,6 @@ watch(cashToggleSwitch, (newValue) => {
     setWithdrawDialogToggle(true);
     setDepositDialogToggle(false);
     setMainBlurEffectShow(true);
-    setHeaderBlurEffectShow(true);
     setDepositBlurEffectShow(false);
 
     depositCheckboxColor.value = "#7782AA";
@@ -196,7 +192,6 @@ watch(cashToggleSwitch, (newValue) => {
     setWithdrawDialogToggle(false);
     setDepositDialogToggle(true);
     setMainBlurEffectShow(true);
-    setHeaderBlurEffectShow(true);
     setDepositBlurEffectShow(false);
 
     depositCheckboxColor.value = "#ffffff";
@@ -232,7 +227,6 @@ const withdrawTransform = (el: any) => {
 
 onMounted(() => {
   setMainBlurEffectShow(false);
-  setHeaderBlurEffectShow(false);
   if (depositDialogToggle.value) {
     cashToggleSwitch.value = false;
   }

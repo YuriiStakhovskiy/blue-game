@@ -24,7 +24,6 @@ const { setWithdrawDialogToggle } = appBarStore();
 const { setAccountDialogShow } = appBarStore();
 const { setOverlayScrimShow } = appBarStore();
 const { setMainBlurEffectShow } = appBarStore();
-const { setHeaderBlurEffectShow } = appBarStore();
 const { setCashDialogToggle } = appBarStore();
 const { setBonusTabIndex } = bonusTransactionStore();
 const { setTransactionTab } = bonusTransactionStore();
@@ -117,7 +116,6 @@ const mobileWidth: any = computed(() => {
 
 const depositDialogShow = () => {
   setMainBlurEffectShow(true);
-  setHeaderBlurEffectShow(true);
   setDepositDialogToggle(true);
   setCashDialogToggle(true);
   setUserNavBarToggle(false);
@@ -179,7 +177,6 @@ const goAccountPage = () => {
   setAccountDialogShow(true);
   // router.push({ name: 'Account' })
   setMainBlurEffectShow(drawer.value);
-  setHeaderBlurEffectShow(true);
   setOverlayScrimShow(drawer.value);
   setUserNavBarToggle(false);
 }
