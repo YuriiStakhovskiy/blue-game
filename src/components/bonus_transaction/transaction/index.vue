@@ -51,7 +51,7 @@ onMounted(() => {
 })
 </script>
 <template>
-    <v-slide-group class="mt-2 slide-tab-btns" v-model="selectedTab" show-arrows style="touch-action: none; margin-left: 16px!important; margin-right: 16px!important;">
+    <v-slide-group class="mt-2 slide-tab-btns slide-tabs" v-model="selectedTab" show-arrows style="touch-action: none; margin-left: 16px!important; margin-right: 16px!important;">
         <v-slide-group-item v-for="(item, index) in transactionTabs" :key="index" v-slot="{ isSelected, toggle }"
             :value="item">
             <v-btn class="ma-2 text-none transaction-tab-btn" :class="isSelected ? 'white' : 'text-gray'" rounded
@@ -80,11 +80,14 @@ onMounted(() => {
     </v-window>
 </template>
 <style lang="scss">
-.v-slide-group {
+.slide-tabs {
+
     background: #1C1929 !important;
     margin: 8px !important;
     border-radius: 8px !important;
 }
+
+
 
 .v-slide-group__prev,
 .v-slide-group__next {
