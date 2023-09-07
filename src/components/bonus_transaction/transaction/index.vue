@@ -89,6 +89,7 @@ onMounted(() => {
 
 
 
+
 .v-slide-group__prev,
 .v-slide-group__next {
     color: white !important;
