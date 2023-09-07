@@ -183,6 +183,8 @@ const showSignoutDialog = () => {
 }
 
 const depositDialogShow = () => {
+  setNavBarToggle(false);
+  setUserNavBarToggle(false);
   setDepositDialogToggle(true);
   setCashDialogToggle(true);
 }
