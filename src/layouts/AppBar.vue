@@ -25,6 +25,7 @@ const { setOverlayScrimShow } = appBarStore();
 const { setMainBlurEffectShow } = appBarStore();
 const { setDepositDialogToggle } = appBarStore();
 const { setWithdrawDialogToggle } = appBarStore();
+const { setFixPositionEnable } = appBarStore();
 const { setCashDialogToggle } = appBarStore();
 const { setUserNavBarToggle } = appBarStore();
 const { setBonusTabIndex } = bonusTransactionStore();
@@ -164,6 +165,19 @@ watch(mobileWidth, (newValue: number) => {
 
 watch(currencyMenuShow, (value: boolean) => {
   if (mobileWidth.value < 600) {
+    if (value) {
+      setUserNavBarToggle(false);
+      setMainBlurEffectShow(false);
+      setNavBarToggle(false);
+      setMailMenuShow(false)
+      setTimeout(() => {
+        setFixPositionEnable(true);
+        setMainBlurEffectShow(true);
+      }, 10)
+      
+    } else {
+      setFixPositionEnable(false);
+    }
     setOverlayScrimShow(value);
     setMainBlurEffectShow(value);
     setMailMenuShow(value);
