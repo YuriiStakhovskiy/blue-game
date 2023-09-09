@@ -28,8 +28,10 @@ const { setWithdrawDialogToggle } = appBarStore();
 const { setMainBlurEffectShow } = appBarStore();
 const { setHeaderBlurEffectShow } = appBarStore();
 const { setMenuBlurEffectShow } = appBarStore();
+const { setDepositWithdrawToggle } = appBarStore();
 
 const { setDepositBlurEffectShow } = appBarStore();
+const { setDepositHeaderBlurEffectShow } = appBarStore();
 const { setCashDialogToggle } = appBarStore();
 const { dispatchUserDepositCfg } = depositStore();
 const { dispatchUserDepositSubmit } = depositStore();
@@ -169,6 +171,8 @@ const depositBlurEffectShow = computed(() => {
   const { getDepositBlurEffectShow } = storeToRefs(appBarStore());
   return getDepositBlurEffectShow.value
 })
+
+const { setOverlayScrimShow } = appBarStore();
 
 const depositToggleSwitch = ref<boolean>(false);
 
@@ -357,13 +361,30 @@ const handleDepositSubmit = async () => {
 }
 
 const handleParticipate = () => {
-  promotionDialogVisible.value = false
+  setDepositBlurEffectShow(false);
+  setDepositHeaderBlurEffectShow(false);
+  setTimeout(() => {
+    promotionDialogVisible.value = false
+  }, 10)
+  
 }
+
+// main blur effect
+const promoBlurEffectShow = computed(() => {
+  const { getMainBlurEffectShow } = storeToRefs(appBarStore());
+  return getMainBlurEffectShow.value
+})
 
 watch(bonusCheck, (newValue) => {
   console.log(newValue)
   if (newValue) {
-    promotionDialogVisible.value = newValue
+    setOverlayScrimShow(true);
+    setDepositHeaderBlurEffectShow(true);
+    setDepositBlurEffectShow(true);
+    setTimeout(() => {
+      promotionDialogVisible.value = newValue;
+    }, 10)
+    
 
   }
 })
@@ -420,7 +441,9 @@ watch(currencyMenuShow, (value) => {
 })
 
 onMounted(async () => {
+  setDepositWithdrawToggle(false);
   await dispatchUserDepositCfg();
+  
 })
 </script>
 
@@ -804,10 +827,10 @@ onMounted(async () => {
 
 @media (max-width: 600px) {
   .deposit-bg-blur {
-    filter: blur(4px) !important;
-    -webkit-filter: blur(4px) !important;
-    // filter: saturate(180%) blur(4px);
-    // -webkit-filter: saturate(180%) blur(4px);
+    filter: blur(3px) !important;
+    -webkit-filter: blur(3px) !important;
+    // filter: saturate(180%) blur(3px);
+    // -webkit-filter: saturate(180%) blur(3px);
   }
 }
 

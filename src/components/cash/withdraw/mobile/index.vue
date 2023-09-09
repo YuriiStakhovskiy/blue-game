@@ -28,6 +28,7 @@ const { setCashDialogToggle } = appBarStore();
 const { setMailList } = mailStore();
 const { dispatchUserWithdrawCfg } = withdrawStore();
 const { dispatchUserWithdrawSubmit } = withdrawStore();
+const { setDepositWithdrawToggle } = appBarStore();
 import router from '@/router';
 
 const selectedCurrencyItem = ref<GetCurrencyItem>({
@@ -356,6 +357,7 @@ watch(currencyMenuShow, (value) => {
 })
 
 onMounted(async () => {
+  setDepositWithdrawToggle(false);
   await dispatchUserWithdrawCfg();
 })
 </script>
@@ -691,10 +693,10 @@ onMounted(async () => {
 }
 
 .deposit-bg-blur {
-  filter: blur(4px);
-  -webkit-filter: blur(4px);
-  // filter: saturate(180%) blur(4px);
-  // -webkit-filter: saturate(180%) blur(4px);
+  filter: blur(3px);
+  -webkit-filter: blur(3px);
+  // filter: saturate(180%) blur(3px);
+  // -webkit-filter: saturate(180%) blur(3px);
 }
 .v-dialog--persistent .v-dialog__content {
   transform: none !important;
