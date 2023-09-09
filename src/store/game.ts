@@ -19,6 +19,7 @@ export const gameStore = defineStore({
             weburl: ""
         } as Game.GameEnterResponse,
         searchGameDialogShow: false as boolean,
+        searchTextList: [] as Array<string>
     }),
     getters: {
         getSuccess: (state) => state.success,
@@ -26,7 +27,8 @@ export const gameStore = defineStore({
         getGameCategories: (state) => state.gameCategories,
         getGameSearchList: (state) => state.gameSearchList,
         getEnterGameItem: (state) => state.enterGameItem,
-        getSearchGameDialogShow: (state) => state.searchGameDialogShow
+        getSearchGameDialogShow: (state) => state.searchGameDialogShow,
+        getSearchTextList: (state) => state.searchTextList
     },
     actions: {
         // set functions
@@ -47,6 +49,18 @@ export const gameStore = defineStore({
         },
         setSearchGameDialogShow(searchGameDialogShow: boolean) {
             this.searchGameDialogShow = searchGameDialogShow;
+        },
+        setSearchTextList(searchText: string) {
+            let sameSearchText = this.searchTextList.filter(item => item == searchText)
+            if (sameSearchText.length == 0) {
+                this.searchTextList.push(searchText);
+            }
+        },
+        removeSearchTextList(index: number) {
+            this.searchTextList.splice(index, 1);
+        },
+        removeAllSearchTextList() {
+            this.searchTextList = [];
         },
         // game categories api
         async dispatchGameCategories(sub_api: string) {
@@ -75,10 +89,43 @@ export const gameStore = defineStore({
                     this.setSuccess(true);
                     this.setGameSearchList(response.data);
                 } else {
+                    this.setGameSearchList({ list: [], total: 0 });
                     this.setErrorMessage(handleException(response.code));
                 }
             }
             await network.sendMsg(route, {}, next, 1, 4);
+        },
+        // user game api
+        async dispatchUserGame(data: Game.GameUserBody) {
+            this.setSuccess(false);
+            const route: string = NETWORK.GAME_INFO.USER_GAME;
+            const network: Network = Network.getInstance();
+            // response call back function
+            const next = (response: Game.GetGameSearchResponse) => {
+                if (response.code == 200) {
+                    this.setSuccess(true);
+                    this.setGameSearchList(response.data);
+                } else {
+                    this.setGameSearchList({ list: [], total: 0 });
+                    this.setErrorMessage(handleException(response.code));
+                }
+            }
+            await network.sendMsg(route, data, next, 1, 4);
+        },
+        // favorite game api
+        async dispatchFavoriteGame(data: any) {
+            this.setSuccess(false);
+            const route: string = NETWORK.GAME_INFO.FAVORITE_GAME;
+            const network: Network = Network.getInstance();
+            // response call back function
+            const next = (response: any) => {
+                if (response.code == 200) {
+                    this.setSuccess(true);
+                } else {
+                    this.setErrorMessage(handleException(response.code));
+                }
+            }
+            await network.sendMsg(route, data, next, 1);
         },
         // game enter api
         async dispatchGameEnter(data: Game.GameEnterBody) {
