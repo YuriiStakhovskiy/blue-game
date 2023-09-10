@@ -345,6 +345,9 @@ const handleDepositSubmit = async () => {
     });
     setDepositDialogToggle(false);
     setCashDialogToggle(false);
+    setMainBlurEffectShow(false);
+    setHeaderBlurEffectShow(false);
+    setMenuBlurEffectShow(false);
     router.push({ name: "Dashboard" })
   } else {
     const toast = useToast();

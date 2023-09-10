@@ -31,6 +31,9 @@ const { dispatchUserWithdrawCfg } = withdrawStore();
 const { dispatchUserWithdrawSubmit } = withdrawStore();
 const { setDepositWithdrawToggle } = appBarStore();
 const { dispatchUserBalance } = userStore();
+const { setMainBlurEffectShow } = appBarStore();
+const { setHeaderBlurEffectShow } = appBarStore();
+const { setMenuBlurEffectShow } = appBarStore();
 import router from '@/router';
 
 const selectedCurrencyItem = ref<GetCurrencyItem>({
@@ -348,6 +351,9 @@ const handleWithdrawSubmit = async () => {
     setMailList(mailItem);
     setWithdrawDialogToggle(false);
     setCashDialogToggle(false);
+    setMainBlurEffectShow(true);
+    setHeaderBlurEffectShow(true);
+    setMenuBlurEffectShow(true);
     router.push({ name: "Dashboard" })
   } else {
     const toast = useToast();
