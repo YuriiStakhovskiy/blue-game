@@ -2063,9 +2063,10 @@ export default Dashboard;
         v-if="selectedGameFilterBtn == t('home.button.all_game')"
       >
         <v-row
-          class="ml-4 mb-1 original_game_text"
-          :class="mobileWidth > 600 ? ' mt-12' : ' mt-10'"
+          class="ml-4 original_game_text"
+          :class="mobileWidth > 600 ? ' mt-12' : ' mt-7'"
           v-if="item.games.length > 0"
+          style = "margin-bottom: 6px!important;"
         >
           {{ item.name }}
         </v-row>
@@ -2084,7 +2085,7 @@ export default Dashboard;
                 :src="gameItem.image"
                 lazy-placeholder
                 blur="30"
-                delay="2000"
+                delay="300"
                 @click="handleEnterGame(gameItem.id, gameItem.name)"
                 style="max-width: unset"
               />
@@ -2107,14 +2108,14 @@ export default Dashboard;
               lg="2"
               md="2"
               sm="3"
-              class="px-1 pb-0 original-game-img-width"
+              class="px-1 pb-0 original-game-img-width mb-2"
               v-if="gameIndex < 6 * item.page_no"
             >
               <ProgressiveImage
                 :src="gameItem.image"
                 lazy-placeholder
                 blur="30"
-                delay="2000"
+                delay="300"
                 @click="handleEnterGame(gameItem.id, gameItem.name)"
               />
               <!-- <img
@@ -2128,7 +2129,7 @@ export default Dashboard;
         </v-row>
         <v-row
           class="justify-center"
-          :class="mobileWidth < 600 ? 'pt-4 mx-3 mb-0' : 'mt-8 ml-4'"
+          :class="mobileWidth < 600 ? 'pt-4 mx-3 mb-0 mt-0' : 'mt-8 ml-4'"
           v-if="
             ((mobileWidth < 600 &&
               Number(item.game_count) > 6 &&
@@ -2157,7 +2158,7 @@ export default Dashboard;
               </p>
             </template>
             <v-btn
-              class="text-none more-btn-color mt-5 text-center"
+              class="text-none more-btn-color text-center"
               variant="outlined"
               :width="mobileWidth < 600 ? '100%' : 164"
               :height="mobileWidth < 600 ? 41 : 48"
@@ -2202,7 +2203,7 @@ export default Dashboard;
                   :src="gameItem.image"
                   lazy-placeholder
                   blur="30"
-                  delay="2000"
+                  delay="300"
                   @click="handleEnterGame(gameItem.id, gameItem.name)"
                 />
                 <div
@@ -2256,7 +2257,7 @@ export default Dashboard;
                   :src="gameItem.image"
                   lazy-placeholder
                   blur="30"
-                  delay="5000"
+                  delay="300"
                   @click="handleEnterGame(gameItem.id, gameItem.name)"
                 />
                 <div
