@@ -7,7 +7,7 @@ import { appBarStore } from "@/store/appBar";
 import { withdrawStore } from "@/store/withdraw";
 import { storeToRefs } from "pinia";
 import moment from "moment-timezone";
-import { type WithdrawalHistoryResponse } from "@/interface/withdraw";
+import { WithdrawalHistoryItem, type WithdrawalHistoryResponse } from "@/interface/withdraw";
 import { useToast } from "vue-toastification";
 import SuccessIcon from '@/components/global/notification/SuccessIcon.vue';
 
@@ -17,16 +17,16 @@ const { dispatchWithdrawalHistory } = withdrawStore();
 const { dispatchWithdrawalRefund } = withdrawStore();
 
 const withdrawalStatus = [
-    "Pending",
-    "Processing",
-    "Success",
-    "Failed",
-    "Waiting for manual processing. action",
+  "Pending",
+  "Processing",
+  "Success",
+  "Failed",
+  "Waiting for manual processing. action",
 ]
 
 const props = defineProps<{
-    pageSize: number;
-    withdrawHistoryItem: WithdrawalHistoryResponse;
+  pageSize: number;
+  withdrawHistoryItem: WithdrawalHistoryResponse;
 }>();
 
 const { pageSize, withdrawHistoryItem } = toRefs(props);
@@ -35,52 +35,81 @@ const paginationLength = ref<number>(0);
 
 const loading = ref<boolean>(false);
 const loadingIndex = ref<number>(0)
+const startIndex = ref<number>(0);
+const endIndex = ref<number>(8);
+const currentList = ref<Array<WithdrawalHistoryItem>>([]);
 
 const success = computed(() => {
-    const { getSuccess } = storeToRefs(withdrawStore());
-    return getSuccess.value
+  const { getSuccess } = storeToRefs(withdrawStore());
+  return getSuccess.value
 })
 
 const mobileWidth = computed(() => {
-    return width.value;
+  return width.value;
 });
 
 const fixPositionShow = computed(() => {
-    const { getFixPositionEnable } = storeToRefs(appBarStore());
-    return getFixPositionEnable.value;
+  const { getFixPositionEnable } = storeToRefs(appBarStore());
+  return getFixPositionEnable.value;
 });
 
 const refundWithdrawalSubmit = async (id: number, index: number) => {
-    loadingIndex.value = index;
-    loading.value = true;
-    await dispatchWithdrawalRefund({ id });
-    loading.value = false
-    if (success.value) {
-        const toast = useToast();
-        toast.success("Successfully Refunded", {
-            timeout: 3000,
-            closeOnClick: false,
-            pauseOnFocusLoss: false,
-            pauseOnHover: false,
-            draggable: false,
-            showCloseButtonOnHover: false,
-            hideProgressBar: true,
-            closeButton: "button",
-            icon: SuccessIcon,
-            rtl: false,
-        });
-        await dispatchWithdrawalHistory({
-            page_size: pageSize.value,
-            start_time: Math.ceil(moment().valueOf() / 1000),
-        });
-    }
+  loadingIndex.value = index;
+  loading.value = true;
+  await dispatchWithdrawalRefund({ id });
+  loading.value = false
+  if (success.value) {
+    const toast = useToast();
+    toast.success("Successfully Refunded", {
+      timeout: 3000,
+      closeOnClick: false,
+      pauseOnFocusLoss: false,
+      pauseOnHover: false,
+      draggable: false,
+      showCloseButtonOnHover: false,
+      hideProgressBar: true,
+      closeButton: "button",
+      icon: SuccessIcon,
+      rtl: false,
+    });
+    await dispatchWithdrawalHistory({
+      page_size: pageSize.value,
+      start_time: Math.ceil(moment().valueOf() / 1000),
+    });
+  }
+}
+
+const handleNext = async (page_no: number) => {
+  startIndex.value = (page_no - 1) * pageSize.value;
+  endIndex.value = startIndex.value + pageSize.value;
+  currentList.value = withdrawHistoryItem.value.record.slice(startIndex.value, endIndex.value);
+  if (currentList.value.length == 0) {
+    await dispatchWithdrawalHistory({
+      page_size: pageSize.value,
+      start_time: withdrawHistoryItem.value.record[withdrawHistoryItem.value.record.length - 1].created_at,
+    });
+  }
+}
+
+const handlePrev = async (page_no: number) => {
+  startIndex.value = (page_no - 1) * pageSize.value;
+  endIndex.value = startIndex.value + pageSize.value;
+  currentList.value = withdrawHistoryItem.value.record.slice(startIndex.value, endIndex.value);
+  if (currentList.value.length == 0) {
+    await dispatchWithdrawalHistory({
+      page_size: pageSize.value,
+      end_time: withdrawHistoryItem.value.record[0].created_at,
+    });
+  }
 }
 
 watch(withdrawHistoryItem, (value) => {
-    paginationLength.value = Math.ceil(value.total_pages / pageSize.value)
+  paginationLength.value = withdrawHistoryItem.value.total_pages
 })
 
-onMounted(async () => { });
+onMounted(async () => {
+  paginationLength.value = withdrawHistoryItem.value.total_pages
+});
 </script>
 <template>
   <v-row class="mx-2 mt-1 m-forms-bonus-table1">
@@ -151,7 +180,10 @@ onMounted(async () => { });
         </tr>
       </thead>
       <tbody class="forms-table-body">
-        <tr v-for="(item, index) in withdrawHistoryItem.record" :key="index">
+        <tr
+          v-for="(item, index) in withdrawHistoryItem.record.slice(startIndex, endIndex)"
+          :key="index"
+        >
           <td
             class="text-400-12"
             style="padding-top: 21px !important; padding-bottom: 21px !important"
@@ -241,7 +273,11 @@ onMounted(async () => { });
     </v-col>
     <v-col cols="8" class="d-flex" style="padding-right: 6px">
       <div style="width: 100%">
-        <Pagination :length="paginationLength" />
+        <Pagination
+          :length="paginationLength"
+          @handlePrev="handlePrev"
+          @handleNext="handleNext"
+        />
       </div>
     </v-col>
   </v-row>

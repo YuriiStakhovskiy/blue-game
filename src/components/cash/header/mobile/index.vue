@@ -280,7 +280,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="mobile-cash-header" :class="depositHeaderBlurEffectShow? 'm-deposit-header-bg-blur' : ''">
+  <div
+    class="mobile-cash-header"
+    :class="depositHeaderBlurEffectShow ? 'm-deposit-header-bg-blur' : ''"
+  >
     <div
       class="d-flex align-center relative"
       :class="pixInfoMenuShow ? 'm-header-dropped' : 'm-header'"
@@ -440,8 +443,8 @@ onMounted(() => {
         class="m-deposit-close-button"
         icon="true"
         @click="cashDialogShow"
-        width="30"
-        height="30"
+        width="40"
+        height="40"
       >
         <img src="@/assets/public/svg/icon_public_52.svg" width="18" />
       </v-btn>
@@ -496,7 +499,7 @@ onMounted(() => {
     box-shadow: none !important;
     background-color: transparent !important;
     position: absolute !important;
-    top: 15px;
+    top: 8px;
     right: 5px;
   }
 
@@ -707,7 +710,7 @@ onMounted(() => {
       }
 
       .v-label.v-field-label--floating {
-        --v-field-label-scale: 0.75em;
+        --v-field-label-scale: 0.88em;
         font-size: 10px !important;
         max-width: 100%;
         color: #7782aa !important;
@@ -781,12 +784,8 @@ onMounted(() => {
 }
 
 .m-deposit-header-bg-blur {
-  // filter: blur(3px);
-  // -webkit-filter: blur(3px);
-  filter: saturate(180%) blur(3px);
-  -webkit-filter: saturate(180%) blur(3px);
-  height: 70px!important;
+  filter: blur(3px);
+  -webkit-filter: blur(3px);
+  height: 70px !important;
 }
-
-
 </style>

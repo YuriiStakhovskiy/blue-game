@@ -99,7 +99,7 @@ watch(mailMenuShow, async (newValue) => {
     setTimeout(() => {
       setMainBlurEffectShow(newValue);
       setOverlayScrimShow(newValue);
-    }, 200)
+    }, 10)
   } else {
     setMainBlurEffectShow(newValue);
     setOverlayScrimShow(newValue);
@@ -298,7 +298,12 @@ onMounted(() => {
 </script>
 
 <template>
-  <v-bottom-navigation bg-color="#000000" grow class="mobile-menu-index" :class="menuBlurEffectShow ? 'menu-bg-blur' :''">
+  <v-bottom-navigation
+    bg-color="#000000"
+    grow
+    class="mobile-menu-index"
+    :class="menuBlurEffectShow ? 'menu-bg-blur' : ''"
+  >
     <v-btn class="menu-text-color" @click="handleNavbarToggle" :ripple="false">
       <inline-svg
         :src="icon_public_81"
@@ -467,6 +472,7 @@ onMounted(() => {
 
   .v-overlay__scrim {
     bottom: 80px !important;
+    opacity: 0 !important;
   }
 }
 
@@ -603,9 +609,9 @@ onMounted(() => {
   }
 }
 .menu-bg-blur {
-  // filter: blur(3px);
-  // -webkit-filter: blur(3px);
-  filter: saturate(180%) blur(3px);
-  -webkit-filter: saturate(180%) blur(3px);
+  filter: blur(3px);
+  -webkit-filter: blur(3px);
+  // filter: saturate(180%) blur(3px);
+  // -webkit-filter: saturate(180%) blur(3px);
 }
 </style>

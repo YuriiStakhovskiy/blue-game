@@ -437,7 +437,7 @@ onMounted(() => {
       :width="''"
       :fullscreen="true"
       :scrim="false"
-      :transition="depositWithdrawToggle?'dialog-bottom-transition':''"
+      :transition="depositWithdrawToggle ? 'dialog-bottom-transition' : ''"
       style="top: 60px"
       persistent
       v-if="mobileVersion == 'sm'"
@@ -454,7 +454,7 @@ onMounted(() => {
       :width="''"
       :fullscreen="true"
       :scrim="false"
-      :transition="depositWithdrawToggle?'dialog-bottom-transition':''"
+      :transition="depositWithdrawToggle ? 'dialog-bottom-transition' : ''"
       style="top: 60px"
       persistent
       v-if="mobileVersion == 'sm'"
@@ -677,10 +677,8 @@ onMounted(() => {
 }
 
 .main-bg-blur {
-  // filter: blur(3px);
-  // -webkit-filter: blur(3px);
-  filter: saturate(180%) blur(3px);
-  -webkit-filter: saturate(180%) blur(3px);
+  filter: blur(3px);
+  -webkit-filter: blur(3px);
 }
 
 .mobile-dialog-toggle-height {
@@ -721,9 +719,9 @@ onMounted(() => {
 
 .m-deposit-dialog {
   .v-overlay__content {
-    transform: none!important;
+    transform: none !important;
   }
-  // top: 53px!important; 
+  // top: 53px!important;
 }
 
 // .m-withdraw-dialog{
