@@ -122,14 +122,14 @@ watch(nickNameDialogVisible, (newValue) => {
 
 // methods
 
-const closeBonusDashboardDialog = () => {
-  console.log('>>>>>>>>>>')
-  setMainBlurEffectShow(false);
-  setHeaderBlurEffectShow(false);
-  setMenuBlurEffectShow(false);
-  setOverlayScrimShow(false);
-  setBonusDashboardDialogVisible(false);
-}
+// const closeBonusDashboardDialog = () => {
+//   console.log('>>>>>>>>>>')
+//   setMainBlurEffectShow(false);
+//   setHeaderBlurEffectShow(false);
+//   setMenuBlurEffectShow(false);
+//   setOverlayScrimShow(false);
+//   setBonusDashboardDialogVisible(false);
+// }
 const closeDialog = (type: dialogType) => {
   if (mobileWidth.value < 600 && type == "signup" && signUpForm.value) {
     return;

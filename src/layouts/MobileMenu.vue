@@ -92,6 +92,7 @@ watch(mailMenuShow, async (newValue) => {
     setUserNavBarToggle(false);
     setMainBlurEffectShow(false);
     setNavBarToggle(navbarToggle.value)
+    setBonusDashboardDialogVisible(false);
     menuIconColor.value = navbarToggle.value ? "#6742ec" : "#7782AA"
     casinoIconColor.value = casinoBtnActive.value ? "#6742ec" : "#7782AA";
     sportIconColor.value = sportBtnActive.value ? "#6742ec" : "#7782AA";
@@ -126,6 +127,7 @@ const handleNavbarToggle = () => {
   casinoBtnActive.value = false;
   sportBtnActive.value = false
   setUserNavBarToggle(false);
+  setBonusDashboardDialogVisible(false);
   setMainBlurEffectShow(false);
   setTimeout(() => {
     setNavBarToggle(navbarToggle.value)

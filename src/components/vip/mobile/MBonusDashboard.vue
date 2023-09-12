@@ -102,17 +102,17 @@ const handleSelectBonusBtn = (selBtn: string) => {
 
 
 onMounted(() => {
-  drawer.value = mobileWidth.value < 600 ? false : true;
+  drawer.value = false;
 })
 </script>
 
-<template>
+<template >
   
   <v-navigation-drawer
     temporary
     :scrim-opacity="0.6"
     :touchless="true"
-    class="m-bonus-background"
+    :class="mobileWidth < 600 ?'m-bonus-background' : 'm-bonus-hide'"
     location="bottom"
     v-model="drawer"
     style = "background-color:transparent!important; height: 625px!important; box-shadow: none!important; border: none!important;"
@@ -476,5 +476,8 @@ onMounted(() => {
   position: relative;
   top: 30px;
   margin-left: 27px;
+}
+.m-bonus-hide {
+  display: none;
 }
 </style>
