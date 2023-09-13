@@ -1519,6 +1519,7 @@ export default Dashboard;
     <v-navigation-drawer
       v-model="searchDialogShow"
       location="top"
+      class = "m-search-bar"
       temporary
       :touchless="true"
       :style="{ height: 'unset', top: '0px', zIndex: 300000, background: 'unset' }"
@@ -3509,5 +3510,9 @@ export default Dashboard;
   .form-textfield .v-field__overlay {
     box-shadow: 2px 0px 4px 1px rgba(0, 0, 0, 0.12) inset !important;
   }
+}
+
+.m-search-bar {
+  box-shadow: none!important;
 }
 </style>

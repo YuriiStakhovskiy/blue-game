@@ -112,10 +112,12 @@ onMounted(() => {
     temporary
     :scrim-opacity="0.6"
     :touchless="true"
+    class = "m-bonus-nav"
     :class="mobileWidth < 600 ?'m-bonus-background' : 'm-bonus-hide'"
     location="bottom"
     v-model="drawer"
-    style = "background-color:transparent!important; height: 625px!important; box-shadow: none!important; border: none!important;"
+    style = "background-color:transparent!important; height: 615px!important; box-shadow: none!important; border: none!important;"
+    disable-route-watcher
   >
     <div class="d-flex">
       <div class="m-bonus-dashboard-title">
@@ -170,30 +172,30 @@ onMounted(() => {
       <div class="m-recharge-bonus-body">
         <v-row class="m-recharge-bonus-description">
         
-          <v-col cols="8" class="m-recharge-col">
+          <v-col cols="9" class="m-recharge-col">
             <div
               class="m-recharge-col-title"
             >
               <p class="text-800-16 white mb-2" style="width: 180px; text-align: center;">
-                Recharge now!
+                {{ t('bonus.dashboard_recharge_title1') }}
               </p>
               
               <p class="text-800-16 white " style="margin-bottom: 14px;">
-                Get Daily Login Bonus
+                {{ t('bonus.dashboard_recharge_title2') }}
               </p>
             </div>
             <div
               class=""
             >
               <p class="text-600-8 white " style="margin-bottom: 6px;">
-                VIP users who recharge within 7 days wil recive a daily
+                {{ t('bonus.dashboard_recharge_content1') }}
               </p>
               <p class="text-600-8 white ">
-                login bonus, the higher the VIP level, the bigger the bonus!
+                {{ t('bonus.dashboard_recharge_content2') }}
               </p>
             </div>
           </v-col>
-          <v-col cols="4" class="m-recharge-col m-recharge-col-img ">
+          <v-col cols="3" class="m-recharge-col m-recharge-col-img ">
             <img
                 src="@/assets/public/image/img_public_44.png"
                 width="81"
@@ -349,7 +351,15 @@ onMounted(() => {
   </v-navigation-drawer>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss" >
+.m-bonus-nav {
+  .v-navigation-drawer__content{
+    overflow-y: hidden!important;
+  }
+}
+.m-nav-drawer-content {
+  overflow-y: hidden;
+}
 .m-bonus-btns {
   
   position: relative;
