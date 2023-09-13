@@ -167,7 +167,7 @@ onMounted(() => {
       </div>
     </div>
 
-    <div class="m-nav-drawer-content">
+    <div class="m-nav-drawer-content1">
       <div class="m-recharge-bonus-body">
         <v-row class="m-recharge-bonus-description">
         
@@ -422,7 +422,7 @@ onMounted(() => {
     overflow-y: hidden!important;
   }
 }
-.m-nav-drawer-content {
+.m-nav-drawer-content1 {
   overflow-y: hidden;
 }
 .m-bonus-btns {
@@ -469,7 +469,7 @@ onMounted(() => {
   }
 }
 
-.m-nav-drawer-content {
+.m-nav-drawer-content1 {
   padding-top: 40px !important;
   background: rgba(41, 37, 60, 1);
 
