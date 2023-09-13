@@ -412,7 +412,9 @@ onMounted(() => {
           </v-col>
         </v-row>
       </div>
+      <div style="height: 100px; background: rgba(41, 37, 60, 1);"></div>
     </div>
+    
   </v-navigation-drawer>
 </template>
 
@@ -422,9 +424,7 @@ onMounted(() => {
     overflow-y: hidden!important;
   }
 }
-.m-nav-drawer-content1 {
-  overflow-y: hidden;
-}
+
 .m-bonus-btns {
   position: relative;
   top: 30px;
