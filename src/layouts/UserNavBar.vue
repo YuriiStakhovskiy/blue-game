@@ -227,7 +227,7 @@ watch(mobileWidth, (newValue: number) => {
 
 const handleNotifyShow = () => {
   const toast = useToast();
-  toast.success( notificationText.value, { 
+  toast.success( notificationText.value, {
       timeout: 3000,
       closeOnClick: false,
       pauseOnFocusLoss: false,
@@ -327,7 +327,7 @@ onMounted(async () => {
             </div>
           </div>
           <div class="deposit-progress-bg">
-            <div class="d-flex">
+            <div class="d-flex mx-1">
               <div class="white text-500-8">{{ t("appBar.wager") }}</div>
               <div class="ml-auto text-800-8">
                 <Font>R$ {{ vipInfo.bet_exp }}</Font> /
