@@ -511,6 +511,8 @@ onMounted(() => {
   }
 }
 
+
+
 @keyframes shareAnimation {
 
   0% {top: 70px}
