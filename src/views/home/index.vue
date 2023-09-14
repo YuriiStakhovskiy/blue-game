@@ -27,6 +27,7 @@ import { mailStore } from "@/store/mail";
 import { refferalStore } from "@/store/refferal";
 import { appBarStore } from "@/store/appBar";
 import { gameStore } from "@/store/game";
+import { socketStore } from "@/store/socket";
 import type * as Game from "@/interface/game";
 import { storeToRefs } from "pinia";
 import { useRouter } from "vue-router";
@@ -71,6 +72,7 @@ const Dashboard = defineComponent({
     const { setMailMenuShow } = mailStore();
     const { setNavBarToggle } = appBarStore();
     const { setMainBlurEffectShow } = appBarStore();
+    const { dispatchSocketConnect } = socketStore();
     const router = useRouter();
 
     // initiate component state
@@ -1184,6 +1186,7 @@ const Dashboard = defineComponent({
     };
 
     const handleGameFilterBtn = async (gamFilterBtn: string) => {
+      currentPage.value = 1;
       selectedGameFilterBtn.value = gamFilterBtn;
       switch (selectedGameFilterBtn.value) {
         case t("home.button.all_game"):
@@ -1287,6 +1290,34 @@ const Dashboard = defineComponent({
           }
         });
       }
+      if (mobileWidth.value > 600) {
+        pagingGames.value.map((item) => {
+          if (item.games.length > 7) {
+            item.games = item.games.slice(0, 7);
+            item.page_no = 1;
+          }
+        });
+        allGames.value.map((item) => {
+          if (item.games.length > 7) {
+            item.games = item.games.slice(0, 7);
+            item.page_no = 1;
+          }
+        });
+      } else {
+        pagingGames.value.map((item) => {
+          if (item.games.length > 6) {
+            item.games = item.games.slice(0, 6);
+            item.page_no = 1;
+          }
+        });
+        allGames.value.map((item) => {
+          if (item.games.length > 6) {
+            item.games = item.games.slice(0, 6);
+            item.page_no = 1;
+          }
+        });
+      }
+      console.log(pagingGames.value);
     };
 
     const handleMoreGame = async (
@@ -1302,7 +1333,7 @@ const Dashboard = defineComponent({
       if (slug == "favorite" || slug == "history") {
         await dispatchUserGame({
           game_categories_slug: selectedCategoryName.value,
-          page: currentPage.value,
+          page: new_page_no,
           limit: limit.value * new_page_no,
         });
       } else {
@@ -1310,7 +1341,7 @@ const Dashboard = defineComponent({
           "?game_categories_slug=" +
             slug +
             "&page=" +
-            moreGameCurrentPage.value +
+            new_page_no +
             "&limit=" +
             limit.value
         );
@@ -1340,17 +1371,22 @@ const Dashboard = defineComponent({
       await dispatchFavoriteGame({
         del_game: id,
       });
-      await dispatchUserGame({
-        game_categories_slug: selectedCategoryName.value,
-        page: currentPage.value,
-        limit: limit.value * page_no,
-      });
-      gameSearchList.value.list.map((item) => {
-        item.image = state.testGames[Math.floor(Math.random() * 28)];
-      });
+      // await dispatchUserGame({
+      //   game_categories_slug: selectedCategoryName.value,
+      //   page: currentPage.value,
+      //   limit: limit.value * page_no,
+      // });
+      // gameSearchList.value.list.map((item) => {
+      //   item.image = state.testGames[Math.floor(Math.random() * 28)];
+      // });
       pagingGames.value.map((item) => {
         if (item.name == selectedCategoryName.value) {
-          item.games = gameSearchList.value.list;
+          item.games = item.games.filter((gameItem) => gameItem.id != id);
+          if (mobileWidth.value > 600) {
+            item.page_no = Math.ceil(item.games.length / 7);
+          } else {
+            item.page_no = Math.ceil(item.games.length / 6);
+          }
         }
       });
     };
@@ -1468,6 +1504,7 @@ const Dashboard = defineComponent({
       recordScrollInterval.value = setInterval(() => {
         state.recordList.push(state.recordList[Math.floor(Math.random() * 10)]);
       }, 600);
+      await dispatchSocketConnect();
       await dispatchGameCategories("?type=paging");
       gameGroupBtnList.value = gameCategories.value;
       gameGroupBtnList.value.map((item) => {
@@ -1512,8 +1549,20 @@ const Dashboard = defineComponent({
             );
           }
           if (gameSearchList.value.list.length > 0) {
-            gameSearchList.value.list.map((item) => {
-              item.image = state.testGames[Math.floor(Math.random() * 28)];
+            let index = 0;
+            gameSearchList.value.list.map(async (gameItem) => {
+              if (item.slug == "original") {
+                gameItem.image = state.originalGames[index];
+              } else if (item.slug == "pgsoft") {
+                gameItem.image = state.principalGames[index];
+              } else if (item.slug == "slot") {
+                gameItem.image = state.slots[index];
+              } else if (item.slug == "live") {
+                gameItem.image = state.liveCasinos[index];
+              } else {
+                gameItem.image = state.testGames[Math.floor(Math.random() * 28)];
+              }
+              index++;
             });
           }
           item.page_no = 1;
@@ -1533,8 +1582,20 @@ const Dashboard = defineComponent({
             limit.value
         );
         if (gameSearchList.value.list.length > 0) {
-          gameSearchList.value.list.map(async (item) => {
-            item.image = state.testGames[Math.floor(Math.random() * 28)];
+          let index = 0;
+          gameSearchList.value.list.map(async (gameItem) => {
+            if (item.slug == "original") {
+              gameItem.image = state.originalGames[index];
+            } else if (item.slug == "pgsoft") {
+              gameItem.image = state.principalGames[index];
+            } else if (item.slug == "slot") {
+              gameItem.image = state.slots[index];
+            } else if (item.slug == "live") {
+              gameItem.image = state.liveCasinos[index];
+            } else {
+              gameItem.image = state.testGames[Math.floor(Math.random() * 28)];
+            }
+            index++;
           });
         }
         item.page_no = 1;
@@ -1623,7 +1684,7 @@ export default Dashboard;
     <v-navigation-drawer
       v-model="searchDialogShow"
       location="top"
-      class = "m-search-bar"
+      class="m-search-bar"
       temporary
       :touchless="true"
       :style="{ height: 'unset', top: '0px', zIndex: 300000, background: 'unset' }"
@@ -2233,7 +2294,6 @@ export default Dashboard;
                 :src="gameItem.image"
                 lazy-placeholder
                 blur="30"
-                delay="300"
                 @click="handleEnterGame(gameItem.id, gameItem.name)"
                 style="max-width: unset"
               />
@@ -2263,7 +2323,6 @@ export default Dashboard;
                 :src="gameItem.image"
                 lazy-placeholder
                 blur="30"
-                delay="300"
                 @click="handleEnterGame(gameItem.id, gameItem.name)"
               />
               <!-- <img
@@ -2358,7 +2417,6 @@ export default Dashboard;
                   :src="gameItem.image"
                   lazy-placeholder
                   blur="30"
-                  delay="300"
                   @click="handleEnterGame(gameItem.id, gameItem.name)"
                 />
                 <div
@@ -2412,7 +2470,6 @@ export default Dashboard;
                   :src="gameItem.image"
                   lazy-placeholder
                   blur="30"
-                  delay="300"
                   @click="handleEnterGame(gameItem.id, gameItem.name)"
                 />
                 <div
@@ -3000,6 +3057,7 @@ export default Dashboard;
 
 .v-progressive-image-main {
   width: 100%;
+  height: 100%;
 }
 
 .m-home-loading {
@@ -3107,7 +3165,7 @@ export default Dashboard;
   .v-progressive-image {
     border-radius: 8px 46px;
     background: #211f31;
-    // height: 160px;
+    height: 100%;
   }
 
   .v-progressive-image-loading:before {
@@ -3617,6 +3675,6 @@ export default Dashboard;
 }
 
 .m-search-bar {
-  box-shadow: none!important;
+  box-shadow: none !important;
 }
 </style>

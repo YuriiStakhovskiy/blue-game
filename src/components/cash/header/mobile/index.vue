@@ -26,7 +26,8 @@ const { setDepositBlurEffectShow } = appBarStore();
 const { setPixInfo } = depositStore();
 const { setHeaderBlurEffectShow } = appBarStore();
 const { setMenuBlurEffectShow } = appBarStore();
-
+const { dispatchUserProfile } = authStore();
+const { setPixInfoToggle } = depositStore();
 
 const cashToggleSwitch = ref<boolean>(false);
 
@@ -69,16 +70,16 @@ const handleConfirmValidation = (): void => {
     // notificationShow.value = !notificationShow.value;
     const toast = useToast();
     toast.success(t('deposit_dialog.personal_information.confirm_warning_text'), {
-        timeout: 3000,
-        closeOnClick: false,
-        pauseOnFocusLoss: false,
-        pauseOnHover: false,
-        draggable: false,
-        showCloseButtonOnHover: false,
-        hideProgressBar: true,
-        closeButton: "button",
-        icon: WarningIcon,
-        rtl: false,
+      timeout: 3000,
+      closeOnClick: false,
+      pauseOnFocusLoss: false,
+      pauseOnHover: false,
+      draggable: false,
+      showCloseButtonOnHover: false,
+      hideProgressBar: true,
+      closeButton: "button",
+      icon: WarningIcon,
+      rtl: false,
     });
   }
 }
@@ -147,16 +148,16 @@ const handlePixInfoSubmit = (): void => {
     // notificationShow.value = !notificationShow.value;
     const toast = useToast();
     toast.success(t('deposit_dialog.personal_information.confirm_success_text'), {
-        timeout: 3000,
-        closeOnClick: false,
-        pauseOnFocusLoss: false,
-        pauseOnHover: false,
-        draggable: false,
-        showCloseButtonOnHover: false,
-        hideProgressBar: true,
-        closeButton: "button",
-        icon: SuccessIcon,
-        rtl: false,
+      timeout: 3000,
+      closeOnClick: false,
+      pauseOnFocusLoss: false,
+      pauseOnHover: false,
+      draggable: false,
+      showCloseButtonOnHover: false,
+      hideProgressBar: true,
+      closeButton: "button",
+      icon: SuccessIcon,
+      rtl: false,
     });
     setTimeout(() => {
       pixInfoMenuShow.value = false;
@@ -249,6 +250,9 @@ watch(pixInfoMenuShow, (value) => {
     confirmValidation.value = false;
   }
   setDepositBlurEffectShow(pixInfoMenuShow.value == true ? true : false)
+  if (!value) {
+    setPixInfoToggle(false);
+  }
 })
 
 const depositTransform = (el: any) => {
@@ -721,26 +725,26 @@ onMounted(() => {
 }
 
 @media (max-width: 600px) {
-  
   .Vue-Toastification__container {
-    right: 0!important;
-    left: unset!important;;
-    width: 290px!important;
+    right: 0 !important;
+    left: unset !important;
+    width: 290px !important;
     margin-right: 37px;
-    height: 60px!important;
+    height: 60px !important;
     //flex-direction: unset!important;
   }
+
   .Vue-Toastification__toast {
-      align-items: center !important;
-      z-index: 1000000000 !important;
-      top: 70px;
-      right: -20px !important;
-      width: 320px !important;
-      height: 60px;
-      border: none;
-      border-radius: 16px 0px 0px 16px;
-      background: var(--bg-2, #181522);
-      box-shadow: 0px 6px 12px 0px rgba(0, 0, 0, 0.4);
+    align-items: center !important;
+    z-index: 1000000000 !important;
+    top: 70px;
+    right: -20px !important;
+    width: 320px !important;
+    height: 60px;
+    border: none;
+    border-radius: 16px 0px 0px 16px;
+    background: var(--bg-2, #181522);
+    box-shadow: 0px 6px 12px 0px rgba(0, 0, 0, 0.4);
   }
 
   .Vue-Toastification__toast-body {
@@ -753,7 +757,7 @@ onMounted(() => {
     text-align: left;
   }
 
-  .Vue-Toastification__close-button{
+  .Vue-Toastification__close-button {
     top: 22px !important;
     background-image: url("@/assets/public/svg/icon_public_52.svg");
     background-repeat: no-repeat;

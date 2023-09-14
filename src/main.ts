@@ -22,8 +22,6 @@ import InlineSvg from 'vue-inline-svg';
 
 import Vue3Lazyload from 'vue3-lazyload'
 
-import VueLazyload from 'vue-lazyload'
-
 import loadingIcon from "@/assets/loading.svg";
 
 import "vue-progressive-image/dist/style.css";

@@ -19,6 +19,7 @@ const { t } = useI18n();
 const { width } = useDisplay();
 const { setMailMenuShow } = mailStore();
 const { dispatchGameEnter } = gameStore();
+const { setMobileMenuShow } = gameStore();
 const route = useRoute();
 const mobileHeight = ref<number | undefined>(0);
 
@@ -355,8 +356,14 @@ const handleIframeLoad = () => {
   }
 };
 
+const handleResize = () => {
+  mobileHeight.value = window.innerHeight;
+};
+
 onMounted(async () => {
-  mobileHeight.value = window.visualViewport?.height;
+  window.addEventListener("resize", handleResize);
+  mobileHeight.value = window.innerHeight;
+  setMobileMenuShow(false);
   window.scrollTo({
     top: 0,
     behavior: "smooth",
@@ -373,6 +380,7 @@ onMounted(async () => {
 });
 
 onUnmounted(() => {
+  setMobileMenuShow(true);
   setMailMenuShow(false);
 });
 </script>
@@ -389,7 +397,7 @@ onUnmounted(() => {
       <iframe
         ref="frame"
         :src="enterGameItem.weburl"
-        :style="{ height: frameShow ? mobileHeight + 'px' : '0px' }"
+        :style="{ height: frameShow ? mobileHeight + 'px' : '0px', position: 'fixed' }"
         class="home-game-frame-area"
         @load="handleIframeLoad"
       ></iframe>
@@ -616,14 +624,13 @@ onUnmounted(() => {
       top: 0px;
       border: none;
       width: 100%;
-      height: 100vh;
       opacity: 1;
       z-index: 20000000;
       overflow: unset;
     }
 
     .m-loading-container {
-      position: absolute;
+      position: fixed;
       top: 0px;
       border: none;
       width: 100%;

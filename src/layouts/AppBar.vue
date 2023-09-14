@@ -415,7 +415,7 @@ onMounted(async () => {
   if (token.value != undefined) {
     await dispatchUserProfile();
     await dispatchUserBalance();
-    await dispatchSocketConnect();
+    // await dispatchSocketConnect();
   }
 });
 </script>
@@ -539,7 +539,6 @@ onMounted(async () => {
                     class="m-currency-menu"
                     transition="slide-y-transition"
                     @click.stop="handleCurrencyMenuShow"
-
                   >
                     <template v-slot:activator="{ props }">
                       <div
@@ -1418,6 +1417,7 @@ onMounted(async () => {
   top: 18px;
   left: 50%;
   transform: translateX(-50%);
+  line-height: 9px;
 }
 
 .original-game-img-avatar:active {
