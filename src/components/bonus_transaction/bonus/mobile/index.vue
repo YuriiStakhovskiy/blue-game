@@ -196,6 +196,7 @@ const formsList = ref<Array<any>>([
                 </v-row>
               </template>
             </v-expansion-panel-title>
+            
             <v-expansion-panel-text class="mt-3">
               <v-row class="ma-0" v-if="item.type != 'Underway'">
                 <v-col cols="8" class="text-right text-400-12 pt-0" v-if="item.rate ==0">
