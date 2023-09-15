@@ -105,6 +105,7 @@ const handleScroll = () => {
   color: transparent;
   opacity: 1;
 }
+
 .app-touch-stop {
   touch-action: none!important;
 }
