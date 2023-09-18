@@ -541,10 +541,10 @@ onMounted(() => {
 }
 
 .m-mask {
-  position: absolute;
+  position: relative;
   width: 46px;
   height: 55px;
-  top:-23px;
+  top:-4px;
   -webkit-mask-image: url("@/assets/public/image/ua_public_132.png");
   mask-image: url("@/assets/public/image/ua_public_132.png");
   border-radius: 0px 0px 25px 25px;
@@ -555,6 +555,13 @@ onMounted(() => {
   animation-duration: 5s;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
+}
+
+.share-img-position {
+  position: relative;
+  top: 11px;
+  width: 44px;
+  left:-1px;
 }
 
 .scale-mail-item {
@@ -663,12 +670,7 @@ onMounted(() => {
   }
 }
 
-.share-img-position {
-  position: relative;
-  top: -11px;
-  width: 44px;
-  left:-1px;
-}
+
 
 .share-background-img-position {
   position: absolute;
