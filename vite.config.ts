@@ -24,18 +24,6 @@ export default (configEnv: ConfigEnv): UserConfigExport => {
       }),
       // cssnano(),
       // terser(),
-      // https://github.com/vuetifyjs/vuetify-loader/tree/next/packages/vite-plugin
-      vuetify({
-        autoImport: true,
-        styles: {
-          configFile: 'src/assets/public/css/settings.scss',
-        },
-      }),
-      legacy({
-        targets: ['defaults', 'not IE 11'],
-        additionalLegacyPolyfills: ['regenerator-runtime/runtime'],
-        polyfills: ['es.promise.finally'],
-      }),
       // imagemin({
       //   optipng: {
       //     optimizationLevel: 7
@@ -58,6 +46,17 @@ export default (configEnv: ConfigEnv): UserConfigExport => {
       //     ]
       //   }
       // }),
+      vuetify({
+        autoImport: true,
+        styles: {
+          configFile: 'src/assets/public/css/settings.scss',
+        },
+      }),
+      legacy({
+        targets: ['defaults', 'not IE 11'],
+        additionalLegacyPolyfills: ['regenerator-runtime/runtime'],
+        polyfills: ['es.promise.finally'],
+      }),
       cacheResource({
         cacheDir: path.join(__dirname, ".cache"),
       }),
@@ -77,32 +76,32 @@ export default (configEnv: ConfigEnv): UserConfigExport => {
     ],
     build: {
       chunkSizeWarningLimit: 1000,
-      terserOptions: {
-        compress: {
-          drop_console: true,
-          drop_debugger: true,
-        }
-      },
-      rollupOptions: {
-        external: [
-          "vue",
-          "element-plus",
-          "pinia",
-          "axios",
-          "vuetify",
-          "vue-router",
-        ],
-        output: {
-          manualChunks(id) {
-            if (id.includes("node_modules")) {
-              return id.toString()
-                .split("node_modules/")[1]
-                .split("/")[0]
-                .toString();
-            }
-          }
-        }
-      }
+      // terserOptions: {
+      //   compress: {
+      //     drop_console: true,
+      //     drop_debugger: true,
+      //   }
+      // },
+      // rollupOptions: {
+      //   external: [
+      //     "vue",
+      //     "element-plus",
+      //     "pinia",
+      //     "axios",
+      //     "vuetify",
+      //     "vue-router",
+      //   ],
+      //   output: {
+      //     manualChunks(id) {
+      //       if (id.includes("node_modules")) {
+      //         return id.toString()
+      //           .split("node_modules/")[1]
+      //           .split("/")[0]
+      //           .toString();
+      //       }
+      //     }
+      //   }
+      // }
     },
     resolve: {
       alias: {
