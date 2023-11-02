@@ -63,51 +63,61 @@ const formsList = ref<Array<any>>([
   {
     time: "04/08 12:29:42",
     user: "User6910821714",
+    event: "lnvitation Bonus",
     bonus: "R$ 12",
   },
   {
     time: "04/08 12:29:42",
     user: "User6910821714",
+    event: "lnvitation Bonus",
     bonus: "R$ 12",
   },
   {
     time: "04/08 12:29:42",
     user: "User6910821714",
+    event: "lnvitation Bonus",
     bonus: "R$ 12",
   },
   {
     time: "04/08 12:29:42",
     user: "User6910821714",
+    event: "lnvitation Bonus",
     bonus: "R$ 12",
   },
   {
     time: "04/08 12:29:42",
     user: "User6910821714",
+    event: "lnvitation Bonus",
     bonus: "R$ 12",
   },
   {
     time: "04/08 12:29:42",
     user: "User6910821714",
+    event: "lnvitation Bonus",
     bonus: "R$ 12",
   },
   {
     time: "04/08 12:29:42",
     user: "User6910821714",
+    event: "lnvitation Bonus",
     bonus: "R$ 12",
   },
   {
     time: "04/08 12:29:42",
     user: "User6910821714",
+    event: "lnvitation Bonus",
     bonus: "R$ 12",
   },
   {
     time: "04/08 12:29:42",
     user: "User6910821714",
+    event: "lnvitation Bonus",
     bonus: "R$ 12",
   },
   {
     time: "04/08 12:29:42",
     user: "User6910821714",
+    event: "lnvitation Bonus",
     bonus: "R$ 12",
   },
 ]);
@@ -142,6 +152,10 @@ const mobileWidth = computed(() => {
 
 const inviteHistoryConfig = computed(() => {
   const { getInviteHistoryConfig } = storeToRefs(inviteStore());
+  getInviteHistoryConfig.value.list.push({
+    index: 3,
+    name: "Achievement Bonus",
+  });
   return getInviteHistoryConfig.value;
 });
 
@@ -153,7 +167,6 @@ const fixPositionShow = computed(() => {
   const { getFixPositionEnable } = storeToRefs(appBarStore());
   return getFixPositionEnable.value;
 });
-
 </script>
 <template>
   <v-row class="mt-4 mx-4">
@@ -231,7 +244,7 @@ const fixPositionShow = computed(() => {
           v-for="(item, i) in cashItems"
           :key="i"
           :value="item"
-          class="bonus-item mx-2"
+          class="bonus-item mx-1"
           :class="selectedCashItem == item ? 'm-bonus-menu-selected-item' : ''"
           @click="handleCashDropdown(item)"
         >
@@ -240,8 +253,13 @@ const fixPositionShow = computed(() => {
       </v-list>
     </v-menu>
   </v-row>
-  <v-row class="mx-2 mt-6 m-forms-bonus-table" >
-    <v-table class="m-forms-bonus-table-bg" :class="fixPositionShow ? 'table-position-overflow' : ''" theme="dark" fixed-header>
+  <v-row class="mx-2 mt-6 m-forms-bonus-table">
+    <v-table
+      class="m-forms-bonus-table-bg"
+      :class="fixPositionShow ? 'table-position-overflow' : ''"
+      theme="dark"
+      fixed-header
+    >
       <thead class="forms-table-header">
         <tr>
           <th class="m-forms-table-header-text" style="border-radius: 43px 0px 0px 43px">
@@ -249,6 +267,11 @@ const fixPositionShow = computed(() => {
           </th>
           <th class="m-forms-table-header-text">
             <div class="forms-table-border">{{ t("affiliate.forms.table.user") }}</div>
+          </th>
+          <th class="m-forms-table-header-text">
+            <div class="forms-table-border-1 text-left">
+              {{ t("affiliate.forms.table.event") }}
+            </div>
           </th>
           <th class="m-forms-table-header-text" style="border-radius: 0px 43px 43px 0px">
             {{ t("affiliate.forms.table.bonus") }}
@@ -259,6 +282,7 @@ const fixPositionShow = computed(() => {
         <tr v-for="(item, index) in formsList" :key="index">
           <td class="text-500-12">{{ item.time }}</td>
           <td class="text-500-12">{{ item.user }}</td>
+          <td class="text-500-12 text-left">{{ item.event }}</td>
           <td class="text-500-12">{{ item.bonus }}</td>
         </tr>
       </tbody>
@@ -269,6 +293,14 @@ const fixPositionShow = computed(() => {
   </v-row>
 </template>
 <style lang="scss">
+.m-bonus-menu-card {
+  .v-list-item__append {
+    width: 18px;
+  }
+  .v-list-item__append > .v-icon {
+    margin-inline-start: unset !important;
+  }
+}
 .m-bonus-menu::after {
   content: "";
   position: absolute;
@@ -325,7 +357,7 @@ const fixPositionShow = computed(() => {
 
 .table-position-overflow {
   .v-table__wrapper {
-    overflow: hidden!important;
+    overflow: hidden !important;
   }
 }
 
@@ -363,6 +395,10 @@ const fixPositionShow = computed(() => {
     border-left: 1px solid #000000 !important;
     border-right: 1px solid #000000 !important;
   }
+
+  .forms-table-border-1 {
+    border-right: 1px solid #000000 !important;
+  }
 }
 
 .m-date-picker {
@@ -392,6 +428,18 @@ const fixPositionShow = computed(() => {
   }
 }
 
+.el-popper.is-light .el-popper__arrow::before {
+  border: 1px solid #181522;
+  background: #181522 !important;
+  right: 0;
+}
+
+.el-popper.is-light {
+  background-color: #181522 !important;
+  border: none !important;
+  border-radius: 10px !important;
+}
+
 .m-date-picker-background-1 {
   z-index: 2002 !important;
   position: absolute !important;
@@ -399,7 +447,7 @@ const fixPositionShow = computed(() => {
 
   .el-popper.is-light .el-popper__arrow::before {
     border: 1px solid #181522;
-    background: #181522;
+    background: #181522 !important;
     right: 0;
   }
 
@@ -509,7 +557,7 @@ const fixPositionShow = computed(() => {
 
   .el-popper.is-light .el-popper__arrow::before {
     border: 1px solid #181522;
-    background: #181522;
+    background: #181522 !important;
     right: 0;
   }
 
