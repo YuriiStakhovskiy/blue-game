@@ -139,6 +139,7 @@ onMounted(() => {
   <div
     class="m-menu-semicircle-toggle"
     :style="{ transform: `translateX(-50%)`, bottom: `${bottom}px` }"
+    v-if="route.name !== 'Sports'"
   >
     <div
       class="m-semicircle-item m-semicircle-casino"
