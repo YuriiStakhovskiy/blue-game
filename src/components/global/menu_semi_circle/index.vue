@@ -113,6 +113,7 @@ const handleSelectItem = (item: string) => {
     setMainBlurEffectShow(true);
     setMailMenuShow(true);
   } else if (item == t("mobile_menu.sport")) {
+    router.push(`/sports`);
     setRewardNavShow(false);
     setOverlayScrimShow(false);
     setMainBlurEffectShow(false);
