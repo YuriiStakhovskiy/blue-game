@@ -1042,14 +1042,15 @@ export default Dashboard;
       temporary
       :touchless="true"
       :style="{
-        height: 'unset',
+        // height: 'unset',
+        height: '100%',
         top: '0px',
         zIndex: 300000,
         background: 'unset !important',
       }"
       v-if="mobileWidth < 600"
     >
-      <MSearch :searchDialogShow="searchDialogShow" />
+      <MSearch :searchDialogShow="searchDialogShow" @searchCancel="searchDialogShow = false" />
     </v-navigation-drawer>
 
     <div :class="searchDialogShow ? 'home-bg-blur' : ''">
