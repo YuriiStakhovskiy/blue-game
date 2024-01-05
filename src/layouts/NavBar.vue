@@ -17,6 +17,8 @@ import { gameStore } from "@/store/game";
 
 const { setNavBarToggle } = appBarStore();
 const { setRightBarToggle } = appBarStore();
+const { setOverlayScrimShow } = appBarStore();
+const { setRefferalDialogShow } = refferalStore();
 const { setRouletteBonusDialogVisible } = loginBonusStore();
 const { setLoginBonusDialogVisible } = loginBonusStore();
 const { setLanguage } = gameStore();
@@ -201,6 +203,12 @@ const goGameBetBy = () => {
   router.push(`/sports`);
 }
 
+const openRefferalDialogShow = () => {
+  setOverlayScrimShow(false);
+  setRefferalDialogShow(true)
+  // setNavBarToggle(false);
+}
+
 onMounted(() => {
     drawer.value = mobileWidth.value < 1280 ? false : true;
     languageText();
@@ -325,14 +333,14 @@ onMounted(() => {
       <!-- </v-card> -->
     </v-list>
     <v-list density="compact" nav class="p-m-list">
-      <v-list-item value="earn free" class="ma-0 pa-0">
+      <v-list-item value="earn free" class="ma-0 pa-0" @click="openRefferalDialogShow">
         <img src="@/assets/public/svg/img_public_20.svg" class="earn-free-img" />
         <img
           src="@/assets/public/image/img_public_6.png"
           class="navbar-free-money-img-position"
         />
         <p class="text-900-14 white navbar-free-money-text-position">
-          {{ t("navBar.refer_earn_text") }}
+          {{ t("navBar.refer_earn_text") }}123
         </p>
       </v-list-item>
     </v-list>

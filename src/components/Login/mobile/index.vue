@@ -160,7 +160,7 @@ const Login = defineComponent({
         // await dispatchUserInvite();
         await dispatchVipInfo();
         await dispatchVipLevels();
-        await dispatchSocketConnect();
+        // await dispatchSocketConnect();
         setOverlayScrimShow(false);
         setRefferalDialogShow(true);
         const toast = useToast();
@@ -186,6 +186,7 @@ const Login = defineComponent({
           setAuthModalType("");
           emit("close");
         }, 100);
+        await dispatchSocketConnect();
       } else {
         const toast = useToast();
         toast.success(t("login.submit_result.err_text"), {
