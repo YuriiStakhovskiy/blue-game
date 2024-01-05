@@ -648,6 +648,9 @@ onMounted(async () => {
       }
     }
   }
+  .swiper-vertical {
+    touch-action: auto;
+  }
 }
 .all-bet-history-height {
   height: 640px;
