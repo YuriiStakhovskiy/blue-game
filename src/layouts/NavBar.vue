@@ -349,7 +349,7 @@ onMounted(() => {
           class="navbar-free-money-img-position"
         />
         <p class="text-900-14 white navbar-free-money-text-position">
-          {{ t("navBar.refer_earn_text") }}123
+          {{ t("navBar.refer_earn_text") }}
         </p>
       </v-list-item>
     </v-list>
