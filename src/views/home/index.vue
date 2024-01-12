@@ -1091,9 +1091,9 @@ export default Dashboard;
             "
           >
             <v-slide-group-item>
+              <!-- width="159" -->
               <v-btn
                 class="mr-6 text-none"
-                width="159"
                 height="48"
                 :class="
                   selectedGameFilterBtn == t('home.button.all_game')
@@ -1195,9 +1195,9 @@ export default Dashboard;
             "
           >
             <v-slide-group-item>
+              <!-- width="112" -->
               <v-btn
                 class="mr-3 text-none"
-                width="112"
                 height="36"
                 :class="
                   selectedGameFilterBtn == t('home.button.all_game')

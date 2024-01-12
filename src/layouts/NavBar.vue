@@ -64,9 +64,18 @@ const openLoginBonusDialog = () => {
 
 // language array
 const langItems = ref<Array<string>>([
-    t('navBar.language.english'),
-    t('navBar.language.portuguese'),
-    t('navBar.language.espanola')
+  {
+    id: 'en',
+    value: t('navBar.language.english'),
+  },
+  {
+    id: 'pt',
+    value: t('navBar.language.portuguese'),
+  },
+  {
+    id: 'es',
+    value: t('navBar.language.espanola')
+  }
 ])
 
 // game original data array
@@ -124,18 +133,18 @@ watch(casinoCheckBox, (value: boolean) => {
     }
 }, { deep: true });
 
-const handleLanguageDropdown = (item: string) => {
-    language.value = item;
-    switch (item) {
-        case t('navBar.language.english'):
+const handleLanguageDropdown = (item: any) => {
+    language.value = item.value;
+    switch (item.id) {
+        case 'en':
             setLang("en");
             setLanguage('en');
             break;
-        case t('navBar.language.portuguese'):
+        case 'pt':
             setLang("pt");
             setLanguage('pt');
             break;
-        case t('navBar.language.espanola'):
+        case 'es':
             setLang("es");
             setLanguage('es');
             break;
@@ -491,9 +500,9 @@ onMounted(() => {
             :value="item"
             class="avatar-img"
             @click="handleLanguageDropdown(item)"
-            :class="language == item ? 'nav-lang-selected-item' : ''"
+            :class="language == item.value ? 'nav-lang-selected-item' : ''"
           >
-            <v-list-item-title>{{ item }}</v-list-item-title>
+            <v-list-item-title>{{ item.value }}</v-list-item-title>
           </v-list-item>
         </v-list>
       </v-menu>
