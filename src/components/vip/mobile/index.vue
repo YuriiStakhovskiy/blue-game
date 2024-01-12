@@ -2256,7 +2256,9 @@ onMounted(async () => {
   width: 100%;
   height: 163px;
   border-radius: 8px;
-  background: linear-gradient(179deg, #4a32aa 0%, #29263f 100%);
+  // background: linear-gradient(179deg, #4a32aa 0%, #29263f 100%);
+  background: conic-gradient(from 45.24deg at 50.17% 49.69%, #212442 0deg, #212442 178.12deg, #2D2C59 360deg),
+linear-gradient(0deg, #424173, #424173);
 }
 
 .reward-body {
