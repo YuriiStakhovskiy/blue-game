@@ -31,6 +31,7 @@ const Progress = defineAsyncComponent(() => import("@/components/vip/components/
 <style lang="scss" scoped>
 .vip-main {
     ::v-deep(.v-tab) {
+        width: 33.3%;
         color: #7782AA;
     }
     ::v-deep(.v-tab--selected) {
