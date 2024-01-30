@@ -67,6 +67,7 @@ const MLoginBonusDialog = defineAsyncComponent(() => import("@/components/login_
 const RouletteBonusDialog = defineAsyncComponent(() => import("@/components/roulette_bonus/index.vue"));
 const MRouletteBonusDialog = defineAsyncComponent(() => import("@/components/roulette_bonus/mobile/index.vue"));
 const MAccountDialog = defineAsyncComponent(() => import("@/views/account/dialog/index.vue"));
+const VipUpgradeDialog = defineAsyncComponent(() => import("@/components/vip/components/vip_upgrade_dialog/index.vue"));
 
 const { t } = useI18n();
 const { name, width } = useDisplay();
@@ -726,6 +727,8 @@ onMounted(() => {
         @selectActiveIndex="selectActiveIndex"
       />
     </v-dialog>
+
+    <VipUpgradeDialog />
 
     <!------------------------------ Main Page ------------------------------------------->
 
