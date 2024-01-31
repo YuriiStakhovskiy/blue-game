@@ -353,7 +353,7 @@ onMounted(() => {
 }
 
 .m-signup-btn {
-  background: #32cfec;
+  background: #009B3A;
 
   .v-btn__content {
     text-align: center;
