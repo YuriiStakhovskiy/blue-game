@@ -115,6 +115,6 @@ export namespace NETWORK {
   }
 
   export class Banner{
-    static BANNER_LIST = '/user/banner/list'; // banner list
+    static BANNER_LIST = '/banner/list'; // banner list
   }
 }
