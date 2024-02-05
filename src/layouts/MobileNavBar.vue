@@ -174,7 +174,7 @@ const sportGames = ref<Array<any>>([
   {
     name: t("navBar.sport_sub_menu.text_25"),
     icon: icon_public_132,
-    query: "%2Fice-hockey-4"
+    query: "/ice-hockey-4"
   },
   {
     name: t("navBar.sport_sub_menu.text_26"),
@@ -668,7 +668,7 @@ const eSportMenuIconTransform = (el: any) => {
 };
 
 const handleSportGame = (sport_game_query: string) => {
-  router.push({ name: "Sports", query: { bt_path: sport_game_query } })
+  router.push({ name: "Sports", query: { "bt-path": sport_game_query } })
 }
 
 const openLoginBonusDialog = () => {
@@ -1264,9 +1264,7 @@ onMounted(() => {
                 value="sport_1"
                 style="margin-bottom: -4px !important; margin-top: -4px !important"
                 @click="
-                  handleSportGame(
-                    '%2Fsoccer%2Fbrazil%2Fbrasileiro-serie-a-1666079971237564416'
-                  )
+                  handleSportGame('/soccer/brazil/brasileiro-serie-a-1666079971237564416')
                 "
               >
                 <template v-slot:prepend>
@@ -1280,7 +1278,7 @@ onMounted(() => {
                 class="m-casino-sub-img m-nav-sub-menu ml-2"
                 value="sport_1"
                 style="margin-bottom: -4px !important; margin-top: -4px !important"
-                @click="handleSportGame('%2Fsoccer%2Fspain%2Flaliga-1666080196081618944')"
+                @click="handleSportGame('/soccer/spain/laliga-1666080196081618944')"
               >
                 <template v-slot:prepend>
                   <inline-svg :src="icon_public_117" width="16"></inline-svg>
@@ -1294,9 +1292,7 @@ onMounted(() => {
                 value="sport_1"
                 style="margin-bottom: -4px !important; margin-top: -4px !important"
                 @click="
-                  handleSportGame(
-                    '%2Fsoccer%2Fengland%2Fpremier-league-1666080041827700736'
-                  )
+                  handleSportGame('/soccer/england/premier-league-1666080041827700736')
                 "
               >
                 <template v-slot:prepend>
@@ -1313,7 +1309,7 @@ onMounted(() => {
                 style="margin-bottom: -4px !important; margin-top: -4px !important"
                 @click="
                   handleSportGame(
-                    '%2Fsoccer%2Finternational-clubs%2Fuefa-champions-league-1666080270903808000'
+                    '/soccer/international-clubs/uefa-champions-league-1666080270903808000'
                   )
                 "
               >
@@ -1328,9 +1324,7 @@ onMounted(() => {
                 class="m-casino-sub-img m-nav-sub-menu ml-2"
                 value="sport_1"
                 style="margin-bottom: -4px !important; margin-top: -4px !important"
-                @click="
-                  handleSportGame('%2Fsoccer%2Fitaly%2Fserie-a-1666080211319525376')
-                "
+                @click="handleSportGame('/soccer/italy/serie-a-1666080211319525376')"
               >
                 <template v-slot:prepend>
                   <inline-svg :src="icon_public_119" width="16"></inline-svg>
@@ -1343,9 +1337,7 @@ onMounted(() => {
                 class="m-casino-sub-img m-nav-sub-menu ml-2"
                 value="sport_1"
                 style="margin-bottom: -4px !important; margin-top: -4px !important"
-                @click="
-                  handleSportGame('%2Fsoccer%2Fgermany%2Fbundesliga-1666080125223047168')
-                "
+                @click="handleSportGame('/soccer/germany/bundesliga-1666080125223047168')"
               >
                 <template v-slot:prepend>
                   <inline-svg :src="icon_public_119" width="16"></inline-svg>
@@ -1358,9 +1350,7 @@ onMounted(() => {
                 class="m-casino-sub-img m-nav-sub-menu ml-2"
                 value="sport_1"
                 style="margin-bottom: -4px !important; margin-top: -4px !important"
-                @click="
-                  handleSportGame('%2Fsoccer%2Ffrance%2Fligue-1-1666080025423777792')
-                "
+                @click="handleSportGame('/soccer/france/ligue-1-1666080025423777792')"
               >
                 <template v-slot:prepend>
                   <inline-svg :src="icon_public_119" width="16"></inline-svg>
@@ -1373,7 +1363,7 @@ onMounted(() => {
                 class="m-casino-sub-img m-nav-sub-menu ml-2"
                 value="sport_1"
                 style="margin-bottom: -4px !important; margin-top: -4px !important"
-                @click="handleSportGame('%2Fsoccer-1')"
+                @click="handleSportGame('/soccer-1')"
               >
                 <template v-slot:prepend>
                   <inline-svg :src="icon_public_119" width="16"></inline-svg>
@@ -1386,7 +1376,7 @@ onMounted(() => {
                 class="m-casino-sub-img m-nav-sub-menu ml-2"
                 value="sport_1"
                 style="margin-bottom: -4px !important; margin-top: -4px !important"
-                @click="handleSportGame('%2Ffifa-300')"
+                @click="handleSportGame('/fifa-300')"
               >
                 <template v-slot:prepend>
                   <inline-svg :src="icon_public_120" width="16"></inline-svg>
@@ -1785,8 +1775,8 @@ onMounted(() => {
 }
 
 ::deep(.v-navigation-drawer__content) {
-  height: 100vh;
-  overflow-y: auto;
+  height: 100vh !important;
+  overflow-y: auto !important;
   overflow-x: hidden !important;
 
   &::-webkit-scrollbar {
