@@ -428,7 +428,7 @@ const refferalDialog = () => {
         position: relative;
         height: 104px;
         z-index: auto;
-        margin: 6px -8px 0 -8px;
+        margin: 6px -8px 10px -8px;
         &-bg {
             display: flex;
             flex-direction: column;
@@ -589,7 +589,7 @@ const refferalDialog = () => {
         height: 168px;
         background: #1D2027;
         border-radius: 8px;
-        margin-top: 6px;
+        margin-top: 12px;
         padding: 24px 16px;
         &-t {
             display: flex;
