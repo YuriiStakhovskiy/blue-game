@@ -1908,7 +1908,7 @@ export default Dashboard;
     // }
 
     .v-progressive-image {
-      border-radius: 8px 32px;
+      border-radius: 8px 8px !important;
     }
   }
 
