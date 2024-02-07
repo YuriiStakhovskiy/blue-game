@@ -363,10 +363,10 @@ const showUserNavBar = (): void => {
   setNavBarToggle(false)
   setBonusDashboardDialogVisible(false);
   setMainBlurEffectShow(false);
-  setTimeout(() => {
+  // setTimeout(() => {
     setUserNavBarToggle(userNavBarToggle.value);
     setMainBlurEffectShow(userNavBarToggle.value);
-  }, 10)
+  // }, 10)
 }
 
 watch(userBalance, (value) => {
@@ -1330,8 +1330,8 @@ onMounted(async () => {
 .app-bar-signup-btn-mobile {
   width: 91px;
   height: 40px !important;
-  border-radius: 8px;
-  background: #009b3a;
+  border-radius: 8px !important;
+  background: #009b3a !important;
   //border: 1px solid #8664f7;
   //background: linear-gradient(0deg, #5524fd 0%, #6d44f7 100%);
 
