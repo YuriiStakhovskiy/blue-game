@@ -64,22 +64,11 @@ const token = computed(() => {
   return getToken.value;
 });
 
-const handleCancel = () => {
-  console.log("A")
-  if(token.value == undefined){
+const handleContent = (item: PromoListData) => {
+  if (token.value == undefined) {
     setAuthModalType("login");
     setOverlayScrimShow(false);
-  }
-  else{
-    setDepositWithdrawToggle(true);
-    setMainBlurEffectShow(true);
-    setHeaderBlurEffectShow(true);
-    setMenuBlurEffectShow(true);
-    setDepositDialogToggle(true);
-    setCashDialogToggle(true);
-    setUserNavBarToggle(false);
-  }
-  /*else{
+  } else {
     switch (item.click_feedback) {
       case 5:
         switch (item.content) {
@@ -139,7 +128,7 @@ const handleCancel = () => {
             break;
           case "faq":
             // case "/deposit":
-            router.push({name: "About_US", query: {index: 0}})
+            router.push({ name: "About_US", query: { index: 0 } })
             break;
         }
         break;
@@ -152,7 +141,7 @@ const handleCancel = () => {
       case 9:
         break;
     }
-  }*/
+  }
 }
 </script>
 
@@ -168,7 +157,13 @@ const handleCancel = () => {
     </v-card>
     <v-card class="m-promo-detail-card mt-2 pa-2">
       <img :src="selectedItem.image_path" style="width: 100%" />
+<<<<<<< HEAD
       <div v-html="selectedItem.text" class="mx-1"></div>
+=======
+      -
+      <div v-html="selectedItem.text" class="mx-1"></div>
+      -
+>>>>>>> b6b089575a9e1c58a5231f55c5b7adb7a3c21e7d
       <!-- <MDepositBonus v-if="activeIndex == 0" />
       <MWelcomeBonus v-if="activeIndex == 1" />
       <v-btn
@@ -180,7 +175,11 @@ const handleCancel = () => {
         {{ t("promo.text_32") }}
       </v-btn> -->
 
+<<<<<<< HEAD
       <div class="text-center mt-8" @click="handleCancel">
+=======
+      <!-- <div class="text-center mt-8">
+>>>>>>> b6b089575a9e1c58a5231f55c5b7adb7a3c21e7d
         <v-btn
           class="button-bright m-reffer-btn-font text-none"
           width="-webkit-fill-available"
@@ -188,16 +187,17 @@ const handleCancel = () => {
         >
           DEPOSITE NOW
         </v-btn>
-      </div>
+      </div> -->
     </v-card>
   </div>
 </template>
 
 <style lang="scss">
-.m-promo-temp-img{
+.m-promo-temp-img {
   margin-top: 50px !important;
   width: 100% !important;
 }
+
 .m-promo-detail-back-card {
   height: 48px;
   border-radius: 8px !important;
