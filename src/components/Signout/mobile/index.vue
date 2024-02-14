@@ -17,6 +17,7 @@ const signOut = (): void => {
   emit("close");
   dispatchSignout();
   router.push({ name: "Dashboard" });
+  window.location.reload();
 };
 
 onMounted(() => {
