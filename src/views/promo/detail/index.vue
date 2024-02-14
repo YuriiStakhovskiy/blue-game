@@ -64,7 +64,8 @@ const token = computed(() => {
   return getToken.value;
 });
 
-const handleContent = (item: PromoListData) => {
+const handleCancel = () => {
+  console.log("A")
   if(token.value == undefined){
     setAuthModalType("login");
     setOverlayScrimShow(false);
@@ -167,7 +168,7 @@ const handleContent = (item: PromoListData) => {
     </v-card>
     <v-card class="m-promo-detail-card mt-2 pa-2">
       <img :src="selectedItem.image_path" style="width: 100%" />
-      <!--- <div v-html="selectedItem.text" class="mx-1"></div>--->
+      <div v-html="selectedItem.text" class="mx-1"></div>
       <!-- <MDepositBonus v-if="activeIndex == 0" />
       <MWelcomeBonus v-if="activeIndex == 1" />
       <v-btn
@@ -178,23 +179,12 @@ const handleContent = (item: PromoListData) => {
       >
         {{ t("promo.text_32") }}
       </v-btn> -->
-      <div v-if="Number(route.query.id) == 1">
-        <img src="@/assets/public/image/promo/promo_1.png" class="m-promo-temp-img"/>
-      </div>
-      <div v-if="Number(route.query.id) == 2">
-        <img src="@/assets/public/image/promo/promo_2.png" class="m-promo-temp-img"/>
-      </div>
-      <div v-if="Number(route.query.id) == 3">
-        <img src="@/assets/public/image/promo/promo_3_1.png" class="m-promo-temp-img"/>
-        <img src="@/assets/public/image/promo/promo_3_2.png" class="m-promo-temp-img"/>
-        <img src="@/assets/public/image/promo/promo_3_3.png" class="m-promo-temp-img"/>
-      </div>
-      <div class="text-center mt-8">
+
+      <div class="text-center mt-8" @click="handleCancel">
         <v-btn
           class="button-bright m-reffer-btn-font text-none"
           width="-webkit-fill-available"
           height="55px"
-          @click="handleContent"
         >
           DEPOSITE NOW
         </v-btn>
