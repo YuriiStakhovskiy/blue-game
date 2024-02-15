@@ -183,7 +183,7 @@ const i18nButtonText = (eng: string) =>{
         {{ t("promo.text_32") }}
       </v-btn> -->
 
-      <div class="text-center mt-8" >
+      <div class="text-center mt-8">
         <v-btn
           class="button-bright m-reffer-btn-font text-none"
           width="-webkit-fill-available"
