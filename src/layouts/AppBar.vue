@@ -35,6 +35,7 @@ import { bonusStore } from "@/store/bonus";
 const { setAuthModalType } = authStore();
 const { setAuthDialogVisible } = authStore();
 const { dispatchUserProfile } = authStore();
+const { dispatchSignout } = authStore();
 const { setRightBarToggle } = appBarStore();
 const { setNavBarToggle } = appBarStore();
 const { setOverlayScrimShow } = appBarStore();
@@ -177,6 +178,12 @@ const mobileWidth: any = computed(() => {
   return width.value;
 })
 
+
+const errMessage = computed(() => {
+  const { getErrMessage } = storeToRefs(authStore());
+  return getErrMessage.value
+})
+
 const refferalAppBarShow = computed(() => {
   const { getRefferalAppBarShow } = storeToRefs(refferalStore());
   return getRefferalAppBarShow.value;
@@ -274,7 +281,12 @@ const showSignoutDialog = () => {
   setAuthModalType("signout");
 }
 
-const depositDialogShow = () => {
+const depositDialogShow = async () => {
+  // await dispatchUserProfile();
+  // if (errMessage.value == "Credentials have expired. Please log in again") {
+  //   dispatchSignout();
+  //   return;
+  // }
   setDepositWithdrawToggle(true);
   setNavBarToggle(false);
   setUserNavBarToggle(false);
@@ -364,15 +376,21 @@ const handleCurrencyMenuShow = () => {
   currencyMenuShow.value = !currencyMenuShow.value;
 }
 
-const showUserNavBar = (): void => {
+const showUserNavBar = async () => {
+  // await dispatchUserProfile();
+  // console.log(errMessage.value);
+  // if (errMessage.value == "Credentials have expired. Please log in again") {
+  //   dispatchSignout();
+  //   return;
+  // }
   userNavBarToggle.value = !userNavBarToggle.value
   setNavBarToggle(false)
   setBonusDashboardDialogVisible(false);
   setMainBlurEffectShow(false);
-  // setTimeout(() => {
-  setUserNavBarToggle(userNavBarToggle.value);
-  setMainBlurEffectShow(userNavBarToggle.value);
-  // }, 10)
+  setTimeout(() => {
+    setUserNavBarToggle(userNavBarToggle.value);
+    setMainBlurEffectShow(userNavBarToggle.value);
+  }, 10)
 }
 
 watch(userBalance, (value) => {
@@ -416,9 +434,9 @@ watch(socketBalance, (value) => {
   user.value.wallet = formatCurrency(Number(value.bal), locale, currencyUnit);
   user.value.currency = value.cur
   currencyList.value.map(item => {
-    if (item.name == "BRL") {
-      item.value = Number(value.bal)
-    }
+    // if (item.name == "BRL") {
+    //   item.value = Number(value.bal)
+    // }
   })
 })
 
@@ -544,7 +562,8 @@ onMounted(async () => {
     <v-app-bar-nav-icon
       @click.stop="setNavBarToggle(true)"
       v-if="!navBarToggle && mobileWidth > 600"
-    ></v-app-bar-nav-icon>
+    >
+    </v-app-bar-nav-icon>
 
     <v-toolbar-title v-if="mobileWidth > 800">
       <img
