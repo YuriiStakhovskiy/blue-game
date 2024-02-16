@@ -11,6 +11,8 @@ import { appBarStore } from "@/store/appBar";
 import moment from "moment-timezone";
 import MBonusDialog from "@/components/bonus_transaction/bonus/dialog/mobile/index.vue";
 import { group } from 'node:console';
+import { bannerStore } from '@/store/banner';
+import { currencyStore } from '@/store/currency';
 
 const { t } = useI18n()
 const { width } = useDisplay();
@@ -20,6 +22,7 @@ const { setHeaderBlurEffectShow } = appBarStore();
 const { setMenuBlurEffectShow } = appBarStore();
 const { setOverlayScrimShow } = appBarStore();
 const { dispatchUserBalance } = userStore();
+const { dispatchCurrencyList} = currencyStore();
 
 const mobileWidth = computed(() => {
   return width.value
@@ -192,6 +195,7 @@ const formatCurrency = (currency: number, currencyUnit: string) => {
 onMounted(async () => {
   await dispatchUserBonus();
   await dispatchUserBalance();
+  await dispatchCurrencyList();
 })
 </script>
 

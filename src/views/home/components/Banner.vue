@@ -110,8 +110,7 @@ const BannerComponent = defineComponent({
     });
     const slideImageClick = async (index: number) => {
       const { getBannerList } = storeToRefs(bannerStore());
-      let type: number = getBannerList.value[index].click_feedback;
-      console.log(type);
+      let type: number = getBannerList.value[index % getBannerList.value.length].click_feedback;
       if (type == 5) {
         window.location.href = getBannerList.value[index].content;
       }
@@ -125,7 +124,8 @@ const BannerComponent = defineComponent({
         window.location.href = "game/" + getBannerList.value[index].content;
       }
       if(type == 9) {
-        router.push({ name: "Promo_Detail", query: { id: parseInt(getBannerList.value[index].content) } });
+        console.log(index);
+        router.push({ name: "Promo_Detail", query: { id: parseInt(getBannerList.value[index % getBannerList.value.length].content) } });
       }
     };
     const calcSlide = () => {
