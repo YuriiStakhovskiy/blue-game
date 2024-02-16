@@ -138,7 +138,9 @@ export const gameStore = defineStore({
             this.gameBigWinItem = gameBigWinItem;
         },
         async getGameBetbyInit() {
-            await this.dispatchGameEnter({ id: '9999', demo: false });
+            if (!this.enterGameItem.reserve) {
+                await this.dispatchGameEnter({ id: '9999', demo: false });
+            }
             this.betby = new BTRenderer().initialize(
                 {
                     token: this.enterGameItem.reserve || '',
