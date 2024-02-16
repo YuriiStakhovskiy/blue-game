@@ -126,7 +126,9 @@ export const gameStore = defineStore({
         openDialog(type: dialogType) {
             const { setAuthModalType } = authStore();
             const { setOverlayScrimShow } = appBarStore();
+            const { setAuthDialogVisible } = authStore();
             setAuthModalType(type);
+            setAuthDialogVisible(true);
             setOverlayScrimShow(false);
         },
         closeKill() {
