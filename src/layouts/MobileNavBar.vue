@@ -669,7 +669,6 @@ const eSportMenuIconTransform = (el: any) => {
 };
 
 const handleSportGame = (sport_game_query: string) => {
-  console.log('这里呀', sport_game_query)
   router.push({ name: "Sports", query: { "bt-path": sport_game_query } })
 }
 
