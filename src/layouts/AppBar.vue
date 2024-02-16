@@ -239,7 +239,7 @@ watch(mobileWidth, (newValue: number) => {
   }
 })
 
-watch(currencyMenuShow, (value: boolean) => {
+watch(currencyMenuShow, async (value: boolean) => {
   console.log(value);
   if (mobileWidth.value < 600) {
     if (value) {
@@ -259,6 +259,7 @@ watch(currencyMenuShow, (value: boolean) => {
     setOverlayScrimShow(value);
     setMainBlurEffectShow(value);
     setMailMenuShow(value);
+    await dispatchCurrencyList();
   }
 })
 
