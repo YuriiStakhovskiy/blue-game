@@ -351,7 +351,6 @@ const handleSelectCurrency = async (item: GetCurrencyBalanceList) => {
   await dispatchSetUserCurrency(item.currency);
   await dispatchUserBalance();
   await dispatchUserBonus();
-  console.log("Here");
 
   setTimeout(() => {
     setOverlayScrimShow(false);
@@ -389,7 +388,7 @@ watch(userBalance, (value) => {
       locale = 'en-PE';
       break;
     case "MXN":
-      locale = 'en-MX';
+      locale = 'es-MX';
       break;
     case "CLP":
       locale = 'es-CL';
